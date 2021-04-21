@@ -1,0 +1,47 @@
+{
+  "name": "drupal-js-sdk",
+  "version": "0.0.1",
+  "description": "Drupal Javascript SDK",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d34dman/drupal-js-sdk.git"
+  },
+  "keywords": [
+    "Drupal",
+    "javascript"
+  ],
+  "author": "D34dMan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d34dman/drupal-js-sdk/issues"
+  },
+  "homepage": "https://github.com/d34dman/drupal-js-sdk#readme",
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/qs": "^6.9.3",
+    "codecov": "^3.7.0",
+    "jest": "^25.5.4",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.5.1",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {}
+}
