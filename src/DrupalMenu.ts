@@ -1,0 +1,97 @@
+import {Drupal} from './Drupal';
+import {ApiClientInterface} from './interfaces/ApiClientInterface';
+
+interface MenuDictionary<TValue> {
+    [id: string]: TValue;
+}
+
+/**
+ * Constructs a new Drupal.Menu object with the given code and message.
+ *
+ * @alias Drupal.Menu
+ */
+export class DrupalMenu {
+  drupal: Drupal;
+  client: ApiClientInterface;
+  constructor(drupal: Drupal) {
+    this.drupal = drupal;
+    this.client = drupal.core.getApiClientService();
+  }
+
+  getMenu(menu_name: string): Promise<any> {
+    return this.client.request('get', `/system/menu/${menu_name}/linkset`);
+  }
+
+
+    /**
+     * Normalize Drupal array.
+     * So that we can feed it into an algorithm that was copy-pasted from stack overflow.
+     */
+  public normalizeListItems(data: {[key: string]: any;}): any[] {
+    const list: {[key: string]: any;}[] = [];
+    if (this.checkIfDrupalMenuDataIsValid(data)) {
+      const items = data.linkset[0].item;
+      items.map((item: {[key: string]: any;}) => {
+        let parentId; let level;
+        const id = `${item['drupal-menu-machine-name'][0]}${item['drupal-menu-hierarchy'][0]}`;
+        const idArray = id.split('.');
+        idArray.pop();
+        parentId = idArray.join('.');
+        level = 0;
+        level = idArray.length;
+        if (level < 2) {
+          parentId = '0';
+        }
+        const node = {
+          id,
+          parentId,
+          name: item.title,
+          href: item.href,
+          level,
+          files: null,
+        };
+        list.push(node);
+      });
+    }
+    return list;
+  }
+
+    /**
+     * Check if menu data is valid.
+     */
+  public checkIfDrupalMenuDataIsValid(data: {[key: string]: any;}|undefined): boolean {
+    if (
+            data !== undefined &&
+            data.linkset !== undefined &&
+            data.linkset[0] !== undefined &&
+            data.linkset[0].item !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+    /**
+     * Convert Flat list to Tre structure.
+     */
+  public convertFlatListItemsToTree(inputList: any[]): any[] {
+    const roots: {[key: string]: any;}[] = [];
+    if (inputList.length === 0) {
+      return roots;
+    }
+    const myObjMap: MenuDictionary<any> = {};
+    inputList.map((node, index) => {
+      myObjMap[node.id] = index;
+      inputList[index].files = [];
+    });
+    inputList.map((node) => {
+      if (node.parentId === '0') {
+        roots.push(node);
+      } else {
+        inputList[myObjMap[node.parentId]].files.push(node);
+      }
+    });
+    return roots;
+  }
+
+}
