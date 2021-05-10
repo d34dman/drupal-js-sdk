@@ -2,6 +2,7 @@
     import {Drupal, DrupalAuth} from "$lib/drupal-js-sdk"
     import { onMount } from 'svelte';
     const drupal = new Drupal().initialize({baseURL: 'http://app-local.dpa-faktencheck.test/api'});
+    
     const auth = new DrupalAuth(drupal);
     
     let user = { username: '', password: '', loggedIn: false }
@@ -12,31 +13,24 @@
         status = await auth.loginStatus();
     });
 
-    async function logout() {
-        // auth.getSessionToken().then(async () => {
-            await auth.logout().then(response => {
-                user.loggedIn = false;
-                user.username = '';
-                user.password = '';
-            });
-        // });
+    function logout() {
+        auth.logout().then(response => {
+          user.loggedIn = false;
+          user.username = '';
+          user.password = '';
+      });
     }
 
   async function submit () {
-    try {
-      inProgress = true
-      auth.login(user.username, user.password)
-        .then((response) => {
-            inProgress = false
-            user.username = response.data.current_user.name;
-            user.loggedIn = true;
-            user.password = '';
-        })
-      error = null;
-    } catch (err) {
-      error = err.response.data.message
-      inProgress = false
-    }
+    inProgress = true
+    auth.login(user.username, user.password)
+      .then((response) => {
+          inProgress = false
+          user.username = response.data.current_user.name;
+          user.loggedIn = true;
+          user.password = '';
+      })
+      .catch((err) => {error = err.response.data.message});
   }
 </script>
 
@@ -55,9 +49,10 @@ You are logged in as {user.username}
         </h2>
       </div>
   {#if error}
-    <span class="error-message">
-      {error}
-    </span>
+  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <strong class="font-bold">Holy smokes!</strong>
+    <span class="block sm:inline">{error}</span>
+  </div>
   {/if}
       <form on:submit|preventDefault="{submit}" class="mt-8 space-y-6" action="#" method="POST">
         <input type="hidden" name="remember" value="true">
