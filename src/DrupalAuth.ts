@@ -75,7 +75,7 @@ export class DrupalAuth {
       });
   }
 
-  public loginStatus(): Promise<any> {
+  public loginStatus(): Promise<boolean> {
     const config = {
       headers: {
         'Content-Type': 'application/json',

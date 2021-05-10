@@ -29,7 +29,6 @@ test('Drupal Auth login and logout', async () => {
   expect(auth.store.csrf_token).toEqual('mock-session-token');
   expect(await auth.loginStatus()).toEqual(false);
   expect.assertions(9);
-  /* eslint-disable promise/no-nesting */
   return auth.login('admin', 'admin')
     .then((response) => {
       expect(response.data).toHaveProperty('csrf_token');
@@ -40,11 +39,9 @@ test('Drupal Auth login and logout', async () => {
       expect(auth.store.logout_token).toEqual(mockData.login.admin.logout_token);
     })
     .then(async () => {
-      await auth.logout().then((response) => {
-        expect(response.status).toEqual(204);
-      });
+      const {status} = await auth.logout();
+      expect(status).toEqual(204);
     });
-  /* eslint-enable promise/no-nesting */
 });
 
 test('Drupal Auth password reset', async () => {
