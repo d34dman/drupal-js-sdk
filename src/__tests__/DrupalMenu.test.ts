@@ -11,52 +11,32 @@ const mockData: {[key: string]: any;} = {
           {
             href: '/',
             title: 'Home',
-            'drupal-menu-hierarchy': [
-              '.000',
-            ],
-            'drupal-menu-machine-name': [
-              'main',
-            ],
+            'drupal-menu-hierarchy': ['.000'],
+            'drupal-menu-machine-name': ['main'],
           },
           {
             href: '/about-us',
             title: 'About',
-            'drupal-menu-hierarchy': [
-              '.001',
-            ],
-            'drupal-menu-machine-name': [
-              'main',
-            ],
+            'drupal-menu-hierarchy': ['.001'],
+            'drupal-menu-machine-name': ['main'],
           },
           {
             href: '',
             title: 'Foo',
-            'drupal-menu-hierarchy': [
-              '.002',
-            ],
-            'drupal-menu-machine-name': [
-              'main',
-            ],
+            'drupal-menu-hierarchy': ['.002'],
+            'drupal-menu-machine-name': ['main'],
           },
           {
             href: '',
             title: 'Bar',
-            'drupal-menu-hierarchy': [
-              '.002.000',
-            ],
-            'drupal-menu-machine-name': [
-              'main',
-            ],
+            'drupal-menu-hierarchy': ['.002.000'],
+            'drupal-menu-machine-name': ['main'],
           },
           {
             href: '',
             title: 'Baz',
-            'drupal-menu-hierarchy': [
-              '.002.001',
-            ],
-            'drupal-menu-machine-name': [
-              'main',
-            ],
+            'drupal-menu-hierarchy': ['.002.001'],
+            'drupal-menu-machine-name': ['main'],
           },
         ],
       },
@@ -70,7 +50,7 @@ test('Drupal Menu : getMenu', () => {
   expect(menu.getMenu('main')).toBeInstanceOf(Promise);
 });
 
-test('Drupal Menu : massage Menu', async () => {
+test('Drupal Menu : massage Menu', () => {
   const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
   const menu = new DrupalMenu(drupal);
   const menuData = mockData.valid;
@@ -80,7 +60,6 @@ test('Drupal Menu : massage Menu', async () => {
   expect(treeData.length).toBe(3);
 });
 
-
 test('Drupal Menu function defaults', () => {
   const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
   const menu = new DrupalMenu(drupal);
@@ -88,4 +67,3 @@ test('Drupal Menu function defaults', () => {
   expect(menu.convertFlatListItemsToTree([])).toEqual([]);
   expect(menu.normalizeListItems({})).toEqual([]);
 });
-

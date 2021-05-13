@@ -11,13 +11,13 @@ test('Axios client', () => {
   expect(api.request('GET', 'https://localhost', {})).toBeInstanceOf(Promise);
   expect(api.getDrupalError('')).toBeInstanceOf(DrupalError);
   expect(api.getDrupalError({})).toBeInstanceOf(DrupalError);
-  expect(api.getDrupalError({responseText: 'foo'})).toBeInstanceOf(DrupalError);
-  const errorInfo = JSON.stringify(
-    {
-      code: 42,
-      error: 'Answer',
-    },
-    );
+  expect(api.getDrupalError({responseText: 'foo'})).toBeInstanceOf(
+    DrupalError,
+  );
+  const errorInfo = JSON.stringify({
+    code: 42,
+    error: 'Answer',
+  });
   let error = api.getDrupalError({responseText: errorInfo});
   expect(error.toString()).toBe('DrupalError: 42 Answer');
 

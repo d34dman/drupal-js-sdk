@@ -43,7 +43,8 @@ export class DrupalAuth {
       },
       withCredentials: true,
     };
-    return this.client.request('get', '/session/token', config)
+    return this.client
+      .request('get', '/session/token', config)
       .then((response) => {
         const data = response.data;
         this.store.csrf_token = data;
@@ -66,7 +67,8 @@ export class DrupalAuth {
         pass,
       },
     };
-    return this.client.request('post', '/user/login', config)
+    return this.client
+      .request('post', '/user/login', config)
       .then((response) => {
         const data = response.data;
         this.store = data;
@@ -85,7 +87,8 @@ export class DrupalAuth {
         _format: 'json',
       },
     };
-    return this.client.request('get', '/user/login_status', config)
+    return this.client
+      .request('get', '/user/login_status', config)
       .then((response) => {
         return response.data !== 0;
       });
@@ -102,7 +105,8 @@ export class DrupalAuth {
         token: this.store.logout_token,
       },
     };
-    return this.client.request('post', '/user/logout', config)
+    return this.client
+      .request('post', '/user/logout', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
         return response;
@@ -126,7 +130,8 @@ export class DrupalAuth {
         name,
       },
     };
-    return this.client.request('post', '/user/password', config)
+    return this.client
+      .request('post', '/user/password', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
         return response;
@@ -150,11 +155,11 @@ export class DrupalAuth {
         mail,
       },
     };
-    return this.client.request('post', '/user/password', config)
+    return this.client
+      .request('post', '/user/password', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
         return response;
       });
   }
-
 }

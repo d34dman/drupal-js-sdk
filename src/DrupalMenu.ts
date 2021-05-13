@@ -2,7 +2,7 @@ import {Drupal} from './Drupal';
 import {ApiClientInterface} from './interfaces/ApiClientInterface';
 
 interface MenuDictionary<TValue> {
-    [id: string]: TValue;
+  [id: string]: TValue;
 }
 
 /**
@@ -22,17 +22,17 @@ export class DrupalMenu {
     return this.client.request('get', `/system/menu/${menu_name}/linkset`);
   }
 
-
-    /**
-     * Normalize Drupal array.
-     * So that we can feed it into an algorithm that was copy-pasted from stack overflow.
-     */
+  /**
+   * Normalize Drupal array.
+   * So that we can feed it into an algorithm that was copy-pasted from stack overflow.
+   */
   public normalizeListItems(data: {[key: string]: any;}): any[] {
     const list: {[key: string]: any;}[] = [];
     if (this.checkIfDrupalMenuDataIsValid(data)) {
       const items = data.linkset[0].item;
       items.map((item: {[key: string]: any;}) => {
-        let parentId; let level;
+        let parentId;
+        let level;
         const id = `${item['drupal-menu-machine-name'][0]}${item['drupal-menu-hierarchy'][0]}`;
         const idArray = id.split('.');
         idArray.pop();
@@ -56,24 +56,27 @@ export class DrupalMenu {
     return list;
   }
 
-    /**
-     * Check if menu data is valid.
-     */
-  public checkIfDrupalMenuDataIsValid(data: {[key: string]: any;}|undefined): boolean {
+  /**
+   * Check if menu data is valid.
+   */
+  public checkIfDrupalMenuDataIsValid(
+    data: {[key: string]: any;} | undefined,
+  ): boolean {
     if (
-            data !== undefined &&
-            data.linkset !== undefined &&
-            data.linkset[0] !== undefined &&
-            data.linkset[0].item !== undefined) {
+      data !== undefined &&
+      data.linkset !== undefined &&
+      data.linkset[0] !== undefined &&
+      data.linkset[0].item !== undefined
+    ) {
       return true;
     } else {
       return false;
     }
   }
 
-    /**
-     * Convert Flat list to Tre structure.
-     */
+  /**
+   * Convert Flat list to Tre structure.
+   */
   public convertFlatListItemsToTree(inputList: any[]): any[] {
     const roots: {[key: string]: any;}[] = [];
     if (inputList.length === 0) {
@@ -93,5 +96,4 @@ export class DrupalMenu {
     });
     return roots;
   }
-
 }

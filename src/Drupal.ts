@@ -12,7 +12,6 @@ export interface DrupalConfig {
 }
 
 export class Drupal {
-
   public core: CoreService;
 
   constructor() {

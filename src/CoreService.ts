@@ -1,21 +1,21 @@
 import type {ApiClientInterface} from './interfaces/ApiClientInterface';
 
 interface Config<TValue> {
-    [id: string]: TValue;
+  [id: string]: TValue;
 }
 
 interface Service {
-    ApiClientService?: ApiClientInterface;
+  ApiClientService?: ApiClientInterface;
 }
 
 export class CoreService {
   service: Service = {};
   config: Config<any> = {
     IS_NODE:
-            typeof process !== 'undefined' &&
-            Boolean(process.versions) &&
-            Boolean(process.versions.node) &&
-            !process.versions.electron,
+      typeof process !== 'undefined' &&
+      Boolean(process.versions) &&
+      Boolean(process.versions.node) &&
+      !process.versions.electron,
     REQUEST_HEADERS: {},
     SERVER_URL: 'https://api.drupal.com',
   };
@@ -27,7 +27,10 @@ export class CoreService {
     throw new Error(`Configuration key not found: ${key}`);
   }
 
-  public set(key: string, value: boolean|number|string|{[key: string]: unknown;}): CoreService {
+  public set(
+    key: string,
+    value: boolean | number | string | {[key: string]: unknown;},
+  ): CoreService {
     this.config[key] = value;
     return this;
   }
@@ -43,5 +46,4 @@ export class CoreService {
     }
     return this.service.ApiClientService;
   }
-
 }
