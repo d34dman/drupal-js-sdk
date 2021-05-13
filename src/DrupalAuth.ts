@@ -53,7 +53,7 @@ export class DrupalAuth {
       });
   }
 
-  public login(name: string, pass: string): Promise<any> {
+  public login(name: string, password: string): Promise<any> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export class DrupalAuth {
       },
       data: {
         name,
-        pass,
+        password,
       },
     };
     return this.client
@@ -122,10 +122,6 @@ export class DrupalAuth {
       params: {
         _format: 'json',
       },
-      auth: {
-        username: 'dpa',
-        password: 'dpa',
-      },
       data: {
         name,
       },
@@ -146,10 +142,6 @@ export class DrupalAuth {
       withCredentials: true,
       params: {
         _format: 'json',
-      },
-      auth: {
-        username: 'dpa',
-        password: 'dpa',
       },
       data: {
         mail,

@@ -3,7 +3,7 @@ import {CoreService} from './CoreService';
 
 export interface BasicAuthParams {
   username: string;
-  pass: string;
+  password: string;
 }
 export interface DrupalConfig {
   auth?: BasicAuthParams;
