@@ -53,7 +53,7 @@ export class DrupalAuth {
       });
   }
 
-  public login(name: string, password: string): Promise<any> {
+  public login(name: string, pass: string): Promise<any> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export class DrupalAuth {
       },
       data: {
         name,
-        password,
+        pass,
       },
     };
     return this.client
