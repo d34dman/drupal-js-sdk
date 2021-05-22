@@ -44,7 +44,7 @@
     "axios-mock-adapter": "^1.19.0",
     "codecov": "3.7.1",
     "cross-env": "^7.0.3",
-    "eslint": "^7.24.0",
+    "eslint": "^7.27.0",
     "eslint-plugin-no-loops": "^0.3.0",
     "jest": "^25.5.4",
     "ts-jest": "^25.5.1",
