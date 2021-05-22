@@ -31,7 +31,7 @@ test('Drupal initialize with basic auth', () => {
     baseURL: 'http://www.example.com',
     auth: {
       username: 'dpa',
-      pass: 'dpa',
+      password: 'dpa',
     },
   };
   expect(sdk.initialize(config)).toBe(sdk);
