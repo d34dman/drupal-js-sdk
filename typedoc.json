@@ -3,6 +3,7 @@
     "./src/Drupal.ts",
     "./src/CoreService.ts",
     "./src/DrupalError.ts",
+    "./src/DrupalMenu.ts",
     "./src/interfaces/ApiClientInterface.ts",
     "./src/plugins/AxiosApiClient.ts"
   ]
