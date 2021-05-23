@@ -1,5 +1,7 @@
 /lib
-/docs
+/build
+/docs/.vuepress/.cache
+/docs/.vuepress/.temp
 
 .DS_Store
 .nyc_output

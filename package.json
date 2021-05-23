@@ -18,10 +18,10 @@
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "docs:guide:dev": "vuepress dev guide",
-    "docs:guide:build": "vuepress build guide",
-    "docs:api:build": "typedoc --out docs/api --theme minimal",
-    "docs": "npm run docs:guide:build && npm run docs:api:build"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "api-reference:build": "typedoc --out build/api --theme minimal",
+    "docs": "npm run docs:build && npm run api-reference:build"
   },
   "repository": {
     "type": "git",
