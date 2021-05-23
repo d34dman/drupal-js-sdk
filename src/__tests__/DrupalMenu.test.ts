@@ -47,7 +47,11 @@ const mockData: {[key: string]: any;} = {
 test('Drupal Menu : getMenu', () => {
   const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
   const menu = new DrupalMenu(drupal);
+  expect.assertions(2);
   expect(menu.getMenu('main')).toBeInstanceOf(Promise);
+  return menu.getMenu('main').then(data => {
+    expect(data).toBeInstanceOf(Array);
+  });
 });
 
 test('Drupal Menu : massage Menu', () => {
