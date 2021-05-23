@@ -1,6 +1,7 @@
 import {Drupal} from './Drupal';
 import {ApiClientInterface} from './interfaces/ApiClientInterface';
 import {DrupalError} from './DrupalError';
+
 interface MenuDictionary<TValue> {
   [id: string]: TValue;
 }
@@ -20,13 +21,12 @@ export class DrupalMenu {
 
   public async getMenu(menu_name: string): Promise<any> {
     return this.getMenuRaw(menu_name)
-      .then(res => {
+      .then((res) => {
         const data = res.data;
         if (this.checkIfDrupalMenuDataIsValid(data)) {
           const normalizedItems = this.normalizeListItems(data);
           return this.convertFlatListItemsToTree(normalizedItems);
-        }
-        else {
+        } else {
           throw new DrupalError(DrupalError.INVALID_JSON, 'Menu data is invalid');
         }
       });

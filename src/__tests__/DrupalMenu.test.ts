@@ -10,7 +10,7 @@ const mockData: {[key: string]: any;} = {
       name: 'Home',
       href: '/',
       level: 1,
-      items: []
+      items: [],
     },
     {
       id: 'main.001',
@@ -18,7 +18,7 @@ const mockData: {[key: string]: any;} = {
       name: 'About',
       href: '/about-us',
       level: 1,
-      items: []
+      items: [],
     },
     {
       id: 'main.002',
@@ -33,7 +33,7 @@ const mockData: {[key: string]: any;} = {
           name: 'Bar',
           href: '',
           level: 2,
-          items: []
+          items: [],
         },
         {
           id: 'main.002.001',
@@ -41,10 +41,10 @@ const mockData: {[key: string]: any;} = {
           name: 'Baz',
           href: '',
           level: 2,
-          items: []
-        }
-      ]
-    }
+          items: [],
+        },
+      ],
+    },
   ],
   valid: {
     linkset: [
@@ -94,21 +94,21 @@ test('Drupal Menu : getMenu', async () => {
   expect(menu.getMenu('main')).toBeInstanceOf(Promise);
 
   let spy = jest.spyOn(menu, 'getMenuRaw').mockImplementation(
-    (): Promise<any> => Promise.resolve({data: mockData.valid})
+    (): Promise<any> => Promise.resolve({data: mockData.valid}),
   );
 
-  await menu.getMenu('main').then(data => {
+  await menu.getMenu('main').then((data) => {
     expect(data).toStrictEqual(mockData.validTree);
   });
 
   spy = jest.spyOn(menu, 'getMenuRaw').mockImplementation(
-    (): Promise<any> => Promise.resolve({data: mockData.invalid})
+    (): Promise<any> => Promise.resolve({data: mockData.invalid}),
   );
   expect(menu.getMenu('main')).rejects.toThrow('Menu data is invalid');
   await menu.getMenu('main')
     .catch((error) => {
       expect(error.toString()).toBe('DrupalError: 107 Menu data is invalid');
-    }); 
+    });
   spy.mockRestore();
 });
 
