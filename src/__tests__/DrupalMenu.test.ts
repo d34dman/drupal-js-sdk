@@ -3,6 +3,49 @@ import {DrupalMenu} from '../DrupalMenu';
 
 const mockData: {[key: string]: any;} = {
   invalid: {},
+  validTree: [
+    {
+      id: 'main.000',
+      parentId: '0',
+      name: 'Home',
+      href: '/',
+      level: 1,
+      items: []
+    },
+    {
+      id: 'main.001',
+      parentId: '0',
+      name: 'About',
+      href: '/about-us',
+      level: 1,
+      items: []
+    },
+    {
+      id: 'main.002',
+      parentId: '0',
+      name: 'Foo',
+      href: '',
+      level: 1,
+      items: [
+        {
+          id: 'main.002.000',
+          parentId: 'main.002',
+          name: 'Bar',
+          href: '',
+          level: 2,
+          items: []
+        },
+        {
+          id: 'main.002.001',
+          parentId: 'main.002',
+          name: 'Baz',
+          href: '',
+          level: 2,
+          items: []
+        }
+      ]
+    }
+  ],
   valid: {
     linkset: [
       {
@@ -44,14 +87,29 @@ const mockData: {[key: string]: any;} = {
   },
 };
 
-test('Drupal Menu : getMenu', () => {
+test('Drupal Menu : getMenu', async () => {
   const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
   const menu = new DrupalMenu(drupal);
-  expect.assertions(2);
+
   expect(menu.getMenu('main')).toBeInstanceOf(Promise);
-  return menu.getMenu('main').then(data => {
-    expect(data).toBeInstanceOf(Array);
+
+  let spy = jest.spyOn(menu, 'getMenuRaw').mockImplementation(
+    (): Promise<any> => Promise.resolve({data: mockData.valid})
+  );
+
+  await menu.getMenu('main').then(data => {
+    expect(data).toStrictEqual(mockData.validTree);
   });
+
+  spy = jest.spyOn(menu, 'getMenuRaw').mockImplementation(
+    (): Promise<any> => Promise.resolve({data: mockData.invalid})
+  );
+  expect(menu.getMenu('main')).rejects.toThrow('Menu data is invalid');
+  await menu.getMenu('main')
+    .catch((error) => {
+      expect(error.toString()).toBe('DrupalError: 107 Menu data is invalid');
+    }); 
+  spy.mockRestore();
 });
 
 test('Drupal Menu : massage Menu', () => {

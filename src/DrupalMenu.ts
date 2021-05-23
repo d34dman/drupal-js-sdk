@@ -62,7 +62,7 @@ export class DrupalMenu {
           name: item.title,
           href: item.href,
           level,
-          files: null,
+          items: null,
         };
         list.push(node);
       });
@@ -99,13 +99,13 @@ export class DrupalMenu {
     const myObjMap: MenuDictionary<any> = {};
     inputList.map((node, index) => {
       myObjMap[node.id] = index;
-      inputList[index].files = [];
+      inputList[index].items = [];
     });
     inputList.map((node) => {
       if (node.parentId === '0') {
         roots.push(node);
       } else {
-        inputList[myObjMap[node.parentId]].files.push(node);
+        inputList[myObjMap[node.parentId]].items.push(node);
       }
     });
     return roots;
