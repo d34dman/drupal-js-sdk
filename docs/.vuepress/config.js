@@ -17,7 +17,8 @@ module.exports = {
               '/guide/README.md', 
               '/guide/getting-started.md',
               '/guide/cors.md',
-              '/guide/authentication.md'
+              '/guide/authentication.md',
+              '/guide/menu.md'
             ],
           },
           {
