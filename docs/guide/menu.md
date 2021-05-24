@@ -2,9 +2,12 @@
 title: Menu
 ---
 
-# Menu  <Badge type="warning" text="experimental" vertical="top" />
+# Menu  <Badge type="warning" text="draft" vertical="top" />
 
-::: warning
+::: warning 
+
+**Experimental feature**
+
 Drupal JavaScript SDK relies on the drupal module [Decoupled Menus](https://www.drupal.org/project/decoupled_menus) installed along with relevant patch.
 :::
 
