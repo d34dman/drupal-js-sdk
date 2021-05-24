@@ -15,12 +15,14 @@ module.exports = {
             text: 'Guide',
             children: [
               '/guide/README.md', 
-              '/guide/getting-started.md'
+              '/guide/getting-started.md',
+              '/guide/cors.md',
+              '/guide/authentication.md'
             ],
           },
           {
-            text: 'References',
-            link: '/references'
+            text: 'Showcase',
+            link: '/showcase'
           },
           {
             text: 'Examples',
@@ -31,16 +33,16 @@ module.exports = {
             link: '/api'
           },
         ],
-        '/references': [
+        '/showcase': [
           {
             text: 'Guide',
             link: '/guide'
           },
           {
             isGroup: true,
-            text: 'References',
+            text: 'Showcase',
             children: [
-              '/references/README.md',
+              '/showcase/README.md',
             ],
           },
           {
@@ -58,8 +60,8 @@ module.exports = {
             link: '/guide'
           },
           {
-            text: 'References',
-            link: '/references'
+            text: 'Showcase',
+            link: '/showcase'
           },
           {
             isGroup: true,
@@ -99,8 +101,8 @@ module.exports = {
           link: '/guide'
         },
         {
-          text: 'References',
-          link: '/references'
+          text: 'Showcase',
+          link: '/showcase'
         },
         {
           text: 'Examples',
