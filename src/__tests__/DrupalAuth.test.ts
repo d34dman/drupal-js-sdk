@@ -15,6 +15,9 @@ const mockData: {[key: string]: any;} = {
     },
   },
   valid: {},
+  register: {
+    new_user: {uid: [{value: 19}], uuid: [{value: 'a02000bf-eff5-41f6-9a8d-f3cf3199dc2d'}], langcode: [{value: 'en'}], name: [{value: 'fooBar'}], created: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], changed: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], default_langcode: [{value: true}], user_picture: []},
+  },
 };
 
 mock.onPost('/user/password').reply(200, '');
@@ -60,4 +63,14 @@ test('Drupal Auth password reset', async () => {
   await auth.passwordResetByUserName('admin').then((response) => {
     expect(response.status).toBe(200);
   });
+});
+
+test('Drupal Auth register', async () => {
+  const drupal = new Drupal().initialize({baseURL: 'https://drupal-js-sdk-demo.d34dman.com'});
+  const auth = new DrupalAuth(drupal);
+  await auth.getSessionToken();
+  await auth
+    .register('admin', 'admin@example.com')
+    .then((response) => {
+    });
 });

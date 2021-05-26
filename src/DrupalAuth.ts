@@ -154,4 +154,30 @@ export class DrupalAuth {
         return response;
       });
   }
+
+  public register(name: string, mail: string): Promise<any> {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+      params: {
+        _format: 'json',
+      },
+      data: {
+        name: {
+          value: name,
+        },
+        mail: {
+          value: mail,
+        },
+      },
+    };
+    return this.client
+      .request('post', '/user/register', config)
+      .then((response) => {
+        // @TODO Reset user is authenticated status.
+        return response;
+      });
+  }
 }
