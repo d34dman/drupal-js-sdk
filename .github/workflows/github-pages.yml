@@ -17,7 +17,9 @@ jobs:
         with:
           source_dir: ./src
           output_dir: ./out
-          config_file: jsdoc.json
+          # Until proper solution is in place, the plugin path
+          # for better-docs/transcript has to be a custom one based on the action version.
+          config_file: github-action.jsdoc.json
           template: minami
           front_page: README.md
 
