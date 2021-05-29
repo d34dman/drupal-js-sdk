@@ -21,7 +21,8 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "api-reference:build": "typedoc --out build/api --theme minimal",
-    "docs": "npm run docs:build && npm run api-reference:build"
+    "docs": "npm run docs:build && npm run docs:better-docs",
+    "docs:better-docs": "jsdoc -c jsdoc.json --verbose"
   },
   "repository": {
     "type": "git",
@@ -45,11 +46,14 @@
     "@typescript-eslint/parser": "^4.22.0",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
+    "better-docs": "^2.3.2",
     "codecov": "3.7.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.27.0",
     "eslint-plugin-no-loops": "^0.3.0",
     "jest": "^25.5.4",
+    "jsdoc": "^3.6.7",
+    "minami": "^1.2.3",
     "ts-jest": "^25.5.1",
     "typedoc": "^0.20.35",
     "typescript": "^3.9.5",
