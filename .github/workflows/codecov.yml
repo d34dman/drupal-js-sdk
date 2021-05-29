@@ -1,5 +1,8 @@
-name: CI
-on: push
+name: Codecov
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,4 +12,5 @@ jobs:
       run: npm install
     - name: Run tests
       run: npm run test
-
+    - name: Codecov
+      uses: codecov/codecov-action@v1
