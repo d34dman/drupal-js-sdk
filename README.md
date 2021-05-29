@@ -20,9 +20,11 @@ You can benefit from this SDK if you are developing a JavaScript application tha
 
 This project feature overlaps with a lot of other open-source projects. The primary goal of this SDK would be to treat guides and examples as first-class citizen and not as an afterthought.
 
+### Contribute
+
 Development is happening in GitHub for now. However, if you like to get involved or suggest improvements, please use the [Drupal Issue queue](https://www.drupal.org/project/issues/drupal_js_sdk?categories=All) so that we can provide proper issue credits.
 
-Supported Drupal Versions:
+### Supported Drupal Versions:
 
 - Drupal 8
 - Drupal 9
