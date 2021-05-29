@@ -28,11 +28,7 @@ module.exports = {
           {
             text: 'Examples',
             link: '/examples'
-          },
-          {
-            text: 'API',
-            link: '/api'
-          },
+          }
         ],
         '/showcase': [
           {
@@ -49,11 +45,7 @@ module.exports = {
           {
             text: 'Examples',
             link: '/examples'
-          },
-          {
-            text: 'API',
-            link: '/api'
-          },
+          }
         ],
         '/examples': [
           {
@@ -70,30 +62,8 @@ module.exports = {
             children: [
               '/examples/README.md',
             ],
-          },
-          {
-            text: 'API',
-            link: '/api'
-          },
-        ],
-        '/api': [
-          {
-            text: 'Guide',
-            link: '/guide'
-          },
-          {
-            text: 'References',
-            link: '/references'
-          },
-          {
-            text: 'Examples',
-            link: '/examples'
-          },
-          {
-            text: 'API',
-            link: '/api'
-          },
-        ],
+          }
+        ]
       },
       navbar: [
         // nested group - max depth is 2
@@ -111,7 +81,7 @@ module.exports = {
         },
         {
           text: 'API',
-          link: '/api'
+          link: 'https://d34dman.github.io/drupal-js-sdk/index.html'
         }
       ]
     }

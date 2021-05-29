@@ -21,7 +21,7 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "api-reference:build": "typedoc --out build/api --theme minimal",
-    "docs": "npm run docs:build && npm run docs:better-docs",
+    "docs": "npm run docs:build",
     "docs:better-docs": "jsdoc -c jsdoc.json --verbose"
   },
   "repository": {
