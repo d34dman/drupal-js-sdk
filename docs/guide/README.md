@@ -20,7 +20,7 @@ This project feature overlaps with a lot of other open-source projects. The prim
 
 Development is happening in [GitHub](https://github.com/d34dman/drupal-js-sdk). However, if you like to get involved or suggest improvements, please use the [Drupal Issue queue](https://www.drupal.org/project/issues/drupal_js_sdk?categories=All) so that we can provide proper issue credits.
 
-### Supported Drupal Versions:
+### Supported Drupal Versions
 
 - Drupal 8
 - Drupal 9
