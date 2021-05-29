@@ -65,12 +65,12 @@ test('Drupal Auth password reset', async () => {
   });
 });
 
-test('Drupal Auth register', async () => {
-  const drupal = new Drupal().initialize({baseURL: 'https://drupal-js-sdk-demo.d34dman.com'});
-  const auth = new DrupalAuth(drupal);
-  await auth.getSessionToken();
-  await auth
-    .register('admin', 'admin@example.com')
-    .then((response) => {
-    });
-});
+// test('Drupal Auth register', async () => {
+//   const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
+//   const auth = new DrupalAuth(drupal);
+//   await auth.getSessionToken();
+//   await auth
+//     .register('admin', 'admin@example.com')
+//     .then((response) => {
+//     });
+// });
