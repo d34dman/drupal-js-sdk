@@ -3,6 +3,7 @@
 ![npm](https://img.shields.io/npm/v/drupal-js-sdk)
 ![npm type definitions](https://img.shields.io/npm/types/drupal-js-sdk)
 [![npm downloads](https://img.shields.io/npm/dt/drupal-js-sdk.svg?maxAge=2592000)](http://npmjs.com/package/drupal-jsonapi-params)
+[![codecov](https://codecov.io/gh/d34dman/drupal-js-sdk/branch/main/graph/badge.svg?token=KVXZUI3JLK)](https://codecov.io/gh/d34dman/drupal-js-sdk)
 
 **This Project is in a very early phase of its development. Things are very volatile and evolving.**
 
