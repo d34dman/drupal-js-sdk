@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build
-        uses: andstor/jsdoc-action@v1
+        uses: d34dman/jsdoc-action@v1.2.4-better-docs 
         with:
           source_dir: ./src
           output_dir: ./out

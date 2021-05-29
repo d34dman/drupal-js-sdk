@@ -10,7 +10,7 @@
     },
     "plugins": [
         "plugins/markdown",
-        "node_modules/better-docs/typescript"
+        "/home/runner/work/_actions/d34dman/jsdoc-action/v1.2.4-better-docs/node_modules/better-docs/typescript"
     ],
     "templates": {
         "cleverLinks": false,
