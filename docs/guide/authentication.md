@@ -66,8 +66,11 @@ auth.passwordResetByMail('admin@example.com')
         // Display message that password reset failed. 
     }
 ```
-## Register <Badge type="danger" text="Not implemented" vertical="top" />
+## Register <Badge type="warning" text="experimental" vertical="top" />
 
+::: warning
+
+**Following configuration has to be performed in Drupal side for performing registration via API**
 - Enable restui module
 - Enable User registration (/user/register: POST) resource
 - Configure User registration resource as follows
@@ -75,10 +78,11 @@ auth.passwordResetByMail('admin@example.com')
     - Accepted Request format json : checked
     - Authentication provider cookie : checked
 - Allow Permission `Access POST on User registration resource` for Anonymous users.
-```js {6}
+:::
+```js {3}
 let user_info = {};
 // Returns a promise that is fulfilled with the user when the registration completes.
-auth.register('admin', 'Z1ON0101', 'admin@example.com')
+auth.register('admin', 'admin@example.com')
     .then(data => {
         // Succesfully registered.
     })

@@ -25,6 +25,7 @@ mock.onGet('/user/login_status').reply(200, 0);
 mock.onGet('/session/token').reply(200, 'mock-session-token');
 mock.onPost('/user/login').reply(200, mockData.login.admin);
 mock.onPost('/user/logout').reply(204, '');
+mock.onPost('/user/register').reply(200, mockData.register.new_user);
 
 test('Drupal Auth login and logout', async () => {
   const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
@@ -65,12 +66,13 @@ test('Drupal Auth password reset', async () => {
   });
 });
 
-// test('Drupal Auth register', async () => {
-//   const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-//   const auth = new DrupalAuth(drupal);
-//   await auth.getSessionToken();
-//   await auth
-//     .register('admin', 'admin@example.com')
-//     .then((response) => {
-//     });
-// });
+test('Drupal Auth register', async () => {
+  const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
+  const auth = new DrupalAuth(drupal);
+  await auth.getSessionToken();
+  await auth
+    .register('admin', 'admin@example.com')
+    .then((response) => {
+      expect(response.status).toBe(200);
+    });
+});
