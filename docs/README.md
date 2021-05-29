@@ -14,8 +14,8 @@ features:
     details: Guide to walk you through most common scenarious
   - title: Examples
     details: Ample example to jumpstart your developmnent
-  - title: Demo
-    details: A real world example showcasing all the features of sdk.
+  - title: Showcase
+    details: A real world examples using the SDK.
 footer: MIT Licensed | Copyright © 2021-present D34dMan
 ---
 
