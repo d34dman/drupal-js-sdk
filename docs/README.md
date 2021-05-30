@@ -63,5 +63,5 @@ const Drupal = require('drupal-js-sdk')
 ```js
 const api = new Drupal().initialize({baseURL: 'http://example.com'});
 const auth = new DrupalAuth(api);
-auth.login({username: 'admin', password: 'Z1ON0101'});
+auth.login('admin', 'Z1ON0101');
 ```

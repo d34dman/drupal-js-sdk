@@ -10,6 +10,10 @@ the same domain as Drupal installation.
 :::
 ## What and Why?
 
+[Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) in MDN Web Docs explains the concept very well.
+
+In case the frontend application is served from a different domain, then we need to make sure the "Cross origin resource sharing" is enabled and configured properly.
+
 ## Drupal configuration
 
 ```yml
