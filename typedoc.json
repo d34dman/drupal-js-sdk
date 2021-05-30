@@ -1,4 +1,11 @@
 {
+  "links": [{
+    "label": "Guide",
+    "url": "https://drupal-js-sdk-docs.netlify.app/"
+  }, {
+    "label": "Source",
+    "url": "https://github.com/d34dman/drupal-js-sdk"
+  }],
   "entryPoints": [
     "./src/Drupal.ts",
     "./src/CoreService.ts",

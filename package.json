@@ -20,7 +20,7 @@
     "postversion": "git push && git push --tags",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:typedoc:build": "typedoc --out api --theme minimal",
+    "docs:typedoc:build": "typedoc --options typedoc.json --out api --theme ./node_modules/typedoc-neo-theme/bin/default",
     "docs": "npm run docs:build",
     "docs:better-docs": "jsdoc -c jsdoc.json --verbose"
   },
@@ -55,6 +55,7 @@
     "jest": "^25.5.4",
     "ts-jest": "^25.5.1",
     "typedoc": "^0.20.35",
+    "typedoc-neo-theme": "^1.1.1",
     "typescript": "^3.9.5",
     "vuepress": "^2.0.0-beta.16"
   }
