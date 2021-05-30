@@ -1,7 +1,5 @@
 /**
  * Constructs a new Drupal.Error object with the given code and message.
- *
- * @alias Drupal.Error
  */
 export class DrupalError extends Error {
 
@@ -338,8 +336,16 @@ export class DrupalError extends Error {
    */
   public static readonly X_DOMAIN_REQUEST: number = 602;
 
+  /**
+   * An error code from <code>Drupal.Error</code>.
+   */
   code: number;
 
+
+  /**
+   * @param {number} code An error code constant from <code>Drupal.Error</code>.
+   * @param {string} message A detailed description of the error.
+   */
   constructor(code: number, message: string) {
     super(message);
     this.code = code;
@@ -349,6 +355,18 @@ export class DrupalError extends Error {
     });
   }
 
+  /**
+   * Get the error code.
+   * @returns error code.
+   */
+  getErrorCode(): number {
+    return this.code;
+  }
+
+  /**
+   * Drupal error message.
+   * @returns Error message.
+   */
   toString(): string {
     return `DrupalError: ${this.code} ${this.message}`;
   }

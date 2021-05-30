@@ -8,8 +8,6 @@ interface MenuDictionary<TValue> {
 
 /**
  * Constructs a new Drupal.Menu object with the given code and message.
- *
- * @alias Drupal.Menu
  */
 export class DrupalMenu {
   drupal: Drupal;

@@ -11,6 +11,9 @@ export interface DrupalConfig {
   baseURL: string;
 }
 
+/**
+ * Drupal.
+ */
 export class Drupal {
   public core: CoreService;
 
