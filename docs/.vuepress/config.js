@@ -3,7 +3,13 @@ module.exports = {
   title: 'Drupal JavaScript SDK',
   description: 'JavaScript Guide',
   plugins: [
-    '@vuepress/plugin-search',
+    [
+      '@vuepress/plugin-docsearch',
+      {
+        apiKey: '1cbbf73a9fc979d1bca3111fee871ce8',
+        indexName: 'drupal-js-sdk-docs',
+      },
+    ],
   ],
   algolia: {
     apiKey: '1cbbf73a9fc979d1bca3111fee871ce8',
