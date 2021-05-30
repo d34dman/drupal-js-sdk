@@ -2,6 +2,15 @@ module.exports = {
   lang: 'en-US',
   title: 'Drupal JavaScript SDK',
   description: 'JavaScript Guide',
+  plugins: [
+    [
+      '@vuepress/plugin-docsearch',
+      {
+        apiKey: '1cbbf73a9fc979d1bca3111fee871ce8',
+        indexName: 'drupal-js-sdk-docs',
+      },
+    ],
+  ],
   themeConfig: {
     logo: '/svg/logo.svg',
     repo: 'd34dman/drupal-js-sdk',
