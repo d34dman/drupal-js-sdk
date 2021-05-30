@@ -1,31 +1,36 @@
-name: GitHub pages
+name: Publish Typedoc to GitHub Pages
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**'
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Build
-        uses: d34dman/jsdoc-action@v1.2.4-better-docs 
-        with:
-          source_dir: ./src
-          output_dir: ./out
-          # Until proper solution is in place, the plugin path
-          # for better-docs/transcript has to be a custom one based on the action version.
-          config_file: github-action.jsdoc.json
-          template: minami
-          front_page: README.md
+        run: npm run build
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Generate typedoc
+        run: npm run docs:typedoc:build
+
+      - name: Publish to GitHub Pages
+        uses: ./
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          dir: api
+          branch: gh-pages
+          token: ${{ secrets.ACCESS_TOKEN }}
