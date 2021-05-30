@@ -29,8 +29,8 @@ jobs:
         run: npm run docs:typedoc:build
 
       - name: Publish to GitHub Pages
-        uses: ./
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          dir: api
-          branch: gh-pages
-          token: ${{ secrets.ACCESS_TOKEN }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./api
