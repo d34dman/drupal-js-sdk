@@ -1,5 +1,9 @@
 name: CI
-on: push
+on: 
+  push:
+    paths:
+      - 'src/**'
+      - '.github/**'
 jobs:
   build:
     runs-on: ubuntu-latest
