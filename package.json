@@ -45,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vuepress/plugin-docsearch": "^2.0.0-beta.15",
+    "@vuepress/plugin-search": "^2.0.0-beta.16",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
     "better-docs": "^2.3.2",
