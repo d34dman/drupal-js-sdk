@@ -14,7 +14,7 @@ module.exports = {
   algolia: {
     apiKey: '1cbbf73a9fc979d1bca3111fee871ce8',
     indexName: 'drupal-js-sdk-docs',
-  }
+  },
   themeConfig: {
     logo: '/svg/logo.svg',
     repo: 'd34dman/drupal-js-sdk',
