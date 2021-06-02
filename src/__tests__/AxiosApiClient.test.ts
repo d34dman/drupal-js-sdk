@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {AxiosApiClient} from '../plugins';
+import {AxiosApiClient} from '../AxiosApiClient';
 import {DrupalError} from '../DrupalError';
 
 test('Axios client', () => {

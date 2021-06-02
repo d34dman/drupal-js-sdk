@@ -1,4 +1,4 @@
-import {AxiosApiClient} from './plugins';
+import {AxiosApiClient} from './AxiosApiClient';
 import {CoreService} from './CoreService';
 
 export interface BasicAuthParams {

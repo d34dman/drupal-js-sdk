@@ -5,8 +5,8 @@ import axios, {
   Method,
 } from 'axios';
 
-import {DrupalError} from '../DrupalError';
-import {ApiClientInterface} from '../interfaces/ApiClientInterface';
+import {DrupalError} from './DrupalError';
+import {ApiClientInterface} from './interfaces/ApiClientInterface';
 
 interface JsonErrorResponseType {
   code: number;
