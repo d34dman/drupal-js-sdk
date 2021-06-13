@@ -94,6 +94,21 @@ export class DrupalAuth {
       });
   }
 
+  public forcedLogout(): Promise<boolean> {
+    if (this.store.logout_token) {
+      return this.logout()
+      // @TODO Reset user is authenticated status.
+        .then(() => true);
+    }
+    const config = {
+      withCredentials: true,
+    };
+    return this.client
+      .request('get', '/user/logout', config)
+      // @TODO Reset user is authenticated status.
+      .then(() => true);
+  }
+
   public logout(): Promise<any> {
     const config = {
       headers: {

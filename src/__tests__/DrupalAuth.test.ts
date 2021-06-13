@@ -25,6 +25,7 @@ mock.onGet('/user/login_status').reply(200, 0);
 mock.onGet('/session/token').reply(200, 'mock-session-token');
 mock.onPost('/user/login').reply(200, mockData.login.admin);
 mock.onPost('/user/logout').reply(204, '');
+mock.onGet('/user/logout').reply(200, '');
 mock.onPost('/user/register').reply(200, mockData.register.new_user);
 
 test('Drupal Auth login and logout', async () => {
@@ -51,6 +52,22 @@ test('Drupal Auth login and logout', async () => {
     .then(async () => {
       const {status} = await auth.logout();
       expect(status).toEqual(204);
+    });
+});
+
+
+test('Drupal Auth Forced logout', async () => {
+  const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
+  const auth = new DrupalAuth(drupal);
+  const status = await auth.forcedLogout();
+  expect(status).toEqual(true);
+  await auth.getSessionToken();
+  expect.assertions(2);
+  return auth
+    .login('admin', 'admin')
+    .then(async () => {
+      const status = await auth.forcedLogout();
+      expect(status).toEqual(true);
     });
 });
 
