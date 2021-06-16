@@ -1,5 +1,6 @@
-import {AxiosApiClient} from './AxiosApiClient';
 import {CoreService} from './CoreService';
+import FetchApiClient from './FetchApiClient';
+import NodeFetchApiClient from './NodeFetchApiClient';
 
 export interface BasicAuthParams {
   username: string;
@@ -27,8 +28,11 @@ export class Drupal {
       ...Boolean(options.headers) && {headers: options.headers},
       ...{baseURL: options.baseURL},
     };
-    const client = new AxiosApiClient(apiConfig);
-    this.core.setApiClientService(client);
+    if (this.core.get('IS_NODE')) {
+      this.core.setApiClientService(new NodeFetchApiClient(apiConfig));
+    } else {
+      this.core.setApiClientService(new FetchApiClient(apiConfig));
+    }
     return this;
   }
 }

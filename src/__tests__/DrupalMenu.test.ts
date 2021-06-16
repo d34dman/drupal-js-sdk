@@ -1,3 +1,4 @@
+import {AxiosApiClient} from '../AxiosApiClient';
 import {Drupal} from '../Drupal';
 import {DrupalMenu} from '../DrupalMenu';
 
@@ -89,6 +90,8 @@ const mockData: {[key: string]: any;} = {
 
 test('Drupal Menu : getMenu', async () => {
   const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
+  const axiosClient = new AxiosApiClient();
+  drupal.core.setApiClientService(axiosClient);
   const menu = new DrupalMenu(drupal);
 
   expect(menu.getMenu('main')).toBeInstanceOf(Promise);

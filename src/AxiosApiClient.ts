@@ -13,25 +13,40 @@ interface JsonErrorResponseType {
   error: string;
 }
 
+interface Config<TValue> {
+  [id: string]: TValue;
+}
+
 export class AxiosApiClient implements ApiClientInterface {
-  public client: AxiosInstance;
+  private _config: Config<any> = {};
+  private _client: any;
 
   constructor(options = {}) {
-    this.client = axios.create(options);
-    this.client.defaults.withCredentials = true;
+    this.setConfig(options);
+    this._client = axios.create(this.getConfig());
+    this._client.defaults.withCredentials = true;
+  }
+
+  public getConfig(): Config<any> {
+    return this._config;
+  }
+
+  public setConfig(config: Config<any>): ApiClientInterface {
+    this._config = config;
+    return this;
   }
 
   public setClient(client: AxiosInstance): ApiClientInterface {
-    this.client = client;
+    this._client = client;
     return this;
   }
 
   public getClient(): AxiosInstance {
-    return this.client;
+    return this._client;
   }
 
   public addDefaultHeaders(headers: {[key: string]: any;}): AxiosApiClient {
-    Object.assign(this.client.defaults.headers, headers);
+    Object.assign(this._client.defaults.headers, headers);
     return this;
   }
 
@@ -45,7 +60,7 @@ export class AxiosApiClient implements ApiClientInterface {
       url: path,
       ...config,
     };
-    return this.client.request(reqCofnig);
+    return this._client.request(reqCofnig);
   }
 
   getDrupalError(response: {[key: string]: any;} | string): DrupalError {
