@@ -1,6 +1,6 @@
-import {Drupal} from '../Drupal';
-import {CoreService} from '../CoreService';
-import {AxiosApiClient} from '../AxiosApiClient';
+import {Drupal} from '../';
+import {CoreService} from '../';
+import {AxiosApiClient} from '../';
 
 test('Core Service', () => {
   const core = new CoreService();

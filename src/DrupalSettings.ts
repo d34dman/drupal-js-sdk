@@ -1,5 +1,7 @@
+import { DrupalError } from "./DrupalError";
+
 export class DrupalSettings {
   public get(key: string): any {
-    return false;
+    throw new DrupalError(DrupalError.MISSING_IMPLEMENTATION_ERROR, 'Not Implemented');
   }
 }

@@ -1,5 +1,5 @@
-import {Drupal} from '../Drupal';
-import {DrupalMenu} from '../DrupalMenu';
+import {Drupal} from '../';
+import {DrupalMenu} from '../';
 
 const mockData: {[key: string]: any;} = {
   invalid: {},

@@ -1,4 +1,4 @@
-import {Drupal} from '../Drupal';
+import {Drupal} from '../';
 
 test('Drupal initialize', () => {
   const sdk = new Drupal();

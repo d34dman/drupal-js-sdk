@@ -1,8 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import {Drupal} from '../Drupal';
-import {DrupalAuth} from '../DrupalAuth';
+import {Drupal} from '../';
+import {DrupalAuth} from '../';
 
 const mock = new MockAdapter(axios);
 

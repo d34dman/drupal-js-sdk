@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import {AxiosApiClient} from '../AxiosApiClient';
-import {DrupalError} from '../DrupalError';
+import {AxiosApiClient} from '../';
+import {DrupalError} from '../';
 
 test('Axios client', () => {
   const api = new AxiosApiClient();
