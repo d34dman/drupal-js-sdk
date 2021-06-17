@@ -17,7 +17,7 @@ export class CoreService {
       Boolean(process.versions.node) &&
       !process.versions.electron,
     REQUEST_HEADERS: {},
-    SERVER_URL: 'http://localhost',
+    SERVER_URL: 'https://api.drupal.com',
   };
 
   public get(key: string): any {

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import {AxiosApiClient} from '../AxiosApiClient';
 import {Drupal} from '../Drupal';
 import {DrupalAuth} from '../DrupalAuth';
 
@@ -31,9 +30,6 @@ mock.onPost('/user/register').reply(200, mockData.register.new_user);
 
 test('Drupal Auth login and logout', async () => {
   const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const axiosClient = new AxiosApiClient();
-  drupal.core.setApiClientService(axiosClient);
-
   const auth = new DrupalAuth(drupal);
   await auth.getSessionToken();
   expect(auth.store.csrf_token).toEqual('mock-session-token');
@@ -62,8 +58,6 @@ test('Drupal Auth login and logout', async () => {
 
 test('Drupal Auth Forced logout', async () => {
   const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const axiosClient = new AxiosApiClient();
-  drupal.core.setApiClientService(axiosClient);
   const auth = new DrupalAuth(drupal);
   const status = await auth.forcedLogout();
   expect(status).toEqual(true);
@@ -79,8 +73,6 @@ test('Drupal Auth Forced logout', async () => {
 
 test('Drupal Auth password reset', async () => {
   const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const axiosClient = new AxiosApiClient();
-  drupal.core.setApiClientService(axiosClient);
   const auth = new DrupalAuth(drupal);
   await auth.getSessionToken();
   await auth.passwordResetByMail('admin@example.com').then((response) => {
@@ -93,8 +85,6 @@ test('Drupal Auth password reset', async () => {
 
 test('Drupal Auth register', async () => {
   const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const axiosClient = new AxiosApiClient();
-  drupal.core.setApiClientService(axiosClient);
   const auth = new DrupalAuth(drupal);
   await auth.getSessionToken();
   await auth
