@@ -1,6 +1,6 @@
 {
   "name": "drupal-js-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Drupal JavaScript SDK",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
