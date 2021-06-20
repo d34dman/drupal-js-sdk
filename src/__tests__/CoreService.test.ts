@@ -1,9 +1,8 @@
-import {Drupal} from '../';
-import {CoreService} from '../';
-import {AxiosApiClient} from '../';
+import {Drupal, Core, AxiosApiClient} from '..';
+
 
 test('Core Service', () => {
-  const core = new CoreService();
+  const core = new Core();
   core.set('FOO', 'bar');
   expect(core.get('FOO')).toBe('bar');
   expect(() => {

@@ -1,4 +1,4 @@
-import {DrupalError} from '../';
+import {DrupalError} from '..';
 
 test('Drupal initialize', () => {
   const error = new DrupalError(42, 'Solution');

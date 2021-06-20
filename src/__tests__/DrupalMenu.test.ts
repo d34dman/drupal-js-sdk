@@ -1,5 +1,5 @@
-import {Drupal} from '../';
-import {DrupalMenu} from '../';
+import {Drupal, DrupalMenu} from '..';
+
 
 const mockData: {[key: string]: any;} = {
   invalid: {},

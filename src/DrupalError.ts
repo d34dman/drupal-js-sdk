@@ -16,7 +16,7 @@ export class DrupalError extends Error {
   /**
    * Error code indicating the sdk has encountered a missing implementation.
    */
-   public static readonly MISSING_IMPLEMENTATION_ERROR: number = 42;
+  public static readonly MISSING_IMPLEMENTATION_ERROR: number = 42;
 
   /**
    * Error code indicating the connection to the Drupal server failed.

@@ -8,7 +8,7 @@
   }],
   "entryPoints": [
     "./src/Drupal.ts",
-    "./src/CoreService.ts",
+    "./src/Core.ts",
     "./src/DrupalError.ts",
     "./src/DrupalMenu.ts",
     "./src/interfaces/ApiClientInterface.ts",

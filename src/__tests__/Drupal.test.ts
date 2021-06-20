@@ -1,4 +1,4 @@
-import {Drupal} from '../';
+import {Drupal} from '..';
 
 test('Drupal initialize', () => {
   const sdk = new Drupal();
@@ -6,8 +6,8 @@ test('Drupal initialize', () => {
     baseURL: 'http://www.example.com',
   };
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.core.set('FOO', 'bar');
-  expect(sdk.core.get('FOO')).toBe('bar');
+  sdk.set('FOO', 'bar');
+  expect(sdk.get('FOO')).toBe('bar');
 });
 
 test('Drupal initialize with headers', () => {
@@ -21,8 +21,8 @@ test('Drupal initialize with headers', () => {
     },
   };
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.core.set('FOO', 'bar');
-  expect(sdk.core.get('FOO')).toBe('bar');
+  sdk.set('FOO', 'bar');
+  expect(sdk.get('FOO')).toBe('bar');
 });
 
 test('Drupal initialize with basic auth', () => {
@@ -35,6 +35,6 @@ test('Drupal initialize with basic auth', () => {
     },
   };
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.core.set('FOO', 'bar');
-  expect(sdk.core.get('FOO')).toBe('bar');
+  sdk.set('FOO', 'bar');
+  expect(sdk.get('FOO')).toBe('bar');
 });

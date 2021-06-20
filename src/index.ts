@@ -1,4 +1,4 @@
-export {CoreService} from './CoreService';
+export {Core} from './Core';
 export {Drupal} from './Drupal';
 export {DrupalAuth} from './DrupalAuth';
 export {DrupalError} from './DrupalError';

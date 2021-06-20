@@ -1,5 +1,5 @@
 import {AxiosApiClient} from './AxiosApiClient';
-import {CoreService} from './CoreService';
+import {Core} from './Core';
 
 export interface BasicAuthParams {
   username: string;
@@ -14,12 +14,7 @@ export interface DrupalConfig {
 /**
  * Drupal.
  */
-export class Drupal {
-  public core: CoreService;
-
-  constructor() {
-    this.core = new CoreService();
-  }
+export class Drupal extends Core {
 
   initialize(options: DrupalConfig): Drupal {
     const apiConfig = {
@@ -28,7 +23,7 @@ export class Drupal {
       ...{baseURL: options.baseURL},
     };
     const client = new AxiosApiClient(apiConfig);
-    this.core.setApiClientService(client);
+    this.setApiClientService(client);
     return this;
   }
 }

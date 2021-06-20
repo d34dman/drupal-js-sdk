@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introduced "Architecture Diagram" in documentation
 ### Unreleased
 - Support for Entity
+### Breaking
+- Drupal.core removed
+- CoreService renamed to Core
 
 ## [0.1.2] - 2021-06-17
 ### Added

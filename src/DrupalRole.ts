@@ -1,4 +1,4 @@
-import { DrupalError } from "./";
+import {DrupalError} from './DrupalError';
 
 export class DrupalRole {
   public hasRole(role: string): boolean {

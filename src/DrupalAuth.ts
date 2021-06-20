@@ -18,7 +18,7 @@ export class DrupalAuth {
 
   constructor(drupal: Drupal) {
     this.drupal = drupal;
-    this.client = drupal.core.getApiClientService();
+    this.client = drupal.getApiClientService();
     this.store = {};
     this.refreshUserSession();
   }
