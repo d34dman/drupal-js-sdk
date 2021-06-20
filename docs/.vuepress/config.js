@@ -12,7 +12,7 @@ module.exports = {
   themeConfig: {
     logo: '/svg/logo.svg',
     repo: 'd34dman/drupal-js-sdk',
-    docsDir: 'guide',
+    docsDir: 'docs',
     sidebar: {
       '/guide': [
         {
