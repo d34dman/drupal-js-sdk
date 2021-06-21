@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-import {AxiosApiClient, DrupalError} from '..';
+import {AxiosClient, DrupalError} from '..';
 
 
 test('Axios client', () => {
-  const api = new AxiosApiClient();
+  const api = new AxiosClient();
   const client = axios.create();
   expect(api.setClient(client)).toBe(api);
   expect(api.getClient()).toBe(client);

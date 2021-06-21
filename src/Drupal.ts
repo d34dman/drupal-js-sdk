@@ -1,4 +1,4 @@
-import {AxiosApiClient} from './AxiosApiClient';
+import {AxiosClient} from './AxiosClient';
 import {Core} from './Core';
 import {ConfigInterface} from './interfaces';
 
@@ -24,7 +24,7 @@ export class Drupal extends Core {
       ...Boolean(options.headers) && {headers: options.headers},
       ...{baseURL: options.baseURL},
     };
-    const client = new AxiosApiClient(apiConfig);
+    const client = new AxiosClient(apiConfig);
     this.setClient(client);
     return this;
   }

@@ -1,4 +1,4 @@
-import {ApiClientInterface} from './interfaces';
+import {ClientInterface} from './interfaces';
 import {Drupal} from './Drupal';
 
 interface DrupalAuthUser {
@@ -13,7 +13,7 @@ interface DrupalAuthStore {
 }
 export class DrupalAuth {
   drupal: Drupal;
-  client: ApiClientInterface;
+  client: ClientInterface;
   store: DrupalAuthStore;
 
   constructor(drupal: Drupal) {

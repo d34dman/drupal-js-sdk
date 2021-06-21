@@ -6,14 +6,14 @@ import axios, {
 } from 'axios';
 
 import {DrupalError} from './DrupalError';
-import {ApiClientInterface} from './interfaces';
+import {ClientInterface} from './interfaces';
 
 interface JsonErrorResponseType {
   code: number;
   error: string;
 }
 
-export class AxiosApiClient implements ApiClientInterface {
+export class AxiosClient implements ClientInterface {
   public client: AxiosInstance;
 
   constructor(options = {}) {
@@ -21,7 +21,7 @@ export class AxiosApiClient implements ApiClientInterface {
     this.client.defaults.withCredentials = true;
   }
 
-  public setClient(client: AxiosInstance): ApiClientInterface {
+  public setClient(client: AxiosInstance): ClientInterface {
     this.client = client;
     return this;
   }
@@ -30,7 +30,7 @@ export class AxiosApiClient implements ApiClientInterface {
     return this.client;
   }
 
-  public addDefaultHeaders(headers: {[key: string]: any;}): AxiosApiClient {
+  public addDefaultHeaders(headers: {[key: string]: any;}): AxiosClient {
     Object.assign(this.client.defaults.headers, headers);
     return this;
   }

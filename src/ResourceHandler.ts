@@ -1,5 +1,5 @@
 import {Drupal} from './Drupal';
-import {ApiClientInterface, ResourceHandlerInterface} from './interfaces';
+import {ClientInterface, ResourceHandlerInterface} from './interfaces';
 
 
 export interface DrupalEntityConfig {
@@ -16,7 +16,7 @@ export interface JsonApiConfigType {
 export class ResourceHandler implements ResourceHandlerInterface {
 
   private readonly _config: DrupalEntityConfig;
-  private readonly _client: ApiClientInterface;
+  private readonly _client: ClientInterface;
   private _jsonApiConfig: JsonApiConfigType;
 
   constructor(config: DrupalEntityConfig) {

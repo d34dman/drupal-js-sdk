@@ -1,4 +1,4 @@
-import {Drupal, Core, AxiosApiClient} from '..';
+import {Drupal, Core, AxiosClient} from '..';
 import {Session} from '../Session';
 
 test('Core', () => {
@@ -19,7 +19,7 @@ test('Core Overridable Services', () => {
     core.getClient();
   }).toThrow('ApiClientService undefined');
 
-  const client = new AxiosApiClient();
+  const client = new AxiosClient();
   expect(core.setClient(client)).toBe(core);
   expect(core.getClient()).toBe(client);
 

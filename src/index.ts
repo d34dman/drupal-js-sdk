@@ -5,4 +5,4 @@ export {DrupalError} from './DrupalError';
 export {DrupalMenu} from './DrupalMenu';
 export {DrupalRole} from './DrupalRole';
 export {DrupalSettings} from './DrupalSettings';
-export {AxiosApiClient} from './AxiosApiClient';
+export {AxiosClient} from './AxiosClient';

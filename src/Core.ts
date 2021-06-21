@@ -1,5 +1,5 @@
 import {Config} from './Config';
-import {ApiClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, SessionInterface} from './interfaces';
+import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, SessionInterface} from './interfaces';
 
 
 export interface BasicAuthParams {
@@ -13,7 +13,7 @@ export interface ConfigConfigType {
 }
 
 interface ServiceBag {
-  client?: ApiClientInterface;
+  client?: ClientInterface;
   session?: SessionInterface;
 }
 
@@ -25,12 +25,12 @@ export class Core implements CoreInterface {
     this.config = new Config(config);
   }
 
-  public setClient(apiClient: ApiClientInterface): CoreInterface {
+  public setClient(apiClient: ClientInterface): CoreInterface {
     this.service.client = apiClient;
     return this;
   }
 
-  public getClient(): ApiClientInterface {
+  public getClient(): ClientInterface {
     if (this.service.client === undefined) {
       throw new Error(`ApiClientService undefined`);
     }

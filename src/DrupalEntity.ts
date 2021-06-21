@@ -1,6 +1,6 @@
 import {Config} from './Config';
 import {Drupal} from './Drupal';
-import {ApiClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface} from './interfaces';
+import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface} from './interfaces';
 import {JsonApiResourceHandler} from './JsonApiResourceHandler';
 import {ResourceHandler} from './ResourceHandler';
 

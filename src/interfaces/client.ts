@@ -1,8 +1,8 @@
 import {DrupalError} from '../DrupalError';
 
-export interface ApiClientInterface {
+export interface ClientInterface {
   client: any;
-  setClient(client: any): ApiClientInterface;
+  setClient(client: any): ClientInterface;
   getClient(): any;
   request(
     method: string,
@@ -10,5 +10,5 @@ export interface ApiClientInterface {
     config?: {[key: string]: any;}
   ): Promise<any>;
   getDrupalError(response: any): DrupalError;
-  addDefaultHeaders(headers: {[key: string]: any;}): ApiClientInterface;
+  addDefaultHeaders(headers: {[key: string]: any;}): ClientInterface;
 }
