@@ -12,11 +12,10 @@ interface JsonErrorResponseType {
   code: number;
   error: string;
 }
-
 export class AxiosClient implements ClientInterface {
   public client: AxiosInstance;
 
-  constructor(options = {}) {
+  constructor(options: AxiosRequestConfig = {}) {
     this.client = axios.create(options);
     this.client.defaults.withCredentials = true;
   }
@@ -35,7 +34,7 @@ export class AxiosClient implements ClientInterface {
     return this;
   }
 
-  request(
+  call(
     method: Method,
     path: string,
     config?: {[key: string]: any;},
@@ -45,7 +44,17 @@ export class AxiosClient implements ClientInterface {
       url: path,
       ...config,
     };
-    return this.client.request(reqCofnig);
+    return this.request(reqCofnig)
+      .then((response) => {
+        return response;
+      }, (response) => {
+        return this.getDrupalError(response);
+      });
+  }
+
+
+  request(reqConfig: AxiosRequestConfig): Promise<AxiosResponse> {
+    return this.client.request(reqConfig);
   }
 
   getDrupalError(response: {[key: string]: any;} | string): DrupalError {

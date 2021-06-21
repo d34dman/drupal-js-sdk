@@ -8,7 +8,7 @@ test('Axios client', () => {
   const client = axios.create();
   expect(api.setClient(client)).toBe(api);
   expect(api.getClient()).toBe(client);
-  expect(api.request('GET', 'https://localhost', {})).toBeInstanceOf(Promise);
+  expect(api.call('GET', 'https://localhost', {})).toBeInstanceOf(Promise);
   expect(api.getDrupalError('')).toBeInstanceOf(DrupalError);
   expect(api.getDrupalError({})).toBeInstanceOf(DrupalError);
   expect(api.getDrupalError({responseText: 'foo'})).toBeInstanceOf(

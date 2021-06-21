@@ -4,7 +4,7 @@ export interface ClientInterface {
   client: any;
   setClient(client: any): ClientInterface;
   getClient(): any;
-  request(
+  call(
     method: string,
     path: string,
     config?: {[key: string]: any;}

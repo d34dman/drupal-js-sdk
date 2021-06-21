@@ -31,7 +31,7 @@ export class DrupalMenu {
   }
 
   public getMenuRaw(menu_name: string): Promise<any> {
-    return this.client.request('get', `/system/menu/${menu_name}/linkset`);
+    return this.client.call('get', `/system/menu/${menu_name}/linkset`);
   }
 
   /**

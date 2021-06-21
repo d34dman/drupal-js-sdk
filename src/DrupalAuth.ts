@@ -44,7 +44,7 @@ export class DrupalAuth {
       withCredentials: true,
     };
     return this.client
-      .request('get', '/session/token', config)
+      .call('get', '/session/token', config)
       .then((response) => {
         const data = response.data;
         this.store.csrf_token = data;
@@ -68,7 +68,7 @@ export class DrupalAuth {
       },
     };
     return this.client
-      .request('post', '/user/login', config)
+      .call('post', '/user/login', config)
       .then((response) => {
         const data = response.data;
         this.store = data;
@@ -88,7 +88,7 @@ export class DrupalAuth {
       },
     };
     return this.client
-      .request('get', '/user/login_status', config)
+      .call('get', '/user/login_status', config)
       .then((response) => {
         return response.data !== 0;
       });
@@ -104,7 +104,7 @@ export class DrupalAuth {
       withCredentials: true,
     };
     return this.client
-      .request('get', '/user/logout', config)
+      .call('get', '/user/logout', config)
       // @TODO Reset user is authenticated status.
       .then(() => true);
   }
@@ -121,7 +121,7 @@ export class DrupalAuth {
       },
     };
     return this.client
-      .request('post', '/user/logout', config)
+      .call('post', '/user/logout', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
         return response;
@@ -142,7 +142,7 @@ export class DrupalAuth {
       },
     };
     return this.client
-      .request('post', '/user/password', config)
+      .call('post', '/user/password', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
         return response;
@@ -163,7 +163,7 @@ export class DrupalAuth {
       },
     };
     return this.client
-      .request('post', '/user/password', config)
+      .call('post', '/user/password', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
         return response;
@@ -189,7 +189,7 @@ export class DrupalAuth {
       },
     };
     return this.client
-      .request('post', '/user/register', config)
+      .call('post', '/user/register', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
         return response;
