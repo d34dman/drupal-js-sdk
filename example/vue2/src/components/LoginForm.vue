@@ -1,6 +1,5 @@
 <template>
-	<button v-if="user.loggedIn" @click="logout">Log out</button>
-	<form v-else @submit.prevent="submit" class="mt-8 space-y-6" action="#" method="POST">
+	<form @submit.prevent="submit" class="mt-8 space-y-6" action="#" method="POST">
 		<input type="hidden" name="remember" value="true" />
 		<div class="rounded-md shadow-sm -space-y-px">
 			<div>
@@ -130,49 +129,38 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Drupal, DrupalAuth } from 'drupal-js-sdk';
+import drupal from '../utils/drupal-sdk';
 
 export default Vue.extend({
+	name: 'LoginForm',
 	data() {
 		return {
 			user: {
 				username: '',
-				password: '',
-				loggedIn: false
+				password: ''
 			},
 			inProgress: false,
-			error: false,
-			auth: {} as DrupalAuth
+			error: false
 		};
 	},
 	methods: {
 		submit() {
 			this.inProgress = true;
-			this.auth
+			drupal
 				.login(this.user.username, this.user.password)
 				.then((response) => {
-					this.inProgress = false;
-					this.user.username = response.data.current_user.name;
-					this.user.loggedIn = true;
+					this.user.username = '';
 					this.user.password = '';
+					localStorage.setItem('username', response.data.current_user.name);
+					this.$router.push('/');
 				})
 				.catch((err) => {
 					this.error = err.response.data.message;
+				})
+				.finally(() => {
+					this.inProgress = false;
 				});
-		},
-		logout() {
-			this.auth.logout().then(() => {
-				this.user.loggedIn = false;
-				this.user.username = '';
-				this.user.password = '';
-			});
 		}
-	},
-	mounted() {
-		const drupal = new Drupal().initialize({
-			baseURL: process.env.VUE_APP_BASE_URL
-		});
-		this.auth = new DrupalAuth(drupal);
 	}
 });
 </script>

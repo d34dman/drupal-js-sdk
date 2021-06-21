@@ -2,8 +2,11 @@
 
 ## Project setup
 ```
+cp .env.example .env
 yarn install
 ```
+
+Change `VUE_APP_BASE_URL` in your .env file to your Drupal installation URL.
 
 ### Compiles and hot-reloads for development
 ```
