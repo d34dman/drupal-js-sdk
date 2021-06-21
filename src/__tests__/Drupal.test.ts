@@ -1,17 +1,17 @@
 import {Drupal} from '..';
 
 test('Drupal initialize', () => {
-  const sdk = new Drupal();
   const config = {
     baseURL: 'http://www.example.com',
   };
+  const sdk = new Drupal(config);
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.set('FOO', 'bar');
-  expect(sdk.get('FOO')).toBe('bar');
+  sdk.config.set('FOO', 'bar');
+  expect(sdk.config.get('FOO')).toBe('bar');
+  expect(sdk.config.get('baseURL')).toBe(config.baseURL);
 });
 
 test('Drupal initialize with headers', () => {
-  const sdk = new Drupal();
   const config = {
     baseURL: 'http://www.example.com',
     headers: {
@@ -20,13 +20,13 @@ test('Drupal initialize with headers', () => {
       'X-Baz': true,
     },
   };
+  const sdk = new Drupal(config);
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.set('FOO', 'bar');
-  expect(sdk.get('FOO')).toBe('bar');
+  sdk.config.set('FOO', 'bar');
+  expect(sdk.config.get('FOO')).toBe('bar');
 });
 
 test('Drupal initialize with basic auth', () => {
-  const sdk = new Drupal();
   const config = {
     baseURL: 'http://www.example.com',
     auth: {
@@ -34,7 +34,8 @@ test('Drupal initialize with basic auth', () => {
       password: 'dpa',
     },
   };
+  const sdk = new Drupal(config);
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.set('FOO', 'bar');
-  expect(sdk.get('FOO')).toBe('bar');
+  sdk.config.set('FOO', 'bar');
+  expect(sdk.config.get('FOO')).toBe('bar');
 });

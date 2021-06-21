@@ -1,51 +1,51 @@
-import type {ApiClientInterface} from './interfaces/ApiClientInterface';
-import {CoreInterface} from './interfaces/CoreInterface';
+import {Config} from './Config';
+import {ApiClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, SessionInterface} from './interfaces';
 
-interface Config<TValue> {
-  [id: string]: TValue;
+
+export interface BasicAuthParams {
+  username: string;
+  password: string;
+}
+export interface ConfigConfigType {
+  auth?: BasicAuthParams;
+  headers?: {[key: string]: any;};
+  baseURL?: string;
 }
 
 interface ServiceBag {
-  ApiClientService?: ApiClientInterface;
+  client?: ApiClientInterface;
+  session?: SessionInterface;
 }
 
 export class Core implements CoreInterface {
   service: ServiceBag = {};
-  config: Config<any> = {
-    IS_NODE:
-      typeof process !== 'undefined' &&
-      Boolean(process.versions) &&
-      Boolean(process.versions.node) &&
-      !process.versions.electron,
-    REQUEST_HEADERS: {},
-    SERVER_URL: 'https://api.drupal.com',
-    JSON_API_ENDPOINT: '/jsonapi',
-  };
+  public config: ConfigInterface;
 
-  public get(key: string): any {
-    if (Object.prototype.hasOwnProperty.call(this.config, key)) {
-      return this.config[key];
-    }
-    throw new Error(`Configuration key not found: ${key}`);
+  constructor(config: ConfigRecordInterface) {
+    this.config = new Config(config);
   }
 
-  public set(
-    key: string,
-    value: boolean | number | string | {[key: string]: unknown;},
-  ): CoreInterface {
-    this.config[key] = value;
+  public setClient(apiClient: ApiClientInterface): CoreInterface {
+    this.service.client = apiClient;
     return this;
   }
 
-  public setApiClientService(apiClient: ApiClientInterface): CoreInterface {
-    this.service.ApiClientService = apiClient;
-    return this;
-  }
-
-  public getApiClientService(): ApiClientInterface {
-    if (this.service.ApiClientService === undefined) {
+  public getClient(): ApiClientInterface {
+    if (this.service.client === undefined) {
       throw new Error(`ApiClientService undefined`);
     }
-    return this.service.ApiClientService;
+    return this.service.client;
+  }
+
+  public setSessionService(session: SessionInterface): CoreInterface {
+    this.service.session = session;
+    return this;
+  }
+
+  public getSessionService(): SessionInterface {
+    if (this.service.session === undefined) {
+      throw new Error(`SessionService undefined`);
+    }
+    return this.service.session;
   }
 }

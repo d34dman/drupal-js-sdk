@@ -6,7 +6,7 @@ import axios, {
 } from 'axios';
 
 import {DrupalError} from './DrupalError';
-import {ApiClientInterface} from './interfaces/ApiClientInterface';
+import {ApiClientInterface} from './interfaces';
 
 interface JsonErrorResponseType {
   code: number;

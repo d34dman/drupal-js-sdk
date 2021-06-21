@@ -1,5 +1,5 @@
 import {Drupal} from './Drupal';
-import {ApiClientInterface} from './interfaces/ApiClientInterface';
+import {ApiClientInterface} from './interfaces';
 import {DrupalError} from './DrupalError';
 
 interface MenuDictionary<TValue> {
@@ -14,7 +14,7 @@ export class DrupalMenu {
   client: ApiClientInterface;
   constructor(drupal: Drupal) {
     this.drupal = drupal;
-    this.client = drupal.getApiClientService();
+    this.client = drupal.getClient();
   }
 
   public async getMenu(menu_name: string): Promise<any> {
