@@ -48,7 +48,7 @@ export class AxiosClient implements ClientInterface {
       .then((response) => {
         return response;
       }, (response) => {
-        return this.getDrupalError(response);
+        throw this.getDrupalError(response);
       });
   }
 
