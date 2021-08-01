@@ -1,13 +1,18 @@
 import {AxiosClient} from './AxiosClient';
 import {Core} from './Core';
-import {ConfigInterface} from './interfaces';
+import {
+  ConfigInterface,
+  ConfigRecordInterface,
+  ConfigRecordValueType,
+  ConfigRecordKeyType,
+} from './interfaces';
 
 export interface BasicAuthParams {
   username: string;
   password: string;
 }
 
-export interface DrupalConfig {
+export interface DrupalConfig extends ConfigRecordInterface{
   auth?: BasicAuthParams;
   headers?: {[key: string]: any;};
   baseURL: string;
@@ -17,6 +22,12 @@ export interface DrupalConfig {
  * Drupal.
  */
 export class Drupal extends Core {
+
+
+  constructor(config: DrupalConfig) {
+    super(config);
+    this.initialize(config);
+  }
 
   initialize(options: DrupalConfig): Drupal {
     const apiConfig = {

@@ -1,7 +1,7 @@
 import {StorageInterface} from './storage';
 
 export type ConfigRecordKeyType = string;
-export type ConfigRecordValueType = boolean | number | string | {[key: string]: any;};
+export type ConfigRecordValueType = boolean | number | string | {[key: string]: any;} | undefined;
 export interface ConfigRecordInterface {
     [id: string]: ConfigRecordValueType;
 }

@@ -29,8 +29,11 @@ mock.onGet('/user/logout').reply(200, '');
 mock.onPost('/user/register').reply(200, mockData.register.new_user);
 
 test('Drupal Auth login and logout', async () => {
-  const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const auth = new DrupalAuth(drupal);
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
   expect(auth.store.csrf_token).toEqual('mock-session-token');
   expect(await auth.loginStatus()).toEqual(false);
@@ -57,8 +60,11 @@ test('Drupal Auth login and logout', async () => {
 
 
 test('Drupal Auth Forced logout', async () => {
-  const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const auth = new DrupalAuth(drupal);
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const auth = new DrupalAuth(sdk);
   const status = await auth.forcedLogout();
   expect(status).toEqual(true);
   await auth.getSessionToken();
@@ -72,8 +78,11 @@ test('Drupal Auth Forced logout', async () => {
 });
 
 test('Drupal Auth password reset', async () => {
-  const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const auth = new DrupalAuth(drupal);
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
   await auth.passwordResetByMail('admin@example.com').then((response) => {
     expect(response.status).toBe(200);
@@ -84,8 +93,11 @@ test('Drupal Auth password reset', async () => {
 });
 
 test('Drupal Auth register', async () => {
-  const drupal = new Drupal().initialize({baseURL: 'http://example.com'});
-  const auth = new DrupalAuth(drupal);
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
   await auth
     .register('admin', 'admin@example.com')

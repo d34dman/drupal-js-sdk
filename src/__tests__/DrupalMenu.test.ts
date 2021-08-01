@@ -1,4 +1,10 @@
 import {Drupal, DrupalMenu} from '..';
+import {
+  ConfigInterface,
+  ConfigRecordInterface,
+  ConfigRecordValueType,
+  ConfigRecordKeyType,
+} from '../interfaces';
 
 
 const mockData: {[key: string]: any;} = {
@@ -88,8 +94,11 @@ const mockData: {[key: string]: any;} = {
 };
 
 test('Drupal Menu : getMenu', async () => {
-  const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
-  const menu = new DrupalMenu(drupal);
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const menu = new DrupalMenu(sdk);
 
   expect(menu.getMenu('main')).toBeInstanceOf(Promise);
 
@@ -113,8 +122,11 @@ test('Drupal Menu : getMenu', async () => {
 });
 
 test('Drupal Menu : massage Menu', () => {
-  const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
-  const menu = new DrupalMenu(drupal);
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const menu = new DrupalMenu(sdk);
   const menuData = mockData.valid;
   expect(menu.checkIfDrupalMenuDataIsValid(menuData)).toBe(true);
   const normalizedItems = menu.normalizeListItems(menuData);
@@ -123,8 +135,11 @@ test('Drupal Menu : massage Menu', () => {
 });
 
 test('Drupal Menu function defaults', () => {
-  const drupal = new Drupal().initialize({baseURL: 'https://example.com'});
-  const menu = new DrupalMenu(drupal);
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const menu = new DrupalMenu(sdk);
   expect(menu.checkIfDrupalMenuDataIsValid(mockData.invalid)).toBe(false);
   expect(menu.convertFlatListItemsToTree([])).toEqual([]);
   expect(menu.normalizeListItems({})).toEqual([]);

@@ -1,10 +1,16 @@
-import {Config, ConfigValue} from './Config';
+import {Config} from './Config';
+import {
+  ConfigInterface,
+  ConfigRecordInterface,
+  ConfigRecordValueType,
+  ConfigRecordKeyType,
+} from './interfaces';
 
 /**
  * Probably not needed.
  */
 export class CoreConfig extends Config {
-  protected readonly _default: ConfigValue<any> = {
+  protected readonly _default: ConfigRecordInterface = {
     IS_NODE:
           typeof process !== 'undefined' &&
           Boolean(process.versions) &&
