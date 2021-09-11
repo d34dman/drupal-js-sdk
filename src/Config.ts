@@ -35,7 +35,7 @@ export class Config implements ConfigInterface {
 
   public clear(): boolean {
     this._record = {};
-    return (this._record === {});
+    return (JSON.stringify(this._record ) === JSON.stringify({}));
   }
 
   public getConfig(): ConfigRecordInterface {

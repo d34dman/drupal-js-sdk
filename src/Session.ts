@@ -7,22 +7,20 @@ export class Session implements SessionInterface {
     this.config = new Config(config);
   }
 
-  public getItem(key: string): string {
-    // @TODO : indirectly use localstorage if avaiable.
-    return '';
+  public getItem(key: string): any {
+    throw new Error('Method not implemented');
   }
 
-  public setItem(keyName: string, keyValue: string): boolean{
-    // @TODO : indirectly use localstorage if avaiable.
-    return false;
+  public setItem(keyName: string, keyValue: any): boolean{
+    throw new Error('Method not implemented');
   }
 
   public removeItem(keyName: string): boolean {
-    return false;
+    throw new Error('Method not implemented');
   }
 
   public clear(): boolean {
-    return false;
+    throw new Error('Method not implemented');
   }
 
 }
