@@ -28,11 +28,11 @@ export class DrupalEntity {
 
   public setJsonApiConfig(config: JsonApiConfig):
      DrupalEntity {
-    this.config.set(DrupalEntity.JSON_API, config);
+    this.config.setItem(DrupalEntity.JSON_API, config);
     return this;
   }
 
   public getJsonApiConfig(): JsonApiConfig {
-    return this.config.get(DrupalEntity.JSON_API);
+    return this.config.getItem(DrupalEntity.JSON_API);
   }
 }

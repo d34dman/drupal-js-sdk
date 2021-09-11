@@ -8,11 +8,6 @@ export interface ConfigRecordInterface {
 
 export interface ConfigInterface extends StorageInterface{
     getType(): string;
-    get(key: string): any ;
-    set(
-          key: string,
-          value: ConfigRecordValueType,
-      ): ConfigInterface;
     getConfig(): ConfigRecordInterface;
     setConfig(config: ConfigRecordInterface): ConfigInterface ;
 }

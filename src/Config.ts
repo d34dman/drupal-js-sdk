@@ -38,18 +38,6 @@ export class Config implements ConfigInterface {
     return (this._record === {});
   }
 
-  public get(key: ConfigRecordKeyType): any {
-    return this.getItem(key);
-  }
-
-  public set(
-        key: ConfigRecordKeyType,
-        value: ConfigRecordValueType,
-    ): ConfigInterface {
-    this.setItem(key, value);
-    return this;
-  }
-
   public getConfig(): ConfigRecordInterface {
     return this._record;
   }

@@ -3,17 +3,17 @@ import {Config} from '../Config';
 
 test('Config', () => {
   const config = new Config({});
-  config.set('FOO', 'bar');
+  config.setItem('FOO', 'bar');
   expect(config.getType()).toBe('config');
-  expect(config.get('FOO')).toBe('bar');
+  expect(config.getItem('FOO')).toBe('bar');
   expect(config.getConfig()).toEqual({FOO: 'bar'});
   expect(config.setConfig({})).toBe(config);
   expect(config.getConfig()).toEqual({});
-  config.set('FOO', 'bar');
-  config.set('FOO', 'bar');
-  config.set('FOO', 'bar');
-  config.set('FOO', 'bar');
+  config.setItem('FOO', 'bar');
+  config.setItem('FOO', 'bar');
+  config.setItem('FOO', 'bar');
+  config.setItem('FOO', 'bar');
   expect(config.getConfig()).toEqual({FOO: 'bar'});
-  config.set('AAA', 'BBB');
+  config.setItem('AAA', 'BBB');
   expect(config.getConfig()).toEqual({AAA: 'BBB', FOO: 'bar'});
 });

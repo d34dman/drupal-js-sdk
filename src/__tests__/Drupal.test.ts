@@ -6,9 +6,9 @@ test('Drupal initialize', () => {
   };
   const sdk = new Drupal(config);
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.config.set('FOO', 'bar');
-  expect(sdk.config.get('FOO')).toBe('bar');
-  expect(sdk.config.get('baseURL')).toBe(config.baseURL);
+  sdk.config.setItem('FOO', 'bar');
+  expect(sdk.config.getItem('FOO')).toBe('bar');
+  expect(sdk.config.getItem('baseURL')).toBe(config.baseURL);
 });
 
 test('Drupal initialize with headers', () => {
@@ -22,8 +22,8 @@ test('Drupal initialize with headers', () => {
   };
   const sdk = new Drupal(config);
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.config.set('FOO', 'bar');
-  expect(sdk.config.get('FOO')).toBe('bar');
+  sdk.config.setItem('FOO', 'bar');
+  expect(sdk.config.getItem('FOO')).toBe('bar');
 });
 
 test('Drupal initialize with basic auth', () => {
@@ -36,6 +36,6 @@ test('Drupal initialize with basic auth', () => {
   };
   const sdk = new Drupal(config);
   expect(sdk.initialize(config)).toBe(sdk);
-  sdk.config.set('FOO', 'bar');
-  expect(sdk.config.get('FOO')).toBe('bar');
+  sdk.config.setItem('FOO', 'bar');
+  expect(sdk.config.getItem('FOO')).toBe('bar');
 });

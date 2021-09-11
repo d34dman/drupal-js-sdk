@@ -3,7 +3,7 @@ export interface StorageInterface {
     /**
      * When passed a key name, will return that key's value.
      */
-    getItem(keyName: string): string;
+    getItem(keyName: string): any;
 
     /**
      * When passed a key name and value, will add that key to the storage,

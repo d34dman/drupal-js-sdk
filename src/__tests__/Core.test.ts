@@ -3,10 +3,10 @@ import {Session} from '../Session';
 
 test('Core', () => {
   const core = new Core({});
-  core.config.set('FOO', 'bar');
-  expect(core.config.get('FOO')).toBe('bar');
+  core.config.setItem('FOO', 'bar');
+  expect(core.config.getItem('FOO')).toBe('bar');
   expect(() => {
-    core.config.get('BAR');
+    core.config.getItem('BAR');
   }).toThrow('Configuration key not found: BAR');
 
 });
