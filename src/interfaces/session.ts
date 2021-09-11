@@ -1,4 +1,4 @@
 import {StorageInterface} from './storage';
 
-export interface SessionInterface extends StorageInterface{
+export interface SessionInterface extends StorageInterface {
 }
