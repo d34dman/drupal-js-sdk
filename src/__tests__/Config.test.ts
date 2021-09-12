@@ -22,5 +22,5 @@ test('Config', () => {
   expect(config.getConfig()).toEqual({});
   config.setItem('FOO', 'bar');
   expect(config.getType()).toBe('config');
-  expect(config.getItem('FOO')).toBe('bar');  
+  expect(config.getItem('FOO')).toBe('bar');
 });

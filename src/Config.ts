@@ -16,26 +16,26 @@ export class Config implements ConfigInterface {
     this._record = config;
   }
 
-  public getItem(key: string): any {
+  public getItem(key: ConfigRecordKeyType): ConfigRecordValueType {
     if (Object.prototype.hasOwnProperty.call(this._record, key)) {
       return this._record[key];
     }
     throw new Error(`Configuration key not found: ${key}`);
   }
 
-  public setItem(keyName: string, keyValue: any): boolean{
+  public setItem(keyName: ConfigRecordKeyType, keyValue: ConfigRecordValueType): boolean {
     this._record[keyName] = keyValue;
     return false;
   }
 
-  public removeItem(keyName: string): boolean {
-    delete(this._record[keyName]);
-    return (this._record[keyName] === undefined);
+  public removeItem(keyName: ConfigRecordKeyType): boolean {
+    delete this._record[keyName];
+    return this._record[keyName] === undefined;
   }
 
   public clear(): boolean {
     this._record = {};
-    return (JSON.stringify(this._record ) === JSON.stringify({}));
+    return JSON.stringify(this._record) === JSON.stringify({});
   }
 
   public getConfig(): ConfigRecordInterface {
