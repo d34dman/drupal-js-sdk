@@ -1,9 +1,8 @@
-import {StorageInterface, StorageKeyType, StorageValueType} from './storage';
+import {StorageInterface, StorageValueType} from './storage';
 
-export type ConfigRecordKeyType = StorageKeyType;
 export type ConfigRecordValueType = StorageValueType;
 export interface ConfigRecordInterface {
-    [id: ConfigRecordKeyType]: ConfigRecordValueType;
+    [id: string]: ConfigRecordValueType;
 }
 
 export interface ConfigInterface extends StorageInterface{

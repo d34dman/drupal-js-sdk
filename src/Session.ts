@@ -3,7 +3,6 @@ import {
   ConfigInterface,
   ConfigRecordInterface,
   SessionInterface,
-  StorageKeyType,
   StorageValueType,
 } from './interfaces';
 
@@ -13,15 +12,15 @@ export class Session implements SessionInterface {
     this.config = new Config(config);
   }
 
-  public getItem(key: StorageKeyType): StorageValueType {
+  public getItem(key: string): StorageValueType {
     throw new Error('Method not implemented');
   }
 
-  public setItem(keyName: StorageKeyType, keyValue: StorageValueType): boolean {
+  public setItem(keyName: string, keyValue: StorageValueType): boolean {
     throw new Error('Method not implemented');
   }
 
-  public removeItem(keyName: StorageKeyType): boolean {
+  public removeItem(keyName: string): boolean {
     throw new Error('Method not implemented');
   }
 

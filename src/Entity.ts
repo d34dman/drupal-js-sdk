@@ -1,8 +1,5 @@
-import {ResourceHandlerInterface,
-    ConfigInterface,
+import {
     ConfigRecordInterface,
-    ConfigRecordValueType,
-    ConfigRecordKeyType,
   } from './interfaces';
 
 

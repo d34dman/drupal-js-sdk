@@ -1,9 +1,6 @@
 import {Config} from './Config';
 import {
-  ConfigInterface,
   ConfigRecordInterface,
-  ConfigRecordValueType,
-  ConfigRecordKeyType,
 } from './interfaces';
 
 /**

@@ -1,10 +1,7 @@
 import {AxiosClient} from './AxiosClient';
 import {Core} from './Core';
 import {
-  ConfigInterface,
   ConfigRecordInterface,
-  ConfigRecordValueType,
-  ConfigRecordKeyType,
 } from './interfaces';
 
 export interface BasicAuthParams {

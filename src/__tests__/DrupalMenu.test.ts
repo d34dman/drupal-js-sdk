@@ -1,10 +1,4 @@
 import {Drupal, DrupalMenu} from '..';
-import {
-  ConfigInterface,
-  ConfigRecordInterface,
-  ConfigRecordValueType,
-  ConfigRecordKeyType,
-} from '../interfaces';
 
 
 const mockData: {[key: string]: any;} = {

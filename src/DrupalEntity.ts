@@ -1,6 +1,6 @@
 import {Config} from './Config';
 import {Drupal} from './Drupal';
-import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface} from './interfaces';
+import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, StorageValueType} from './interfaces';
 import {JsonApiResourceHandler} from './JsonApiResourceHandler';
 import {ResourceHandler} from './ResourceHandler';
 
@@ -10,7 +10,7 @@ export interface DrupalEntityConfig extends ConfigRecordInterface {
     identifier: string;
 }
 
-export interface JsonApiConfig {
+export interface JsonApiConfig extends ConfigRecordInterface {
     apiEndpoint: string;
     type: string;
 }
@@ -32,7 +32,7 @@ export class DrupalEntity {
     return this;
   }
 
-  public getJsonApiConfig(): JsonApiConfig {
+  public getJsonApiConfig(): StorageValueType {
     return this.config.getItem(DrupalEntity.JSON_API);
   }
 }
