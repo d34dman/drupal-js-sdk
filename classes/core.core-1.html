@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Drupal | drupal-js-sdk</title>
+	<title>Core | drupal-js-sdk</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules/drupal.html">Drupal</a>
+					<a href="../modules/core.html">Core</a>
 				</li>
 				<li>
-					<a href="drupal.drupal-1.html">Drupal</a>
+					<a href="core.core-1.html">Core</a>
 				</li>
 			</ul>
 		</div>
@@ -75,10 +75,10 @@
 					<li class=" ">
 						<a href="../modules.html">Modules</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/core.html">Core</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/drupal.html">Drupal</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -94,23 +94,24 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Class Drupal</h1>
-			<section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography tsd-comment-shorttext">
-					<div class="lead">
-						<p>Drupal.</p>
-					</div>
-			</div></section>
+			<h1>Class Core</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="core.core-1.html" class="tsd-signature-type">Core</a>
+						<span class="target">Core</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">Drupal</span>
+								<a href="drupal.drupal-1.html" class="tsd-signature-type">Drupal</a>
 							</li>
 						</ul>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/interfaces.coreinterface.html" class="tsd-signature-type">CoreInterface</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -119,24 +120,23 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="drupal.drupal-1.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="core.core-1.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="drupal.drupal-1.html#config" class="tsd-kind-icon">config</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="drupal.drupal-1.html#service" class="tsd-kind-icon">service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="core.core-1.html#config" class="tsd-kind-icon">config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="core.core-1.html#service" class="tsd-kind-icon">service</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="drupal.drupal-1.html#getclient" class="tsd-kind-icon">get<wbr>Client</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="drupal.drupal-1.html#getsessionservice" class="tsd-kind-icon">get<wbr>Session<wbr>Service</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="drupal.drupal-1.html#initialize" class="tsd-kind-icon">initialize</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="drupal.drupal-1.html#setclient" class="tsd-kind-icon">set<wbr>Client</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="drupal.drupal-1.html#setsessionservice" class="tsd-kind-icon">set<wbr>Session<wbr>Service</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="core.core-1.html#getclient" class="tsd-kind-icon">get<wbr>Client</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="core.core-1.html#getsessionservice" class="tsd-kind-icon">get<wbr>Session<wbr>Service</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="core.core-1.html#setclient" class="tsd-kind-icon">set<wbr>Client</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="core.core-1.html#setsessionservice" class="tsd-kind-icon">set<wbr>Session<wbr>Service</a></li>
 							</ul>
 						</section>
 					</div>
@@ -144,50 +144,47 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Drupal<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/drupal.drupalconfig.html" class="tsd-signature-type">DrupalConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="drupal.drupal-1.html" class="tsd-signature-type">Drupal</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Core<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/interfaces.configrecordinterface.html" class="tsd-signature-type">ConfigRecordInterface</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="core.core-1.html" class="tsd-signature-type">Core</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="core.core-1.html">Core</a>.<a href="core.core-1.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in src/Drupal.ts:24</li>
+									<li>Defined in src/Core.ts:22</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/drupal.drupalconfig.html" class="tsd-signature-type">DrupalConfig</a></h5>
+									<h5>config: <a href="../interfaces/interfaces.configrecordinterface.html" class="tsd-signature-type">ConfigRecordInterface</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="drupal.drupal-1.html" class="tsd-signature-type">Drupal</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="core.core-1.html" class="tsd-signature-type">Core</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="config" class="tsd-anchor"></a>
 					<h3>config</h3>
 					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/interfaces.configinterface.html" class="tsd-signature-type">ConfigInterface</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="core.core-1.html">Core</a>.<a href="core.core-1.html#config">config</a></p>
 						<ul>
 							<li>Defined in src/Core.ts:22</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="service" class="tsd-anchor"></a>
 					<h3>service</h3>
 					<div class="tsd-signature tsd-kind-icon">service<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ServiceBag</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="core.core-1.html">Core</a>.<a href="core.core-1.html#service">service</a></p>
 						<ul>
 							<li>Defined in src/Core.ts:21</li>
 						</ul>
@@ -196,16 +193,15 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getclient" class="tsd-anchor"></a>
 					<h3>get<wbr>Client</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Client<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/interfaces.clientinterface.html" class="tsd-signature-type">ClientInterface</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="core.core-1.html">Core</a>.<a href="core.core-1.html#getclient">getClient</a></p>
 								<ul>
 									<li>Defined in src/Core.ts:33</li>
 								</ul>
@@ -214,16 +210,15 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getsessionservice" class="tsd-anchor"></a>
 					<h3>get<wbr>Session<wbr>Service</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Session<wbr>Service<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/interfaces.sessioninterface.html" class="tsd-signature-type">SessionInterface</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="core.core-1.html">Core</a>.<a href="core.core-1.html#getsessionservice">getSessionService</a></p>
 								<ul>
 									<li>Defined in src/Core.ts:45</li>
 								</ul>
@@ -233,38 +228,14 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="initialize" class="tsd-anchor"></a>
-					<h3>initialize</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">initialize<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/drupal.drupalconfig.html" class="tsd-signature-type">DrupalConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="drupal.drupal-1.html" class="tsd-signature-type">Drupal</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/Drupal.ts:32</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>options: <a href="../interfaces/drupal.drupalconfig.html" class="tsd-signature-type">DrupalConfig</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="drupal.drupal-1.html" class="tsd-signature-type">Drupal</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="setclient" class="tsd-anchor"></a>
 					<h3>set<wbr>Client</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">set<wbr>Client<span class="tsd-signature-symbol">(</span>apiClient<span class="tsd-signature-symbol">: </span><a href="../interfaces/interfaces.clientinterface.html" class="tsd-signature-type">ClientInterface</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/interfaces.coreinterface.html" class="tsd-signature-type">CoreInterface</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="core.core-1.html">Core</a>.<a href="core.core-1.html#setclient">setClient</a></p>
 								<ul>
 									<li>Defined in src/Core.ts:28</li>
 								</ul>
@@ -279,16 +250,15 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="setsessionservice" class="tsd-anchor"></a>
 					<h3>set<wbr>Session<wbr>Service</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">set<wbr>Session<wbr>Service<span class="tsd-signature-symbol">(</span>session<span class="tsd-signature-symbol">: </span><a href="../interfaces/interfaces.sessioninterface.html" class="tsd-signature-type">SessionInterface</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/interfaces.coreinterface.html" class="tsd-signature-type">CoreInterface</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="core.core-1.html">Core</a>.<a href="core.core-1.html#setsessionservice">setSessionService</a></p>
 								<ul>
 									<li>Defined in src/Core.ts:40</li>
 								</ul>
@@ -312,41 +282,38 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module root">
-						<a href="drupal.drupal-1.html" class="tsd-kind-icon">Drupal</a>
+						<a href="core.core-1.html" class="tsd-kind-icon">Core</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="drupal.drupal-1.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="core.core-1.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="drupal.drupal-1.html#config" class="tsd-kind-icon">config</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="core.core-1.html#config" class="tsd-kind-icon">config</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="drupal.drupal-1.html#service" class="tsd-kind-icon">service</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="drupal.drupal-1.html#getclient" class="tsd-kind-icon">get<wbr>Client</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="drupal.drupal-1.html#getsessionservice" class="tsd-kind-icon">get<wbr>Session<wbr>Service</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="core.core-1.html#service" class="tsd-kind-icon">service</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="drupal.drupal-1.html#initialize" class="tsd-kind-icon">initialize</a>
+								<a href="core.core-1.html#getclient" class="tsd-kind-icon">get<wbr>Client</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="drupal.drupal-1.html#setclient" class="tsd-kind-icon">set<wbr>Client</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="core.core-1.html#getsessionservice" class="tsd-kind-icon">get<wbr>Session<wbr>Service</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="drupal.drupal-1.html#setsessionservice" class="tsd-kind-icon">set<wbr>Session<wbr>Service</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="core.core-1.html#setclient" class="tsd-kind-icon">set<wbr>Client</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="core.core-1.html#setsessionservice" class="tsd-kind-icon">set<wbr>Session<wbr>Service</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
-						<a href="../interfaces/drupal.basicauthparams.html" class="tsd-kind-icon">Basic<wbr>Auth<wbr>Params</a>
+						<a href="../interfaces/core.basicauthparams.html" class="tsd-kind-icon">Basic<wbr>Auth<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
-						<a href="../interfaces/drupal.drupalconfig.html" class="tsd-kind-icon">Drupal<wbr>Config</a>
+						<a href="../interfaces/core.configconfigtype.html" class="tsd-kind-icon">Config<wbr>Config<wbr>Type</a>
 					</li>
 				</ul>
 			</nav>
