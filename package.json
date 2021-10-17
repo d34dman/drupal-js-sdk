@@ -41,7 +41,7 @@
   "homepage": "https://github.com/d34dman/drupal-js-sdk#readme",
   "devDependencies": {
     "@shopify/eslint-plugin": "^40.2.1",
-    "@types/jest": "^25.2.3",
+    "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vuepress/plugin-docsearch": "^2.0.0-beta.15",
@@ -51,12 +51,12 @@
     "cross-env": "^7.0.3",
     "eslint": "^7.27.0",
     "eslint-plugin-no-loops": "^0.3.0",
-    "jest": "^25.5.4",
-    "ts-jest": "^25.5.1",
+    "jest": "^27.3.0",
+    "ts-jest": "^27.0.7",
     "typedoc": "^0.20.35",
     "typedoc-neo-theme": "^1.1.1",
     "typescript": "^3.9.5",
-    "vuepress": "^2.0.0-beta.16"
+    "vuepress": "^2.0.0-beta.26"
   },
   "dependencies": {
     "axios": "^0.21.4",
