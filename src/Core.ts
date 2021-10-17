@@ -2,16 +2,6 @@ import {Config} from './Config';
 import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, SessionInterface} from './interfaces';
 
 
-export interface BasicAuthParams {
-  username: string;
-  password: string;
-}
-export interface ConfigConfigType {
-  auth?: BasicAuthParams;
-  headers?: {[key: string]: any;};
-  baseURL?: string;
-}
-
 interface ServiceBag {
   client?: ClientInterface;
   session?: SessionInterface;

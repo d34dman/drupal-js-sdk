@@ -12,3 +12,8 @@ export interface ClientInterface {
   getDrupalError(response: any): DrupalError;
   addDefaultHeaders(headers: {[key: string]: any;}): ClientInterface;
 }
+
+export interface BasicAuthParams {
+  username: string;
+  password: string;
+}

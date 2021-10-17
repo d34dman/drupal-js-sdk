@@ -2,12 +2,8 @@ import {AxiosClient} from './AxiosClient';
 import {Core} from './Core';
 import {
   ConfigRecordInterface,
+  BasicAuthParams,
 } from './interfaces';
-
-export interface BasicAuthParams {
-  username: string;
-  password: string;
-}
 
 export interface DrupalConfig extends ConfigRecordInterface{
   auth?: BasicAuthParams;
