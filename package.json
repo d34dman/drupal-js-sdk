@@ -1,62 +1,25 @@
 {
-  "name": "drupal-js-sdk",
-  "version": "0.2.1",
-  "description": "Drupal JavaScript SDK",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib"
+  "name": "@drupal-js-sdk/monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "scripts": {
-    "test": "jest --config jestconfig.json",
-    "build": "tsc",
-    "format": "npm run lint-and-fix",
-    "lint": "eslint . --ext .ts",
-    "lint-and-fix": "eslint . --ext .ts --fix",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "docs:typedoc:build": "typedoc --options typedoc.json --out api --theme ./node_modules/typedoc-neo-theme/bin/default",
-    "docs": "npm run docs:build",
-    "docs:better-docs": "jsdoc -c jsdoc.json --verbose"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/d34dman/drupal-js-sdk.git"
-  },
-  "keywords": [
-    "Drupal",
-    "javascript",
-    "api"
-  ],
-  "author": "D34dMan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/d34dman/drupal-js-sdk/issues"
-  },
-  "homepage": "https://github.com/d34dman/drupal-js-sdk#readme",
   "devDependencies": {
-    "@shopify/eslint-plugin": "^40.2.1",
-    "@types/jest": "^27.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "axios-mock-adapter": "^1.19.0",
-    "codecov": "^3.7.1",
+    "@shopify/eslint-plugin": "^41.0.1",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^17.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "axios-mock-adapter": "^1.20.0",
+    "codecov": "^3.8.3",
     "cross-env": "^7.0.3",
-    "eslint": "^7.27.0",
+    "eslint": "^8.5.0",
     "eslint-plugin-no-loops": "^0.3.0",
-    "jest": "^27.3.0",
-    "ts-jest": "^27.0.7",
-    "typedoc": "^0.20.35",
+    "jest": "^27.4.5",
+    "lerna": "^4.0.0",
+    "ts-jest": "^27.1.2",
+    "typedoc": "^0.22.10",
     "typedoc-neo-theme": "^1.1.1",
-    "typescript": "^3.9.5"
-  },
-  "dependencies": {
-    "axios": "^0.21.4",
-    "jsona": "^1.9.2"
+    "typescript": "^4.5.4"
   }
 }

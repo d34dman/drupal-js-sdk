@@ -1,0 +1,34 @@
+{
+  "name": "drupal-js-sdk",
+  "version": "0.3.0",
+  "description": "Drupal JS SDK",
+  "keywords": [
+    "Drupal",
+    "SDK"
+  ],
+  "author": "D34dMan <shibinkidd@gmail.com>",
+  "homepage": "https://github.com/d34dman/drupal-js-sdk#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d34dman/drupal-js-sdk.git"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "test": "jest --config jestconfig.json"
+  },
+  "bugs": {
+    "url": "https://github.com/d34dman/drupal-js-sdk/issues"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}

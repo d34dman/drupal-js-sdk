@@ -41,3 +41,14 @@ _output
 /site/scripts/community
 /site/src/routes/_contributors.js
 /site/src/routes/_components/WhosUsingSvelte.*
+
+# Suggested gitignore
+node_modules/
+lerna-debug.log
+npm-debug.log
+packages/*/lib
+.idea
+
+#
+packages/*/coverage
+packages/*/coverage

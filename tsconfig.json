@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@drupal-js-sdk/core/*": ["packages/core/src/*"],
+      "@drupal-js-sdk/core": ["packages/core/src"],
+      "drupal-js-sdk": ["packages/drupal-js-sdk/src"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}
