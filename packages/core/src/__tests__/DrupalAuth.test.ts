@@ -16,7 +16,15 @@ const mockData: {[key: string]: any;} = {
   },
   valid: {},
   register: {
-    newUser: {uid: [{value: 19}], uuid: [{value: 'a02000bf-eff5-41f6-9a8d-f3cf3199dc2d'}], langcode: [{value: 'en'}], name: [{value: 'fooBar'}], created: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], changed: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], default_langcode: [{value: true}], user_picture: []},
+    newUser: {
+      uid: [{value: 19}],
+      uuid: [{value: 'a02000bf-eff5-41f6-9a8d-f3cf3199dc2d'}],
+      langcode: [{value: 'en'}], name: [{value: 'fooBar'}],
+      created: [{value: '2021-05-26T20:16:26+00:00',
+        format: 'Y-m-d\\TH:i:sP'}],
+      changed: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}],
+      default_langcode: [{value: true}], // eslint-disable-line @typescript-eslint/naming-convention
+      user_picture: []}, // eslint-disable-line @typescript-eslint/naming-convention
   },
 };
 
