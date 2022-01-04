@@ -1,4 +1,4 @@
-import {StorageInterface} from './storage';
-
-export interface SessionInterface extends StorageInterface {
+import {ConfigInterface} from './config';
+export interface SessionInterface {
+    config : ConfigInterface;
 }

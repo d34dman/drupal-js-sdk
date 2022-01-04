@@ -7,7 +7,7 @@ import {
 } from './interfaces';
 
 export class Session implements SessionInterface {
-  protected config: ConfigInterface;
+  public config: ConfigInterface;
   constructor(config: ConfigRecordInterface) {
     this.config = new Config(config);
   }

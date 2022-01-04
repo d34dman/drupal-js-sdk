@@ -7,7 +7,6 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "@drupal-js-sdk/core/*": ["packages/core/src/*"],
       "@drupal-js-sdk/core": ["packages/core/src"],
       "drupal-js-sdk": ["packages/drupal-js-sdk/src"]
     }
