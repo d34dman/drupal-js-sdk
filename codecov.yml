@@ -1,0 +1,27 @@
+coverage:
+  status:
+    project:
+      logsCode:
+        target: auto
+        flags:
+          - logsCode
+      serviceCode:
+        target: auto
+        flags:
+          - serviceCode
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+  require_base: true
+  require_head: true
+  branches: ['main']
+flags:
+  core:
+    paths:
+      - packages/core/coverage.txt
+    carryforward: true
+  drupal-js-sdk:
+    paths:
+      - packages/drupal-js-sdk/coverage.txt
+    carryforward: true
