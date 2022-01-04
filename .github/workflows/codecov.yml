@@ -18,6 +18,6 @@ jobs:
         yarn install --frozen-lockfile
         npx lerna bootstrap
     - name: Run tests
-      run: npx lerna test
+      run: npx lerna run test
     - name: Codecov
       uses: codecov/codecov-action@v1
