@@ -7,7 +7,7 @@ interface DrupalAuthUser {
   name: string;
 }
 interface DrupalAuthStore {
-  csrf_token?: string;
+  csrfToken?: string;
   logout_token?: string;
   current_user?: DrupalAuthUser;
 }
@@ -25,7 +25,7 @@ export class DrupalAuth {
 
   refreshUserSession(): Promise<any> {
     this.store = {
-      csrf_token: undefined,
+      csrfToken: undefined,
       logout_token: undefined,
       current_user: {
         uid: '0',
@@ -47,7 +47,7 @@ export class DrupalAuth {
       .call('get', '/session/token', config)
       .then((response) => {
         const data = response.data;
-        this.store.csrf_token = data;
+        this.store.csrfToken = data;
         this.client.addDefaultHeaders({'X-CSRF-Token': data});
         return response;
       });
@@ -72,7 +72,7 @@ export class DrupalAuth {
       .then((response) => {
         const data = response.data;
         this.store = data;
-        this.client.addDefaultHeaders({'X-CSRF-Token': data.csrf_token});
+        this.client.addDefaultHeaders({'X-CSRF-Token': data.csrfToken});
         return response;
       });
   }

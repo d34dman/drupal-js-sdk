@@ -10,7 +10,7 @@ const mockData: {[key: string]: any;} = {
   login: {
     admin: {
       current_user: {uid: '1', roles: ['authenticated'], name: 'admin'},
-      csrf_token: 'mock-session-token-from-login',
+      csrfToken: 'mock-session-token-from-login',
       logout_token: '8av5mgYDgJ7bKS2seVtIK3trLIuqsh4WycFL8w4qCKs',
     },
   },
@@ -35,16 +35,16 @@ test('Drupal Auth login and logout', async () => {
   const sdk = new Drupal(config);
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
-  expect(auth.store.csrf_token).toEqual('mock-session-token');
+  expect(auth.store.csrfToken).toEqual('mock-session-token');
   expect(await auth.loginStatus()).toEqual(false);
   expect.assertions(9);
   return auth
     .login('admin', 'admin')
     .then((response) => {
-      expect(response.data).toHaveProperty('csrf_token');
+      expect(response.data).toHaveProperty('csrfToken');
       expect(response.data).toHaveProperty('current_user');
       expect(response.data).toHaveProperty('logout_token');
-      expect(auth.store.csrf_token).toEqual(mockData.login.admin.csrf_token);
+      expect(auth.store.csrfToken).toEqual(mockData.login.admin.csrfToken);
       expect(auth.store.current_user).toEqual(
         mockData.login.admin.current_user,
       );
