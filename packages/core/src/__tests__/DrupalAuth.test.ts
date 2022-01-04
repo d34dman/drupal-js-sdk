@@ -16,7 +16,7 @@ const mockData: {[key: string]: any;} = {
   },
   valid: {},
   register: {
-    new_user: {uid: [{value: 19}], uuid: [{value: 'a02000bf-eff5-41f6-9a8d-f3cf3199dc2d'}], langcode: [{value: 'en'}], name: [{value: 'fooBar'}], created: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], changed: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], default_langcode: [{value: true}], user_picture: []},
+    newUser: {uid: [{value: 19}], uuid: [{value: 'a02000bf-eff5-41f6-9a8d-f3cf3199dc2d'}], langcode: [{value: 'en'}], name: [{value: 'fooBar'}], created: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], changed: [{value: '2021-05-26T20:16:26+00:00', format: 'Y-m-d\\TH:i:sP'}], default_langcode: [{value: true}], user_picture: []},
   },
 };
 
@@ -26,7 +26,7 @@ mock.onGet('/session/token').reply(200, 'mock-session-token');
 mock.onPost('/user/login').reply(200, mockData.login.admin);
 mock.onPost('/user/logout').reply(204, '');
 mock.onGet('/user/logout').reply(200, '');
-mock.onPost('/user/register').reply(200, mockData.register.new_user);
+mock.onPost('/user/register').reply(200, mockData.register.newUser);
 
 test('Drupal Auth login and logout', async () => {
   const config = {
