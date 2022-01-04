@@ -9,7 +9,7 @@ interface DrupalAuthUser {
 interface DrupalAuthStore {
   csrfToken?: string;
   logoutToken?: string;
-  current_user?: DrupalAuthUser;
+  currentUser?: DrupalAuthUser;
 }
 export class DrupalAuth {
   drupal: Drupal;
@@ -27,7 +27,7 @@ export class DrupalAuth {
     this.store = {
       csrfToken: undefined,
       logoutToken: undefined,
-      current_user: {
+      currentUser: {
         uid: '0',
         roles: ['anonymous'],
         name: 'Anonymous',

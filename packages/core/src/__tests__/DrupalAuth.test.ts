@@ -9,7 +9,7 @@ const mock = new MockAdapter(axios);
 const mockData: {[key: string]: any;} = {
   login: {
     admin: {
-      current_user: {uid: '1', roles: ['authenticated'], name: 'admin'},
+      currentUser: {uid: '1', roles: ['authenticated'], name: 'admin'},
       csrfToken: 'mock-session-token-from-login',
       logoutToken: '8av5mgYDgJ7bKS2seVtIK3trLIuqsh4WycFL8w4qCKs',
     },
@@ -42,11 +42,11 @@ test('Drupal Auth login and logout', async () => {
     .login('admin', 'admin')
     .then((response) => {
       expect(response.data).toHaveProperty('csrfToken');
-      expect(response.data).toHaveProperty('current_user');
+      expect(response.data).toHaveProperty('currentUser');
       expect(response.data).toHaveProperty('logoutToken');
       expect(auth.store.csrfToken).toEqual(mockData.login.admin.csrfToken);
-      expect(auth.store.current_user).toEqual(
-        mockData.login.admin.current_user,
+      expect(auth.store.currentUser).toEqual(
+        mockData.login.admin.currentUser,
       );
       expect(auth.store.logoutToken).toEqual(
         mockData.login.admin.logoutToken,
