@@ -17,8 +17,8 @@ export class DrupalMenu {
     this.client = drupal.getClient();
   }
 
-  public async getMenu(menu_name: string): Promise<any> {
-    return this.getMenuRaw(menu_name)
+  public async getMenu(menuName: string): Promise<any> {
+    return this.getMenuRaw(menuName)
       .then((res) => {
         const data = res.data;
         if (this.checkIfDrupalMenuDataIsValid(data)) {
@@ -30,8 +30,8 @@ export class DrupalMenu {
       });
   }
 
-  public getMenuRaw(menu_name: string): Promise<any> {
-    return this.client.call('get', `/system/menu/${menu_name}/linkset`);
+  public getMenuRaw(menuName: string): Promise<any> {
+    return this.client.call('get', `/system/menu/${menuName}/linkset`);
   }
 
   /**
