@@ -11,9 +11,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@shopify/typescript",
-        "plugin:@shopify/typescript-type-checking"
+        "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
         "no-console": 2,
