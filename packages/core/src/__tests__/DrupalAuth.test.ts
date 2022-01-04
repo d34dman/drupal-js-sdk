@@ -11,7 +11,7 @@ const mockData: {[key: string]: any;} = {
     admin: {
       current_user: {uid: '1', roles: ['authenticated'], name: 'admin'},
       csrfToken: 'mock-session-token-from-login',
-      logout_token: '8av5mgYDgJ7bKS2seVtIK3trLIuqsh4WycFL8w4qCKs',
+      logoutToken: '8av5mgYDgJ7bKS2seVtIK3trLIuqsh4WycFL8w4qCKs',
     },
   },
   valid: {},
@@ -43,13 +43,13 @@ test('Drupal Auth login and logout', async () => {
     .then((response) => {
       expect(response.data).toHaveProperty('csrfToken');
       expect(response.data).toHaveProperty('current_user');
-      expect(response.data).toHaveProperty('logout_token');
+      expect(response.data).toHaveProperty('logoutToken');
       expect(auth.store.csrfToken).toEqual(mockData.login.admin.csrfToken);
       expect(auth.store.current_user).toEqual(
         mockData.login.admin.current_user,
       );
-      expect(auth.store.logout_token).toEqual(
-        mockData.login.admin.logout_token,
+      expect(auth.store.logoutToken).toEqual(
+        mockData.login.admin.logoutToken,
       );
     })
     .then(async () => {

@@ -8,7 +8,7 @@ interface DrupalAuthUser {
 }
 interface DrupalAuthStore {
   csrfToken?: string;
-  logout_token?: string;
+  logoutToken?: string;
   current_user?: DrupalAuthUser;
 }
 export class DrupalAuth {
@@ -26,7 +26,7 @@ export class DrupalAuth {
   refreshUserSession(): Promise<any> {
     this.store = {
       csrfToken: undefined,
-      logout_token: undefined,
+      logoutToken: undefined,
       current_user: {
         uid: '0',
         roles: ['anonymous'],
@@ -95,7 +95,7 @@ export class DrupalAuth {
   }
 
   public forcedLogout(): Promise<boolean> {
-    if (this.store.logout_token) {
+    if (this.store.logoutToken) {
       return this.logout()
       // @TODO Reset user is authenticated status.
         .then(() => true);
@@ -117,7 +117,7 @@ export class DrupalAuth {
       withCredentials: true,
       params: {
         _format: 'json',
-        token: this.store.logout_token,
+        token: this.store.logoutToken,
       },
     };
     return this.client
