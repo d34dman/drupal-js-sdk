@@ -4,7 +4,9 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
+      - 'packages/*/src/**'
+      - 'package.json'
+      - 'yarn.lock'
       - '.github/**'
 jobs:
   build:
@@ -12,8 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: yarn install
+      run: |
+        yarn install --frozen-lockfile
+        npx lerna bootstrap
     - name: Run tests
-      run: lerna test
+      run: npx lerna test
     - name: Codecov
       uses: codecov/codecov-action@v1
