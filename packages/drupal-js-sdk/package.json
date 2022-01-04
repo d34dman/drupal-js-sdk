@@ -29,6 +29,7 @@
     "url": "https://github.com/d34dman/drupal-js-sdk/issues"
   },
   "dependencies": {
+    "@drupal-js-sdk/core": "^0.3.1",
     "axios": "^0.24.0"
   },
   "devDependencies": {
