@@ -1,14 +1,11 @@
 # Drupal JavaScript SDK
 
-
-[![npm](https://img.shields.io/npm/v/@drupal-js-sdk/core?style=flat-square)](http://npmjs.com/package/@drupal-js-sdk/core)
 ![build](https://img.shields.io/travis/d34dman/drupal-js-sdk/main?style=flat-square)
 [![codecov](https://img.shields.io/codecov/c/github/d34dman/drupal-js-sdk?style=flat-square&token=KVXZUI3JLK)](https://codecov.io/gh/d34dman/drupal-js-sdk)
-![npm type definitions](https://img.shields.io/npm/types/@drupal-js-sdk/core?style=flat-square)
-[![npm downloads](https://img.shields.io/npm/dt/@drupal-js-sdk/core.svg?maxAge=2592000&style=flat-square)](http://npmjs.com/package/@drupal-js-sdk/core)
+
+Monorepo for Drupal Javascript SDK.
 
 **This Project is in a very early phase of its development. Things are very volatile and evolving.**
-
 
 **Drupal JavaScript SDK** is an SDK for JavaScript developers for creating applications that connect to a Drupal backend.
 
