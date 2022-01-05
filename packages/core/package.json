@@ -2,11 +2,26 @@
   "name": "@drupal-js-sdk/core",
   "version": "0.3.5",
   "description": "Drupal JavaScript SDK : Core",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "keywords": [
+    "Drupal",
+    "javascript",
+    "api"
+  ],
+  "homepage": "https://github.com/d34dman/drupal-js-sdk/tree/main/packages/core#readme",
+  "bugs": {
+    "url": "https://github.com/d34dman/drupal-js-sdk/issues"
+  },
+  "license": "ISC",
+  "author": "d34dman <shibinkidd@gmail.com>",
   "files": [
     "dist"
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d34dman/drupal-js-sdk.git"
+  },
   "scripts": {
     "tsc": "tsc",
     "build": "tsc",
@@ -26,21 +41,6 @@
     "docs": "yarn run docs:build",
     "docs:better-docs": "jsdoc -c jsdoc.json --verbose"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/d34dman/drupal-js-sdk.git"
-  },
-  "keywords": [
-    "Drupal",
-    "javascript",
-    "api"
-  ],
-  "author": "D34dMan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/d34dman/drupal-js-sdk/issues"
-  },
-  "homepage": "https://github.com/d34dman/drupal-js-sdk/tree/main/packages/core#readme",
   "dependencies": {
     "axios": "^0.24.0"
   },

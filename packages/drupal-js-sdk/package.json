@@ -4,30 +4,42 @@
   "description": "Drupal JS SDK",
   "keywords": [
     "Drupal",
-    "SDK"
+    "javascript",
+    "api"
   ],
-  "author": "D34dMan <shibinkidd@gmail.com>",
   "homepage": "https://github.com/d34dman/drupal-js-sdk/tree/main/packages/drupal-js-sdk#readme",
-  "license": "ISC",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "directories": {
-    "dist": "dist",
-    "test": "__tests__"
+  "bugs": {
+    "url": "https://github.com/d34dman/drupal-js-sdk/issues"
   },
+  "license": "ISC",
+  "author": "d34dman <shibinkidd@gmail.com>",
   "files": [
     "dist"
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/d34dman/drupal-js-sdk.git"
   },
   "scripts": {
     "tsc": "tsc",
-    "test": "jest --config jestconfig.json"
-  },
-  "bugs": {
-    "url": "https://github.com/d34dman/drupal-js-sdk/issues"
+    "build": "tsc",
+    "test": "jest --config jestconfig.json",
+    "test-build": "yarn run build && node test-build.js",
+    "format": "yarn run lint-and-fix",
+    "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "prepare": "yarn run build",
+    "prepublishOnly": "yarn test && yarn run test-build && yarn run lint",
+    "preversion": "yarn run lint",
+    "version": "yarn run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:typedoc:build": "typedoc --options typedoc.json --out api --theme ./node_modules/typedoc-neo-theme/bin/default",
+    "docs": "yarn run docs:build",
+    "docs:better-docs": "jsdoc -c jsdoc.json --verbose"
   },
   "dependencies": {
     "@drupal-js-sdk/core": "^0.3.5",
