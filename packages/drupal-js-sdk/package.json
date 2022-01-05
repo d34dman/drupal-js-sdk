@@ -1,6 +1,6 @@
 {
   "name": "drupal-js-sdk",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Drupal JS SDK",
   "keywords": [
     "Drupal",
@@ -30,7 +30,7 @@
     "url": "https://github.com/d34dman/drupal-js-sdk/issues"
   },
   "dependencies": {
-    "@drupal-js-sdk/core": "^0.3.4",
+    "@drupal-js-sdk/core": "^0.3.5",
     "axios": "^0.24.0"
   },
   "devDependencies": {
