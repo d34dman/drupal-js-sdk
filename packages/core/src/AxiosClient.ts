@@ -6,7 +6,7 @@ import axios, {
 } from 'axios';
 
 import {DrupalError} from './DrupalError';
-import {ClientInterface, ConfigRecordInterface, ConfigRecordValueType} from './interfaces';
+import {ClientInterface, ConfigRecordInterface} from './interfaces';
 
 interface JsonErrorResponseType {
   code: number;
@@ -38,7 +38,7 @@ export class AxiosClient implements ClientInterface {
     method: Method,
     path: string,
     config?: ConfigRecordInterface,
-  ): Promise<any> {
+  ): Promise<AxiosResponse> {
     const reqCofnig: AxiosRequestConfig = {
       method,
       url: path,

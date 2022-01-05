@@ -1,5 +1,7 @@
 import {DrupalError} from '../DrupalError';
+import {AxiosResponse} from 'axios';
 
+export type DrupalClientResponse = AxiosResponse;
 export interface ClientInterface {
   client: any;
   setClient(client: any): ClientInterface;

@@ -21,7 +21,7 @@ test('Axios client', () => {
 
 test('Axios client response handler', () => {
   const api = new AxiosClient();
-  let mockResponseGenerator = function (data?: undefined|number|boolean|string|{[key: string]: any;} ) {
+  const mockResponseGenerator = function (data?: undefined|number|boolean|string|{[key: string]: any;} ) {
     return {
       data: data,
       status: 42,
@@ -44,7 +44,7 @@ test('Axios client response handler', () => {
   expect(error.toString()).toBe('DrupalError: 42 Answer');
 
   error = api.getDrupalError(mockResponseGenerator({message: 'Foo'}));
-  expect(error.toString()).toBe('DrupalError: 100 Axios method failed: {\"message\":\"Foo\"}');
+  expect(error.toString()).toBe('DrupalError: 100 Axios method failed: {"message":"Foo"}');
 
   error = api.getDrupalError(mockResponseGenerator({responseText: 'Invalid JSON'}));
   expect(error.toString()).toBe('DrupalError: 107 Received an error with invalid JSON from Drupal: Invalid JSON');

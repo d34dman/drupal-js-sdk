@@ -16,8 +16,6 @@ test('Drupal initialize with headers', () => {
     baseURL: 'http://www.example.com',
     headers: {
       'X-Foo': 'Foo',
-      'X-Bar': {foo: 'bar'},
-      'X-Baz': true,
     },
   };
   const sdk = new Drupal(config);

@@ -1,8 +1,5 @@
 import {Config} from './Config';
-import {Drupal} from './Drupal';
-import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, StorageValueType} from './interfaces';
-import {JsonApiResourceHandler} from './JsonApiResourceHandler';
-import {ResourceHandler} from './ResourceHandler';
+import {ConfigInterface, ConfigRecordInterface, CoreInterface, StorageValueType} from './interfaces';
 
 export interface DrupalEntityConfig extends ConfigRecordInterface {
     entity: string;

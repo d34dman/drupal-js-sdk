@@ -1,6 +1,5 @@
-import {ClientInterface} from './interfaces';
+import {ClientInterface, DrupalClientResponse} from './interfaces';
 import {Drupal} from './Drupal';
-
 interface DrupalAuthUser {
   uid: string;
   roles: string[];
@@ -23,7 +22,7 @@ export class DrupalAuth {
     this.refreshUserSession();
   }
 
-  refreshUserSession(): Promise<any> {
+  refreshUserSession(): Promise<DrupalClientResponse> {
     this.store = {
       csrfToken: undefined,
       logoutToken: undefined,
@@ -36,7 +35,7 @@ export class DrupalAuth {
     return this.getSessionToken();
   }
 
-  public getSessionToken(): Promise<any> {
+  public getSessionToken(): Promise<DrupalClientResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +52,7 @@ export class DrupalAuth {
       });
   }
 
-  public login(name: string, pass: string): Promise<any> {
+  public login(name: string, pass: string): Promise<DrupalClientResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +108,7 @@ export class DrupalAuth {
       .then(() => true);
   }
 
-  public logout(): Promise<any> {
+  public logout(): Promise<DrupalClientResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -128,7 +127,7 @@ export class DrupalAuth {
       });
   }
 
-  public passwordResetByUserName(name: string): Promise<any> {
+  public passwordResetByUserName(name: string): Promise<DrupalClientResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -149,7 +148,7 @@ export class DrupalAuth {
       });
   }
 
-  public passwordResetByMail(mail: string): Promise<any> {
+  public passwordResetByMail(mail: string): Promise<DrupalClientResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -170,7 +169,7 @@ export class DrupalAuth {
       });
   }
 
-  public register(name: string, mail: string): Promise<any> {
+  public register(name: string, mail: string): Promise<DrupalClientResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',

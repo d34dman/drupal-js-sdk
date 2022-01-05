@@ -13,14 +13,23 @@ export class Session implements SessionInterface {
   }
 
   public getItem(key: string): StorageValueType {
+    if (key) {
+      // @TODO Implement getItem.
+    }
     throw new Error('Method not implemented');
   }
 
   public setItem(keyName: string, keyValue: StorageValueType): boolean {
+    if (keyName && keyValue) {
+      // @TODO Implement setItem.
+    }
     throw new Error('Method not implemented');
   }
 
   public removeItem(keyName: string): boolean {
+    if (keyName) {
+      // @TODO Implement removeItem.
+    }
     throw new Error('Method not implemented');
   }
 

@@ -1,4 +1,4 @@
-import {Drupal, Core, AxiosClient} from '..';
+import {Core, AxiosClient} from '..';
 import {Session} from '../Session';
 
 test('Core', () => {

@@ -1,5 +1,4 @@
-import {Config} from './Config';
-import {ConfigInterface, ConfigRecordInterface, SessionInterface, StorageInterface} from './interfaces';
+import {StorageInterface} from './interfaces';
 
 export class Store implements StorageInterface {
 
@@ -7,7 +6,10 @@ export class Store implements StorageInterface {
      * When passed a key name, will return that key's value.
      */
   public getItem(keyName: string): string {
-    return '';
+    if (keyName) {
+      // @TODO Implement getItem.
+    }
+    throw new Error('Method not implemented');
   }
 
     /**
@@ -15,14 +17,20 @@ export class Store implements StorageInterface {
      * or update that key's value if it already exists.
      */
   public setItem(keyName: string, keyValue: string): boolean {
-    return false;
+    if (keyName && keyValue) {
+      // @TODO Implement setItem.
+    }
+    throw new Error('Method not implemented');
   }
 
     /**
      * When passed a key name, will remove that key from the storage.
      */
   public removeItem(keyName: string): boolean {
-    return false;
+    if (keyName) {
+      // @TODO Implement removeItem.
+    }
+    throw new Error('Method not implemented');
   }
 
     /**

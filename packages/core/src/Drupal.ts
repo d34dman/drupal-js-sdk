@@ -1,13 +1,14 @@
 import {AxiosClient} from './AxiosClient';
 import {Core} from './Core';
+import {AxiosRequestHeaders} from 'axios';
 import {
   ConfigRecordInterface,
-  BasicAuthParams,
+  BasicAuthParams
 } from './interfaces';
 
 export interface DrupalConfig extends ConfigRecordInterface{
   auth?: BasicAuthParams;
-  headers?: {[key: string]: any;};
+  headers?: AxiosRequestHeaders;   
   baseURL: string;
 }
 
