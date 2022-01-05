@@ -1,1 +1,1 @@
-export {Drupal} from '@drupal-js-sdk/core'
+export {Drupal} from '@drupal-js-sdk/core';
