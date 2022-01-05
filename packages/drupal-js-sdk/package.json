@@ -1,6 +1,6 @@
 {
   "name": "drupal-js-sdk",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Drupal JS SDK",
   "keywords": [
     "Drupal",
@@ -42,7 +42,7 @@
     "docs:better-docs": "jsdoc -c jsdoc.json --verbose"
   },
   "dependencies": {
-    "@drupal-js-sdk/core": "^0.3.6",
+    "@drupal-js-sdk/core": "^0.3.7",
     "axios": "^0.24.0"
   },
   "devDependencies": {
