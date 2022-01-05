@@ -6,7 +6,7 @@ import axios, {
 } from 'axios';
 
 import {DrupalError} from './DrupalError';
-import {ClientInterface} from './interfaces';
+import {ClientInterface, ConfigRecordInterface, ConfigRecordValueType} from './interfaces';
 
 interface JsonErrorResponseType {
   code: number;
@@ -29,7 +29,7 @@ export class AxiosClient implements ClientInterface {
     return this.client;
   }
 
-  public addDefaultHeaders(headers: {[key: string]: any;}): AxiosClient {
+  public addDefaultHeaders(headers: ConfigRecordInterface): AxiosClient {
     Object.assign(this.client.defaults.headers, headers);
     return this;
   }
@@ -37,7 +37,7 @@ export class AxiosClient implements ClientInterface {
   call(
     method: Method,
     path: string,
-    config?: {[key: string]: any;},
+    config?: ConfigRecordInterface,
   ): Promise<any> {
     const reqCofnig: AxiosRequestConfig = {
       method,
@@ -57,34 +57,46 @@ export class AxiosClient implements ClientInterface {
     return this.client.request(reqConfig);
   }
 
-  getDrupalError(response: {[key: string]: any;} | string): DrupalError {
+  getDrupalError(response: AxiosResponse): DrupalError {
     // Transform the error into an instance of DrupalError by trying to parse
     // the error string as JSON
     let error;
-    if (typeof response === 'string') {
+    const data = response.data;
+    
+    if (
+      typeof data === 'string' || 
+      typeof data === 'undefined' || 
+      typeof data === 'number' || 
+      typeof data === 'boolean'
+    ) {
       error = new DrupalError(
         DrupalError.CONNECTION_FAILED,
-        `Axios method failed: ${response}`,
+        `Axios method failed: ${data}`,
       );
-    } else if (response.responseText === undefined) {
-      const message = response.message ? response.message : response;
+    } else if (data.responseText === undefined) {
       error = new DrupalError(
         DrupalError.CONNECTION_FAILED,
-        `Axios method failed: ${JSON.stringify(message)}`,
+        `Axios method failed: ${JSON.stringify(data)}`,
       );
-    } else {
+    } else if (typeof data.responseText === 'string') {
       try {
         const errorJSON: JsonErrorResponseType = JSON.parse(
-          response.responseText,
+          data.responseText
         );
         error = new DrupalError(errorJSON.code, errorJSON.error);
       } catch (exception) {
         // If we fail to parse the error text, that's okay.
         error = new DrupalError(
           DrupalError.INVALID_JSON,
-          `Received an error with invalid JSON from Drupal: ${response.responseText}`,
+          `Received an error with invalid JSON from Drupal: ${data.responseText}`,
         );
       }
+    }
+    else {
+      error = new DrupalError(
+        DrupalError.INVALID_JSON,
+        `Received an error with invalid JSON from Drupal: ${data.responseText}`,
+      );
     }
     return error;
   }

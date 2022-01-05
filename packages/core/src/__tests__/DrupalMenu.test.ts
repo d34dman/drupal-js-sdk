@@ -1,5 +1,11 @@
 import {Drupal, DrupalMenu} from '..';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import {AxiosClient} from '..';
 
+const mock = new MockAdapter(axios);
+
+mock.onGet('/system/menu/main/linkset').reply(200, 'Mock 200');
 
 const mockData: {[key: string]: any;} = {
   invalid: {},
@@ -94,11 +100,11 @@ test('Drupal Menu : getMenu', async () => {
   const sdk = new Drupal(config);
   const menu = new DrupalMenu(sdk);
 
-  expect(menu.getMenu('main')).toBeInstanceOf(Promise);
-
   let spy = jest.spyOn(menu, 'getMenuRaw').mockImplementation(
     (): Promise<any> => Promise.resolve({data: mockData.valid}),
   );
+
+  expect(menu.getMenu('main')).toBeInstanceOf(Promise);
 
   await menu.getMenu('main').then((data) => {
     expect(data).toStrictEqual(mockData.validTree);
@@ -137,4 +143,20 @@ test('Drupal Menu function defaults', () => {
   expect(menu.checkIfDrupalMenuDataIsValid(mockData.invalid)).toBe(false);
   expect(menu.convertFlatListItemsToTree([])).toEqual([]);
   expect(menu.normalizeListItems({})).toEqual([]);
+});
+
+test('Drupal Menu axios request', async () => {
+  const client = new AxiosClient();
+  client.setClient(axios.create());
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  sdk.setClient(client);
+  const menu = new DrupalMenu(sdk);
+  expect.assertions(1);
+  await menu.getMenuRaw('main')
+    .then((response) => {
+      expect(response.data).toBe('Mock 200');
+    });
 });
