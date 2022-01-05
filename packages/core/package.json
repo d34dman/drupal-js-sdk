@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/core",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "Drupal JavaScript SDK : Core",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
