@@ -17,6 +17,7 @@ jobs:
       run: |
         yarn install --frozen-lockfile
         npx lerna bootstrap --force-local
+        npx lerna run tsc
     - name: Run tests
       run: npx lerna run test
     - name: Codecov
