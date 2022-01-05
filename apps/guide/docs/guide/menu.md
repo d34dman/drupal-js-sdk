@@ -15,7 +15,7 @@ Drupal JavaScript SDK relies on the drupal module [Decoupled Menus](https://www.
 
 ```js {8}
 import {Drupal, DrupalMenu} from 'drupal-js-sdk'
-const api = new Drupal().initialize({baseURL: 'http://example.com'});
+const api = new Drupal({baseURL: 'http://example.com'});
 const menu = new DrupalMenu(api);
 
 let menuTreeData = [];

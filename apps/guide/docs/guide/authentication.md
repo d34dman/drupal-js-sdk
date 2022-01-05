@@ -9,7 +9,7 @@ Authentication calls requires some persistent data to be maintained.
 For doing so, use the same `api` and `auth` instance for making subsequent calls.
 ```js
 import {Drupal, DrupalAuth} from 'drupal-js-sdk'
-const api = new Drupal().initialize({baseURL: 'http://example.com'});
+const api = new Drupal({baseURL: 'http://example.com'});
 const auth = new DrupalAuth(api);
 ```
 :::
