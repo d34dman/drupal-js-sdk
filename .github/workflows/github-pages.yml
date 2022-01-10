@@ -5,33 +5,28 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
+      - 'packages/*/src/**'
+      - 'package.json'
+      - 'yarn.lock'
       - '.github/**'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: |
+          yarn install --frozen-lockfile
+          npx lerna bootstrap --force-local
+          npx lerna run tsc
+      - name: Run build
+        run: npx lerna run build
       - name: Generate typedoc
-        run: npm run docs:typedoc:build
-
+        run: npx lerna run docs:typedoc:build
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./api
+          publish_dir: ./packages/core/api
