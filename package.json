@@ -4,6 +4,24 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "yarn clean && siroc build",
+    "build:docs": "./packages/docgen/bin/druxt-docgen.js",
+    "bundlewatch": "bundlewatch --config bundlewatch.config.js",
+    "changeset": "changeset",
+    "clean": "yarn clean:dist && yarn clean:docs && yarn clean:pack",
+    "clean:docs": "rimraf docs/content/api || true",
+    "clean:dist": "rimraf packages/*/dist packages/*/nuxt || true",
+    "clean:pack": "rimraf packages/*/package.tgz || true",
+    "dev": "siroc dev",
+    "lint": "eslint --ext .js,.vue packages/*/src",
+    "lint:commit": "commitlint",
+    "lint:renovate": "renovate-config-validator",
+    "package": "siroc run yarn pack --workspaces",
+    "postinstall": "husky install",
+    "test": "NODE_OPTIONS=--unhandled-rejections=warn jest",
+    "version": "changeset version"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.21.0",
     "@commitlint/cli": "^16.2.1",
@@ -21,6 +39,7 @@
     "eslint-plugin-no-loops": "^0.3.0",
     "husky": "^7.0.4",
     "jest": "^27.4.5",
+    "siroc": "^0.16.0",
     "ts-jest": "^27.1.2",
     "typedoc": "^0.22.10",
     "typedoc-neo-theme": "^1.1.1",
