@@ -24,11 +24,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "docs": "yarn run docs:build",
-    "docs:better-docs": "jsdoc -c jsdoc.json --verbose",
-    "docs:build": "vuepress build docs",
-    "docs:dev": "vuepress dev docs",
-    "docs:typedoc:build": "typedoc --options typedoc.json --out api --theme ./node_modules/typedoc-neo-theme/bin/default",
+    "docs": "typedoc --options typedoc.json --out api",
     "format": "yarn run lint-and-fix",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
@@ -40,9 +36,6 @@
     "preversion": "yarn run lint",
     "version": "yarn run format && git add -A src",
     "postversion": "git push && git push --tags"
-  },
-  "dependencies": {
-    "axios": "^0.26.0"
   },
   "devDependencies": {
     "@changesets/cli": "^2.21.0",
@@ -64,6 +57,6 @@
     "siroc": "^0.16.0",
     "ts-jest": "^27.1.3",
     "typedoc": "^0.22.12",
-    "typescript": "^4.6.2"
+    "typescript": "4.5"
   }
 }
