@@ -14,11 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: |
-        yarn install --frozen-lockfile
-        npx lerna bootstrap --force-local
-        npx lerna run tsc
+      run: yarn install
     - name: Run tests
-      run: npx lerna run test
+      run: yarn workspaces foreach run test
     - name: Codecov
       uses: codecov/codecov-action@v1

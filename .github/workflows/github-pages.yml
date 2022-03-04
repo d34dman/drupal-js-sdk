@@ -5,9 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'packages/*/src/**'
-      - 'package.json'
-      - 'yarn.lock'
+      - 'packages/core/src/**'
+      - 'packages/core/package.json'
       - '.github/**'
 
 jobs:
@@ -16,14 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
-        run: |
-          yarn install --frozen-lockfile
-          npx lerna bootstrap --force-local
-          npx lerna run tsc
-      - name: Run build
-        run: npx lerna run build
+        run: yarn install
       - name: Generate typedoc
-        run: npx lerna run docs:typedoc:build
+        run: |
+          cd packages/core
+          yarn docs
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
