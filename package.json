@@ -19,7 +19,7 @@
     "lint:renovate": "renovate-config-validator",
     "package": "siroc run yarn pack --workspaces",
     "postinstall": "husky install",
-    "test": "NODE_OPTIONS=--unhandled-rejections=warn jest",
+    "testx": "jest --config jestconfig.json",
     "version": "changeset version"
   },
   "devDependencies": {
@@ -44,5 +44,6 @@
     "typedoc": "^0.22.10",
     "typedoc-neo-theme": "^1.1.1",
     "typescript": "^4.5.4"
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }
