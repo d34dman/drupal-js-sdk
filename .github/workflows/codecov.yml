@@ -9,7 +9,7 @@ on:
       - 'yarn.lock'
       - '.github/**'
 jobs:
-  build:
+  codecov:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
