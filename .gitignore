@@ -11,3 +11,12 @@ lerna-debug.log
 npm-debug.log
 packages/*/lib
 .idea
+
+
+# Disable zero-installs mode for now.
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
