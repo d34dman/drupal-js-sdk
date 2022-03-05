@@ -23,6 +23,6 @@ jobs:
     - name: Install dependencies
       run: yarn
     - name: Run test suite
-      run: yarn workspaces foreach run test
+      run: yarn test
     - name: Codecov
       uses: codecov/codecov-action@v1
