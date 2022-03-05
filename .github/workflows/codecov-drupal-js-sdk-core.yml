@@ -1,4 +1,4 @@
-name: Codecov
+name: Codecov @drupal-js-sdk/core
 on:
   push:
     branches:
@@ -21,8 +21,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: yarn
+      working-directory: './'
+      run: |
+        yarn install
+        yarn build
     - name: Run test suite
       run: yarn test
     - name: Codecov
       uses: codecov/codecov-action@v1
+      with:
+        name: '@drupal-js-sdk/core'
