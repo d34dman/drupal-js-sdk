@@ -19,9 +19,9 @@ comment:
 flags:
   core:
     paths:
-      - packages/core/coverage.txt
+      - packages/core/
     carryforward: true
-  drupal-js-sdk:
+  sdk:
     paths:
-      - packages/drupal-js-sdk/coverage.txt
+      - packages/drupal-js-sdk/
     carryforward: true

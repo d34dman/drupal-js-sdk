@@ -28,16 +28,9 @@ jobs:
       run: yarn test
     - name: Codecov
       uses: codecov/codecov-action@v2
-      with:
-        name: 'core'
-        flags: 'core'
     # Generate coverage report for drupal-js-sdk
     - name: Run test suite inside 'packages/drupal-js-sdk'
       working-directory: './packages/drupal-js-sdk/'
       run: yarn test
     - name: Codecov
       uses: codecov/codecov-action@v2
-      with:
-        name: 'sdk'
-        flags: 'sdk'
-
