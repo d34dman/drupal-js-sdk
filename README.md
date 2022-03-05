@@ -23,7 +23,7 @@ This project feature overlaps with a lot of other open-source projects. The prim
 
   [![Guide](https://img.shields.io/netlify/5aab3eb8-6c3e-48e7-b29e-f3e3013299c9?label=Guide&logo=netlify&style=for-the-badge)](https://drupal-js-sdk-docs.netlify.app/)
   
-  [![API Reference](https://img.shields.io/github/workflow/status/d34dman/drupal-js-sdk/CI/main?label=API%20Reference&logo=github&style=for-the-badge)](https://d34dman.github.io/drupal-js-sdk/)
+  [![API Reference](https://img.shields.io/github/workflow/status/d34dman/drupal-js-sdk/GitHub%20pages/main?label=API%20Reference&logo=github&style=for-the-badge)](https://d34dman.github.io/drupal-js-sdk/)
   
 ## Contribute
 
