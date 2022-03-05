@@ -1,0 +1,43 @@
+name: Codecov
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/*/src'
+      - 'packages/*/package.json'
+      - '.github/**'
+
+jobs:
+  codecov:
+    name: Execute test suite for drupal-js-sdk
+    runs-on: ubuntu-latest
+    env:
+      node-version: 16.x
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      working-directory: './'
+      run: |
+        yarn install
+        yarn build
+        yarn install
+    # Generate coverage report for @drupal-js-sdk/core 
+    - name: Run test suite inside 'packages/core'
+      working-directory: './packages/core/'
+      run: yarn test
+    - name: Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        name: 'core'
+        flags: 'core'
+    # Generate coverage report for drupal-js-sdk
+    - name: Run test suite inside 'packages/drupal-js-sdk'
+      working-directory: './packages/drupal-js-sdk/'
+      run: yarn test
+    - name: Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        name: 'sdk'
+        flags: 'sdk'
+
