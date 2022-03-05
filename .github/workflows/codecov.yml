@@ -4,18 +4,25 @@ on:
     branches:
       - main
     paths:
-      - 'packages/*/src/**'
-      - 'package.json'
-      - 'yarn.lock'
+      - 'packages/core/src/**'
+      - 'packages/core/package.json'
       - '.github/**'
+
+defaults:
+ run:
+   working-directory: 'packages/core'
+
 jobs:
   codecov:
+    name: Execute test suite for @drupal-js-sdk/core
     runs-on: ubuntu-latest
+    env:
+      node-version: 16.x
     steps:
     - uses: actions/checkout@v2
-    - name: Install modules
-      run: yarn install
-    - name: Run tests
+    - name: Install dependencies
+      run: yarn
+    - name: Run test suite
       run: yarn workspaces foreach run test
     - name: Codecov
       uses: codecov/codecov-action@v1
