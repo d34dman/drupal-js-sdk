@@ -342,6 +342,16 @@ export class DrupalError extends Error {
   public static readonly X_DOMAIN_REQUEST: number = 602;
 
   /**
+   * Error code indicating in memory storage failure.
+   */
+  public static readonly STORAGE_IN_MEMORY_FAIL: number = 700;
+
+  /**
+   * Error code indicating in web storage failure.
+   */
+   public static readonly STORAGE_IN_WEB_FAIL: number = 701;
+
+  /**
    * An error code from <code>Drupal.Error</code>.
    */
   code: number;

@@ -6,7 +6,7 @@ import {
   BasicAuthParams
 } from './interfaces';
 
-export interface DrupalConfig extends ConfigRecordInterface{
+export interface DrupalConfig extends ConfigRecordInterface {
   auth?: BasicAuthParams;
   headers?: AxiosRequestHeaders;   
   baseURL: string;
@@ -30,7 +30,7 @@ export class Drupal extends Core {
       ...{baseURL: options.baseURL},
     };
     const client = new AxiosClient(apiConfig);
-    this.setClient(client);
+    this.setClientService(client);
     return this;
   }
 }

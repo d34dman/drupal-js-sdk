@@ -2,6 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import {Drupal, DrupalAuth} from '..';
+import { StorageInMemory } from '../StorageInMemory';
 
 
 const mock = new MockAdapter(axios);
@@ -9,7 +10,11 @@ const mock = new MockAdapter(axios);
 const mockData: {[key: string]: any;} = {
   login: {
     admin: {
-      currentUser: {uid: '1', roles: ['authenticated'], name: 'admin'},
+      currentUser: {
+        uid: '1', 
+        roles: ['authenticated'], 
+        name: 'admin'
+      },
       csrfToken: 'mock-session-token-from-login',
       logoutToken: '8av5mgYDgJ7bKS2seVtIK3trLIuqsh4WycFL8w4qCKs',
     },
@@ -41,6 +46,7 @@ test('Drupal Auth login and logout', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
   expect(auth.store.csrfToken).toEqual('mock-session-token');
@@ -72,6 +78,7 @@ test('Drupal Auth Forced logout', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   const status = await auth.forcedLogout();
   expect(status).toEqual(true);
@@ -90,6 +97,7 @@ test('Drupal Auth password reset', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
   await auth.passwordResetByMail('admin@example.com').then((response) => {
@@ -105,6 +113,7 @@ test('Drupal Auth register', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
   await auth
@@ -113,3 +122,31 @@ test('Drupal Auth register', async () => {
       expect(response.status).toBe(200);
     });
 });
+
+
+test('Drupal Auth login with restore session', async () => {
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const sessionStorage = new StorageInMemory();
+  sdk.setSessionService(sessionStorage);
+  const auth = new DrupalAuth(sdk);
+  await auth.getSessionToken();
+  expect(auth.store.csrfToken).toEqual('mock-session-token');
+  expect(await auth.loginStatus()).toEqual(false);
+  await auth
+    .login('admin', 'admin');
+  expect(auth.store.currentUser).toEqual(
+    mockData.login.admin.currentUser,
+  );
+  
+  const sdk2 = new Drupal(config);
+  sdk2.setSessionService(sessionStorage);
+  
+  const auth2 = new DrupalAuth(sdk);
+  expect(auth2.store.currentUser).toEqual(
+    mockData.login.admin.currentUser,
+  );
+});
+

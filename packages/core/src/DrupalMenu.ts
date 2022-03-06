@@ -14,7 +14,7 @@ export class DrupalMenu {
   client: ClientInterface;
   constructor(drupal: Drupal) {
     this.drupal = drupal;
-    this.client = drupal.getClient();
+    this.client = drupal.getClientService();
   }
 
   public async getMenu(menuName: string): Promise<any> {

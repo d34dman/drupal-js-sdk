@@ -6,3 +6,5 @@ export {DrupalMenu} from './DrupalMenu';
 export {DrupalRole} from './DrupalRole';
 export {DrupalSettings} from './DrupalSettings';
 export {AxiosClient} from './AxiosClient';
+export {StorageInMemory} from './StorageInMemory'
+export {StorageInWeb, localStorage, sessionStorage} from './StorageInWeb'
