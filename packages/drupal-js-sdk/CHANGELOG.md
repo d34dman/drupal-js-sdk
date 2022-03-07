@@ -1,5 +1,13 @@
 # drupal-js-sdk
 
+## 0.3.9
+
+### Patch Changes
+
+- Introduce package dependency
+- Updated dependencies
+  - @drupal-js-sdk/core@0.3.9
+
 ## 0.3.8
 
 ### Patch Changes
