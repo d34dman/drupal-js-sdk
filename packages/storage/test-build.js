@@ -1,4 +1,4 @@
-const { StorageInMemory } = require('./src/StorageInMemory');
+const { StorageInMemory } = require('./dist/StorageInMemory');
 
 const storage = new StorageInMemory({});
 

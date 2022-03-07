@@ -1,4 +1,5 @@
-const { DrupalError } = require('./src/DrupalError');
+const { DrupalError } = require('./dist/DrupalError');
+
 
 const error = new DrupalError(DrupalError.CACHE_MISS, 'Test');
 
