@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/storage",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Drupal JavaScript SDK : Storage",
   "keywords": [
     "Drupal",
