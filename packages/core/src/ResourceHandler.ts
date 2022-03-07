@@ -1,8 +1,9 @@
 import {Drupal} from './Drupal';
-import {ClientInterface, ConfigInterface, ResourceHandlerInterface} from './interfaces';
+import {ClientInterface, ResourceHandlerInterface} from './interfaces';
+import { StorageInterface } from '@drupal-js-sdk/storage';
 
 
-export interface DrupalEntityConfig extends ConfigInterface {
+export interface DrupalEntityConfig extends StorageInterface {
     entity: string;
     bundle: string;
     identifier: string;

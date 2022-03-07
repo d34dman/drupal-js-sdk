@@ -865,7 +865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@drupal-js-sdk/core@^0.3.7, @drupal-js-sdk/core@workspace:packages/core":
+"@drupal-js-sdk/core@^0.3.8, @drupal-js-sdk/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@drupal-js-sdk/core@workspace:packages/core"
   dependencies:
@@ -2876,7 +2876,7 @@ __metadata:
     "@changesets/cli": ^2.21.0
     "@commitlint/cli": ^16.2.1
     "@commitlint/config-conventional": ^16.2.1
-    "@drupal-js-sdk/core": ^0.3.7
+    "@drupal-js-sdk/core": ^0.3.8
     "@types/jest": ^27.4.1
     "@types/node": ^17.0.21
     "@typescript-eslint/eslint-plugin": ^5.13.0

@@ -1,7 +1,8 @@
 import {Config} from './Config';
-import {ConfigRecordInterface} from './interfaces';
 import {DrupalError} from '@drupal-js-sdk/error';
-interface EntityHandlerConfig extends ConfigRecordInterface{
+import { StorageRecordInterface } from '@drupal-js-sdk/storage';
+
+interface EntityHandlerConfig extends StorageRecordInterface{
     type: string;
     bundle: string;
     keys: {[key: string]: any;};
@@ -10,10 +11,11 @@ interface EntityHandlerConfig extends ConfigRecordInterface{
 export class EntityHandler extends Config {
 
   constructor(config: EntityHandlerConfig) {
-    super(config);
+    super();
+    this.set(config);
   }
 
-  public create(data: ConfigRecordInterface): {[key: string]: any;} {
+  public create(data: StorageRecordInterface): {[key: string]: any;} {
     if (data) {
       // @TODO Implement create.
     }
@@ -27,7 +29,7 @@ export class EntityHandler extends Config {
     throw new DrupalError(DrupalError.MISSING_IMPLEMENTATION_ERROR, 'Not Implemented');
   }
 
-  public update(data: ConfigRecordInterface): {[key: string]: any;} {
+  public update(data: StorageRecordInterface): {[key: string]: any;} {
     if (data) {
       // @TODO Implement update.
     }

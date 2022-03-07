@@ -2,11 +2,11 @@ import {AxiosClient} from './AxiosClient';
 import {Core} from './Core';
 import {AxiosRequestHeaders} from 'axios';
 import {
-  ConfigRecordInterface,
   BasicAuthParams
 } from './interfaces';
+import { StorageRecordInterface } from '@drupal-js-sdk/storage';
 
-export interface DrupalConfig extends ConfigRecordInterface {
+export interface DrupalConfig extends StorageRecordInterface {
   auth?: BasicAuthParams;
   headers?: AxiosRequestHeaders;   
   baseURL: string;

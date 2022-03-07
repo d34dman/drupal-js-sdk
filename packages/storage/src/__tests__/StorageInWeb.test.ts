@@ -17,7 +17,7 @@ test('StorageInWeb', () => {
   expect(storage.getItem('FOO')).toBe(null);
   storage.clear();
   expect(storage.getItem('FOO')).toBe(null);
-  expect(() => {storage.set({})}).toThrow();
+  expect(() => {storage.set()}).toThrow();
   expect(() => storage.get()).toThrow();
 });
 

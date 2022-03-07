@@ -1,13 +1,11 @@
 import {Config} from './Config';
-import {
-  ConfigRecordInterface,
-} from './interfaces';
+import { StorageRecordInterface } from '@drupal-js-sdk/storage';
 
 /**
  * Probably not needed.
  */
 export class CoreConfig extends Config {
-  protected readonly _default: ConfigRecordInterface = {
+  protected readonly _default: StorageRecordInterface = {
     IS_NODE:
           typeof process !== 'undefined' &&
           Boolean(process.versions) &&

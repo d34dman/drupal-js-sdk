@@ -76,7 +76,7 @@ export class StorageInWeb implements StorageInterface {
         throw new Error('Not possible to use "get" in WebStorage context.');
     }
 
-    public set(data: StorageRecordInterface): void {
+    public set(): void {
         throw new Error('Not possible to use "set" in WebStorage context.');
     }
 }

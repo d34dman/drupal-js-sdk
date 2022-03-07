@@ -6,7 +6,8 @@ import axios, {
 } from 'axios';
 
 import {DrupalError} from '@drupal-js-sdk/error';
-import {ClientInterface, ConfigRecordInterface} from './interfaces';
+import { StorageRecordInterface } from '@drupal-js-sdk/storage';
+import {ClientInterface} from './interfaces';
 
 interface JsonErrorResponseType {
   code: number;
@@ -29,7 +30,7 @@ export class AxiosClient implements ClientInterface {
     return this.client;
   }
 
-  public addDefaultHeaders(headers: ConfigRecordInterface): AxiosClient {
+  public addDefaultHeaders(headers: StorageRecordInterface): AxiosClient {
     Object.assign(this.client.defaults.headers, headers);
     return this;
   }
@@ -37,7 +38,7 @@ export class AxiosClient implements ClientInterface {
   call(
     method: Method,
     path: string,
-    config?: ConfigRecordInterface,
+    config?: StorageRecordInterface,
   ): Promise<AxiosResponse> {
     const reqCofnig: AxiosRequestConfig = {
       method,

@@ -1,13 +1,14 @@
 import {Config} from './Config';
-import {ConfigInterface, ConfigRecordInterface, CoreInterface, StorageValueType} from './interfaces';
+import {CoreInterface} from './interfaces';
+import { StorageInterface, StorageRecordInterface, StorageValueType } from '@drupal-js-sdk/storage';
 
-export interface DrupalEntityConfig extends ConfigRecordInterface {
+export interface DrupalEntityConfig extends StorageRecordInterface {
     entity: string;
     bundle: string;
     identifier: string;
 }
 
-export interface JsonApiConfig extends ConfigRecordInterface {
+export interface JsonApiConfig extends StorageRecordInterface {
     apiEndpoint: string;
     type: string;
 }
@@ -15,11 +16,12 @@ export interface JsonApiConfig extends ConfigRecordInterface {
 export class DrupalEntity {
   static readonly JSON_API = 'JSON_API';
 
-  public config: ConfigInterface;
+  public config: StorageInterface;
   protected drupal: CoreInterface;
 
   constructor(config: DrupalEntityConfig, drupal: CoreInterface) {
-    this.config = new Config(config);
+    this.config = new Config();
+    this.config.set(config);
     this.drupal = drupal;
   }
 
