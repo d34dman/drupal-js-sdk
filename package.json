@@ -16,7 +16,7 @@
     "lint:renovate": "renovate-config-validator",
     "package": "siroc run yarn pack --workspaces",
     "postinstall": "husky install",
-    "test": "echo 'PASS .'",
+    "test": "yarn build && yarn workspaces foreach run test",
     "version": "changeset version"
   },
   "devDependencies": {
