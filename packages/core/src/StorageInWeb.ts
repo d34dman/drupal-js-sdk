@@ -79,8 +79,3 @@ export class StorageInWeb implements StorageInterface {
         throw new Error('Not possible to use "set" in WebStorage context.');
     }
 }
-
-
-export const localStorage = new StorageInWeb((): WebStorageInterface => window.localStorage);
-
-export const sessionStorage = new StorageInWeb((): WebStorageInterface => window.sessionStorage);
