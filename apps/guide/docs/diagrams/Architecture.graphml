@@ -16,7 +16,6 @@
     <data key="d0" xml:space="preserve"/>
     <node id="n0">
       <data key="d4" xml:space="preserve"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="1452.1191406249995" width="2111.2988281249995" x="-581.4821777343745" y="-36.27471923828148"/>
@@ -182,8 +181,7 @@ Headers<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:Mo
           <y:Geometry height="40.0" width="80.0" x="848.4882494944384" y="495.22534131086707"/>
           <y:Fill color="#CCFFCC" transparent="false"/>
           <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="48.02734375" x="15.986328125" xml:space="preserve" y="3.8671875">Session
-Storage<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="48.02734375" x="15.986328125" xml:space="preserve" y="10.93359375">Storage<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:StyleProperties>
             <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
           </y:StyleProperties>
@@ -384,7 +382,7 @@ Rest<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:Model
               <y:Geometry height="244.3747892061067" width="320.7016423357665" x="690.3780054306046" y="1593.5777668749542"/>
               <y:Fill hasColor="false" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="117.0625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="236.58203125" x="42.05980554288328" xml:space="preserve" y="63.65614460305335">Architecture Reference Diagram.
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="117.0625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="236.58203125" x="42.059805542883396" xml:space="preserve" y="63.656144603053235">Architecture Reference Diagram.
 I am creating this to organize my mind.
 This diagram doesn't adhere 
 to any established standard.
@@ -473,7 +471,7 @@ Method Call always flow towards "right"<y:LabelModel><y:SmartNodeLabelModel dist
               <y:Geometry height="59.46725868161815" width="320.7016423357665" x="690.3780054306046" y="1474.643249511718"/>
               <y:Fill hasColor="false" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="130.099609375" x="95.30101648038334" xml:space="preserve" y="20.667223090809102">Drupal JavaScript SDK<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="2.220446049250313E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="130.099609375" x="95.3010164803834" xml:space="preserve" y="20.667223090809102">Drupal JavaScript SDK<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="2.220446049250313E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
             </y:GenericNode>
           </data>
         </node>
@@ -483,7 +481,7 @@ Method Call always flow towards "right"<y:LabelModel><y:SmartNodeLabelModel dist
               <y:Geometry height="59.46725868161815" width="320.7016423357665" x="690.3780054306046" y="1534.1105081933365"/>
               <y:Fill hasColor="false" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="46.3984375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="185.763671875" x="67.46898523038328" xml:space="preserve" y="6.534410590809102">Document Version : 0.0.1
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="46.3984375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="185.763671875" x="67.4689852303834" xml:space="preserve" y="6.534410590809102">Document Version : 0.0.2
 Author: Shibin Das (D34dMan)
 E-mail : shibinkidd@gmail.com<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="2.220446049250313E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
             </y:GenericNode>
@@ -848,17 +846,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e19" source="n24" target="n19">
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e20" source="n26" target="n6">
+    <edge id="e19" source="n26" target="n6">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -868,7 +856,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e21" source="n27" target="n5">
+    <edge id="e20" source="n27" target="n5">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -878,7 +866,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e22" source="n28" target="n1">
+    <edge id="e21" source="n28" target="n1">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -888,7 +876,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e23" source="n29" target="n3">
+    <edge id="e22" source="n29" target="n3">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -898,7 +886,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e24" source="n30" target="n31">
+    <edge id="e23" source="n30" target="n31">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="14.464747625575683" tx="0.0" ty="0.0">
@@ -910,7 +898,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e25" source="n31" target="n32">
+    <edge id="e24" source="n31" target="n32">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -920,7 +908,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e26" source="n32" target="n5">
+    <edge id="e25" source="n32" target="n5">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -932,7 +920,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e27" source="n33" target="n7">
+    <edge id="e26" source="n33" target="n7">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -942,7 +930,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e28" source="n7" target="n5">
+    <edge id="e27" source="n7" target="n5">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -954,7 +942,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e29" source="n13" target="n5">
+    <edge id="e28" source="n13" target="n5">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -966,7 +954,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e30" source="n34" target="n17">
+    <edge id="e29" source="n34" target="n17">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -978,7 +966,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e31" source="n3" target="n34">
+    <edge id="e30" source="n3" target="n34">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -990,7 +978,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e32" source="n34" target="n16">
+    <edge id="e31" source="n34" target="n16">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -1002,7 +990,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e33" source="n12" target="n8">
+    <edge id="e32" source="n12" target="n8">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -1014,7 +1002,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e34" source="n12" target="n9">
+    <edge id="e33" source="n12" target="n9">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -1026,7 +1014,7 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e35" source="n12" target="n10">
+    <edge id="e34" source="n12" target="n10">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -1038,11 +1026,35 @@ and drupal-jsonapi-params<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e36" source="n12" target="n11">
+    <edge id="e35" source="n12" target="n11">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
             <y:Point x="888.4882494944384" y="837.2201196921484"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e36" source="n24" target="n0">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e37" source="n24" target="n12">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="888.4882494944384" y="445.22534131086707"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
