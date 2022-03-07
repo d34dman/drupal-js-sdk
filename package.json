@@ -7,8 +7,10 @@
   "scripts": {
     "build": "yarn clean && siroc build",
     "changeset": "changeset",
-    "clean": "yarn clean:dist",
+    "clean": "yarn clean:dist && yarn clean:test && yarn clean:docs",
     "clean:dist": "rimraf packages/*/dist || true",
+    "clean:test": "rimraf packages/*/coverage || true",
+    "clean:docs": "rimraf packages/*/api || true",
     "lint:commit": "commitlint",
     "postinstall": "husky install",
     "test": "yarn build && yarn workspaces foreach run test",

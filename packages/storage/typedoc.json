@@ -1,0 +1,6 @@
+{
+  "entryPoints": [
+    "./src/StorageInMemory.ts",
+    "./src/StorageInWeb.ts"
+  ]
+}
