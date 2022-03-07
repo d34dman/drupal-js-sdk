@@ -1,6 +1,6 @@
 import {Drupal} from './Drupal';
 import {ClientInterface} from './interfaces';
-import {DrupalError} from './DrupalError';
+import {DrupalError} from '@drupal-js-sdk/error';
 
 interface MenuDictionary<TValue> {
   [id: string]: TValue;

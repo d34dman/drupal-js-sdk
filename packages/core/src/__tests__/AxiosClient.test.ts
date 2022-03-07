@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {AxiosClient, DrupalError} from '..';
+import {AxiosClient} from '..';
+import {DrupalError} from '@drupal-js-sdk/error';
 
 const mock = new MockAdapter(axios);
 

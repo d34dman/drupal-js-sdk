@@ -1,4 +1,5 @@
-import {DrupalSettings, DrupalRole, DrupalError} from '..';
+import {DrupalSettings, DrupalRole} from '..';
+import {DrupalError} from '@drupal-js-sdk/error';
 
 test('Test for implemented methods', () => {
   const settings = new DrupalSettings();

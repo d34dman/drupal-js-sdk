@@ -5,7 +5,7 @@ import axios, {
   Method,
 } from 'axios';
 
-import {DrupalError} from './DrupalError';
+import {DrupalError} from '@drupal-js-sdk/error';
 import {ClientInterface, ConfigRecordInterface} from './interfaces';
 
 interface JsonErrorResponseType {

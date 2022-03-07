@@ -1,6 +1,5 @@
 import {Core, AxiosClient} from '..';
-import { Config } from '../Config';
-import { StorageInMemory } from '../StorageInMemory';
+import { StorageInMemory } from '@drupal-js-sdk/storage';
 
 test('Core', () => {
   const core = new Core({});

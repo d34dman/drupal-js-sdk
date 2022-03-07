@@ -1,4 +1,4 @@
-import {DrupalError} from './DrupalError';
+import {DrupalError} from '@drupal-js-sdk/error';
 
 export class DrupalRole {
   public hasRole(role: string): boolean {

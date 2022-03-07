@@ -1,6 +1,5 @@
-import {Config} from './Config';
-import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, SessionInterface, StorageInterface} from './interfaces';
-import { StorageInMemory } from './StorageInMemory';
+import {ClientInterface, ConfigRecordInterface, CoreInterface, SessionInterface, StorageInterface} from './interfaces';
+import { StorageInMemory } from '@drupal-js-sdk/storage';
 
 interface ServiceBag {
   client?: ClientInterface;

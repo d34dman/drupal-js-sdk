@@ -1,6 +1,6 @@
 import {Config} from './Config';
 import {ConfigRecordInterface} from './interfaces';
-import {DrupalError} from './DrupalError';
+import {DrupalError} from '@drupal-js-sdk/error';
 interface EntityHandlerConfig extends ConfigRecordInterface{
     type: string;
     bundle: string;

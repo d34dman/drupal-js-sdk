@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import {Drupal, DrupalAuth} from '..';
-import { StorageInMemory } from '../StorageInMemory';
+import { StorageInMemory } from '@drupal-js-sdk/storage';
 
 
 const mock = new MockAdapter(axios);
