@@ -6,11 +6,9 @@ const config = {
 
 const drupal = new sdk.Drupal(config);
 
-const auth = new sdk.DrupalAuth(drupal);
-
 const drupalMenu = new sdk.DrupalMenu(drupal);
 
-if (drupal && auth && drupalMenu) {
+if (drupal && drupalMenu) {
     process.exit(0);
 }
 else {
