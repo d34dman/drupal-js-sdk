@@ -6,16 +6,10 @@
   ],
   "scripts": {
     "build": "yarn clean && siroc build",
-    "build:docs": "./packages/docgen/bin/druxt-docgen.js",
-    "bundlewatch": "bundlewatch --config bundlewatch.config.js",
     "changeset": "changeset",
     "clean": "yarn clean:dist",
     "clean:dist": "rimraf packages/*/dist || true",
-    "dev": "siroc dev",
-    "lint": "eslint --ext .ts packages/*/src",
     "lint:commit": "commitlint",
-    "lint:renovate": "renovate-config-validator",
-    "package": "siroc run yarn pack --workspaces",
     "postinstall": "husky install",
     "test": "yarn build && yarn workspaces foreach run test",
     "version": "changeset version"
