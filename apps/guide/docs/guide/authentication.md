@@ -4,17 +4,55 @@ Default authentication service is provided via `DrupalAuth`.
 It provides helper method to do cookie based authentication with Drupal backend.
 
 ::: tip
-Authentication calls requires some persistent data to be maintained.
 
-For doing so, use the same `api` and `auth` instance for making subsequent calls.
-```js
-import {Drupal, DrupalAuth} from 'drupal-js-sdk'
-const api = new Drupal({baseURL: 'http://example.com'});
-const auth = new DrupalAuth(api);
+Authentication calls requires some persistent data to be maintained.
+Hence we need to set a session service in our sdk.
+
+<CodeGroup>
+  <CodeGroupItem title="Memory" active>
+
+```js {4,5}
+import {Drupal, DrupalAuth, StorageInMemory} from 'drupal-js-sdk';
+
+const sdk = new Drupal({baseURL: 'http://example.com'});
+// Awailable in Node and Browser environments.
+const sessionStorage = new StorageInMemory();
+sdk.setSessionService(sessionStorage);
+const auth = new DrupalAuth(sdk);
 ```
+
+  </CodeGroupItem>
+  <CodeGroupItem title="localStorage">
+
+```js {4,5}
+import {Drupal, DrupalAuth, StorageInWeb} from 'drupal-js-sdk';
+
+const sdk = new Drupal({baseURL: 'http://example.com'});
+// Awailable only in Browser environments.
+const sessionStorage = new StorageInWeb(() => window.localStorage);
+sdk.setSessionService(sessionStorage);
+const auth = new DrupalAuth(sdk);
+```
+
+  </CodeGroupItem>
+  <CodeGroupItem title="sessionStorage">
+
+```js {4,5}
+import {Drupal, DrupalAuth, StorageInWeb} from 'drupal-js-sdk';
+
+const sdk = new Drupal({baseURL: 'http://example.com'});
+// Awailable only in Browser environments.
+const sessionStorage = new StorageInWeb(() => window.sessionStorage);
+sdk.setSessionService(sessionStorage);
+const auth = new DrupalAuth(sdk);
+```
+
+  </CodeGroupItem>
+</CodeGroup>
+
 :::
 
-## Login status <Badge type="tip" text="ok" vertical="top" />
+## Login status
 
 ```js {2}
 let logged_in = false;
@@ -23,9 +61,9 @@ auth.loginStatus()
     .catch(error) {
         // Display message that login status check failed. 
     }
-```
+````
 
-## Login <Badge type="tip" text="ok" vertical="top" />
+## Login
 ```js {2}
 let user_info = {};
 auth.login('admin', 'Z1ON0101')
