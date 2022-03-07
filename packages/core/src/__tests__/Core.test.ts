@@ -1,13 +1,12 @@
 import {Core, AxiosClient} from '..';
-import {Session} from '../Session';
+import { Config } from '../Config';
+import { StorageInMemory } from '../StorageInMemory';
 
 test('Core', () => {
   const core = new Core({});
   core.config.setItem('FOO', 'bar');
   expect(core.config.getItem('FOO')).toBe('bar');
-  expect(() => {
-    core.config.getItem('BAR');
-  }).toThrow('Configuration key not found: BAR');
+  expect(core.config.getItem('BAR')).toBe(null);
 
 });
 
@@ -16,19 +15,25 @@ test('Core Overridable Services', () => {
   const core = new Core({});
 
   expect(() => {
-    core.getClient();
+    core.getClientService();
   }).toThrow('ApiClientService undefined');
 
   const client = new AxiosClient();
-  expect(core.setClient(client)).toBe(core);
-  expect(core.getClient()).toBe(client);
+  expect(core.setClientService(client)).toBe(core);
+  expect(core.getClientService()).toBe(client);
 
   expect(() => {
     core.getSessionService();
   }).toThrow('SessionService undefined');
 
 
-  const session = new Session({});
+  const session = new StorageInMemory();
   expect(core.setSessionService(session)).toBe(core);
   expect(core.getSessionService()).toBe(session);
+
+
+  const config = new StorageInMemory();
+  expect(core.setConfigService(config)).toBe(core);
+  expect(core.getConfigService()).toBe(config);
+
 });

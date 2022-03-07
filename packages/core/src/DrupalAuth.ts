@@ -1,4 +1,4 @@
-import {ClientInterface, DrupalClientResponse} from './interfaces';
+import {ClientInterface, DrupalClientResponse, SessionInterface} from './interfaces';
 import {Drupal} from './Drupal';
 interface DrupalAuthUser {
   uid: string;
@@ -11,27 +11,43 @@ interface DrupalAuthStore {
   currentUser?: DrupalAuthUser;
 }
 export class DrupalAuth {
+
+  readonly SESSION_KEY = 'DRUPAL_AUTH.SESSION';
+
   drupal: Drupal;
   client: ClientInterface;
-  store: DrupalAuthStore;
+  store: DrupalAuthStore = {
+    csrfToken: undefined,
+    logoutToken: undefined,
+    currentUser: {
+      uid: '0',
+      roles: ['anonymous'],
+      name: 'Anonymous',
+    },
+  };
+  session: SessionInterface;
 
   constructor(drupal: Drupal) {
     this.drupal = drupal;
-    this.client = drupal.getClient();
-    this.store = {};
+    this.client = drupal.getClientService();
+    this.session = this.drupal.getSessionService();
+    this.store = this.getDrupalSession();
     this.refreshUserSession();
   }
 
+  private getDrupalSession():DrupalAuthStore {
+    let sessionData:DrupalAuthStore = this.session.getItem(this.SESSION_KEY);
+    if (sessionData === null || sessionData === undefined) {
+      sessionData = {};
+    }
+    return sessionData;
+  }
+
+  private setDrupalSession() {
+    this.session.setItem(this.SESSION_KEY, this.store);
+  }
+
   refreshUserSession(): Promise<DrupalClientResponse> {
-    this.store = {
-      csrfToken: undefined,
-      logoutToken: undefined,
-      currentUser: {
-        uid: '0',
-        roles: ['anonymous'],
-        name: 'Anonymous',
-      },
-    };
     return this.getSessionToken();
   }
 
@@ -71,6 +87,7 @@ export class DrupalAuth {
       .then((response) => {
         const data = response.data;
         this.store = data;
+        this.setDrupalSession();
         this.client.addDefaultHeaders({'X-CSRF-Token': data.csrfToken});
         return response;
       });

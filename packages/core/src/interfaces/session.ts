@@ -1,4 +1,2 @@
-import {ConfigInterface} from './config';
-export interface SessionInterface {
-    config : ConfigInterface;
-}
+import {StorageInterface} from './storage';
+export type SessionInterface = StorageInterface

@@ -1,6 +1,6 @@
 import {Config} from './Config';
-import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, SessionInterface} from './interfaces';
-
+import {ClientInterface, ConfigInterface, ConfigRecordInterface, CoreInterface, SessionInterface, StorageInterface} from './interfaces';
+import { StorageInMemory } from './StorageInMemory';
 
 interface ServiceBag {
   client?: ClientInterface;
@@ -9,18 +9,28 @@ interface ServiceBag {
 
 export class Core implements CoreInterface {
   service: ServiceBag = {};
-  public config: ConfigInterface;
+  public config: StorageInterface;
 
   constructor(config: ConfigRecordInterface) {
-    this.config = new Config(config);
+    this.config = new StorageInMemory();
+    this.config.set(config);
   }
 
-  public setClient(apiClient: ClientInterface): CoreInterface {
-    this.service.client = apiClient;
+  public setConfigService(config: StorageInterface) {
+    this.config = config;
     return this;
   }
 
-  public getClient(): ClientInterface {
+  public getConfigService(): StorageInterface {
+    return this.config;
+  }
+
+  public setClientService(client: ClientInterface): CoreInterface {
+    this.service.client = client;
+    return this;
+  }
+
+  public getClientService(): ClientInterface {
     if (this.service.client === undefined) {
       throw new Error(`ApiClientService undefined`);
     }

@@ -12,12 +12,12 @@
     "clean": "yarn clean:dist",
     "clean:dist": "rimraf packages/*/dist || true",
     "dev": "siroc dev",
-    "lint": "eslint --ext .js,.vue packages/*/src",
+    "lint": "eslint --ext .ts packages/*/src",
     "lint:commit": "commitlint",
     "lint:renovate": "renovate-config-validator",
     "package": "siroc run yarn pack --workspaces",
     "postinstall": "husky install",
-    "test": "echo 'PASS .'",
+    "test": "yarn build && yarn workspaces foreach run test",
     "version": "changeset version"
   },
   "devDependencies": {

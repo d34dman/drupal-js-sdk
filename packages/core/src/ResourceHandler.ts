@@ -20,7 +20,7 @@ export class ResourceHandler implements ResourceHandlerInterface {
 
   constructor(config: DrupalEntityConfig) {
     this.config = config;
-    this._client = config.drupal.getClient();
+    this._client = config.drupal.getClientService();
     this._jsonApiConfig = {
       apiEndpoint: `/jsonapi/${config.entity}/${config.bundle}`,
       type: `${config.entity}-${config.bundle}`,

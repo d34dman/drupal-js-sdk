@@ -152,7 +152,7 @@ test('Drupal Menu axios request', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
-  sdk.setClient(client);
+  sdk.setClientService(client);
   const menu = new DrupalMenu(sdk);
   expect.assertions(1);
   await menu.getMenuRaw('main')
