@@ -48,6 +48,8 @@
     "@changesets/cli": "^2.21.0",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
+    "@drupal-js-sdk/error": "workspace:^",
+    "@drupal-js-sdk/storage": "workspace:^",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
