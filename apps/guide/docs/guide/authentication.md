@@ -11,8 +11,9 @@ Hence we need to set a session service in our sdk.
 <CodeGroup>
   <CodeGroupItem title="Memory" active>
 
-```js {4,5}
-import {Drupal, DrupalAuth, StorageInMemory} from 'drupal-js-sdk';
+```js {5,6,7}
+import {Drupal, DrupalAuth} from 'drupal-js-sdk';
+import { StorageInMemory } from '@drupal-js-sdk/storage';
 
 const sdk = new Drupal({baseURL: 'http://example.com'});
 // Awailable in Node and Browser environments.
@@ -24,8 +25,9 @@ const auth = new DrupalAuth(sdk);
   </CodeGroupItem>
   <CodeGroupItem title="localStorage">
 
-```js {4,5}
-import {Drupal, DrupalAuth, StorageInWeb} from 'drupal-js-sdk';
+```js {5,6,7}
+import {Drupal, DrupalAuth } from 'drupal-js-sdk';
+import { StorageInWeb } from '@drupal-js-sdk/storage';
 
 const sdk = new Drupal({baseURL: 'http://example.com'});
 // Awailable only in Browser environments.
@@ -37,8 +39,9 @@ const auth = new DrupalAuth(sdk);
   </CodeGroupItem>
   <CodeGroupItem title="sessionStorage">
 
-```js {4,5}
-import {Drupal, DrupalAuth, StorageInWeb} from 'drupal-js-sdk';
+```js {5,6,7}
+import {Drupal, DrupalAuth} from 'drupal-js-sdk';
+import { StorageInWeb } from '@drupal-js-sdk/storage';
 
 const sdk = new Drupal({baseURL: 'http://example.com'});
 // Awailable only in Browser environments.
