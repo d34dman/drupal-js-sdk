@@ -1,5 +1,12 @@
-import {ClientInterface, CoreInterface, SessionInterface } from './interfaces';
-import { StorageInMemory, StorageInterface, StorageRecordInterface } from '@drupal-js-sdk/storage';
+import {
+  ClientInterface, 
+  CoreInterface, 
+  SessionInterface,
+  StorageInterface, 
+  StorageRecordInterface 
+} from '@drupal-js-sdk/interfaces';
+
+import { Config } from './Config';
 
 interface ServiceBag {
   client?: ClientInterface;
@@ -11,8 +18,7 @@ export class Core implements CoreInterface {
   public config: StorageInterface;
 
   constructor(config: StorageRecordInterface) {
-    this.config = new StorageInMemory();
-    this.config.set(config);
+    this.config = new Config(config);
   }
 
   public setConfigService(config: StorageInterface) {

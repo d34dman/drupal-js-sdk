@@ -1,5 +1,5 @@
 import {Drupal} from './Drupal';
-import {ClientInterface} from './interfaces';
+import {ClientInterface} from '@drupal-js-sdk/interfaces';
 import {DrupalError} from '@drupal-js-sdk/error';
 
 interface MenuDictionary<TValue> {

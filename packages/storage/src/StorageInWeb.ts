@@ -1,6 +1,6 @@
 import { DrupalError } from "@drupal-js-sdk/error";
 
-import { StorageInterface, StorageRecordInterface, StorageValueType } from "./interfaces";
+import { StorageInterface, StorageRecordInterface, StorageValueType } from "@drupal-js-sdk/interfaces";
 
 interface WebStorageInterface {
     getItem(key: string): string | null;

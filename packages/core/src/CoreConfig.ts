@@ -1,5 +1,5 @@
 import {Config} from './Config';
-import { StorageRecordInterface } from '@drupal-js-sdk/storage';
+import { StorageRecordInterface } from '@drupal-js-sdk/interfaces';
 
 /**
  * Probably not needed.

@@ -1,0 +1,21 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint",
+        "no-loops"
+    ],
+    "parserOptions": {
+        "project": "./tsconfig.eslint.json"
+      },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+        "no-console": 2,
+        "no-loops/no-loops": 2,
+        "@typescript-eslint/no-explicit-any": "off"
+    }
+}

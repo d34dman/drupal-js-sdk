@@ -6,8 +6,7 @@ import axios, {
 } from 'axios';
 
 import {DrupalError} from '@drupal-js-sdk/error';
-import { StorageRecordInterface } from '@drupal-js-sdk/storage';
-import {ClientInterface} from './interfaces';
+import {StorageRecordInterface, ClientInterface} from '@drupal-js-sdk/interfaces';
 
 interface JsonErrorResponseType {
   code: number;

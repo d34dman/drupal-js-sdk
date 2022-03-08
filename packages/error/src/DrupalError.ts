@@ -1,7 +1,9 @@
+import {DrupalErrorInterface} from '@drupal-js-sdk/interfaces';
+
 /**
  * Constructs a new Drupal.Error object with the given code and message.
  */
-export class DrupalError extends Error {
+export class DrupalError extends Error implements DrupalErrorInterface {
 
   /**
    * Error code indicating some error other than those enumerated here.

@@ -1,4 +1,4 @@
-import { StorageInterface } from '@drupal-js-sdk/storage';
+import { StorageInterface } from './storage';
 export interface CoreInterface {
     config : StorageInterface;
 }

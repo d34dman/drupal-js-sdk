@@ -1,5 +1,5 @@
-import {DrupalError} from '@drupal-js-sdk/error';
 import {AxiosResponse} from 'axios';
+import { DrupalErrorInterface } from './error';
 
 export type DrupalClientResponse = AxiosResponse;
 export interface ClientInterface {
@@ -11,7 +11,7 @@ export interface ClientInterface {
     path: string,
     config?: {[key: string]: any;}
   ): Promise<any>;
-  getDrupalError(response: any): DrupalError;
+  getDrupalError(response: any): DrupalErrorInterface;
   addDefaultHeaders(headers: {[key: string]: any;}): ClientInterface;
 }
 

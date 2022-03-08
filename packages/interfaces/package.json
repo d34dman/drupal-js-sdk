@@ -1,13 +1,13 @@
 {
-  "name": "@drupal-js-sdk/error",
+  "name": "@drupal-js-sdk/interfaces",
   "version": "0.3.9",
-  "description": "Drupal JavaScript SDK : Error",
+  "description": "Drupal JavaScript SDK : Interfaces",
   "keywords": [
     "Drupal",
     "javascript",
-    "sdk"
+    "api"
   ],
-  "homepage": "https://github.com/d34dman/drupal-js-sdk/tree/main/packages/core#readme",
+  "homepage": "https://github.com/d34dman/drupal-js-sdk/tree/main/packages/interfaces#readme",
   "bugs": {
     "url": "https://github.com/d34dman/drupal-js-sdk/issues"
   },
@@ -48,7 +48,6 @@
     "@changesets/cli": "^2.21.0",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
-    "@drupal-js-sdk/interfaces": "workspace:^",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^5.13.0",

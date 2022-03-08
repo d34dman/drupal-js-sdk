@@ -1,6 +1,10 @@
 import {Config} from './Config';
-import {CoreInterface} from './interfaces';
-import { StorageInterface, StorageRecordInterface, StorageValueType } from '@drupal-js-sdk/storage';
+import {
+  CoreInterface,  
+  StorageInterface, 
+  StorageRecordInterface, 
+  StorageValueType
+} from '@drupal-js-sdk/interfaces';
 
 export interface DrupalEntityConfig extends StorageRecordInterface {
     entity: string;
@@ -20,8 +24,7 @@ export class DrupalEntity {
   protected drupal: CoreInterface;
 
   constructor(config: DrupalEntityConfig, drupal: CoreInterface) {
-    this.config = new Config();
-    this.config.set(config);
+    this.config = new Config(config);
     this.drupal = drupal;
   }
 

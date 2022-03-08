@@ -1,5 +1,4 @@
 import {DrupalError} from '@drupal-js-sdk/error';
-
 export class DrupalSettings {
   public get(key: string): any {
     if (key) {

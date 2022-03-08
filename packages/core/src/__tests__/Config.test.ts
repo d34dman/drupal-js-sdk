@@ -2,8 +2,7 @@ import {Config} from '../Config';
 
 
 test('Config', () => {
-  const config = new Config();
-  config.setItem('FOO', 'bar');
+  const config = new Config({'FOO': 'bar'});
   expect(config.getItem('FOO')).toBe('bar');
   expect(config.get()).toEqual({FOO: 'bar'});
   expect(config.set({})).toBe(undefined);

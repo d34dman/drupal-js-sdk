@@ -1,6 +1,6 @@
 import {Drupal} from './Drupal';
-import {ClientInterface, ResourceHandlerInterface} from './interfaces';
-import { StorageInterface } from '@drupal-js-sdk/storage';
+import {ClientInterface, ResourceHandlerInterface, StorageInterface} from '@drupal-js-sdk/interfaces';
+
 
 
 export interface DrupalEntityConfig extends StorageInterface {

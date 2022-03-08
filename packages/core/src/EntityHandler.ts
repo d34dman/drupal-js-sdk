@@ -1,6 +1,6 @@
 import {Config} from './Config';
 import {DrupalError} from '@drupal-js-sdk/error';
-import { StorageRecordInterface } from '@drupal-js-sdk/storage';
+import { StorageRecordInterface } from '@drupal-js-sdk/interfaces';
 
 interface EntityHandlerConfig extends StorageRecordInterface{
     type: string;
@@ -11,8 +11,7 @@ interface EntityHandlerConfig extends StorageRecordInterface{
 export class EntityHandler extends Config {
 
   constructor(config: EntityHandlerConfig) {
-    super();
-    this.set(config);
+    super(config);
   }
 
   public create(data: StorageRecordInterface): {[key: string]: any;} {

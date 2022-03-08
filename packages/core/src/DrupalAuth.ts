@@ -1,4 +1,4 @@
-import {ClientInterface, DrupalClientResponse, SessionInterface} from './interfaces';
+import {ClientInterface, DrupalClientResponse, SessionInterface} from '@drupal-js-sdk/interfaces';
 import {Drupal} from './Drupal';
 interface DrupalAuthUser {
   uid: string;

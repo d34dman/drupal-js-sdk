@@ -1,4 +1,4 @@
-import { StorageRecordInterface } from '@drupal-js-sdk/storage';
+import { StorageRecordInterface } from '@drupal-js-sdk/interfaces';
 
 export interface EntityType {
     type: string;
