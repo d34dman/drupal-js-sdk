@@ -4,4 +4,3 @@ export {DrupalAuth} from './DrupalAuth';
 export {DrupalMenu} from './DrupalMenu';
 export {DrupalRole} from './DrupalRole';
 export {DrupalSettings} from './DrupalSettings';
-export {AxiosClient} from './AxiosClient';

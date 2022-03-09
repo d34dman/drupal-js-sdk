@@ -1,11 +1,3 @@
-import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  Method,
-  AxiosBasicCredentials
-} from 'axios';
-
 import { DrupalErrorInterface } from './error';
 
 export interface XhrInterface {
@@ -26,16 +18,41 @@ export interface XhrBasicCredentials {
   password: string;
 }
 
-export interface XhrInstance extends AxiosInstance {
+export interface XhrInstance {
+  request<T = any, R = XhrResponse<T>, D = any>(config: XhrRequestConfig<D>): Promise<R>;
+}
+export type XhrRequestHeaders = Record<string, string | number | boolean>;
 
+export type XhrResponseHeaders = Record<string, string> & {
+  "set-cookie"?: string[]
+};
+
+export interface XhrResponse<T = any, D = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: XhrResponseHeaders;
+  config: XhrRequestConfig<D>;
+  request?: any;
+}
+export interface XhrRequestConfig<D = any> {
+  url?: string;
+  method?: XhrMethod;
+  baseURL?: string;
+  headers?: XhrRequestHeaders;
+  data?: D;
+  withCredentials?: boolean;
+  auth?: XhrBasicCredentials;
 }
 
-export interface XhrRequestConfig extends AxiosRequestConfig {
-
-}
-
-export interface XhrResponse extends AxiosResponse {
-
-}
-
-export type XhrMethod = Method;
+export type XhrMethod =
+  | 'get' | 'GET'
+  | 'delete' | 'DELETE'
+  | 'head' | 'HEAD'
+  | 'options' | 'OPTIONS'
+  | 'post' | 'POST'
+  | 'put' | 'PUT'
+  | 'patch' | 'PATCH'
+  | 'purge' | 'PURGE'
+  | 'link' | 'LINK'
+  | 'unlink' | 'UNLINK';

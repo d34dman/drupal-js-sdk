@@ -1,7 +1,7 @@
 import {Drupal, DrupalMenu} from '..';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {AxiosClient} from '..';
+import {XhrClient} from '@drupal-js-sdk/xhr';
 
 const mock = new MockAdapter(axios);
 
@@ -146,7 +146,8 @@ test('Drupal Menu function defaults', () => {
 });
 
 test('Drupal Menu axios request', async () => {
-  const client = new AxiosClient();
+  const axiosClient = axios.create();
+  const client = new XhrClient(axiosClient);
   client.setClient(axios.create());
   const config = {
     baseURL: 'http://www.example.com',

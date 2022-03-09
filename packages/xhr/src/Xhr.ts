@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import {XhrInterface, XhrInstance, XhrRequestConfig, XhrResponse, XhrMethod} from '@drupal-js-sdk/interfaces';
 
 import {DrupalError} from '@drupal-js-sdk/error';
@@ -9,12 +7,17 @@ interface JsonErrorResponseType {
   code: number;
   error: string;
 }
-export class AxiosClient implements XhrInterface {
-  public client: XhrInstance;
 
-  constructor(options: XhrRequestConfig = {}) {
-    this.client = axios.create(options);
-    this.client.defaults.withCredentials = true;
+export class XhrClient implements XhrInterface {
+
+  public client: XhrInstance;
+  protected config: StorageRecordInterface;
+
+  constructor(client: XhrInstance) {
+    this.client = client;
+    this.config = {
+      headers: {}
+    };
   }
 
   public setClient(client: XhrInstance): XhrInterface {
@@ -26,8 +29,8 @@ export class AxiosClient implements XhrInterface {
     return this.client;
   }
 
-  public addDefaultHeaders(headers: StorageRecordInterface): AxiosClient {
-    Object.assign(this.client.defaults.headers, headers);
+  public addDefaultHeaders(headers: StorageRecordInterface): XhrInterface {
+    Object.assign(this.config.headers, headers);
     return this;
   }
 
@@ -68,12 +71,12 @@ export class AxiosClient implements XhrInterface {
     ) {
       error = new DrupalError(
         DrupalError.CONNECTION_FAILED,
-        `Axios method failed: ${data}`,
+        `Xhr method failed: ${data}`,
       );
     } else if (data.responseText === undefined) {
       error = new DrupalError(
         DrupalError.CONNECTION_FAILED,
-        `Axios method failed: ${JSON.stringify(data)}`,
+        `Xhr method failed: ${JSON.stringify(data)}`,
       );
     } else if (typeof data.responseText === 'string') {
       try {
@@ -85,14 +88,14 @@ export class AxiosClient implements XhrInterface {
         // If we fail to parse the error text, that's okay.
         error = new DrupalError(
           DrupalError.INVALID_JSON,
-          `Received an error with invalid JSON from Drupal: ${data.responseText}`,
+          `Received an error with invalid JSON from server: ${data.responseText}`,
         );
       }
     }
     else {
       error = new DrupalError(
         DrupalError.INVALID_JSON,
-        `Received an error with invalid JSON from Drupal: ${data.responseText}`,
+        `Received an error with invalid JSON from server: ${data.responseText}`,
       );
     }
     return error;
