@@ -2,12 +2,7 @@ import { DrupalError } from "@drupal-js-sdk/error";
 
 import { StorageInterface, StorageRecordInterface, StorageValueType } from "@drupal-js-sdk/interfaces";
 
-interface WebStorageInterface {
-    getItem(key: string): string | null;
-    setItem(key: string, value: string): void;
-    removeItem(key: string): void;
-    clear(): void;
-}
+type WebStorageInterface = Storage
 
 
 export class StorageInWeb implements StorageInterface {
@@ -73,10 +68,21 @@ export class StorageInWeb implements StorageInterface {
     }
 
     public get(): StorageRecordInterface {
-        throw new Error('Not possible to use "get" in WebStorage context.');
+        return Object.keys(this.storage)
+            .reduce(
+                (obj, k) => {
+                    return { 
+                        ...obj, 
+                        [k]: this.getItem(k)
+                    }
+                }, 
+                {}
+            );
+            
     }
 
-    public set(): void {
-        throw new Error('Not possible to use "set" in WebStorage context.');
+    public set(data: StorageRecordInterface): void {
+        Object.entries(data)
+            .forEach(([key, value]) => this.setItem(key, value));
     }
 }

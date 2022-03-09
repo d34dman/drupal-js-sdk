@@ -3,7 +3,7 @@
  */
 
 import { DrupalError } from '@drupal-js-sdk/error';
-import {StorageInWeb} from '../StorageInWeb';
+import { StorageInWeb } from '../StorageInWeb';
 
 test('StorageInWeb', () => {
   const storage = new StorageInWeb(() => window.localStorage);
@@ -17,9 +17,32 @@ test('StorageInWeb', () => {
   expect(storage.getItem('FOO')).toBe(null);
   storage.clear();
   expect(storage.getItem('FOO')).toBe(null);
-  expect(() => {storage.set()}).toThrow();
-  expect(() => storage.get()).toThrow();
+  expect(storage.get()).toEqual({});
+  const testData = {'LIFE': 'WHAT?', 'Answer': 42};
+  expect(storage.set(testData));
+  expect(storage.get()).toEqual(testData);
 });
+
+
+test('StorageInWeb - localStorage', () => {
+  const storage = new StorageInWeb(() => window.localStorage);
+  storage.setItem('FOO', 'BAR');
+  expect(storage.getItem('FOO')).toBe('BAR');
+  
+  const testData = {'LIFE': 'WHAT?', 'Answer': 42};
+  const expectedData = {'FOO': 'BAR', 'LIFE': 'WHAT?', 'Answer': 42};
+  
+  expect(storage.set(testData));
+  expect(storage.getItem('FOO')).toBe('BAR');
+
+  expect(storage.get()).toEqual(expectedData);
+
+  storage.clear();
+  expect(storage.set(testData));
+  expect(storage.get()).toEqual(testData);
+});
+
+
 
 test('StorageInWeb Errors', () => {
   const storage = new StorageInWeb();
