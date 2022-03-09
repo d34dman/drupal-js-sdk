@@ -1,31 +1,28 @@
-import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  Method,
-} from 'axios';
+import axios from 'axios';
+
+import {XhrInterface, XhrInstance, XhrRequestConfig, XhrResponse, XhrMethod} from '@drupal-js-sdk/interfaces';
 
 import {DrupalError} from '@drupal-js-sdk/error';
-import {StorageRecordInterface, ClientInterface} from '@drupal-js-sdk/interfaces';
+import {StorageRecordInterface} from '@drupal-js-sdk/interfaces';
 
 interface JsonErrorResponseType {
   code: number;
   error: string;
 }
-export class AxiosClient implements ClientInterface {
-  public client: AxiosInstance;
+export class AxiosClient implements XhrInterface {
+  public client: XhrInstance;
 
-  constructor(options: AxiosRequestConfig = {}) {
+  constructor(options: XhrRequestConfig = {}) {
     this.client = axios.create(options);
     this.client.defaults.withCredentials = true;
   }
 
-  public setClient(client: AxiosInstance): ClientInterface {
+  public setClient(client: XhrInstance): XhrInterface {
     this.client = client;
     return this;
   }
 
-  public getClient(): AxiosInstance {
+  public getClient(): XhrInstance {
     return this.client;
   }
 
@@ -35,11 +32,11 @@ export class AxiosClient implements ClientInterface {
   }
 
   call(
-    method: Method,
+    method: XhrMethod,
     path: string,
     config?: StorageRecordInterface,
-  ): Promise<AxiosResponse> {
-    const reqCofnig: AxiosRequestConfig = {
+  ): Promise<XhrResponse> {
+    const reqCofnig: XhrRequestConfig = {
       method,
       url: path,
       ...config,
@@ -53,11 +50,11 @@ export class AxiosClient implements ClientInterface {
   }
 
 
-  request(reqConfig: AxiosRequestConfig): Promise<AxiosResponse> {
+  request(reqConfig: XhrRequestConfig): Promise<XhrResponse> {
     return this.client.request(reqConfig);
   }
 
-  getDrupalError(response: AxiosResponse): DrupalError {
+  getDrupalError(response: XhrResponse): DrupalError {
     // Transform the error into an instance of DrupalError by trying to parse
     // the error string as JSON
     let error;

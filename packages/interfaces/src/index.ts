@@ -1,4 +1,4 @@
-export * from './client';
+export * from './xhr';
 export * from './core';
 export * from './error';
 export * from './handler';

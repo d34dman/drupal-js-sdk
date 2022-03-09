@@ -1,5 +1,5 @@
 import {Drupal} from './Drupal';
-import {ClientInterface, ResourceHandlerInterface, StorageInterface} from '@drupal-js-sdk/interfaces';
+import {XhrInterface, ResourceHandlerInterface, StorageInterface} from '@drupal-js-sdk/interfaces';
 
 
 
@@ -16,7 +16,7 @@ export interface JsonApiConfigType {
 }
 export class ResourceHandler implements ResourceHandlerInterface {
   public config: DrupalEntityConfig;
-  private readonly _client: ClientInterface;
+  private readonly _client: XhrInterface;
   private _jsonApiConfig: JsonApiConfigType;
 
   constructor(config: DrupalEntityConfig) {

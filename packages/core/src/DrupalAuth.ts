@@ -1,4 +1,4 @@
-import {ClientInterface, DrupalClientResponse, SessionInterface} from '@drupal-js-sdk/interfaces';
+import {XhrInterface, XhrResponse, SessionInterface} from '@drupal-js-sdk/interfaces';
 import {Drupal} from './Drupal';
 interface DrupalAuthUser {
   uid: string;
@@ -15,7 +15,7 @@ export class DrupalAuth {
   readonly SESSION_KEY = 'DRUPAL_AUTH.SESSION';
 
   drupal: Drupal;
-  client: ClientInterface;
+  client: XhrInterface;
   store: DrupalAuthStore = {
     csrfToken: undefined,
     logoutToken: undefined,
@@ -47,11 +47,11 @@ export class DrupalAuth {
     this.session.setItem(this.SESSION_KEY, this.store);
   }
 
-  refreshUserSession(): Promise<DrupalClientResponse> {
+  refreshUserSession(): Promise<XhrResponse> {
     return this.getSessionToken();
   }
 
-  public getSessionToken(): Promise<DrupalClientResponse> {
+  public getSessionToken(): Promise<XhrResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export class DrupalAuth {
       });
   }
 
-  public login(name: string, pass: string): Promise<DrupalClientResponse> {
+  public login(name: string, pass: string): Promise<XhrResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ export class DrupalAuth {
       .then(() => true);
   }
 
-  public logout(): Promise<DrupalClientResponse> {
+  public logout(): Promise<XhrResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ export class DrupalAuth {
       });
   }
 
-  public passwordResetByUserName(name: string): Promise<DrupalClientResponse> {
+  public passwordResetByUserName(name: string): Promise<XhrResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export class DrupalAuth {
       });
   }
 
-  public passwordResetByMail(mail: string): Promise<DrupalClientResponse> {
+  public passwordResetByMail(mail: string): Promise<XhrResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ export class DrupalAuth {
       });
   }
 
-  public register(name: string, mail: string): Promise<DrupalClientResponse> {
+  public register(name: string, mail: string): Promise<XhrResponse> {
     const config = {
       headers: {
         'Content-Type': 'application/json',

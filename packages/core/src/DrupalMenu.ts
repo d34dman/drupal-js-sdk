@@ -1,5 +1,5 @@
 import {Drupal} from './Drupal';
-import {ClientInterface} from '@drupal-js-sdk/interfaces';
+import {XhrInterface} from '@drupal-js-sdk/interfaces';
 import {DrupalError} from '@drupal-js-sdk/error';
 
 interface MenuDictionary<TValue> {
@@ -11,7 +11,7 @@ interface MenuDictionary<TValue> {
  */
 export class DrupalMenu {
   drupal: Drupal;
-  client: ClientInterface;
+  client: XhrInterface;
   constructor(drupal: Drupal) {
     this.drupal = drupal;
     this.client = drupal.getClientService();

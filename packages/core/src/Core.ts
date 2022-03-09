@@ -1,5 +1,5 @@
 import {
-  ClientInterface, 
+  XhrInterface, 
   CoreInterface, 
   SessionInterface,
   StorageInterface, 
@@ -9,7 +9,7 @@ import {
 import { Config } from './Config';
 
 interface ServiceBag {
-  client?: ClientInterface;
+  client?: XhrInterface;
   session?: SessionInterface;
 }
 
@@ -30,12 +30,12 @@ export class Core implements CoreInterface {
     return this.config;
   }
 
-  public setClientService(client: ClientInterface): CoreInterface {
+  public setClientService(client: XhrInterface): CoreInterface {
     this.service.client = client;
     return this;
   }
 
-  public getClientService(): ClientInterface {
+  public getClientService(): XhrInterface {
     if (this.service.client === undefined) {
       throw new Error(`ApiClientService undefined`);
     }
