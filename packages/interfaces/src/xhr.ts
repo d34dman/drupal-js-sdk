@@ -1,7 +1,6 @@
 import { DrupalErrorInterface } from './error';
 
 export interface XhrInterface {
-  client: any;
   setClient(client: any): XhrInterface;
   getClient(): any;
   call(
@@ -18,9 +17,6 @@ export interface XhrBasicCredentials {
   password: string;
 }
 
-export interface XhrInstance {
-  request<T = any, R = XhrResponse<T>, D = any>(config: XhrRequestConfig<D>): Promise<R>;
-}
 export type XhrRequestHeaders = Record<string, string | number | boolean>;
 
 export type XhrResponseHeaders = Record<string, string> & {

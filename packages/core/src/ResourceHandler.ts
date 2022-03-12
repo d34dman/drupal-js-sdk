@@ -1,8 +1,6 @@
 import {Drupal} from './Drupal';
 import {XhrInterface, ResourceHandlerInterface, StorageInterface} from '@drupal-js-sdk/interfaces';
 
-
-
 export interface DrupalEntityConfig extends StorageInterface {
     entity: string;
     bundle: string;

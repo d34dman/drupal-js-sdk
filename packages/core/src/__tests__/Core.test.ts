@@ -1,7 +1,7 @@
 import {Core} from '..';
 import { StorageInMemory } from '@drupal-js-sdk/storage';
 import axios from 'axios';
-import {XhrClient} from '@drupal-js-sdk/xhr';
+import {AxiosClient} from '@drupal-js-sdk/xhr';
 test('Core', () => {
   const core = new Core({});
   core.config.setItem('FOO', 'bar');
@@ -18,8 +18,8 @@ test('Core Overridable Services', () => {
     core.getClientService();
   }).toThrow('ApiClientService undefined');
 
-  const axiosClient = axios.create();
-  const client = new XhrClient(axiosClient);
+  const axiosInstance = axios.create();
+  const client = new AxiosClient(axiosInstance);
   expect(core.setClientService(client)).toBe(core);
   expect(core.getClientService()).toBe(client);
 

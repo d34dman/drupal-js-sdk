@@ -1,4 +1,4 @@
-import {XhrClient} from '@drupal-js-sdk/xhr';
+import {AxiosClient} from '@drupal-js-sdk/xhr';
 import {Core} from './Core';
 import axios from 'axios';
 
@@ -31,7 +31,7 @@ export class Drupal extends Core {
       ...{baseURL: options.baseURL},
     };
     const axiosClient = axios.create(apiConfig);
-    const client = new XhrClient(axiosClient);
+    const client = new AxiosClient(axiosClient);
     this.setClientService(client);
     return this;
   }

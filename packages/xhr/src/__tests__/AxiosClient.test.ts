@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {XhrClient} from '..';
+import {AxiosClient} from '..';
 import {DrupalError} from '@drupal-js-sdk/error';
 
 const mock = new MockAdapter(axios);
@@ -11,7 +11,7 @@ mock.onGet('/mock-err-proper-response').reply(403, {responseText: JSON.stringify
 
 test('Axios client', () => {
   const axiosClient = axios.create();
-  const api = new XhrClient(axiosClient);
+  const api = new AxiosClient(axiosClient);
   const client = axios.create();
   expect(api.setClient(client)).toBe(api);
   expect(api.getClient()).toBe(client);
@@ -21,7 +21,7 @@ test('Axios client', () => {
 
 test('Axios client response handler', () => {
   const axiosClient = axios.create();
-  const api = new XhrClient(axiosClient);
+  const api = new AxiosClient(axiosClient);
   const mockResponseGenerator = function (data?: undefined|number|boolean|string|{[key: string]: any;} ) {
     return {
       data: data,
@@ -54,7 +54,7 @@ test('Axios client response handler', () => {
 
 test('Axios client error - 500 response', async () => {
   const axiosClient = axios.create();
-  const api = new XhrClient(axiosClient);
+  const api = new AxiosClient(axiosClient);
   const client = axios.create();
   expect(api.setClient(client)).toBe(api);
   expect(api.getClient()).toBe(client);
@@ -68,7 +68,7 @@ test('Axios client error - 500 response', async () => {
 
 test('Axios client error - proper json response', async () => {
   const axiosClient = axios.create();
-  const api = new XhrClient(axiosClient);
+  const api = new AxiosClient(axiosClient);
   const client = axios.create();
   expect(api.setClient(client)).toBe(api);
   expect(api.getClient()).toBe(client);
@@ -78,4 +78,17 @@ test('Axios client error - proper json response', async () => {
     .catch((err) => {
       expect(err).toBeInstanceOf(DrupalError);
     });
+});
+
+
+test('Axios client error - proper json response', async () => {
+  const axiosClient = axios.create();
+  const api = new AxiosClient(axiosClient);
+  const client = axios.create();
+  api.addDefaultHeaders({
+    foo: 'bar',
+    bar: 'baz',
+  });
+  expect(api.setClient(client)).toBe(api);
+  expect(api.getClient()).toBe(client);
 });
