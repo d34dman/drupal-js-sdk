@@ -1,5 +1,19 @@
 # drupal-js-sdk
 
+## 0.3.10
+
+### Patch Changes
+
+- ec139b1: Extract Xhr functionality into its own module
+- ec139b1: Improved robustnuss of fetch client
+- 18c367c: Refactored code to move all interefaces into @drupal-js-sdk/interfaces
+- ec139b1: Bumped axios version to 0.26.1
+- Updated dependencies [ec139b1]
+- Updated dependencies [ec139b1]
+- Updated dependencies [18c367c]
+- Updated dependencies [ec139b1]
+  - @drupal-js-sdk/core@0.3.10
+
 ## 0.3.9
 
 ### Patch Changes
