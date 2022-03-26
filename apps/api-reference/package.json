@@ -1,0 +1,15 @@
+{
+  "name": "@drupal-js-sdk/api-reference",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "docs": "typedoc"
+  },
+  "author": "Shibin Das",
+  "license": "ISC",
+  "devDependencies": {
+    "typedoc": "^0.22.13"
+  }
+}
