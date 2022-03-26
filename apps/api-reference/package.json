@@ -10,6 +10,11 @@
   "author": "Shibin Das",
   "license": "ISC",
   "devDependencies": {
+    "@drupal-js-sdk/error": "^0.3.10",
+    "@drupal-js-sdk/interfaces": "^0.3.10",
+    "@drupal-js-sdk/storage": "^0.3.10",
+    "@drupal-js-sdk/xhr": "^0.3.10",
+    "axios": "^0.26.1",
     "typedoc": "^0.22.13"
   }
 }
