@@ -17,11 +17,11 @@ jobs:
       - name: Install modules
         run: |
           cd packages/core
-          yarn install
+          npm install
       - name: Generate typedoc
         run: |
           cd packages/core
-          yarn docs
+          npm run docs
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
