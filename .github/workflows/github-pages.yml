@@ -19,7 +19,7 @@ jobs:
           node-version: '16'
       - run: npm install
         working-directory: ./apps/api-reference
-      - run: npm run docs
+      - run: npm run docs || true
         working-directory: ./apps/api-reference
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
