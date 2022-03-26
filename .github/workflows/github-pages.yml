@@ -8,24 +8,19 @@ on:
       - 'packages/core/src/**'
       - 'packages/core/package.json'
       - '.github/**'
-
-defaults:
-  run:
-    working-directory: 'packages/core'
-    
 jobs:
   gh-pages:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install dependencies
-        uses: borales/actions-yarn@v2.0.0
+      - uses: actions/setup-node@v2
         with:
-          cmd: install   
-      - name: Generate Docs
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: docs
+          node-version: '16'
+      - run: yarn install
+      - run: yarn install
+        working-directory: ./packages/core
+      - run: yarn docs
+        working-directory: ./packages/core
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
