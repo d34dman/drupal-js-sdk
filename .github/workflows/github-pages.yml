@@ -14,14 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install modules
-        run: |
-          cd packages/core
-          npm install
-      - name: Generate typedoc
-        run: |
-          cd packages/core
-          npm run docs
+      - name: Install dependencies
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+          dir: packages/core          
+      - name: Install dependencies
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: docs
+          dir: packages/core          
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
