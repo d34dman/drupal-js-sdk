@@ -1,5 +1,5 @@
 {
-  "name": "@drupal-js-sdk/api-reference",
+  "name": "drupal-js-sdk",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
