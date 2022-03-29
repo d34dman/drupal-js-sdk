@@ -1,4 +1,5 @@
-import {Drupal, DrupalMenu} from '..';
+import {Drupal} from '@drupal-js-sdk/core';
+import {DrupalMenu} from '../DrupalMenu';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import {AxiosClient} from '@drupal-js-sdk/xhr';

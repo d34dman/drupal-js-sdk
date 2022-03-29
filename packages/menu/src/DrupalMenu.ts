@@ -1,6 +1,6 @@
-import {Drupal} from './Drupal';
-import {XhrInterface} from '@drupal-js-sdk/interfaces';
+import {CoreInterface, XhrInterface} from '@drupal-js-sdk/interfaces';
 import {DrupalError} from '@drupal-js-sdk/error';
+
 
 interface MenuDictionary<TValue> {
   [id: string]: TValue;
@@ -10,9 +10,9 @@ interface MenuDictionary<TValue> {
  * Constructs a new Drupal.Menu object with the given code and message.
  */
 export class DrupalMenu {
-  drupal: Drupal;
+  drupal: CoreInterface;
   client: XhrInterface;
-  constructor(drupal: Drupal) {
+  constructor(drupal: CoreInterface) {
     this.drupal = drupal;
     this.client = drupal.getClientService();
   }
