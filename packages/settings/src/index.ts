@@ -1,0 +1,1 @@
+export {DrupalSettings} from './DrupalSettings';
