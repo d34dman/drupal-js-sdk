@@ -1,8 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import {Drupal, DrupalAuth} from '..';
+import {Drupal} from '@drupal-js-sdk/core';
+import {DrupalAuth} from '..';
 import { StorageInMemory } from '@drupal-js-sdk/storage';
+import { AxiosClient } from '@drupal-js-sdk/xhr';
 
 
 const mock = new MockAdapter(axios);
@@ -46,6 +48,8 @@ test('Drupal Auth login and logout', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  const client = new AxiosClient(axios);
+  sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
@@ -78,6 +82,8 @@ test('Drupal Auth Forced logout', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  const client = new AxiosClient(axios);
+  sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   const status = await auth.forcedLogout();
@@ -97,6 +103,8 @@ test('Drupal Auth password reset', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  const client = new AxiosClient(axios);
+  sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
@@ -113,6 +121,8 @@ test('Drupal Auth register', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  const client = new AxiosClient(axios);
+  sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
@@ -129,6 +139,8 @@ test('Drupal Auth login with restore session', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
+  const client = new AxiosClient(axios);
+  sdk.setClientService(client);
   const sessionStorage = new StorageInMemory();
   sdk.setSessionService(sessionStorage);
   const auth = new DrupalAuth(sdk);

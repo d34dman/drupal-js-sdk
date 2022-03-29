@@ -1,5 +1,5 @@
 import {XhrInterface, XhrResponse, SessionInterface} from '@drupal-js-sdk/interfaces';
-import {Drupal} from './Drupal';
+import {Drupal} from '@drupal-js-sdk/core';
 interface DrupalAuthUser {
   uid: string;
   roles: string[];

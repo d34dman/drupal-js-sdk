@@ -1,0 +1,6 @@
+/dist
+/node_modules
+/coverage
+/coverage.lcov
+/yarn-error.log
+/api
