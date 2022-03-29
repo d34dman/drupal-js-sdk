@@ -1,9 +1,6 @@
 {
   "entryPoints": [
-    "./src/Drupal.ts",
-    "./src/Core.ts",
-    "./src/DrupalMenu.ts",
-    "./src/interfaces/index.ts",
-    "./src/plugins/AxiosApiClient.ts"
+    "./src/AxiosClient.ts",
+    "./src/FetchClient.ts"
   ]
 }
