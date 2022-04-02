@@ -1,5 +1,14 @@
 # @drupal-js-sdk/core
 
+## 0.3.11
+
+### Patch Changes
+
+- 7aeaa4c: Moved "DrupalRole" to its own package "@drupal-js-sdk/role"
+- 7aeaa4c: Moved "DrupalSettings" to its own package "@drupal-js-sdk/settings"
+- 7aeaa4c: Moved "DrupalMenu" into its own package "@drupal-js-sdk/menu"
+- 7aeaa4c: Moved "DrupalAuth" to its own package "@drupal-js-sdk/auth"
+
 ## 0.3.10
 
 ### Patch Changes
