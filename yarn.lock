@@ -902,7 +902,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@drupal-js-sdk/core@^0.3.10, @drupal-js-sdk/core@workspace:^, @drupal-js-sdk/core@workspace:packages/core":
+"@drupal-js-sdk/core@^0.3.11, @drupal-js-sdk/core@workspace:^, @drupal-js-sdk/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@drupal-js-sdk/core@workspace:packages/core"
   dependencies:
@@ -3074,7 +3074,7 @@ __metadata:
     "@commitlint/cli": ^16.2.3
     "@commitlint/config-conventional": ^16.2.1
     "@drupal-js-sdk/auth": "workspace:^"
-    "@drupal-js-sdk/core": ^0.3.10
+    "@drupal-js-sdk/core": ^0.3.11
     "@drupal-js-sdk/menu": "workspace:^"
     "@types/jest": ^27.4.1
     "@types/node": ^17.0.23
