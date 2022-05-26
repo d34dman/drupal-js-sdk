@@ -24,7 +24,7 @@ let menuTreeData = [];
 menu.getMenu('main')
     .then((data) => {
       // You may also want to process the data that is recieved.
-      menuTreeData = data;
+      menuTreeData = menu.convertFlatListItemsToTree(data);
     })
     .catch((error) => {
         // Handle error. 
