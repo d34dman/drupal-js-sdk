@@ -13,8 +13,9 @@ Drupal JavaScript SDK relies on the drupal module [Decoupled Menus](https://www.
 
 ## Basic Usage
 
-```js {8}
-import {Drupal, DrupalMenu} from 'drupal-js-sdk'
+```js {9}
+import { Drupal } from 'drupal-js-sdk'
+import { DrupalMenu } from '@drupal-js-sdk/menu'
 const api = new Drupal({baseURL: 'http://example.com'});
 const menu = new DrupalMenu(api);
 
@@ -30,20 +31,12 @@ menu.getMenu('main')
     })
 ```
 
-You may also use the helper method from `DrupalMenu` to convert the flat hierarchy that we recieve from Drupal to tree structure as shown in the following highlighted section.
-
-```js {10,11}
-import {Drupal, DrupalMenu} from 'drupal-js-sdk'
-const api = new Drupal({baseURL: 'http://example.com'});
-const menu = new DrupalMenu(api);
-
-let menuTreeData = [];
-
+The data returned from `getMenu` is processed and already converted to a tree structure. In case you would like to get the flat menu data as is returned from Drupal, you can use `getMenuRaw` method.
+```js {3,4,5}
 // Fetch `main` menu in Drupal.
-menu.getMenu('main')
-    .then((data) => {
-      // You may also want to process the data that is recieved.
-      menuTreeData = menu.convertFlatListItemsToTree(data);
+menu.getMenuRaw('main')
+    .then((res) => {
+      menuData = res.data;
     })
     .catch((error) => {
         // Handle error. 
