@@ -23,6 +23,25 @@ let menuTreeData = [];
 // Fetch `main` menu in Drupal.
 menu.getMenu('main')
     .then((data) => {
+      menuTreeData = data;
+    })
+    .catch((error) => {
+      // Handle error.
+    })
+```
+
+You may also use the helper method from `DrupalMenu` to convert the flat hierarchy that we recieve from Drupal to tree structure as shown in the following highlighted section.
+
+```js {10,11}
+import {Drupal, DrupalMenu} from 'drupal-js-sdk'
+const api = new Drupal({baseURL: 'http://example.com'});
+const menu = new DrupalMenu(api);
+
+let menuTreeData = [];
+
+// Fetch `main` menu in Drupal.
+menu.getMenu('main')
+    .then((data) => {
       // You may also want to process the data that is recieved.
       menuTreeData = menu.convertFlatListItemsToTree(data);
     })
@@ -30,6 +49,8 @@ menu.getMenu('main')
         // Handle error. 
     }) 
 ```
+
+
 
 ::: details Example data structure
 
