@@ -64,9 +64,9 @@ const auth = new DrupalAuth(sdk);
 let logged_in = false;
 auth.loginStatus()
     .then(status => logged_in)
-    .catch(error) {
+    .catch((error) => {
         // Display message that login status check failed. 
-    }
+    }) 
 ````
 
 ## Login
@@ -75,9 +75,9 @@ auth.loginStatus()
 let user_info = {};
 auth.login('admin', 'Z1ON0101')
     .then(data => user_info)
-    .catch(error) {
+    .catch((error) => {
         // Display message that login failed. 
-    }
+    }) 
 ```
 ## Logout <Badge type="warning" text="experimental" vertical="top" />
 
@@ -85,9 +85,9 @@ auth.login('admin', 'Z1ON0101')
 let logged_in = true;
 auth.logout()
     .then(() => {logged_in = false})
-    .catch(error) {
+    .catch((error) => {
         // Display message that logout failed. 
-    }
+    }) 
 ```
 ## Password Reset <Badge type="warning" text="experimental" vertical="top" />
 
@@ -98,9 +98,9 @@ auth.passwordResetByUserName('admin')
     .then(() => { 
         // Show some message about password reset was success.
     })
-    .catch(error) {
+    .catch((error) => {
         // Display message that password reset failed. 
-    }
+    }) 
 ```
 Password reset request using user mail
 
@@ -109,9 +109,9 @@ auth.passwordResetByMail('admin@example.com')
     .then(() => { 
         // Show some message about password reset was success.
     })
-    .catch(error) {
+    .catch((error) => {
         // Display message that password reset failed. 
-    }
+    }) 
 ```
 ## Register <Badge type="warning" text="experimental" vertical="top" />
 
@@ -136,9 +136,9 @@ auth.register('admin', 'admin@example.com')
     .then(data => {
         // Succesfully registered.
     })
-    .catch(error) {
+    .catch((error) => {
         // Display message that login failed. 
-    }
+    }) 
 ```
 
 ::: details References

@@ -22,10 +22,13 @@ let menuTreeData = [];
 
 // Fetch `main` menu in Drupal.
 menu.getMenu('main')
-    .then((data) => menuTreeData)
-    .catch(error) {
+    .then((data) => {
+      // You may also want to process the data that is recieved.
+      menuTreeData = data;
+    })
+    .catch((error) => {
         // Handle error. 
-    }
+    }) 
 ```
 
 ::: details Example data structure
