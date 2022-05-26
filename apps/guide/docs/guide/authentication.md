@@ -11,8 +11,9 @@ Hence we need to set a session service in our sdk.
 <CodeGroup>
   <CodeGroupItem title="Memory" active>
 
-```js {5,6,7}
-import {Drupal, DrupalAuth} from 'drupal-js-sdk';
+```js {6,7,8}
+import {Drupal} from 'drupal-js-sdk';
+import { DrupalAuth } from '@drupal-js-sdk/auth';
 import { StorageInMemory } from '@drupal-js-sdk/storage';
 
 const sdk = new Drupal({baseURL: 'http://example.com'});
@@ -25,8 +26,9 @@ const auth = new DrupalAuth(sdk);
   </CodeGroupItem>
   <CodeGroupItem title="localStorage">
 
-```js {5,6,7}
-import {Drupal, DrupalAuth } from 'drupal-js-sdk';
+```js {6,7,8}
+import {Drupal} from 'drupal-js-sdk';
+import { DrupalAuth } from '@drupal-js-sdk/auth';
 import { StorageInWeb } from '@drupal-js-sdk/storage';
 
 const sdk = new Drupal({baseURL: 'http://example.com'});
@@ -39,8 +41,9 @@ const auth = new DrupalAuth(sdk);
   </CodeGroupItem>
   <CodeGroupItem title="sessionStorage">
 
-```js {5,6,7}
-import {Drupal, DrupalAuth} from 'drupal-js-sdk';
+```js {6,7,8}
+import {Drupal} from 'drupal-js-sdk';
+import { DrupalAuth } from '@drupal-js-sdk/auth';
 import { StorageInWeb } from '@drupal-js-sdk/storage';
 
 const sdk = new Drupal({baseURL: 'http://example.com'});
@@ -67,6 +70,7 @@ auth.loginStatus()
 ````
 
 ## Login
+
 ```js {2}
 let user_info = {};
 auth.login('admin', 'Z1ON0101')
@@ -88,6 +92,7 @@ auth.logout()
 ## Password Reset <Badge type="warning" text="experimental" vertical="top" />
 
 Password reset request using username
+
 ```js {1}
 auth.passwordResetByUserName('admin')
     .then(() => { 
@@ -98,6 +103,7 @@ auth.passwordResetByUserName('admin')
     }
 ```
 Password reset request using user mail
+
 ```js {1}
 auth.passwordResetByMail('admin@example.com')
     .then(() => { 

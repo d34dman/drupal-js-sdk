@@ -36,6 +36,8 @@ yarn add -D drupal-js-sdk
 ```bash
 # install in your project
 npm install -D drupal-js-sdk
+# install the authentication package for example.
+npm install -D @drupal-js-sdk/auth
 ```
 
   </CodeGroupItem>
@@ -46,7 +48,8 @@ npm install -D drupal-js-sdk
   <CodeGroupItem title="ES Module" active>
 
 ```js
-import {Drupal, DrupalAuth} from 'drupal-js-sdk'
+import { Drupal } from 'drupal-js-sdk';
+import { DrupalAuth } from '@drupal-js-sdk/auth';
 ```
   </CodeGroupItem>
 
@@ -54,6 +57,7 @@ import {Drupal, DrupalAuth} from 'drupal-js-sdk'
   
 ```js
 const Drupal = require('drupal-js-sdk')
+const DrupalAuth = require('@drupal-js-sdk/auth')
 ```
 
   </CodeGroupItem>
