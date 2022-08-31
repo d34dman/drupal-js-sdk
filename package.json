@@ -17,13 +17,13 @@
     "version": "changeset version"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.22.0",
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
+    "@changesets/cli": "^2.24.4",
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
     "commitlint-plugin-workspace-scopes": "^1.1.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "rimraf": "^3.0.2",
     "siroc": "^0.16.0"
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.3"
 }
