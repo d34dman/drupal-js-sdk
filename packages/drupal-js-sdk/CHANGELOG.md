@@ -1,5 +1,13 @@
 # drupal-js-sdk
 
+## 0.3.11
+
+### Patch Changes
+
+- Added type 'module' to package.json
+- Updated dependencies
+  - @drupal-js-sdk/core@0.3.12
+
 ## 0.3.10
 
 ### Patch Changes

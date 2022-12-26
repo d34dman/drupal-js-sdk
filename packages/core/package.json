@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/core",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "Drupal JavaScript SDK : Core",
   "keywords": [
     "Drupal",
