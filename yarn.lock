@@ -1305,7 +1305,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@drupal-js-sdk/core@^0.3.11, @drupal-js-sdk/core@workspace:^, @drupal-js-sdk/core@workspace:packages/core":
+"@drupal-js-sdk/core@^0.3.12, @drupal-js-sdk/core@workspace:^, @drupal-js-sdk/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@drupal-js-sdk/core@workspace:packages/core"
   dependencies:
@@ -1421,6 +1421,7 @@ __metadata:
     commitlint-plugin-workspace-scopes: ^1.1.0
     husky: ^8.0.1
     rimraf: ^3.0.2
+    rollup: ^3.8.1
     siroc: ^0.16.0
   languageName: unknown
   linkType: soft
@@ -3568,7 +3569,7 @@ __metadata:
     "@commitlint/cli": ^16.2.3
     "@commitlint/config-conventional": ^16.2.1
     "@drupal-js-sdk/auth": "workspace:^"
-    "@drupal-js-sdk/core": ^0.3.11
+    "@drupal-js-sdk/core": ^0.3.12
     "@drupal-js-sdk/menu": "workspace:^"
     "@types/jest": ^27.4.1
     "@types/node": ^17.0.23
@@ -7109,6 +7110,20 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 06c62933e6e81a1c8c684d7d576e507081aabdb63cc0c91bca86b7348b66df03b77827068e4990b8b6c738bd3ef66dcc8c7ed7e0ea40b736068e7618f693133e
+  languageName: node
+  linkType: hard
+
+"rollup@npm:^3.8.1":
+  version: 3.8.1
+  resolution: "rollup@npm:3.8.1"
+  dependencies:
+    fsevents: ~2.3.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 89ad4df4a5a3ba7a2ee92e2c78d3737eda357d7f8d98237d9e9b2a0b27e238e3ee247e55ea7bf167682ab6dba0ffa948c9e5a741d370e45bb22983299893914b
   languageName: node
   linkType: hard
 
