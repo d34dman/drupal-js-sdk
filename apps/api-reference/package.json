@@ -16,6 +16,7 @@
     "@drupal-js-sdk/xhr": "^0.3.10",
     "@types/node": "^17.0.23",
     "axios": "^0.26.1",
-    "typedoc": "^0.22.13"
+    "typedoc": "^0.22.13",
+    "typescript": "4"
   }
 }

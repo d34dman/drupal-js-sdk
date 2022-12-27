@@ -2,9 +2,12 @@
   "compilerOptions": {
     "target": "ES2015",
     "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "outDir": "./dist",
-    "strict": true,
     "baseUrl": "./",
     "allowJs": true
   },
