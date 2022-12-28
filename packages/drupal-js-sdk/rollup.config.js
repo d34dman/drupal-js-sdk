@@ -22,12 +22,7 @@ export default [
     ],
     output: [
       {
-        file: `./dist/node/${name}.cjs`,
-        format: 'cjs',
-        sourcemap: true,
-      },
-      {
-        file: `./dist/${name}.es.js`,
+        file: `./dist/${name}.js`,
         format: 'es',
         sourcemap: true,
       },
@@ -44,7 +39,7 @@ export default [
     ],
     output: [
       {
-        file: `./dist/browser/${name}.mjs`,
+        file: `./dist/browser/${name}.js`,
         format: 'es',
         sourcemap: true,
       },
@@ -53,10 +48,6 @@ export default [
   bundle({
     plugins: [dts()],
     output: [
-      {
-        file: `./dist/types/${name}.d.ts`,
-        format: 'es',
-      },
       {
         file: `./dist/${name}.d.ts`,
         format: 'es',
