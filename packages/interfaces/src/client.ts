@@ -16,6 +16,7 @@ export interface DrupalClientInstance extends DrupalClient {
   (url: string, config?: DrupalClientRequestConfig): DrupalClientPromise;
 }
 export interface DrupalClient {
+  // eslint-disable-next-line @typescript-eslint/no-misused-new
   constructor(config?: DrupalClientRequestConfig): DrupalClient;
   defaults: DrupalClientDefaults;
   interceptors: {
@@ -151,8 +152,7 @@ export interface DrupalClientResponseTransformer {
 export interface DrupalClientAdapter {
   (config: DrupalClientRequestConfig): DrupalClientPromise;
 }
-export interface DrupalClientPromise<T = any> extends Promise<DrupalClientResponse<T>> {
-}
+export type DrupalClientPromise<T = any> = Promise<DrupalClientResponse<T>>
 export interface DrupalClientBasicCredentials {
   username: string;
   password: string;
