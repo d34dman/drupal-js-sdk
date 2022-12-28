@@ -31,13 +31,12 @@ importers:
       axios: ^0.26.1
       typedoc: ^0.22.13
       typescript: '4'
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2
     devDependencies:
       '@drupal-js-sdk/error': link:../../packages/error
       '@drupal-js-sdk/interfaces': link:../../packages/interfaces
       '@drupal-js-sdk/storage': link:../../packages/storage
       '@drupal-js-sdk/xhr': link:../../packages/xhr
+      '@rollup/plugin-replace': 5.0.2
       '@types/node': 17.0.45
       axios: 0.26.1
       typedoc: 0.22.18_typescript@4.9.4
@@ -51,9 +50,8 @@ importers:
       '@vuepress/theme-default': 2.0.0-beta.59
       vue: ^3.2.45
       vuepress: 2.0.0-beta.59
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2
     devDependencies:
+      '@rollup/plugin-replace': 5.0.2
       '@vuepress/client': 2.0.0-beta.59
       '@vuepress/plugin-search': 2.0.0-beta.59
       '@vuepress/theme-default': 2.0.0-beta.59
@@ -88,8 +86,6 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
@@ -97,6 +93,7 @@ importers:
       '@drupal-js-sdk/core': link:../core
       '@drupal-js-sdk/interfaces': link:../interfaces
       '@drupal-js-sdk/xhr': link:../xhr
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -146,8 +143,6 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
@@ -156,6 +151,7 @@ importers:
       '@drupal-js-sdk/interfaces': link:../interfaces
       '@drupal-js-sdk/storage': link:../storage
       '@drupal-js-sdk/xhr': link:../xhr
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -207,7 +203,6 @@ importers:
       typescript: ^4.9.4
     dependencies:
       '@drupal-js-sdk/core': link:../core
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       axios: 1.2.1
     devDependencies:
       '@changesets/cli': 2.26.0
@@ -216,6 +211,7 @@ importers:
       '@drupal-js-sdk/auth': link:../auth
       '@drupal-js-sdk/interfaces': link:../interfaces
       '@drupal-js-sdk/menu': link:../menu
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -259,13 +255,12 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
       '@commitlint/config-conventional': 17.3.0
       '@drupal-js-sdk/interfaces': link:../interfaces
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -308,12 +303,11 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
       '@commitlint/config-conventional': 17.3.0
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -358,14 +352,13 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
       '@commitlint/config-conventional': 17.3.0
       '@drupal-js-sdk/core': link:../core
       '@drupal-js-sdk/interfaces': link:../interfaces
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -412,8 +405,6 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
@@ -421,6 +412,7 @@ importers:
       '@drupal-js-sdk/core': link:../core
       '@drupal-js-sdk/interfaces': link:../interfaces
       '@drupal-js-sdk/xhr': link:../xhr
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -469,8 +461,6 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
@@ -478,6 +468,7 @@ importers:
       '@drupal-js-sdk/core': link:../core
       '@drupal-js-sdk/interfaces': link:../interfaces
       '@drupal-js-sdk/xhr': link:../xhr
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -523,14 +514,13 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
       '@commitlint/config-conventional': 17.3.0
       '@drupal-js-sdk/error': link:../error
       '@drupal-js-sdk/interfaces': link:../interfaces
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -576,14 +566,13 @@ importers:
       ts-jest: ^29.0.3
       typedoc: ^0.23.23
       typescript: ^4.9.4
-    dependencies:
-      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
     devDependencies:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.3.0
       '@commitlint/config-conventional': 17.3.0
       '@drupal-js-sdk/error': link:../error
       '@drupal-js-sdk/interfaces': link:../interfaces
+      '@rollup/plugin-replace': 5.0.2_rollup@3.8.1
       '@types/jest': 29.2.4
       '@types/node': 18.11.18
       '@typescript-eslint/eslint-plugin': 5.47.1_txmweb6yn7coi7nfrp22gpyqmy
@@ -1825,6 +1814,7 @@ packages:
 
   /@jridgewell/sourcemap-codec/1.4.14:
     resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
+    dev: true
 
   /@jridgewell/trace-mapping/0.3.17:
     resolution: {integrity: sha512-MCNzAp77qzKca9+W/+I0+sEpaUnZoeasnghNeVc41VZCEKaCH73Vq3BZZ/SzWIgrqE4H4ceI+p+b6C0mHf9T4g==}
@@ -1955,7 +1945,7 @@ packages:
     dependencies:
       '@rollup/pluginutils': 5.0.2
       magic-string: 0.27.0
-    dev: false
+    dev: true
 
   /@rollup/plugin-replace/5.0.2_rollup@3.8.1:
     resolution: {integrity: sha512-M9YXNekv/C/iHHK+cvORzfRYfPbq0RDD8r0G+bMiTXjNGKulPnCT9O3Ss46WfhI6ZOCgApOP7xAdmCQJ+U2LAA==}
@@ -1969,7 +1959,7 @@ packages:
       '@rollup/pluginutils': 5.0.2_rollup@3.8.1
       magic-string: 0.27.0
       rollup: 3.8.1
-    dev: false
+    dev: true
 
   /@rollup/pluginutils/5.0.2:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
@@ -1983,7 +1973,7 @@ packages:
       '@types/estree': 1.0.0
       estree-walker: 2.0.2
       picomatch: 2.3.1
-    dev: false
+    dev: true
 
   /@rollup/pluginutils/5.0.2_rollup@3.8.1:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
@@ -1998,6 +1988,7 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.8.1
+    dev: true
 
   /@sinclair/typebox/0.24.51:
     resolution: {integrity: sha512-1P1OROm/rdubP5aFDSZQILU0vrLCJ4fvHt6EoqHEM+2D/G5MK3bIaymUKLit8Js9gbns5UyJnkP/TZROLw4tUA==}
@@ -2068,6 +2059,7 @@ packages:
 
   /@types/estree/1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
+    dev: true
 
   /@types/fs-extra/9.0.13:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
@@ -3755,6 +3747,7 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
+    dev: true
 
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
@@ -3977,6 +3970,7 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /function-bind/1.1.1:
@@ -5191,7 +5185,7 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.14
-    dev: false
+    dev: true
 
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
@@ -5624,6 +5618,7 @@ packages:
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
+    dev: true
 
   /pify/4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
@@ -5927,6 +5922,7 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
