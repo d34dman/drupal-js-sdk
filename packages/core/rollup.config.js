@@ -1,5 +1,6 @@
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
+import replace from '@rollup/plugin-replace'
 
 const name = 'index';
 
@@ -11,15 +12,39 @@ const bundle = config => ({
 
 export default [
   bundle({
-    plugins: [esbuild()],
+    plugins: [
+      replace({
+        values: {
+          'process.envType': `'node'`
+        }
+      }),
+      esbuild(),
+    ],
     output: [
       {
-        file: `./dist/${name}.cjs`,
+        file: `./dist/node/${name}.cjs`,
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: `./dist/${name}.mjs`,
+        file: `./dist/${name}.es.js`,
+        format: 'es',
+        sourcemap: true,
+      },
+    ],
+  }),
+  bundle({
+    plugins: [
+      replace({
+        values: {
+          'process.envType': `'browser'`
+        }
+      }),
+      esbuild(),
+    ],
+    output: [
+      {
+        file: `./dist/browser/${name}.mjs`,
         format: 'es',
         sourcemap: true,
       },
@@ -27,9 +52,15 @@ export default [
   }),
   bundle({
     plugins: [dts()],
-    output: {
-      file: `./dist/${name}.d.ts`,
-      format: 'es',
-    },
+    output: [
+      {
+        file: `./dist/types/${name}.d.ts`,
+        format: 'es',
+      },
+      {
+        file: `./dist/${name}.d.ts`,
+        format: 'es',
+      }
+    ],
   }),
 ]

@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@drupal-js-sdk/core": "workspace:^0.3.12",
+    "@rollup/plugin-replace": "^5.0.2",
     "axios": "^1.2.1"
   },
   "devDependencies": {
