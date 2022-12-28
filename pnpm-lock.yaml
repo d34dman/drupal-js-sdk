@@ -185,7 +185,7 @@ importers:
       '@commitlint/cli': ^17.3.0
       '@commitlint/config-conventional': ^17.3.0
       '@drupal-js-sdk/auth': workspace:^
-      '@drupal-js-sdk/core': workspace:^0.3.12
+      '@drupal-js-sdk/core': workspace:^0.3.13
       '@drupal-js-sdk/interfaces': workspace:^
       '@drupal-js-sdk/menu': workspace:^
       '@rollup/plugin-replace': ^5.0.2

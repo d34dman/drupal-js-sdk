@@ -32,7 +32,6 @@
     "clean:test": "rimraf ./coverage || true",
     "clean:docs": "rimraf ./api || true",
     "lint:commit": "commitlint",
-    "postinstall": "husky install",
     "preinstall": "npx only-allow pnpm",
     "version": "changeset version",
     "docs": "typedoc --options typedoc.json --out api",
@@ -43,7 +42,6 @@
     "prepublishOnly": "pnpm test && pnpm run test-build && pnpm run lint",
     "test": "jest --config jestconfig.json",
     "test-build": "pnpm run build && node test-build.js",
-    "tsc": "tsc",
     "preversion": "pnpm run lint",
     "postversion": "git push && git push --tags"
   },
