@@ -14,6 +14,7 @@ export default [
   bundle({
     plugins: [
       replace({
+        preventAssignment: true,
         values: {
           'process.envType': `'node'`
         }
@@ -31,6 +32,7 @@ export default [
   bundle({
     plugins: [
       replace({
+        preventAssignment: true,
         values: {
           'process.envType': `'browser'`
         }
