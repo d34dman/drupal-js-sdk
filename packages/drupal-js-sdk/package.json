@@ -1,6 +1,6 @@
 {
   "name": "drupal-js-sdk",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "Drupal JS SDK",
   "keywords": [
     "Drupal",
@@ -52,7 +52,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@drupal-js-sdk/core": "workspace:^0.3.12",
+    "@drupal-js-sdk/core": "workspace:^0.3.13",
     "axios": "^1.2.1"
   },
   "devDependencies": {

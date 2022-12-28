@@ -1,6 +1,6 @@
 {
   "name": "drupal-js-sdk-guide",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Drupal JavaScript SDK : Guide",
   "private": true,
   "scripts": {

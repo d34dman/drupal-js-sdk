@@ -1,5 +1,19 @@
 # drupal-js-sdk
 
+## 0.3.12
+
+### Patch Changes
+
+- 3c9c115: Create separate build for node and browser.
+- 419dbf3: Use rollup instead of siroc and tsc for compiling typscript
+- 3c9c115: Dropped CommonJS exports
+- 419dbf3: Switched to pnpm package manager (discontinued yarn berry)
+- Updated dependencies [3c9c115]
+- Updated dependencies [419dbf3]
+- Updated dependencies [3c9c115]
+- Updated dependencies [419dbf3]
+  - @drupal-js-sdk/core@0.3.13
+
 ## 0.3.11
 
 ### Patch Changes
