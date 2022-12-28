@@ -1,5 +1,4 @@
-const { DrupalError } = require('./dist/DrupalError');
-
+import {DrupalError} from './dist/index.js';
 
 const error = new DrupalError(DrupalError.CACHE_MISS, 'Test');
 

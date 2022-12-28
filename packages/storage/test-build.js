@@ -1,4 +1,4 @@
-const { StorageInMemory } = require('./dist/StorageInMemory');
+import { StorageInMemory } from './dist/index.js';
 
 const storage = new StorageInMemory({});
 

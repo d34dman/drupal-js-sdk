@@ -11,5 +11,6 @@ do
   tmp=$(mktemp)
   # jq '.scripts.build="rollup -c"' "$file" > "$tmp" && mv "$tmp" "$file"
   # jq 'del(.exports)' "$file" > "$tmp" && mv "$tmp" "$file"
-  jq '.scripts."test-build"="pnpm run build && node test-build.cjs"' "$file" > "$tmp" && mv "$tmp" "$file"
+  # jq '.scripts."test-build"="pnpm run build && node test-build.cjs"' "$file" > "$tmp" && mv "$tmp" "$file"
+  jq '.scripts."test-build"="pnpm run build && node test-build.js"' "$file" > "$tmp" && mv "$tmp" "$file"
 done
