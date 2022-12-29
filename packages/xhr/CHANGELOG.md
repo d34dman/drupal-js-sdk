@@ -1,5 +1,11 @@
 # @drupal-js-sdk/xhr
 
+## 0.3.13
+
+### Patch Changes
+
+- Remove postinstall script from package.json
+
 ## 0.3.12
 
 ### Patch Changes

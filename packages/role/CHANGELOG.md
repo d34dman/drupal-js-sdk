@@ -1,5 +1,11 @@
 # @drupal-js-sdk/role
 
+## 0.3.14
+
+### Patch Changes
+
+- Remove postinstall script from package.json
+
 ## 0.3.13
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # drupal-js-sdk
 
+## 0.3.13
+
+### Patch Changes
+
+- Remove postinstall script from package.json
+- Updated dependencies
+  - @drupal-js-sdk/core@0.3.14
+
 ## 0.3.12
 
 ### Patch Changes
