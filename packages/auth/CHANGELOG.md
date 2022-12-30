@@ -1,5 +1,11 @@
 # @drupal-js-sdk/auth
 
+## 0.3.15
+
+### Patch Changes
+
+- Update DrupalAuthStore keys to match response from Drupal
+
 ## 0.3.14
 
 ### Patch Changes

@@ -6,9 +6,9 @@ interface DrupalAuthUser {
   name: string;
 }
 interface DrupalAuthStore {
-  csrfToken?: string;
-  logoutToken?: string;
-  currentUser?: DrupalAuthUser;
+  csrf_token?: string;
+  logout_token?: string;
+  current_user?: DrupalAuthUser;
 }
 export class DrupalAuth {
 
@@ -17,9 +17,9 @@ export class DrupalAuth {
   drupal: Drupal;
   client: XhrInterface;
   store: DrupalAuthStore = {
-    csrfToken: undefined,
-    logoutToken: undefined,
-    currentUser: {
+    csrf_token: undefined,
+    logout_token: undefined,
+    current_user: {
       uid: '0',
       roles: ['anonymous'],
       name: 'Anonymous',
@@ -62,7 +62,7 @@ export class DrupalAuth {
       .call('get', '/session/token', config)
       .then((response) => {
         const data = response.data;
-        this.store.csrfToken = data;
+        this.store.csrf_token = data;
         this.client.addDefaultHeaders({'X-CSRF-Token': data});
         return response;
       });
@@ -88,7 +88,7 @@ export class DrupalAuth {
         const data = response.data;
         this.store = data;
         this.setDrupalSession();
-        this.client.addDefaultHeaders({'X-CSRF-Token': data.csrfToken});
+        this.client.addDefaultHeaders({'X-CSRF-Token': data.csrf_token});
         return response;
       });
   }
@@ -111,7 +111,7 @@ export class DrupalAuth {
   }
 
   public forcedLogout(): Promise<boolean> {
-    if (this.store.logoutToken) {
+    if (this.store.logout_token) {
       return this.logout()
       // @TODO Reset user is authenticated status.
         .then(() => true);
@@ -133,7 +133,7 @@ export class DrupalAuth {
       withCredentials: true,
       params: {
         _format: 'json',
-        token: this.store.logoutToken,
+        token: this.store.logout_token,
       },
     };
     return this.client

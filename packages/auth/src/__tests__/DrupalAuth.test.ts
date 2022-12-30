@@ -12,13 +12,13 @@ const mock = new MockAdapter(axios);
 const mockData: {[key: string]: any;} = {
   login: {
     admin: {
-      currentUser: {
+      current_user: {
         uid: '1', 
         roles: ['authenticated'], 
         name: 'admin'
       },
-      csrfToken: 'mock-session-token-from-login',
-      logoutToken: '8av5mgYDgJ7bKS2seVtIK3trLIuqsh4WycFL8w4qCKs',
+      csrf_token: 'mock-session-token-from-login',
+      logout_token: '8av5mgYDgJ7bKS2seVtIK3trLIuqsh4WycFL8w4qCKs',
     },
   },
   valid: {},
@@ -53,21 +53,21 @@ test('Drupal Auth login and logout', async () => {
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
-  expect(auth.store.csrfToken).toEqual('mock-session-token');
+  expect(auth.store.csrf_token).toEqual('mock-session-token');
   expect(await auth.loginStatus()).toEqual(false);
   expect.assertions(9);
   return auth
     .login('admin', 'admin')
     .then((response) => {
-      expect(response.data).toHaveProperty('csrfToken');
-      expect(response.data).toHaveProperty('currentUser');
-      expect(response.data).toHaveProperty('logoutToken');
-      expect(auth.store.csrfToken).toEqual(mockData.login.admin.csrfToken);
-      expect(auth.store.currentUser).toEqual(
-        mockData.login.admin.currentUser,
+      expect(response.data).toHaveProperty('csrf_token');
+      expect(response.data).toHaveProperty('current_user');
+      expect(response.data).toHaveProperty('logout_token');
+      expect(auth.store.csrf_token).toEqual(mockData.login.admin.csrf_token);
+      expect(auth.store.current_user).toEqual(
+        mockData.login.admin.current_user,
       );
-      expect(auth.store.logoutToken).toEqual(
-        mockData.login.admin.logoutToken,
+      expect(auth.store.logout_token).toEqual(
+        mockData.login.admin.logout_token,
       );
     })
     .then(async () => {
@@ -145,20 +145,20 @@ test('Drupal Auth login with restore session', async () => {
   sdk.setSessionService(sessionStorage);
   const auth = new DrupalAuth(sdk);
   await auth.getSessionToken();
-  expect(auth.store.csrfToken).toEqual('mock-session-token');
+  expect(auth.store.csrf_token).toEqual('mock-session-token');
   expect(await auth.loginStatus()).toEqual(false);
   await auth
     .login('admin', 'admin');
-  expect(auth.store.currentUser).toEqual(
-    mockData.login.admin.currentUser,
+  expect(auth.store.current_user).toEqual(
+    mockData.login.admin.current_user,
   );
   
   const sdk2 = new Drupal(config);
   sdk2.setSessionService(sessionStorage);
   
   const auth2 = new DrupalAuth(sdk);
-  expect(auth2.store.currentUser).toEqual(
-    mockData.login.admin.currentUser,
+  expect(auth2.store.current_user).toEqual(
+    mockData.login.admin.current_user,
   );
 });
 
