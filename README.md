@@ -1,5 +1,7 @@
 # Drupal JavaScript SDK
 
+** Undergoing heavy refactor to introduce "context api" to use shared context among various modules. ** 
+
 ![build](https://img.shields.io/travis/d34dman/drupal-js-sdk/main?style=flat-square)
 [![codecov](https://img.shields.io/codecov/c/github/d34dman/drupal-js-sdk?style=flat-square&token=KVXZUI3JLK)](https://codecov.io/gh/d34dman/drupal-js-sdk)
 
@@ -39,6 +41,7 @@ Development is happening in [GitHub](https://github.com/d34dman/drupal-js-sdk). 
 Even after we have a proper release for Drupal JavaScript SDK, it might not suite your need. In case one or more of these project suits your user case, it is recommended to use them instead.
 
 - [drupal-sdk](https://gitlab.com/VoidE/drupal-sdk) - The Drupal SDK is a helper package for calling Drupal endpoints, like the JSON:API, in a more efficient and easy way.
+- [Drupal State](https://www.drupal.org/project/drupal_state) - A simple data store to manage application state sourced from Drupal's JSON:API.
 - DruxClient which is part of [DruxtJS](https://github.com/druxt/druxt.js) - DruxtJS provides an easy connection between a Drupal JSON:API backend and Nuxt.js frontend application.
 - [jDrupal](https://github.com/signalpoint/jDrupal) - A simple Vanilla JavaScript Library and API.
 - [js-client](https://github.com/jsdrupal/js-client) - This is the client that would ship to npm. Run yarn build to generate it at client/index.js. Currently this is being automatically published to the GitHub npm package registry when you create a release 
