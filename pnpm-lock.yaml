@@ -102,9 +102,15 @@ importers:
       '@drupal-js-sdk/core':
         specifier: workspace:^
         version: link:../core
+      '@drupal-js-sdk/error':
+        specifier: workspace:^
+        version: link:../error
       '@drupal-js-sdk/interfaces':
         specifier: workspace:^
         version: link:../interfaces
+      '@drupal-js-sdk/storage':
+        specifier: workspace:^
+        version: link:../storage
       '@drupal-js-sdk/xhr':
         specifier: workspace:^
         version: link:../xhr
@@ -286,9 +292,18 @@ importers:
       '@drupal-js-sdk/menu':
         specifier: workspace:^
         version: link:../menu
+      '@drupal-js-sdk/role':
+        specifier: workspace:^
+        version: link:../role
+      '@drupal-js-sdk/settings':
+        specifier: workspace:^
+        version: link:../settings
       '@drupal-js-sdk/storage':
         specifier: workspace:^
         version: link:../storage
+      '@drupal-js-sdk/xhr':
+        specifier: workspace:^
+        version: link:../xhr
       '@rollup/plugin-replace':
         specifier: ^5.0.2
         version: 5.0.2(rollup@3.8.1)
@@ -511,6 +526,12 @@ importers:
       '@drupal-js-sdk/interfaces':
         specifier: workspace:^
         version: link:../interfaces
+      '@drupal-js-sdk/storage':
+        specifier: workspace:^
+        version: link:../storage
+      '@drupal-js-sdk/xhr':
+        specifier: workspace:^
+        version: link:../xhr
       '@rollup/plugin-replace':
         specifier: ^5.0.2
         version: 5.0.2(rollup@3.8.1)
@@ -595,6 +616,9 @@ importers:
       '@drupal-js-sdk/interfaces':
         specifier: workspace:^
         version: link:../interfaces
+      '@drupal-js-sdk/storage':
+        specifier: workspace:^
+        version: link:../storage
       '@drupal-js-sdk/xhr':
         specifier: workspace:^
         version: link:../xhr
@@ -679,6 +703,9 @@ importers:
       '@drupal-js-sdk/interfaces':
         specifier: workspace:^
         version: link:../interfaces
+      '@drupal-js-sdk/storage':
+        specifier: workspace:^
+        version: link:../storage
       '@drupal-js-sdk/xhr':
         specifier: workspace:^
         version: link:../xhr
