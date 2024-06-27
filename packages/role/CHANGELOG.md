@@ -1,5 +1,11 @@
 # @drupal-js-sdk/role
 
+## 0.3.15
+
+### Patch Changes
+
+- Fix missing package dependencies on "error" and "storage" packages
+
 ## 0.3.14
 
 ### Patch Changes
