@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/core",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Drupal JavaScript SDK : Core",
   "keywords": [
     "Drupal",
@@ -45,20 +45,22 @@
     "preversion": "pnpm run lint",
     "postversion": "git push && git push --tags"
   },
-  "devDependencies": {
-    "@changesets/cli": "^2.26.0",
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
+  "dependencies": {
     "@drupal-js-sdk/interfaces": "workspace:^",
     "@drupal-js-sdk/error": "workspace:^",
     "@drupal-js-sdk/storage": "workspace:^",
     "@drupal-js-sdk/xhr": "workspace:^",
+    "axios": "^1.2.4"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.0",
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "@rollup/plugin-replace": "^5.0.2",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
-    "axios": "^1.2.1",
     "commitlint-plugin-workspace-scopes": "^1.1.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.16.11",

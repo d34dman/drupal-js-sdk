@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/menu",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "Drupal JavaScript SDK : Menu",
   "keywords": [
     "Drupal",
@@ -45,15 +45,17 @@
     "preversion": "pnpm run lint",
     "postversion": "git push && git push --tags"
   },
-  "devDependencies": {
-    "@changesets/cli": "^2.26.0",
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
+  "dependencies": {
     "@drupal-js-sdk/interfaces": "workspace:^",
     "@drupal-js-sdk/error": "workspace:^",
     "@drupal-js-sdk/storage": "workspace:^",
     "@drupal-js-sdk/xhr": "workspace:^",
-    "@drupal-js-sdk/core": "workspace:^",
+    "@drupal-js-sdk/core": "workspace:^"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.0",
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "@rollup/plugin-replace": "^5.0.2",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.18",

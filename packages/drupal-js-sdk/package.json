@@ -1,6 +1,6 @@
 {
   "name": "drupal-js-sdk",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Drupal JS SDK",
   "keywords": [
     "Drupal",
@@ -50,13 +50,6 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@drupal-js-sdk/core": "workspace:^0.3.14",
-    "axios": "^1.2.1"
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.26.0",
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
     "@drupal-js-sdk/interfaces": "workspace:^",
     "@drupal-js-sdk/error": "workspace:^",
     "@drupal-js-sdk/storage": "workspace:^",
@@ -66,6 +59,12 @@
     "@drupal-js-sdk/menu": "workspace:^",
     "@drupal-js-sdk/role": "workspace:^",
     "@drupal-js-sdk/settings": "workspace:^",
+    "axios": "^1.2.4"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.0",
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "@rollup/plugin-replace": "^5.0.2",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.18",

@@ -1,5 +1,13 @@
 # @drupal-js-sdk/xhr
 
+## 0.3.14
+
+### Patch Changes
+
+- Fix version dependencies by moving them from "devdependenceis" to "dependencies"
+- Updated dependencies
+  - @drupal-js-sdk/error@0.3.14
+
 ## 0.3.13
 
 ### Patch Changes
