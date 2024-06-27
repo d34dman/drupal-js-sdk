@@ -57,6 +57,8 @@
     "@changesets/cli": "^2.26.0",
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
+    "@drupal-js-sdk/storage": "workspace:^",
+    "@drupal-js-sdk/error": "workspace:^",
     "@drupal-js-sdk/auth": "workspace:^",
     "@drupal-js-sdk/interfaces": "workspace:^",
     "@drupal-js-sdk/menu": "workspace:^",

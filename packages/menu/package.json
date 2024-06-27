@@ -51,6 +51,7 @@
     "@commitlint/config-conventional": "^17.3.0",
     "@drupal-js-sdk/core": "workspace:^",
     "@drupal-js-sdk/interfaces": "workspace:^",
+    "@drupal-js-sdk/error": "workspace:^",
     "@rollup/plugin-replace": "^5.0.2",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.18",
