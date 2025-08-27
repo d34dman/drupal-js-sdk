@@ -2,14 +2,18 @@ import {XhrInterface, XhrRequestConfig, XhrResponse, XhrMethod} from '@drupal-js
 
 import {StorageRecordInterface} from '@drupal-js-sdk/interfaces';
 import { Client } from './Client';
-import {AxiosInstance} from 'axios';
+
+// Minimal axios-like client interface to avoid leaking axios types across package boundaries
+interface HttpClientLike {
+  request<T = unknown, D = unknown>(config: XhrRequestConfig<D>): Promise<XhrResponse<T, D>>;
+}
 
 export class AxiosClient extends Client implements XhrInterface {
 
-  public client: AxiosInstance;
+  public client: HttpClientLike;
   protected config: StorageRecordInterface;
 
-  constructor(client: AxiosInstance) {
+  constructor(client: HttpClientLike) {
     super();
     this.client = client;
     this.config = {
@@ -17,12 +21,12 @@ export class AxiosClient extends Client implements XhrInterface {
     };
   }
 
-  public setClient(client: AxiosInstance): XhrInterface {
+  public setClient(client: HttpClientLike): XhrInterface {
     this.client = client;
     return this;
   }
 
-  public getClient(): AxiosInstance {
+  public getClient(): HttpClientLike {
     return this.client;
   }
 
