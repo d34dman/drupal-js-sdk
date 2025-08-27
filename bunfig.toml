@@ -1,2 +1,10 @@
 [test]
 preload = ["./test/setup.ts"]
+coverage = true
+coverageThreshold = { lines = 0.9, functions = 0.9, statements = 0.9 }
+
+[console]
+depth = 3
+
+[install]
+saveTextLockfile = true
