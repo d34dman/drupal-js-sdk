@@ -1,5 +1,59 @@
 # @drupal-js-sdk/menu
 
+## 0.5.0
+
+### Minor Changes
+
+- Revert to pnpm. BunTime is over.
+
+### Patch Changes
+
+- Updated dependencies
+  - @drupal-js-sdk/interfaces@0.5.0
+  - @drupal-js-sdk/storage@0.5.0
+  - @drupal-js-sdk/error@0.5.0
+  - @drupal-js-sdk/core@0.5.0
+  - @drupal-js-sdk/xhr@0.5.0
+
+## 0.4.2
+
+### Patch Changes
+
+- Fix dependency declaration
+- Updated dependencies
+  - @drupal-js-sdk/interfaces@0.4.2
+  - @drupal-js-sdk/storage@0.4.2
+  - @drupal-js-sdk/error@0.4.2
+  - @drupal-js-sdk/core@0.4.2
+  - @drupal-js-sdk/xhr@0.4.2
+
+## 0.4.1
+
+### Patch Changes
+
+- Fix version issues
+- Updated dependencies
+  - @drupal-js-sdk/interfaces@0.4.1
+  - @drupal-js-sdk/storage@0.4.1
+  - @drupal-js-sdk/error@0.4.1
+  - @drupal-js-sdk/core@0.4.1
+  - @drupal-js-sdk/xhr@0.4.1
+
+## 0.4.0
+
+### Minor Changes
+
+- Switched to Bun. Its Buntime!
+
+### Patch Changes
+
+- Updated dependencies
+  - @drupal-js-sdk/xhr@0.4.0
+  - @drupal-js-sdk/core@0.4.0
+  - @drupal-js-sdk/error@0.4.0
+  - @drupal-js-sdk/interfaces@0.4.0
+  - @drupal-js-sdk/storage@0.4.0
+
 ## 0.3.16
 
 ### Patch Changes

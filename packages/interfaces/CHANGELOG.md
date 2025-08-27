@@ -1,5 +1,29 @@
 # @drupal-js-sdk/interfaces
 
+## 0.5.0
+
+### Minor Changes
+
+- Revert to pnpm. BunTime is over.
+
+## 0.4.2
+
+### Patch Changes
+
+- Fix dependency declaration
+
+## 0.4.1
+
+### Patch Changes
+
+- Fix version issues
+
+## 0.4.0
+
+### Minor Changes
+
+- Switched to Bun. Its Buntime!
+
 ## 0.3.13
 
 ### Patch Changes
