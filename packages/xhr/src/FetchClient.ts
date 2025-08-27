@@ -157,13 +157,13 @@ function serializeQueryParams(params: XhrQueryParams): string {
   const append = (key: string, value: string | number | boolean) => {
     usp.append(key, String(value));
   };
-  for (const [key, value] of Object.entries(params)) {
+  Object.entries(params).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      for (const v of value) append(key, v);
-    } else {
-      append(key, value);
+      value.forEach((v) => append(key, v));
+      return;
     }
-  }
+    append(key, value);
+  });
   return usp.toString();
 }
 
