@@ -1,12 +1,34 @@
 import {Drupal} from '@drupal-js-sdk/core';
 import {DrupalMenu} from '../DrupalMenu';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import {AxiosClient} from '@drupal-js-sdk/xhr';
+import { XhrRequestConfig, XhrResponse } from '@drupal-js-sdk/interfaces';
 
-const mock = new MockAdapter(axios);
-
-mock.onGet('/system/menu/main/linkset').reply(200, 'Mock 200');
+// Minimal axios-like stub compatible with AxiosClient
+const createStubClient = () => ({
+  request: <T = unknown, D = unknown>(config: XhrRequestConfig<D>): Promise<XhrResponse<T, D>> => {
+    const url = config.url ?? '';
+    if (url === '/system/menu/main/linkset') {
+      const res: XhrResponse<unknown, D> = {
+        data: 'Mock 200',
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config,
+        request: {},
+      };
+      return Promise.resolve(res as XhrResponse<T, D>);
+    }
+    const res: XhrResponse<unknown, D> = {
+      data: null,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config,
+      request: {},
+    };
+    return Promise.resolve(res as XhrResponse<T, D>);
+  },
+});
 
 const mockData: {[key: string]: any;} = {
   invalid: {},
@@ -147,9 +169,7 @@ test('Drupal Menu function defaults', () => {
 });
 
 test('Drupal Menu axios request', async () => {
-  const axiosClient = axios.create();
-  const client = new AxiosClient(axiosClient);
-  client.setClient(axios.create());
+  const client = new AxiosClient(createStubClient());
   const config = {
     baseURL: 'http://www.example.com',
   };

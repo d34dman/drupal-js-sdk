@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { AxiosClient } from '..';
 import fetch from 'cross-fetch';
 import { FetchClient } from '..';
@@ -13,7 +12,18 @@ test.skip('Drupal Menu fetch request', async () => {
     const res1 = await client.call('GET', '/system/menu/main/linkset');
     expect(res1.request.path).toEqual('https://drupal-js-sdk-demo.d34dman.com/system/menu/main/linkset');
 
-    const axiosClient = new AxiosClient(axios.create(config));
+    const axiosClient = new AxiosClient({
+        request: (cfg: any) => {
+            return Promise.resolve({
+                data: {},
+                status: 200,
+                statusText: 'OK',
+                headers: {},
+                config: cfg,
+                request: {}
+            });
+        }
+    } as any);
     const res2 = await axiosClient.call('GET', '/system/menu/main/linkset');
 
     expect(res2.data).toEqual(res1.data);

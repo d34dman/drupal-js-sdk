@@ -62,7 +62,7 @@
     "commitlint-plugin-workspace-scopes": "^1.1.0",
     "cross-env": "^7.0.3",
     "cross-fetch": "^3.1.5",
-    "esbuild": "^0.16.11",
+    "esbuild": "^0.25.9",
     "eslint": "^8.30.0",
     "eslint-plugin-no-loops": "^0.3.0",
     "husky": "^8.0.2",

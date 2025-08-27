@@ -1,13 +1,9 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-
 import {Drupal} from '@drupal-js-sdk/core';
 import {DrupalAuth} from '..';
 import { StorageInMemory } from '@drupal-js-sdk/storage';
 import { AxiosClient } from '@drupal-js-sdk/xhr';
+import { XhrRequestConfig, XhrResponse } from '@drupal-js-sdk/interfaces';
 
-
-const mock = new MockAdapter(axios);
 
 const mockData: {[key: string]: any;} = {
   login: {
@@ -35,20 +31,50 @@ const mockData: {[key: string]: any;} = {
   },
 };
 
-mock.onPost('/user/password').reply(200, '');
-mock.onGet('/user/login_status').reply(200, 0);
-mock.onGet('/session/token').reply(200, 'mock-session-token');
-mock.onPost('/user/login').reply(200, mockData.login.admin);
-mock.onPost('/user/logout').reply(204, '');
-mock.onGet('/user/logout').reply(200, '');
-mock.onPost('/user/register').reply(200, mockData.register.newUser);
+// Minimal axios-like stub compatible with AxiosClient HttpClientLike
+const createStubClient = () => ({
+  request: <T = unknown, D = unknown>(config: XhrRequestConfig<D>): Promise<XhrResponse<T, D>> => {
+    const method = (config.method ?? 'get').toString().toLowerCase();
+    const url = config.url ?? '';
+    const mk = (data: unknown, status = 200, statusText = 'OK'): XhrResponse<unknown, D> => ({
+      data,
+      status,
+      statusText,
+      headers: {},
+      config,
+      request: {},
+    });
+    if (method === 'get' && url === '/session/token') {
+      return Promise.resolve(mk('mock-session-token') as XhrResponse<T, D>);
+    }
+    if (method === 'get' && url === '/user/login_status') {
+      return Promise.resolve(mk(0) as XhrResponse<T, D>);
+    }
+    if (method === 'post' && url === '/user/login') {
+      return Promise.resolve(mk(mockData.login.admin) as XhrResponse<T, D>);
+    }
+    if (method === 'post' && url === '/user/logout') {
+      return Promise.resolve(mk('', 204, 'No Content') as XhrResponse<T, D>);
+    }
+    if (method === 'get' && url === '/user/logout') {
+      return Promise.resolve(mk('') as XhrResponse<T, D>);
+    }
+    if (method === 'post' && url === '/user/register') {
+      return Promise.resolve(mk(mockData.register.newUser) as XhrResponse<T, D>);
+    }
+    if (method === 'post' && url === '/user/password') {
+      return Promise.resolve(mk('') as XhrResponse<T, D>);
+    }
+    return Promise.resolve(mk(null) as XhrResponse<T, D>);
+  },
+});
 
 test('Drupal Auth login and logout', async () => {
   const config = {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
-  const client = new AxiosClient(axios);
+  const client = new AxiosClient(createStubClient());
   sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
@@ -82,7 +108,7 @@ test('Drupal Auth Forced logout', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
-  const client = new AxiosClient(axios);
+  const client = new AxiosClient(createStubClient());
   sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
@@ -103,7 +129,7 @@ test('Drupal Auth password reset', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
-  const client = new AxiosClient(axios);
+  const client = new AxiosClient(createStubClient());
   sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
@@ -121,7 +147,7 @@ test('Drupal Auth register', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
-  const client = new AxiosClient(axios);
+  const client = new AxiosClient(createStubClient());
   sdk.setClientService(client);
   sdk.setSessionService(new StorageInMemory());
   const auth = new DrupalAuth(sdk);
@@ -139,7 +165,7 @@ test('Drupal Auth login with restore session', async () => {
     baseURL: 'http://www.example.com',
   };
   const sdk = new Drupal(config);
-  const client = new AxiosClient(axios);
+  const client = new AxiosClient(createStubClient());
   sdk.setClientService(client);
   const sessionStorage = new StorageInMemory();
   sdk.setSessionService(sessionStorage);
