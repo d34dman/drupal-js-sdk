@@ -68,14 +68,14 @@ export class StorageInWeb implements StorageInterface {
     }
 
     public get(): StorageRecordInterface {
-        const result: StorageRecordInterface = {};
-        for (let index = 0; index < this.storage.length; index++) {
+        const indices = Array.from({ length: this.storage.length }, (_, i) => i);
+        return indices.reduce<StorageRecordInterface>((acc, index) => {
             const key = this.storage.key(index);
             if (key !== null) {
-                result[key] = this.getItem(key);
+                acc[key] = this.getItem(key);
             }
-        }
-        return result;
+            return acc;
+        }, {});
     }
 
     public set(data: StorageRecordInterface): void {

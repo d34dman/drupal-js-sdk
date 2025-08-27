@@ -1,5 +1,11 @@
 # @drupal-js-sdk/interfaces
 
+## 0.4.0
+
+### Minor Changes
+
+- bbef32f: Switched to Bun. Its Buntime!
+
 ## 0.3.13
 
 ### Patch Changes

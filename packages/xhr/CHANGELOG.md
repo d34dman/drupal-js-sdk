@@ -1,5 +1,17 @@
 # @drupal-js-sdk/xhr
 
+## 0.4.0
+
+### Minor Changes
+
+- bbef32f: Switched to Bun. Its Buntime!
+
+### Patch Changes
+
+- Updated dependencies [bbef32f]
+  - @drupal-js-sdk/error@0.4.0
+  - @drupal-js-sdk/interfaces@0.4.0
+
 ## 0.3.14
 
 ### Patch Changes

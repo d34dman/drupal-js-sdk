@@ -1,5 +1,20 @@
 # @drupal-js-sdk/settings
 
+## 0.4.0
+
+### Minor Changes
+
+- bbef32f: Switched to Bun. Its Buntime!
+
+### Patch Changes
+
+- Updated dependencies [bbef32f]
+  - @drupal-js-sdk/core@0.4.0
+  - @drupal-js-sdk/error@0.4.0
+  - @drupal-js-sdk/interfaces@0.4.0
+  - @drupal-js-sdk/storage@0.4.0
+  - @drupal-js-sdk/xhr@0.4.0
+
 ## 0.3.16
 
 ### Patch Changes
