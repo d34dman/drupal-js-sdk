@@ -137,6 +137,7 @@ export class DrupalAuth {
       },
     };
     return this.client
+      .addDefaultHeaders({'X-CSRF-Token': this.store.csrf_token})
       .call('post', '/user/logout', config)
       .then((response) => {
         // @TODO Reset user is authenticated status.
