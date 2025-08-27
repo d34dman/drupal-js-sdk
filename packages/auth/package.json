@@ -25,7 +25,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "bun run clean:dist && bun run build:js && bun run build:types",
+    "build:js": "bun build src/index.ts --outdir dist --format esm --sourcemap --define process.envType:\"node\" --external:@drupal-js-sdk/* --external:axios && bun build src/index.ts --outdir dist/browser --format esm --sourcemap --define process.envType:\"browser\" --external:@drupal-js-sdk/* --external:axios",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --outDir dist",
     "changeset": "changeset",
     "clean": "bun run clean:dist && bun run clean:test && bun run clean:docs",
     "clean:dist": "rimraf packages/*/dist || true",

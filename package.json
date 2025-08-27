@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "bun run clean && bun run build:order && rollup -c",
+    "build": "bun run clean && bun run build:order",
     "build:order": "bun run --cwd packages/interfaces build && bun run --cwd packages/error build && bun run --cwd packages/storage build && bun run --cwd packages/xhr build && bun run --cwd packages/core build && bun run --cwd packages/auth build && bun run --cwd packages/menu build && bun run --cwd packages/role build && bun run --cwd packages/settings build && bun run --cwd packages/drupal-js-sdk build",
     "changeset": "changeset",
     "clean": "bun run clean:dist && bun run clean:test && bun run clean:docs",
