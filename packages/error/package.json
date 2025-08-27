@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/error",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Drupal JavaScript SDK : Error",
   "keywords": [
     "Drupal",
