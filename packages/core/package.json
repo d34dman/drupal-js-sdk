@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/core",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Drupal JavaScript SDK : Core",
   "keywords": [
     "Drupal",
@@ -47,10 +47,10 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@drupal-js-sdk/interfaces": "^0.4.0",
-    "@drupal-js-sdk/error": "^0.4.0",
-    "@drupal-js-sdk/storage": "^0.4.0",
-    "@drupal-js-sdk/xhr": "^0.4.0",
+    "@drupal-js-sdk/interfaces": "^0.4.2",
+    "@drupal-js-sdk/error": "^0.4.2",
+    "@drupal-js-sdk/storage": "^0.4.2",
+    "@drupal-js-sdk/xhr": "^0.4.2",
     "axios": "^1.2.4"
   },
   "devDependencies": {

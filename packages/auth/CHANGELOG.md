@@ -1,5 +1,17 @@
 # @drupal-js-sdk/auth
 
+## 0.4.2
+
+### Patch Changes
+
+- Fix dependency declaration
+- Updated dependencies
+  - @drupal-js-sdk/core@0.4.2
+  - @drupal-js-sdk/error@0.4.2
+  - @drupal-js-sdk/interfaces@0.4.2
+  - @drupal-js-sdk/storage@0.4.2
+  - @drupal-js-sdk/xhr@0.4.2
+
 ## 0.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @drupal-js-sdk/interfaces
 
+## 0.4.2
+
+### Patch Changes
+
+- Fix dependency declaration
+
 ## 0.4.1
 
 ### Patch Changes

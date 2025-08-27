@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/settings",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Drupal JavaScript SDK : Settings",
   "keywords": [
     "Drupal",
@@ -45,11 +45,11 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@drupal-js-sdk/interfaces": "^0.4.0",
-    "@drupal-js-sdk/error": "^0.4.0",
-    "@drupal-js-sdk/storage": "^0.4.0",
-    "@drupal-js-sdk/xhr": "^0.4.0",
-    "@drupal-js-sdk/core": "^0.4.0"
+    "@drupal-js-sdk/interfaces": "^0.4.2",
+    "@drupal-js-sdk/error": "^0.4.2",
+    "@drupal-js-sdk/storage": "^0.4.2",
+    "@drupal-js-sdk/xhr": "^0.4.2",
+    "@drupal-js-sdk/core": "^0.4.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
