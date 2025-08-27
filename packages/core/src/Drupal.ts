@@ -1,6 +1,5 @@
-import {AxiosClient} from '@drupal-js-sdk/xhr';
+import {FetchClient} from '@drupal-js-sdk/xhr';
 import {Core} from './Core';
-import axios from 'axios';
 
 import {
   XhrBasicCredentials,
@@ -11,6 +10,7 @@ export interface DrupalConfig extends StorageRecordInterface {
   auth?: XhrBasicCredentials;
   headers?: XhrRequestHeaders;   
   baseURL: string;
+  client?: import('@drupal-js-sdk/interfaces').XhrInterface;
 }
 
 /**
@@ -30,8 +30,7 @@ export class Drupal extends Core {
       ...Boolean(options.headers) && {headers: options.headers},
       ...{baseURL: options.baseURL},
     };
-    const axiosClient = axios.create(apiConfig);
-    const client = new AxiosClient(axiosClient);
+    const client = options.client ?? new FetchClient(apiConfig);
     this.setClientService(client);
     return this;
   }

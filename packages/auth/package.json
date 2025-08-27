@@ -46,11 +46,11 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@drupal-js-sdk/interfaces": "workspace:^",
+    "@drupal-js-sdk/core": "workspace:^",
     "@drupal-js-sdk/error": "workspace:^",
+    "@drupal-js-sdk/interfaces": "workspace:^",
     "@drupal-js-sdk/storage": "workspace:^",
-    "@drupal-js-sdk/xhr": "workspace:^",
-    "@drupal-js-sdk/core": "workspace:^"
+    "@drupal-js-sdk/xhr": "workspace:^"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
@@ -61,7 +61,6 @@
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
-    "axios": "^1.2.1",
     "axios-mock-adapter": "^1.21.2",
     "commitlint-plugin-workspace-scopes": "^1.1.0",
     "cross-env": "^7.0.3",
