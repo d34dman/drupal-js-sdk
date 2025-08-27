@@ -1,28 +1,36 @@
 {
   "name": "@drupal-js-sdk/monorepo",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "build": "pnpm clean && tsc",
+    "build": "bun run clean && bun run build:order && rollup -c",
+    "build:order": "bun run --cwd packages/interfaces build && bun run --cwd packages/error build && bun run --cwd packages/storage build && bun run --cwd packages/xhr build && bun run --cwd packages/core build && bun run --cwd packages/auth build && bun run --cwd packages/menu build && bun run --cwd packages/role build && bun run --cwd packages/settings build && bun run --cwd packages/drupal-js-sdk build",
     "changeset": "changeset",
-    "clean": "pnpm clean:dist && pnpm clean:test && pnpm clean:docs",
+    "clean": "bun run clean:dist && bun run clean:test && bun run clean:docs",
     "clean:dist": "rimraf packages/*/dist || true",
     "clean:test": "rimraf packages/*/coverage || true",
     "clean:docs": "rimraf packages/*/api || true",
     "lint:commit": "commitlint",
     "postinstall": "husky install",
-    "preinstall": "npx only-allow pnpm",
-    "test": "pnpm build && pnpm workspaces foreach run test",
+    "test": "bun run build:order && bun run -F '@drupal-js-sdk/*' test",
     "version": "changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.6",
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
+    "@rollup/plugin-replace": "^5.0.2",
     "commitlint-plugin-workspace-scopes": "^1.1.0",
     "husky": "^8.0.3",
+    "rollup-plugin-dts": "^5.3.1",
+    "rollup-plugin-esbuild": "^6.1.1",
+    "esbuild": "^0.21.5",
     "rimraf": "^3.0.2",
-    "rollup": "^3.29.4"
+    "rollup": "^3.29.4",
+    "typescript": "^5.5.3"
   },
-  "packageManager": "pnpm",
   "version": "0.0.1"
 }
