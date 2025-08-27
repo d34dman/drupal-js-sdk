@@ -1,5 +1,11 @@
 # @drupal-js-sdk/xhr
 
+## 0.5.2
+
+### Patch Changes
+
+- FetchClient can accept query param like Axios
+
 ## 0.5.1
 
 ### Patch Changes

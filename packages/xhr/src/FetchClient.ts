@@ -1,4 +1,4 @@
-import {XhrInterface, XhrRequestConfig, XhrResponse, XhrMethod} from '@drupal-js-sdk/interfaces';
+import {XhrInterface, XhrRequestConfig, XhrResponse, XhrMethod, XhrQueryParams} from '@drupal-js-sdk/interfaces';
 import {StorageRecordInterface} from '@drupal-js-sdk/interfaces';
 import { btoa } from 'buffer';
 import {Client} from './Client';
@@ -77,6 +77,14 @@ export class FetchClient extends Client implements XhrInterface {
         Authorization: 'Basic ' + base64Encoder(reqConfig.auth.username + ":" + reqConfig.auth.password),
       };
     }
+    // Append query params if provided
+    if (reqConfig.params) {
+      const q = serializeQueryParams(reqConfig.params);
+      if (q.length > 0) {
+        const joiner = path.includes('?') ? '&' : '?';
+        path = `${path}${joiner}${q}`;
+      }
+    }
     return this.client(path, args)
       .then(async function(response: Response) {
         if (!response.ok) {
@@ -142,6 +150,21 @@ export class FetchClient extends Client implements XhrInterface {
   return (relativeURL === '')
     ? baseURL
     : baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '');
+}
+
+function serializeQueryParams(params: XhrQueryParams): string {
+  const usp = new URLSearchParams();
+  const append = (key: string, value: string | number | boolean) => {
+    usp.append(key, String(value));
+  };
+  for (const [key, value] of Object.entries(params)) {
+    if (Array.isArray(value)) {
+      for (const v of value) append(key, v);
+    } else {
+      append(key, value);
+    }
+  }
+  return usp.toString();
 }
 
 function base64Encoder(str:string) {

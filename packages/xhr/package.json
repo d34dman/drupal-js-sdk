@@ -1,6 +1,6 @@
 {
   "name": "@drupal-js-sdk/xhr",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Drupal JavaScript SDK : Xhr",
   "keywords": [
     "Drupal",

@@ -31,12 +31,17 @@ export interface XhrResponse<T = any, D = any> {
   config: XhrRequestConfig<D>;
   request?: any;
 }
+export type XhrQueryParamPrimitive = string | number | boolean;
+export type XhrQueryParamValue = XhrQueryParamPrimitive | XhrQueryParamPrimitive[];
+export type XhrQueryParams = Record<string, XhrQueryParamValue>;
+
 export interface XhrRequestConfig<D = any> {
   url?: string;
   method?: XhrMethod;
   baseURL?: string;
   headers?: XhrRequestHeaders;
   data?: D;
+  params?: XhrQueryParams;
   withCredentials?: boolean;
   auth?: XhrBasicCredentials;
 }
