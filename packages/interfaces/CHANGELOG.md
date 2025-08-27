@@ -1,5 +1,11 @@
 # @drupal-js-sdk/interfaces
 
+## 0.5.1
+
+### Patch Changes
+
+- 87d9ff8: Remove hard dependency on axios
+
 ## 0.5.0
 
 ### Minor Changes

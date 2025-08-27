@@ -1,5 +1,17 @@
 # @drupal-js-sdk/role
 
+## 0.5.1
+
+### Patch Changes
+
+- 87d9ff8: Remove hard dependency on axios
+- Updated dependencies [87d9ff8]
+  - @drupal-js-sdk/interfaces@0.5.1
+  - @drupal-js-sdk/core@0.5.1
+  - @drupal-js-sdk/xhr@0.5.1
+  - @drupal-js-sdk/error@0.5.1
+  - @drupal-js-sdk/storage@0.5.1
+
 ## 0.5.0
 
 ### Minor Changes

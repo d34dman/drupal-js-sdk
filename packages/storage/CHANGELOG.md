@@ -1,5 +1,13 @@
 # @drupal-js-sdk/storage
 
+## 0.5.1
+
+### Patch Changes
+
+- Updated dependencies [87d9ff8]
+  - @drupal-js-sdk/interfaces@0.5.1
+  - @drupal-js-sdk/error@0.5.1
+
 ## 0.5.0
 
 ### Minor Changes
