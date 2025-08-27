@@ -47,10 +47,10 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@drupal-js-sdk/interfaces": "workspace:*",
-    "@drupal-js-sdk/error": "workspace:*",
-    "@drupal-js-sdk/storage": "workspace:*",
-    "@drupal-js-sdk/xhr": "workspace:*",
+    "@drupal-js-sdk/interfaces": "^0.4.0",
+    "@drupal-js-sdk/error": "^0.4.0",
+    "@drupal-js-sdk/storage": "^0.4.0",
+    "@drupal-js-sdk/xhr": "^0.4.0",
     "axios": "^1.2.4"
   },
   "devDependencies": {
