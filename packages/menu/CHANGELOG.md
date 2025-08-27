@@ -1,5 +1,13 @@
 # @drupal-js-sdk/menu
 
+## 0.5.3
+
+### Patch Changes
+
+- Updated dependencies
+  - @drupal-js-sdk/xhr@0.5.3
+  - @drupal-js-sdk/core@0.5.3
+
 ## 0.5.2
 
 ### Patch Changes

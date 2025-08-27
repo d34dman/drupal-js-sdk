@@ -90,7 +90,7 @@ export class FetchClient extends Client implements XhrInterface {
         if (!response.ok) {
           throw new Error("HTTP error, status = " + response.status);
         }
-        const data = await response.json();
+        const data = await parseResponseData(response);
         let responseHeaders = {};
         if (response.headers) {
           responseHeaders = Object.fromEntries(response.headers.entries())
@@ -165,6 +165,26 @@ function serializeQueryParams(params: XhrQueryParams): string {
     append(key, value);
   });
   return usp.toString();
+}
+
+async function parseResponseData(response: Response): Promise<unknown> {
+  if (response.status === 204 || response.status === 205) {
+    return null;
+  }
+  const contentTypeRaw = (response.headers && typeof response.headers.get === "function")
+    ? (response.headers.get("content-type") ?? "")
+    : "";
+  const contentType = contentTypeRaw.toLowerCase();
+  const canJson = typeof (response as any).json === "function";
+  const canText = typeof (response as any).text === "function";
+  if (contentType.includes("json") || (!contentType && canJson)) {
+    // Treat unknown content type as JSON to preserve previous behavior; let errors bubble
+    return await (response as any).json();
+  }
+  if (canText) {
+    return await (response as any).text();
+  }
+  return null;
 }
 
 function base64Encoder(str:string) {

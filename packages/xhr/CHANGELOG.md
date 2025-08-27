@@ -1,5 +1,11 @@
 # @drupal-js-sdk/xhr
 
+## 0.5.3
+
+### Patch Changes
+
+- Make parsing response more robust
+
 ## 0.5.2
 
 ### Patch Changes
