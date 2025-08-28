@@ -3,3 +3,5 @@ export * from '@drupal-js-sdk/storage';
 export * from '@drupal-js-sdk/core';
 export * from '@drupal-js-sdk/menu';
 export * from '@drupal-js-sdk/auth';
+export * from '@drupal-js-sdk/entity';
+export * from '@drupal-js-sdk/jsonapi';

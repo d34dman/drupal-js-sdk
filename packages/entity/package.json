@@ -1,13 +1,14 @@
 {
-  "name": "drupal-js-sdk",
+  "name": "@drupal-js-sdk/entity",
   "version": "0.5.3",
-  "description": "Drupal JS SDK",
+  "description": "Drupal JavaScript SDK : Entity facade and loader",
   "keywords": [
     "Drupal",
     "javascript",
-    "api"
+    "api",
+    "entity"
   ],
-  "homepage": "https://github.com/d34dman/drupal-js-sdk/tree/main/packages/drupal-js-sdk#readme",
+  "homepage": "https://github.com/d34dman/drupal-js-sdk/tree/main/packages/entity#readme",
   "bugs": {
     "url": "https://github.com/d34dman/drupal-js-sdk/issues"
   },
@@ -28,17 +29,13 @@
     "build": "rollup -c",
     "changeset": "changeset",
     "clean": "pnpm clean:dist && pnpm clean:test && pnpm clean:docs",
-    "clean:dist": "rimraf packages/*/dist || true",
-    "clean:test": "rimraf packages/*/coverage || true",
-    "clean:docs": "rimraf packages/*/api || true",
+    "clean:dist": "rimraf ./dist || true",
+    "clean:test": "rimraf ./coverage || true",
+    "clean:docs": "rimraf ./api || true",
     "lint:commit": "commitlint",
     "preinstall": "npx only-allow pnpm",
     "version": "changeset version",
-    "docs": "pnpm run docs:build",
-    "docs:better-docs": "jsdoc -c jsdoc.json --verbose",
-    "docs:build": "vuepress build docs",
-    "docs:dev": "vuepress dev docs",
-    "docs:typedoc:build": "typedoc --options typedoc.json --out api --theme ./node_modules/typedoc-neo-theme/bin/default",
+    "docs": "typedoc --options typedoc.json --out api",
     "format": "pnpm run lint-and-fix",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
@@ -50,17 +47,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "@drupal-js-sdk/auth": "workspace:^",
-    "@drupal-js-sdk/jsonapi": "workspace:^",
-    "@drupal-js-sdk/entity": "workspace:^",
-    "@drupal-js-sdk/core": "workspace:^",
-    "@drupal-js-sdk/error": "workspace:^",
-    "@drupal-js-sdk/interfaces": "workspace:^",
-    "@drupal-js-sdk/menu": "workspace:^",
-    "@drupal-js-sdk/role": "workspace:^",
-    "@drupal-js-sdk/settings": "workspace:^",
-    "@drupal-js-sdk/storage": "workspace:^",
-    "@drupal-js-sdk/xhr": "workspace:^"
+    "@drupal-js-sdk/interfaces": "workspace:^"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
@@ -87,3 +74,5 @@
     "typescript": "^4.9.4"
   }
 }
+
+
