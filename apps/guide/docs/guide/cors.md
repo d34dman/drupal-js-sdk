@@ -1,54 +1,42 @@
----
-title: CORS
----
+# CORS (draft)
 
-# CORS  <Badge type="warning" text="draft" vertical="top" />
+!!! note
+    You don't need to bother about this section if your application is living under the same domain as the Drupal installation.
 
-::: tip Note
-You don't need to bother about this section if your application is living under
-the same domain as Drupal installation.
-:::
 ## What and Why?
 
-[Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) in MDN Web Docs explains the concept very well.
+[Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) explains the concept well.
 
-In case the frontend application is served from a different domain, then we need to make sure the "Cross origin resource sharing" is enabled and configured properly.
+If the frontend is served from a different domain, ensure CORS is enabled and configured properly.
 
 ## Drupal configuration
 
-```yml
+```yaml
 # Configure Cross-Site HTTP requests (CORS).
-  # Read https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
-  # for more information about the topic in general.
-  # Note: By default the configuration is disabled.
- cors.config:
-   enabled: false
-   # Specify allowed headers, like 'x-allowed-header'.
-   allowedHeaders: []
-   # Specify allowed request methods, specify ['*'] to allow all possible ones.
-   allowedMethods: []
-   # Configure requests allowed from specific origins.
-   allowedOrigins: ['*']
-   # Sets the Access-Control-Expose-Headers header.
-   exposedHeaders: false
-   # Sets the Access-Control-Max-Age header.
-   maxAge: false
-   # Sets the Access-Control-Allow-Credentials header.
-   supportsCredentials: false
+# Read https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+# for more information about the topic in general.
+# Note: By default the configuration is disabled.
+cors.config:
+  enabled: false
+  # Specify allowed headers, like 'x-allowed-header'.
+  allowedHeaders: []
+  # Specify allowed request methods, specify ['*'] to allow all possible ones.
+  allowedMethods: []
+  # Configure requests allowed from specific origins.
+  allowedOrigins: ['*']
+  # Sets the Access-Control-Expose-Headers header.
+  exposedHeaders: false
+  # Sets the Access-Control-Max-Age header.
+  maxAge: false
+  # Sets the Access-Control-Allow-Credentials header.
+  supportsCredentials: false
 ```
 
 ## Common Pitfalls
 
-### Basic Auth breaks CORS
+- Basic Auth breaks CORS
+- Cookie Policy Lax
 
-### Cookie Policy Lax
-
-::: details References
-
-**On Drupal.org**
-- [Opt-in CORS support
-| Change record](https://www.drupal.org/node/2715637)
-
-**Others**
-- [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) in MDN Web Docs
-:::
+??? info "References"
+    - Opt-in CORS support (Change record): https://www.drupal.org/node/2715637
+    - MDN: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS

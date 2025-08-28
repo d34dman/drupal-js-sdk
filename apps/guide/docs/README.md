@@ -1,71 +1,38 @@
----
-home: true
-title: Home
-heroImage: /svg/decoupled-drupal.svg
-actions:
-  - text: Get Started
-    link: /guide/getting-started.html
-    type: primary
-  - text: Introduction
-    link: /guide/
-    type: secondary
-features:
-  - title: Guide
-    details: Guide to walk you through most common scenarious
-  - title: Examples
-    details: Ample example to jumpstart your developmnent
-  - title: Showcase
-    details: A real world examples using the SDK.
-footer: MIT Licensed | Copyright © 2021-present D34dMan
----
+# Drupal JavaScript SDK
 
-### As Easy as 1, 2, 3
+Welcome to the Drupal JavaScript SDK documentation.
 
-#### 1. Install
-<CodeGroup>
-  <CodeGroupItem title="YARN" active>
+## Get Started
 
-```bash
-# install in your project
-yarn add -D drupal-js-sdk
-```
-  </CodeGroupItem>
+### Install
 
-  <CodeGroupItem title="NPM">
-  
-```bash
-# install in your project
-npm install -D drupal-js-sdk
-# install the authentication package for example.
-npm install -D @drupal-js-sdk/auth
-```
+=== "npm"
 
-  </CodeGroupItem>
-</CodeGroup>
+    ```bash
+    # with npm
+    npm install drupal-js-sdk @drupal-js-sdk/auth --save
+    ```
 
-#### 2. Import
-<CodeGroup>
-  <CodeGroupItem title="ES Module" active>
+=== "yarn"
+    ```bash
+    # with yarn
+    yarn add drupal-js-sdk @drupal-js-sdk/auth
+    ```
+
+### Import
 
 ```js
 import { Drupal } from 'drupal-js-sdk';
 import { DrupalAuth } from '@drupal-js-sdk/auth';
 ```
-  </CodeGroupItem>
 
-  <CodeGroupItem title="Require">
-  
+### Use
+
 ```js
-const Drupal = require('drupal-js-sdk')
-const DrupalAuth = require('@drupal-js-sdk/auth')
-```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-#### 3. Use
-```js
-const api = new Drupal({baseURL: 'http://example.com'});
+const api = new Drupal({ baseURL: 'http://example.com' });
 const auth = new DrupalAuth(api);
 auth.login('admin', 'Z1ON0101');
 ```
+
+See the Guide for topics like authentication, menus, errors, and entities.
+

@@ -2,10 +2,10 @@
 
 The following is a list of all the error codes that can be returned by the Drupal Javascript SDK API. You may also refer to RFC2616 for a list of http error codes. Make sure to check the error message for more details.
 
-::: danger ATTENTION
-Not all error codes listed below are implemented. For now, this serves as a guide
-for developers for implementing a standardised set of error codes.
-:::
+!!! warning
+    Not all error codes listed below are implemented. For now, this serves as a guide
+    for developers for implementing a standardised set of error codes.
+
 
 | CONSTANT | NUMERIC CODE | DESCRIPTION |
 | -------- | ------------ | ----------- |

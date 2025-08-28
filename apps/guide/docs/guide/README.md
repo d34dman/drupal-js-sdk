@@ -1,34 +1,29 @@
 # Introduction
 
-::: warning
-This Project is in a very early phase of its development. Things are very volatile and evolving.
-:::
+!!! warning
+    This project is in an early phase and APIs can evolve.
 
+**Drupal JavaScript SDK** helps JavaScript apps connect to a Drupal backend.
 
-**Drupal JavaScript SDK** is an SDK for JavaScript developers for creating applications that connect to a Drupal backend.
+You can benefit if your app:
 
-You can benefit from this SDK if you are developing a JavaScript application that:
-
-- Connects to a Decoupled Drupal Application
-- Authenticates with Drupal 
-- Use experimental features of the decoupled menu
-- Handle error messages while interacting with Drupal more gracefully
-- Can use some guides and API that can help you with many common scenarios
-
-This project feature overlaps with a lot of other open-source projects. The primary goal of this SDK would be to treat guides and examples as first-class citizen and not as an afterthought.
+- Connects to a decoupled Drupal site
+- Authenticates with Drupal
+- Uses decoupled menus
+- Needs clearer error handling
+- Prefers practical guides and examples
 
 ### Architecture
 
-A rought architecture overview is presented in teh following figure.
-This diagram doesn't adhere to any established standard.
-A general idea of how the control flows should be visible in the model.
+- Core: configuration, session, HTTP client plumbing
+- Feature packages: `@drupal-js-sdk/auth`, `@drupal-js-sdk/menu`, etc.
+- Entity (opt-in): `@drupal-js-sdk/entity` facades + adapters like `@drupal-js-sdk/jsonapi`
 
-Method Call always flow towards "right".
+![Architecture Diagram](../svg/Architecture.svg)
 
-![Architecture Diagram](/svg/Architecture.svg)
 ### Contribute
 
-Development is happening in [GitHub](https://github.com/d34dman/drupal-js-sdk). However, if you like to get involved or suggest improvements, please use the [Drupal Issue queue](https://www.drupal.org/project/issues/drupal_js_sdk?categories=All) so that we can provide proper issue credits.
+Development is on GitHub. For issues and credits, use the Drupal issue queue: https://www.drupal.org/project/issues/drupal_js_sdk?categories=All
 
 ### Supported Drupal Versions
 
