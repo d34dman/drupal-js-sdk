@@ -4,7 +4,11 @@ repo_name: "@d34dman/drupal-js-sdk"
 site_author: Shibin Das (D34dMan)
 theme:
   name: material
-  
+  logo: /assets/svg/logo.svg
+  logo_text: false
+  palette:
+    primary: white
+    accent: light blue
 copyright: Copyright 2025 Shibin Das (D34dMan)
 
 markdown_extensions:
