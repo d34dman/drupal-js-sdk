@@ -6,7 +6,7 @@ repo_name: "@d34dman/drupal-js-sdk"
 site_author: Shibin Das (D34dMan)
 theme:
   name: material
-  logo: /assets/svg/logo.svg
+  logo: assets/svg/logo.svg
   logo_text: false
   features:
     - navigation.tabs

@@ -19,7 +19,7 @@ You can benefit if your app:
 - Feature packages: `@drupal-js-sdk/auth`, `@drupal-js-sdk/menu`, etc.
 - Entity (opt-in): `@drupal-js-sdk/entity` facades + adapters like `@drupal-js-sdk/jsonapi`
 
-![Architecture Diagram](/assets/svg/Architecture.svg)
+![Architecture Diagram](assets/svg/Architecture.svg)
 
 ### Contribute
 
