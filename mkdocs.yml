@@ -4,6 +4,7 @@ repo_url: https://github.com/d34dman/drupal-js-sdk
 edit_uri: https://github.com/d34dman/drupal-js-sdk/edit/main/docs/
 repo_name: "@d34dman/drupal-js-sdk"
 site_author: Shibin Das (D34dMan)
+extra_css: [assets/css/base.css]
 theme:
   name: material
   logo: assets/svg/logo.svg
