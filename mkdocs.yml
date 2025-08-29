@@ -96,7 +96,21 @@ nav:
     - CORS: guide/cors.md
     - Error handling: guide/error-handling.md
     - Error codes: guide/error-codes.md
-  - Development:
+  - Modules:
+    - "Base":
+      - "@drupal-js-sdk/core": modules/base/core.md
+      - "@drupal-js-sdk/xhr": modules/base/xhr.md
+      - "@drupal-js-sdk/storage": modules/base/storage.md
+      - "@drupal-js-sdk/error": modules/base/error.md
+      - "@drupal-js-sdk/interfaces": modules/base/interfaces.md
+    - "Feature":
+      - "@drupal-js-sdk/jsonapi": modules/feature/jsonapi.md
+      - "@drupal-js-sdk/entity": modules/feature/entity.md
+      - "@drupal-js-sdk/menu": modules/feature/menu.md
+      - "@drupal-js-sdk/auth": modules/feature/auth.md
+      # - "@drupal-js-sdk/role": modules/feature/role.md
+      # - "@drupal-js-sdk/settings": modules/feature/settings.md
+  - Architecture:
     - Dependency Diagram: dev/dependency.md
 extra:
   status:
