@@ -13,3 +13,28 @@
     font-size: 1.2rem;
     margin-left: 0.4rem;
 }
+
+/*
+ * Custom styles for code blocks (to support "Pygments" syntax highlighting with monokai theme).
+ */
+
+.highlight .md-code__content {
+    background-color: #272822;
+}
+
+/*
+ * Custom styles for code blocks "Bash" as its hard to read against dark background.
+ */
+.language-bash.highlight .md-code__content {
+    background-color: cornsilk;
+    font-weight: bold;
+}
+
+.md-clipboard:focus,
+.md-clipboard:hover {
+    color: white;
+}
+
+.md-clipboard {
+    color: grey;
+}

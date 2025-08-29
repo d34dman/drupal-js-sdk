@@ -83,8 +83,9 @@ markdown_extensions:
       line_spans: __span
       use_pygments: true
       pygments_lang_class: true
-      linenums: true
+      linenums: false
       auto_title: true
+      noclasses: true
       pygments_style: monokai
   - pymdownx.inlinehilite
   - pymdownx.snippets
