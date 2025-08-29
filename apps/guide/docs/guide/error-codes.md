@@ -1,6 +1,8 @@
 # Error Codes
 
-The following is a list of all the error codes that can be returned by the Drupal Javascript SDK API. You may also refer to RFC2616 for a list of http error codes. Make sure to check the error message for more details.
+The following is a list of all the error codes that can be returned by the Drupal Javascript SDK API. You may also refer to RFC2616[^1] for a list of http error codes. Make sure to check the error message for more details.
+
+[^1]: RFC2616, Hypertext Transfer Protocol -- HTTP/1.1 : [https://datatracker.ietf.org/doc/html/rfc2616](https://datatracker.ietf.org/doc/html/rfc2616)
 
 !!! warning
     Not all error codes listed below are implemented. For now, this serves as a guide

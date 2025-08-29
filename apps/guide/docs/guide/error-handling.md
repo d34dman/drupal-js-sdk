@@ -21,4 +21,4 @@ auth.passwordResetByMail('admin@example.com')
     }) 
 ```
 
-For a list of all possible DrupalError codes, check [Error Codes](/guide/error-codes), or see the DrupalError section of the JavaScript API DrupalError.
+For a list of all possible DrupalError codes, check [Error Codes](guide/error-codes), or see the DrupalError section of the JavaScript API DrupalError.

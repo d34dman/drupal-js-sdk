@@ -6,13 +6,53 @@ theme:
   name: material
   logo: /assets/svg/logo.svg
   logo_text: false
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.instant
+    - content.code.copy
+    - content.tabs.link
   palette:
     primary: white
     accent: light blue
+  icon:
+    tag:
+      html: fontawesome/brands/drupal
+      js: fontawesome/brands/js
+      css: fontawesome/brands/css3
+      node: fontawesome/brands/node-js
+      react: fontawesome/brands/react
+      vue: fontawesome/brands/vuejs
+      angular: fontawesome/brands/angular
+      drupal: fontawesome/brands/drupal
+      draft: fontawesome/solid/eye
+      outdated: fontawesome/solid/clock
+      deprecated: fontawesome/solid/clock
+  features:
+    - navigation.footer
+    - navigation.expand
+    - navigation.tracking
+    - navigation.top
+    - navigation.next_prev
+    - navigation.prev_next
+    - navigation.breadcrumb
+    - navigation.search
+    - navigation.tabs
+    - navigation.sections
+    - navigation.instant
+    - content.code.copy
+    - content.tabs.link
+    - content.code.line_numbers
+    - content.code.highlight
+    - content.code.line_spans
+    - content.code.line_highlight
+    - content.code.line_numbers
 copyright: Copyright 2025 Shibin Das (D34dMan)
 
 markdown_extensions:
+  - abbr
   - admonition
+  - footnotes
   - tables
   - def_list
   - pymdownx.tasklist:
@@ -31,11 +71,59 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tilde
   - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - md_in_html
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
+      use_pygments: true
       pygments_lang_class: true
+      linenums: true
+      auto_title: true
+      pygments_style: monokai
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Guide:
+    - Introduction: guide/introduction.md
+    - Getting started: guide/getting-started.md
+    - Authentication: guide/authentication.md
+    - Menu: guide/menu.md
+    - CORS: guide/cors.md
+    - Error handling: guide/error-handling.md
+    - Error codes: guide/error-codes.md
+  - Development:
+    - Dependency Diagram: dev/dependency.md
+extra:
+  status:
+    new: Recently added
+    deprecated: Deprecated
+    draft: Draft
+  social:
+    - icon: fontawesome/brands/drupal
+      link: https://www.drupal.org/u/d34dman
+    - icon: fontawesome/brands/github
+      link: https://github.com/d34dman
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/d34dman/
+  tags:
+    HTML5: html
+    JavaScript: js
+    CSS: css
+    Node: node
+    TypeScript: typescript
+    React: react
+    Vue: vue
+    Angular: angular
+    Svelte: svelte
+    Drupal: drupal
+    Draft: draft
+    Outdated: outdated
+    Deprecated: deprecated
+plugins:
+  - tags
+  - search

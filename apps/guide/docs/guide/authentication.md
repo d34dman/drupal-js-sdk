@@ -6,7 +6,9 @@ Default authentication service is provided via `DrupalAuth`. It helps perform co
 
 Authentication needs a session storage implementation. Examples:
 
-### Memory (Node or Browser)
+### Memory 
+
+Node or Browser
 
 ```js
 import { Drupal } from 'drupal-js-sdk';
