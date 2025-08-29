@@ -19,18 +19,18 @@ jobs:
     - name: Install dependencies
       working-directory: './'
       run: |
-        yarn install
-        yarn build
-        yarn install
+        pnpm -r install
+        pnpm -r build
+        pnpm -r install
     # Generate coverage report for @drupal-js-sdk/core 
     - name: Run test suite inside 'packages/core'
       working-directory: './packages/core/'
-      run: yarn test
+      run: pnpm test
     - name: Codecov
       uses: codecov/codecov-action@v2
     # Generate coverage report for drupal-js-sdk
     - name: Run test suite inside 'packages/drupal-js-sdk'
       working-directory: './packages/drupal-js-sdk/'
-      run: yarn test
+      run: pnpm test
     - name: Codecov
       uses: codecov/codecov-action@v2
