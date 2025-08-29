@@ -13,7 +13,7 @@ jobs:
     name: Execute test suite for drupal-js-sdk
     runs-on: ubuntu-latest
     env:
-      node-version: 16.x
+      node-version: 24.x
     steps:
     - uses: actions/checkout@v2
     - uses: pnpm/action-setup@v4

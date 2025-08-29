@@ -23,6 +23,6 @@
     "rimraf": "^6.0.1",
     "rollup": "^3.29.4"
   },
-  "packageManager": "pnpm",
+  "packageManager": "pnpm@10.5.1",
   "version": "0.0.1"
 }
