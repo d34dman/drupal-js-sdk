@@ -1,5 +1,7 @@
 site_name: Drupal JavaScript SDK
+site_url: https://d34dman.github.io/drupal-js-sdk/
 repo_url: https://github.com/d34dman/drupal-js-sdk
+edit_uri: https://github.com/d34dman/drupal-js-sdk/edit/main/docs/
 repo_name: "@d34dman/drupal-js-sdk"
 site_author: Shibin Das (D34dMan)
 theme:
