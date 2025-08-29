@@ -2,7 +2,6 @@
 
 ** Undergoing heavy refactor to introduce "context api" to use shared context among various modules. ** 
 
-![build](https://img.shields.io/travis/d34dman/drupal-js-sdk/main?style=flat-square)
 [![codecov](https://img.shields.io/codecov/c/github/d34dman/drupal-js-sdk?style=flat-square&token=KVXZUI3JLK)](https://codecov.io/gh/d34dman/drupal-js-sdk)
 
 Monorepo for Drupal Javascript SDK.
@@ -23,9 +22,7 @@ This project feature overlaps with a lot of other open-source projects. The prim
 
 ## Resources
 
-  [![Guide](https://img.shields.io/netlify/5aab3eb8-6c3e-48e7-b29e-f3e3013299c9?label=Guide&logo=netlify&style=for-the-badge)](https://drupal-js-sdk-docs.netlify.app/)
-  
-  [![API Reference](https://img.shields.io/github/workflow/status/d34dman/drupal-js-sdk/GitHub%20pages/main?label=API%20Reference&logo=github&style=for-the-badge)](https://d34dman.github.io/drupal-js-sdk/)
+  [![GitHub Pages Workflow Status](https://img.shields.io/github/actions/workflow/status/d34dman/drupal-js-sdk/github-pages.yml?branch=main&style=for-the-badge&logo=github&label=Github%20Pages)](https://d34dman.github.io/drupal-js-sdk/)
   
 ## Contribute
 
@@ -40,6 +37,7 @@ Development is happening in [GitHub](https://github.com/d34dman/drupal-js-sdk). 
 
 Even after we have a proper release for Drupal JavaScript SDK, it might not suite your need. In case one or more of these project suits your user case, it is recommended to use them instead.
 
+- [api_client](https://www.drupal.org/project/api_client) - The Drupal API Client is a set of JavaScript packages that simplify the process of interacting with common Drupal APIs.
 - [drupal-sdk](https://gitlab.com/VoidE/drupal-sdk) - The Drupal SDK is a helper package for calling Drupal endpoints, like the JSON:API, in a more efficient and easy way.
 - [Drupal State](https://www.drupal.org/project/drupal_state) - A simple data store to manage application state sourced from Drupal's JSON:API.
 - DruxClient which is part of [DruxtJS](https://github.com/druxt/druxt.js) - DruxtJS provides an easy connection between a Drupal JSON:API backend and Nuxt.js frontend application.
