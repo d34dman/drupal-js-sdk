@@ -1,6 +1,7 @@
 import { CoreInterface, EntityAdapterFactory, EntityAttributes, EntityIdentifier } from "@drupal-js-sdk/interfaces";
 import { EntityService } from "./EntityService";
 import { EntityLoader } from "./EntityLoader";
+import { FluentEntity } from "./FluentEntity";
 
 /**
  * Facade similar to DrupalMenu: accepts Core/Drupal in constructor and
@@ -28,6 +29,10 @@ export class DrupalEntity {
     adapterKey?: string
   ): EntityLoader<TAttributes> {
     return this.service.entity<TAttributes>(identifier, adapterKey);
+  }
+
+  public node<TAttributes extends EntityAttributes = EntityAttributes>(bundle: string): FluentEntity<TAttributes> {
+    return new FluentEntity<TAttributes>(this.service as any, { entity: "node", bundle });
   }
 }
 
