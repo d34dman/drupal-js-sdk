@@ -5,7 +5,6 @@
    */
   import { onMount } from "svelte";
   import { entities } from "../sdk";
-  import { DrupalJsonApiParams } from "drupal-jsonapi-params";
 
   export let id: string | null = null;
 
@@ -30,13 +29,11 @@
     error = null;
     attrs = null;
     try {
-      const params = new DrupalJsonApiParams();
-      params.addInclude(["uid"]);
-      const record: any = await entities.load<{ attributes: ArticleAttributes }>(
-        { entity: "node", bundle: "article" },
-        id,
-        { jsonapi: { query: params.getQueryObject() } }
-      );
+      const record: any = await entities
+        .node<{ attributes: ArticleAttributes }>("article")
+        .id(id)
+        .include(["uid"])
+        .get();
       const loadedAttrs: ArticleAttributes | undefined = record?.attributes as ArticleAttributes | undefined;
       attrs = loadedAttrs ?? {};
     } catch (_e) {

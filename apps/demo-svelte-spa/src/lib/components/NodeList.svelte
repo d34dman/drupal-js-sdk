@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { entities } from "../sdk";
-  import { DrupalJsonApiParams } from "drupal-jsonapi-params";
 
   type ArticleAttrs = { title?: string; created?: string };
 
@@ -14,11 +13,12 @@
   onMount(async () => {
     try {
       // Use SDK convenience list API
-      const params = new DrupalJsonApiParams();
-      params.addPageLimit(10).addSort("created", "DESC");
-      const records = await entities.list<ArticleAttrs>({ entity: "node", bundle: "article" }, {
-        jsonapi: { query: params.getQueryObject() },
-      });
+      const records = await entities
+        .node<ArticleAttrs>("article")
+        .select(["title", "created"])
+        .sort("created", "DESC")
+        .page({ limit: 10 })
+        .list();
       items = records.map((rec) => ({
         id: rec.id,
         title: rec.attributes.title ?? "(untitled)",
