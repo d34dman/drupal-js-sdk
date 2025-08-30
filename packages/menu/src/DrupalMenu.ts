@@ -45,7 +45,7 @@ export class DrupalMenu {
       items.map((item: {[key: string]: any;}) => {
         let parentId;
         let level;
-        const id = `${item['drupal-menu-machine-name'][0]}${item['drupal-menu-hierarchy'][0]}`;
+        const id = `${item['machine-name'][0]}${item['hierarchy'][0]}`;
         const idArray = id.split('.');
         idArray.pop();
         parentId = idArray.join('.');
