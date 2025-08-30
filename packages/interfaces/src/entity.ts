@@ -29,6 +29,9 @@ export interface EntityLoadOptions {
   };
 }
 
+/** Adapter-agnostic list options; mirrors load options. */
+export interface EntityListOptions extends EntityLoadOptions {}
+
 /** Context provided by core to construct an adapter instance. */
 export interface EntityAdapterContext {
   id: EntityIdentifier;
@@ -43,6 +46,8 @@ export interface EntityAdapterContext {
 export interface EntityAdapter<TAttributes extends EntityAttributes = EntityAttributes> {
   /** Load a single entity by its ID. */
   load(entityId: string, options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>>;
+  /** List entities for the adapter context's bundle. */
+  list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>>;
 }
 
 /** Factory function used to register adapters. */

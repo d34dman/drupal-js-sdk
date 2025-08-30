@@ -3,6 +3,7 @@ import {
   EntityAdapterContext,
   EntityAttributes,
   EntityLoadOptions,
+  EntityListOptions,
   EntityRecord,
 } from "@drupal-js-sdk/interfaces";
 
@@ -35,6 +36,18 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
       attributes: (data.attributes ?? {}) as TAttributes,
       relationships: data.relationships as Record<string, unknown> | undefined,
     };
+  }
+
+  public async list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>> {
+    const params = options?.jsonapi?.query ?? options?.params;
+    const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
+    const data = (response && response.data && Array.isArray(response.data.data)) ? response.data.data : [];
+    return data.map((row: any) => ({
+      id: String(row.id ?? ""),
+      type: String(row.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
+      attributes: (row.attributes ?? {}) as TAttributes,
+      relationships: row.relationships as Record<string, unknown> | undefined,
+    }));
   }
 }
 

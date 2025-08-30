@@ -80,6 +80,12 @@ importers:
       '@drupal-js-sdk/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@drupal-js-sdk/entity':
+        specifier: workspace:*
+        version: link:../../packages/entity
+      '@drupal-js-sdk/jsonapi':
+        specifier: workspace:*
+        version: link:../../packages/jsonapi
       '@drupal-js-sdk/menu':
         specifier: workspace:*
         version: link:../../packages/menu

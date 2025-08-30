@@ -1,4 +1,4 @@
-import { CoreInterface, EntityAdapter, EntityAdapterContext, EntityAdapterFactory, EntityAttributes, EntityIdentifier } from "@drupal-js-sdk/interfaces";
+import { CoreInterface, EntityAdapter, EntityAdapterContext, EntityAdapterFactory, EntityAttributes, EntityIdentifier, EntityListOptions, EntityRecord, EntityLoadOptions } from "@drupal-js-sdk/interfaces";
 import { EntityLoader } from "./EntityLoader";
 
 export class EntityService {
@@ -39,6 +39,23 @@ export class EntityService {
       throw new Error(`Unknown entity adapter "${key}"`);
     }
     return new EntityLoader<TAttributes>(context, factory(context));
+  }
+
+  public async list<TAttributes extends EntityAttributes = EntityAttributes>(
+    identifier: EntityIdentifier,
+    options?: EntityListOptions,
+    adapterKey?: string
+  ): Promise<Array<EntityRecord<TAttributes>>> {
+    return this.entity<TAttributes>(identifier, adapterKey).list(options);
+  }
+
+  public async load<TAttributes extends EntityAttributes = EntityAttributes>(
+    identifier: EntityIdentifier,
+    id: string,
+    options?: EntityLoadOptions,
+    adapterKey?: string
+  ): Promise<EntityRecord<TAttributes>> {
+    return this.entity<TAttributes>(identifier, adapterKey).load(id, options);
   }
 }
 
