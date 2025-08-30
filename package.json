@@ -12,7 +12,10 @@
     "postinstall": "husky install",
     "preinstall": "npx only-allow pnpm",
     "test": "pnpm build && pnpm workspaces foreach run test",
-    "version": "changeset version"
+    "version": "changeset version",
+    "dev:demo:svelte": "pnpm --filter @drupal-js-sdk/demo-svelte dev",
+    "build:demo:svelte": "pnpm --filter @drupal-js-sdk/demo-svelte build",
+    "preview:demo:svelte": "pnpm --filter @drupal-js-sdk/demo-svelte preview"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.6",
