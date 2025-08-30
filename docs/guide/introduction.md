@@ -1,9 +1,6 @@
 # Introduction
 
-!!! warning
-    This project is in an early phase and APIs can evolve.
-
-**Drupal JavaScript SDK** helps JavaScript apps connect to a Drupal backend.
+**Drupal JavaScript SDK** helps JavaScript apps connect to a :fontawesome-brands-drupal: Drupal backend.
 
 You can benefit if your app:
 
@@ -25,9 +22,11 @@ You can benefit if your app:
 
 ### Contribute
 
-Development is on GitHub. For issues and credits, use the Drupal issue queue: https://www.drupal.org/project/issues/drupal_js_sdk?categories=All
+Development is on GitHub. For issues and credits, use the Drupal issue queue[^1].
+
+[^1]: Issue queue on Drupal.org for Drupal JS SDK: [https://www.drupal.org/project/issues/drupal_js_sdk?categories=All](https://www.drupal.org/project/issues/drupal_js_sdk?categories=All)
 
 ### Supported Drupal Versions
 
-- Drupal 8
-- Drupal 9
+- Drupal 10
+- Drupal 11

@@ -115,7 +115,10 @@ nav:
       # - "@drupal-js-sdk/role": modules/feature/role.md
       # - "@drupal-js-sdk/settings": modules/feature/settings.md
   - Architecture:
-    - Dependency Diagram: dev/dependency.md
+    - System Architecture: dev/architecture.md
+    # - Runtime Architecture: dev/runtime.md
+    # - Login Sequence: dev/sequence-login.md
+    - Onboarding: dev/onboarding.md
 extra:
   status:
     new: Recently added

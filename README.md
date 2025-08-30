@@ -30,8 +30,8 @@ Development is happening in [GitHub](https://github.com/d34dman/drupal-js-sdk). 
 
 ## Supported Drupal Versions
 
-- Drupal 8
-- Drupal 9
+- Drupal 10
+- Drupal 11
 
 ## Related Projects
 
