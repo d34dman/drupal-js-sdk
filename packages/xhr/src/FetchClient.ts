@@ -1,6 +1,5 @@
 import {XhrInterface, XhrRequestConfig, XhrResponse, XhrMethod, XhrQueryParams} from '@drupal-js-sdk/interfaces';
 import {StorageRecordInterface} from '@drupal-js-sdk/interfaces';
-import { btoa } from 'buffer';
 import {Client} from './Client';
 
 type FetchFunctionType = (input: any, init?: any) => Promise<Response>;
@@ -12,11 +11,16 @@ export class FetchClient extends Client implements XhrInterface {
     super();
     checkFetcher();
     this.config = config;
-    this.client = fetch;
+    // Bind global fetch to avoid "Illegal invocation" in some environments where
+    // an unbound reference to fetch loses its global this context.
+    const g: any = (typeof window !== 'undefined') ? window : (typeof globalThis !== 'undefined' ? globalThis : undefined);
+    this.client = (g && typeof g.fetch === 'function') ? g.fetch.bind(g) : fetch;
   }
 
   public setClient(fetchClient:FetchFunctionType = fetch): XhrInterface {
-    this.client = fetchClient;
+    // Respect custom client but bind if it's the global fetch to ensure correct this.
+    const isGlobalFetch = (fetchClient === fetch) || (typeof window !== 'undefined' && fetchClient === window.fetch);
+    this.client = isGlobalFetch ? fetch.bind(typeof window !== 'undefined' ? window : globalThis) : fetchClient;
     return this;
   }
 
@@ -76,6 +80,31 @@ export class FetchClient extends Client implements XhrInterface {
         ...args.headers,
         Authorization: 'Basic ' + base64Encoder(reqConfig.auth.username + ":" + reqConfig.auth.password),
       };
+    }
+    // Attach request body when provided
+    if (typeof reqConfig.data !== 'undefined') {
+      const existingCT = (args.headers as any)["Content-Type"] || (args.headers as any)["content-type"] || '';
+      const contentType = String(existingCT).toLowerCase();
+      const data: any = (reqConfig as any).data;
+      // Heuristics: preserve FormData/Blob/ArrayBuffer/URLSearchParams; stringify plain objects when JSON
+      const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
+      const isURLSearchParams = typeof URLSearchParams !== 'undefined' && data instanceof URLSearchParams;
+      const isBlob = typeof Blob !== 'undefined' && data instanceof Blob;
+      if (isFormData || isURLSearchParams || isBlob) {
+        (args as any).body = data;
+        // Let browser set correct content-type, remove any manual JSON type
+        if (contentType.includes('application/json')) {
+          delete (args.headers as any)["Content-Type"];
+        }
+      } else if (typeof data === 'string') {
+        (args as any).body = data;
+      } else {
+        // Default: JSON encode plain objects
+        (args as any).body = JSON.stringify(data);
+        if (!contentType.includes('application/json')) {
+          (args.headers as any)["Content-Type"] = 'application/json';
+        }
+      }
     }
     // Append query params if provided
     if (reqConfig.params) {
