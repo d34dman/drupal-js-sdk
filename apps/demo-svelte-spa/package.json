@@ -11,8 +11,11 @@
   "dependencies": {
     "@drupal-js-sdk/auth": "workspace:*",
     "@drupal-js-sdk/core": "workspace:*",
+    "@drupal-js-sdk/entity": "workspace:*",
+    "@drupal-js-sdk/jsonapi": "workspace:*",
     "@drupal-js-sdk/menu": "workspace:*",
-    "@drupal-js-sdk/storage": "workspace:*"
+    "@drupal-js-sdk/storage": "workspace:*",
+    "drupal-jsonapi-params": "^3.0.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^6.1.1",
