@@ -1,9 +1,10 @@
-import { drupalMenu } from '$lib/server/drupal';
-import { json } from '@sveltejs/kit';
+import { drupalMenu } from "$lib/server/drupal";
+import { json } from "@sveltejs/kit";
+import { env as publicEnv } from "$env/dynamic/public";
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
-  const baseURL = import.meta.env.VITE_DRUPAL_BASE_URL;
+  const baseURL = publicEnv.PUBLIC_DRUPAL_BASE_URL;
   if (!baseURL || String(baseURL).trim().length === 0) {
     // During build or if not configured, avoid network calls; return empty menu.
     return json([]);

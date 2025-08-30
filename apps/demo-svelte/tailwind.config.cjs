@@ -1,23 +1,11 @@
 // tailwind.config.cjs
-const colors = require('tailwindcss/colors')
-
 module.exports = {
-  content: [
-    './src/**/*.svelte', 
-    './src/**/*.css'
-  ],
-  options: {
-    safelist: [
-      {
-        pattern: /data-theme$/,
-      }
-    ]
-  },
-  media: false,
-  variants: {
+  content: ["./src/**/*.{html,svelte,ts,js}", "./src/app.html"],
+  theme: {
     extend: {},
   },
-  plugins: [
-    require('daisyui'),
-  ],
+  plugins: [require('daisyui')],
+  daisyui: {
+    themes: ['light', 'dark', 'cupcake']
+  }
 }

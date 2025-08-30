@@ -10,10 +10,20 @@ pnpm -r build   # build SDK packages
 pnpm dev:demo:svelte
 ```
 
-Set the backend:
+Configure environment variables:
+
+1. Create an `.env` file from the example and edit values:
 
 ```bash
-export VITE_DRUPAL_BASE_URL="https://example-drupal.local"
+cp .env.example .env
+```
+
+2. Or export variables in your shell:
+
+```bash
+export PUBLIC_DRUPAL_BASE_URL="https://example-drupal.local"
+export SESSION_SECRET="SOME_COMPLEX_SECRET_AT_LEAST_32_CHARS"
+export SESSION_KEY="kit.session"
 ```
 
 ## Scripts

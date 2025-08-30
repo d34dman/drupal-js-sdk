@@ -1,7 +1,5 @@
 # Drupal JavaScript SDK
 
-** Undergoing heavy refactor to introduce "context api" to use shared context among various modules. ** 
-
 [![codecov](https://img.shields.io/codecov/c/github/d34dman/drupal-js-sdk?style=flat-square&token=KVXZUI3JLK)](https://codecov.io/gh/d34dman/drupal-js-sdk)
 
 Monorepo for Drupal Javascript SDK.

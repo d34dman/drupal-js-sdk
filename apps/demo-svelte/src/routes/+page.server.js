@@ -1,6 +1,6 @@
-import { getAuth } from '$lib/server/drupal';
-// @errors: 2339 2304
-import { fail } from '@sveltejs/kit';
+import { getAuth } from "$lib/server/drupal";
+import { fail } from "@sveltejs/kit";
+import { env as publicEnv } from "$env/dynamic/public";
 
 /** @type {import('@sveltejs/kit').PageData} */
 export async function load({ parent }) {
@@ -15,6 +15,10 @@ export const actions = {
       const username = data.get('username');
       const password = data.get('password');
       let loginError = false;
+      const baseURL = publicEnv.PUBLIC_DRUPAL_BASE_URL;
+      if (!baseURL || String(baseURL).trim().length === 0) {
+        return fail(500, { error: "Backend URL missing. Set PUBLIC_DRUPAL_BASE_URL." });
+      }
       if (!username || typeof username !== 'string' ) {
         return fail(400, { username, missing: true });
       }
@@ -28,11 +32,11 @@ export const actions = {
           return response.data;
         },
         (err) => {
-          loginError = err.response.data.message;
+          loginError = (err && typeof err === 'object' && 'message' in err) ? err.message : 'Login failed';
         }
       )
       .catch((err) => {
-        loginError = err.response.data.message;
+        loginError = (err && typeof err === 'object' && 'message' in err) ? err.message : 'Login failed';
       });
 
       if (loginError) {
