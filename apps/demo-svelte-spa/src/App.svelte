@@ -1,13 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import Login from "./lib/components/Login.svelte";
   import Menu from "./lib/components/Menu.svelte";
-  import { authState, checkLogin, logout } from "./lib/authStore";
-
-  onMount(() => {
-    // Check login status on load
-    checkLogin();
-  });
+  import { authState, logout } from "./lib/authStore";
 </script>
 
 {#if $authState.isLoggedIn}
