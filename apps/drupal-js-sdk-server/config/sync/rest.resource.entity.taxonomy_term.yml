@@ -1,0 +1,21 @@
+uuid: bf22f8ad-af23-4de7-9669-d8438b608e2f
+langcode: en
+status: true
+dependencies:
+  module:
+    - serialization
+    - taxonomy
+    - user
+id: entity.taxonomy_term
+plugin_id: 'entity:taxonomy_term'
+granularity: resource
+configuration:
+  methods:
+    - GET
+    - POST
+    - DELETE
+    - PATCH
+  formats:
+    - json
+  authentication:
+    - cookie

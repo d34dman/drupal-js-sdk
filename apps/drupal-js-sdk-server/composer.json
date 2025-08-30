@@ -22,6 +22,7 @@
         "drupal/core-project-message": "^11.2",
         "drupal/core-recipe-unpack": "^11.2",
         "drupal/core-recommended": "^11.2",
+        "drupal/restui": "^1.22",
         "drush/drush": "^13.6"
     },
     "conflict": {
