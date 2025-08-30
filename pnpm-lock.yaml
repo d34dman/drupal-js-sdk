@@ -72,37 +72,6 @@ importers:
         specifier: '>=3.29.5'
         version: 4.49.0
 
-  apps/api-reference:
-    dependencies:
-      typedoc:
-        specifier: ^0.23.23
-        version: 0.23.23(typescript@4.9.4)
-      typescript:
-        specifier: ^4.9.4
-        version: 4.9.4
-    devDependencies:
-      '@drupal-js-sdk/error':
-        specifier: ^0.5.0
-        version: 0.5.0
-      '@drupal-js-sdk/interfaces':
-        specifier: ^0.5.0
-        version: 0.5.0
-      '@drupal-js-sdk/storage':
-        specifier: ^0.5.0
-        version: 0.5.0
-      '@drupal-js-sdk/xhr':
-        specifier: ^0.5.0
-        version: 0.5.0
-      '@rollup/plugin-replace':
-        specifier: ^5.0.2
-        version: 5.0.2(rollup@4.49.0)
-      '@types/node':
-        specifier: ^17.0.23
-        version: 17.0.45
-      jest-environment-jsdom:
-        specifier: ^29.3.1
-        version: 29.3.1
-
   packages/auth:
     dependencies:
       '@drupal-js-sdk/core':
@@ -1535,18 +1504,6 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@drupal-js-sdk/error@0.5.0':
-    resolution: {integrity: sha512-l8Cn8QGYaS4dB28D5IDeST+sccvotiklMfKw9baIl9NFv39LWxLpiJ/Ey/fS2durTeHunDDR9NmKLI88x8Zdcg==}
-
-  '@drupal-js-sdk/interfaces@0.5.0':
-    resolution: {integrity: sha512-Gn/D6fev7PNm/Tj04gunWuWgd22yWg+wOxa8L7gclcALGWxkz8dXH8cIsAhQm/AU1XIC7DgxDL5bbcfUyzlPhQ==}
-
-  '@drupal-js-sdk/storage@0.5.0':
-    resolution: {integrity: sha512-0UDPiXcJ84gbyZEv1UhonQHBs1mRIza4G2YDx9/be5Dap9r/aj8lgodXfBXW9NPe+wFW2dmvO1eRHlO1lw7L4w==}
-
-  '@drupal-js-sdk/xhr@0.5.0':
-    resolution: {integrity: sha512-f/Y5CYgK25fPbsYxgrr1sn4ZpvXr7kpn46mCn9QPSodLYAnpnHsW8lMSLmoP9SS8qHxVSmCdeX4ImjRY0rzhbw==}
-
   '@esbuild/aix-ppc64@0.25.9':
     resolution: {integrity: sha512-OaGtL73Jck6pBKjNIe24BnFE6agGl+6KxDtTfHhy1HmhthfKouEcOhqpSL64K4/0WCtbKFLOdzD/44cJ4k9opA==}
     engines: {node: '>=18'}
@@ -2057,9 +2014,6 @@ packages:
 
   '@types/node@14.18.36':
     resolution: {integrity: sha512-FXKWbsJ6a1hIrRxv+FoukuHnGTgEzKYGi7kilfMae96AL9UNkPFNWJEEYWzdRI9ooIkbr4AKldyuSTLql06vLQ==}
-
-  '@types/node@17.0.45':
-    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
   '@types/node@18.11.18':
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
@@ -5112,7 +5066,7 @@ snapshots:
       '@types/node': 14.18.36
       chalk: 4.1.2
       cosmiconfig: 7.1.0
-      cosmiconfig-typescript-loader: 4.3.0(@types/node@14.18.36)(cosmiconfig@7.1.0)(ts-node@10.9.1(@types/node@18.11.18)(typescript@4.9.4))(typescript@4.9.4)
+      cosmiconfig-typescript-loader: 4.3.0(@types/node@14.18.36)(cosmiconfig@7.1.0)(ts-node@10.9.1(@types/node@14.18.36)(typescript@4.9.4))(typescript@4.9.4)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -5238,22 +5192,6 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
-
-  '@drupal-js-sdk/error@0.5.0':
-    dependencies:
-      '@drupal-js-sdk/interfaces': 0.5.0
-
-  '@drupal-js-sdk/interfaces@0.5.0': {}
-
-  '@drupal-js-sdk/storage@0.5.0':
-    dependencies:
-      '@drupal-js-sdk/error': 0.5.0
-      '@drupal-js-sdk/interfaces': 0.5.0
-
-  '@drupal-js-sdk/xhr@0.5.0':
-    dependencies:
-      '@drupal-js-sdk/error': 0.5.0
-      '@drupal-js-sdk/interfaces': 0.5.0
 
   '@esbuild/aix-ppc64@0.25.9':
     optional: true
@@ -5807,8 +5745,6 @@ snapshots:
 
   '@types/node@14.18.36': {}
 
-  '@types/node@17.0.45': {}
-
   '@types/node@18.11.18': {}
 
   '@types/node@20.5.1': {}
@@ -6261,7 +6197,7 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  cosmiconfig-typescript-loader@4.3.0(@types/node@14.18.36)(cosmiconfig@7.1.0)(ts-node@10.9.1(@types/node@18.11.18)(typescript@4.9.4))(typescript@4.9.4):
+  cosmiconfig-typescript-loader@4.3.0(@types/node@14.18.36)(cosmiconfig@7.1.0)(ts-node@10.9.1(@types/node@14.18.36)(typescript@4.9.4))(typescript@4.9.4):
     dependencies:
       '@types/node': 14.18.36
       cosmiconfig: 7.1.0
