@@ -1,0 +1,26 @@
+uuid: 99720b66-b1a4-41e5-a906-e38a9a48b831
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - responsive_image
+_core:
+  default_config_hash: ph9beVj6WWG9Mqp6ydebFHo95g0NwuDjspP8liKgpnE
+name: max_650x650
+label: 'Max 650x650'
+effects:
+  949c201a-77f5-48f6-ba00-be91eb1aad47:
+    uuid: 949c201a-77f5-48f6-ba00-be91eb1aad47
+    id: image_scale
+    weight: 1
+    data:
+      width: 650
+      height: 650
+      upscale: false
+  a4968ae1-83ac-420c-8e81-c571209daa44:
+    uuid: a4968ae1-83ac-420c-8e81-c571209daa44
+    id: image_convert_avif
+    weight: 2
+    data:
+      extension: webp

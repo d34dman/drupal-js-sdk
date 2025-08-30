@@ -1,0 +1,24 @@
+uuid: b5d41db5-f274-46b7-973b-2902bf9e57a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - node.type.article
+  module:
+    - text
+_core:
+  default_config_hash: La2QHAQckgQkWJSOnujAoHiQQoLrax5RWhuvriiGuoY
+id: node.article.field_body
+field_name: field_body
+entity_type: node
+bundle: article
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

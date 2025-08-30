@@ -1,0 +1,23 @@
+uuid: 38e92be0-e75d-4403-8f66-089b548d126e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: V7RUkogF1xICzoXBcn4oMdRufPFlPNev0u6zdI0qid4
+name: square_medium
+label: 'Square Medium'
+effects:
+  c42becc5-dd14-4384-81e1-8a667c60a705:
+    uuid: c42becc5-dd14-4384-81e1-8a667c60a705
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 600
+      height: 600
+      anchor: center-center
+  b39ee1dd-ee27-4219-ba5d-e49d973f6b0f:
+    uuid: b39ee1dd-ee27-4219-ba5d-e49d973f6b0f
+    id: image_convert_avif
+    weight: 2
+    data:
+      extension: webp

@@ -1,0 +1,10 @@
+name: notification-server
+repository: d34dman/ddev-notification-server
+version: 1.0.1
+dependencies:
+    - redis
+install_date: "2025-08-22T23:45:21+02:00"
+project_files:
+    - docker-compose.notification-server.yaml
+global_files: []
+removal_actions: []

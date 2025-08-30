@@ -1,0 +1,30 @@
+#ddev-generated
+services:
+  notification-server:
+    container_name: ddev-${DDEV_SITENAME}-notification-server
+    image: ${NOTIFICATION_SERVER_DOCKER_IMAGE:-ghcr.io/d34dman/notification-server:latest}
+    restart: unless-stopped
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: ${DDEV_APPROOT}
+    volumes:
+      - ".:/mnt/ddev_config"
+      - "ddev-global-cache:/mnt/ddev-global-cache"
+    expose:
+      - 3000
+      - 8080
+    environment:
+      - VIRTUAL_HOST=$DDEV_HOSTNAME
+      - HTTPS_EXPOSE=8080
+      - REDIS_URL=redis://redis:6379
+      - PORT=3000
+      - WS_PORT=8080
+      - LOG_LEVEL=info
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

@@ -1,0 +1,23 @@
+uuid: 4e181be4-edf5-4e98-b41c-6a9fbaebd7e1
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: veld5RzrP6snRGk8GHNMdu5_aaBctIhXVW6Q28x2MJQ
+name: scale_crop_7_3_medium
+label: 'Scale crop 7:3 medium'
+effects:
+  34ef7c6a-06e4-4d71-bdaa-718ccd6056cc:
+    uuid: 34ef7c6a-06e4-4d71-bdaa-718ccd6056cc
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1200
+      height: 514
+      anchor: center-center
+  d83dd527-8378-4a47-9b0c-8c7a753cc89a:
+    uuid: d83dd527-8378-4a47-9b0c-8c7a753cc89a
+    id: image_convert_avif
+    weight: 2
+    data:
+      extension: webp

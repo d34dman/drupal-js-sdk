@@ -1,0 +1,21 @@
+uuid: 7e25c28a-d290-4145-b4b2-2281cf4ed4a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.banner_block
+    - field.storage.block_content.field_summary
+_core:
+  default_config_hash: MRPBdB1td9NiQPuTEVzPQ2as559kpD47PN-Dp67vilk
+id: block_content.banner_block.field_summary
+field_name: field_summary
+entity_type: block_content
+bundle: banner_block
+label: Summary
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
