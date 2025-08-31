@@ -32,7 +32,14 @@ export class DrupalAuth {
     this.client = drupal.getClientService();
     this.session = this.drupal.getSessionService();
     this.store = this.getDrupalSession();
-    this.refreshUserSession();
+    // Defer fetching token; caller should invoke init() explicitly.
+  }
+
+  /**
+   * Explicit initialization to fetch CSRF token and set default header.
+   */
+  public async init(): Promise<void> {
+    await this.getSessionToken();
   }
 
   private getDrupalSession():DrupalAuthStore {
@@ -89,6 +96,7 @@ export class DrupalAuth {
         this.store = data;
         this.setDrupalSession();
         this.client.addDefaultHeaders({'X-CSRF-Token': data.csrf_token});
+        // Hint: consumers may hook an auth state change here via custom interceptors/events.
         return response;
       });
   }
@@ -126,6 +134,7 @@ export class DrupalAuth {
   }
 
   public logout(): Promise<XhrResponse> {
+    const tokenParam = this.store.logout_token ?? '';
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -133,14 +142,25 @@ export class DrupalAuth {
       withCredentials: true,
       params: {
         _format: 'json',
-        token: this.store.logout_token,
+        token: tokenParam,
       },
     };
     return this.client
-      .addDefaultHeaders({'X-CSRF-Token': this.store.csrf_token})
+      .addDefaultHeaders({'X-CSRF-Token': this.store.csrf_token ?? ''})
       .call('post', '/user/logout', config)
       .then((response) => {
-        // @TODO Reset user is authenticated status.
+        // Clear auth state and CSRF header on logout
+        this.store = {
+          csrf_token: undefined,
+          logout_token: undefined,
+          current_user: {
+            uid: '0',
+            roles: ['anonymous'],
+            name: 'Anonymous',
+          },
+        };
+        this.setDrupalSession();
+        this.client.addDefaultHeaders({'X-CSRF-Token': ''});
         return response;
       });
   }

@@ -51,7 +51,7 @@ export class FetchClient extends Client implements XhrInterface {
   public call(
     method: XhrMethod,
     path: string,
-    config?: StorageRecordInterface,
+    config?: XhrRequestConfig,
   ): Promise<XhrResponse> {
     const reqCofnig: XhrRequestConfig = {
       method,
@@ -69,7 +69,7 @@ export class FetchClient extends Client implements XhrInterface {
 
   protected async request(reqConfig: XhrRequestConfig): Promise<XhrResponse> {
     let path = '';
-    const args = {
+    const args: any = {
       headers: reqConfig.headers ?? {},
       method: 'get',
       credentials: 'same-origin'
@@ -93,16 +93,22 @@ export class FetchClient extends Client implements XhrInterface {
         Authorization: 'Basic ' + base64Encoder(reqConfig.auth.username + ":" + reqConfig.auth.password),
       };
     }
+    // Pass through mode/cache if provided
+    if (reqConfig.mode) (args as any).mode = reqConfig.mode;
+    if (reqConfig.cache) (args as any).cache = reqConfig.cache;
     // Attach request body when provided
     if (typeof reqConfig.data !== 'undefined') {
       const existingCT = (args.headers as any)["Content-Type"] || (args.headers as any)["content-type"] || '';
       const contentType = String(existingCT).toLowerCase();
-      const data: any = (reqConfig as any).data;
+      const data: unknown = (reqConfig as any).data;
       // Heuristics: preserve FormData/Blob/ArrayBuffer/URLSearchParams; stringify plain objects when JSON
       const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
       const isURLSearchParams = typeof URLSearchParams !== 'undefined' && data instanceof URLSearchParams;
       const isBlob = typeof Blob !== 'undefined' && data instanceof Blob;
-      if (isFormData || isURLSearchParams || isBlob) {
+      const isArrayBuffer = typeof ArrayBuffer !== 'undefined' && data instanceof ArrayBuffer;
+      const isArrayBufferView = typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView && ArrayBuffer.isView(data as ArrayBufferView);
+      const isReadableStream = typeof ReadableStream !== 'undefined' && data instanceof ReadableStream;
+      if (isFormData || isURLSearchParams || isBlob || isArrayBuffer || isArrayBufferView || isReadableStream) {
         (args as any).body = data;
         // Let browser set correct content-type, remove any manual JSON type
         if (contentType.includes('application/json')) {
@@ -126,8 +132,49 @@ export class FetchClient extends Client implements XhrInterface {
         path = `${path}${joiner}${q}`;
       }
     }
-    return this.client(path, args)
-      .then(async function(response: Response) {
+    // Support AbortSignal and timeout
+    const controller = !reqConfig.signal ? new AbortController() : undefined;
+    if (!args.signal) args.signal = reqConfig.signal ?? controller?.signal;
+    let timeoutHandle: any;
+    if (typeof reqConfig.timeoutMs === 'number' && controller) {
+      timeoutHandle = setTimeout(() => controller.abort(), reqConfig.timeoutMs);
+    }
+    const attemptFetch = async (): Promise<Response> => {
+      try {
+        return await (this.client as any)(path, args);
+      } finally {
+        if (timeoutHandle) clearTimeout(timeoutHandle);
+      }
+    };
+    const executeWithRetry = async (): Promise<Response> => {
+      const retryCfg = reqConfig.retry;
+      if (!retryCfg || retryCfg.retries <= 0) return attemptFetch();
+      const retryOn = new Set(retryCfg.retryOn ?? [429, 503]);
+      const factor = retryCfg.factor ?? 2;
+      const minT = retryCfg.minTimeoutMs ?? 250;
+      const maxT = retryCfg.maxTimeoutMs ?? 4000;
+      let tries = 0;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        try {
+          const res = await attemptFetch();
+          if (!res.ok && retryOn.has(res.status) && tries < retryCfg.retries) {
+            const wait = Math.min(minT * Math.pow(factor, tries), maxT);
+            await new Promise((r) => setTimeout(r, wait));
+            tries += 1;
+            continue;
+          }
+          return res;
+        } catch (e) {
+          if (tries >= retryCfg.retries) throw e;
+          const wait = Math.min(minT * Math.pow(factor, tries), maxT);
+          await new Promise((r) => setTimeout(r, wait));
+          tries += 1;
+        }
+      }
+    };
+    return executeWithRetry()
+      .then(async (response: Response) => {
         if (!response.ok) {
           throw new Error("HTTP error, status = " + response.status);
         }
@@ -135,6 +182,11 @@ export class FetchClient extends Client implements XhrInterface {
         let responseHeaders = {};
         if (response.headers) {
           responseHeaders = Object.fromEntries(response.headers.entries())
+        }
+        // Capture ETag for conditional requests
+        const etag = (responseHeaders as any)['etag'] || (responseHeaders as any)['ETag'];
+        if (etag) {
+          (args.headers as any)['If-None-Match'] = etag;
         }
         return {
           data,

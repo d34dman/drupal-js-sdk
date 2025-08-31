@@ -38,7 +38,7 @@ export class AxiosClient extends Client implements XhrInterface {
   public call(
     method: XhrMethod,
     path: string,
-    config?: StorageRecordInterface,
+    config?: XhrRequestConfig,
   ): Promise<XhrResponse> {
     const reqCofnig: XhrRequestConfig = {
       method,

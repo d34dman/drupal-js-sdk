@@ -1,15 +1,19 @@
 import { DrupalErrorInterface } from './error';
 
 export interface XhrInterface {
-  setClient(client: any): XhrInterface;
-  getClient(): any;
+  setClient(client: unknown): XhrInterface;
+  getClient(): unknown;
   call(
     method: string,
     path: string,
-    config?: { [key: string]: any; }
-  ): Promise<any>;
-  getDrupalError(response: any): DrupalErrorInterface;
-  addDefaultHeaders(headers: { [key: string]: any; }): XhrInterface;
+    config?: XhrRequestConfig
+  ): Promise<XhrResponse>;
+  getDrupalError(response: XhrResponse): DrupalErrorInterface;
+  addDefaultHeaders(headers: XhrRequestHeaders): XhrInterface;
+  /** Optional: add a request interceptor */
+  addRequestInterceptor?(fn: (config: XhrRequestConfig) => Promise<XhrRequestConfig> | XhrRequestConfig): XhrInterface;
+  /** Optional: add a response interceptor */
+  addResponseInterceptor?(fn: (response: XhrResponse) => Promise<XhrResponse> | XhrResponse): XhrInterface;
 }
 
 export interface XhrBasicCredentials {
@@ -44,6 +48,23 @@ export interface XhrRequestConfig<D = any> {
   params?: XhrQueryParams;
   withCredentials?: boolean;
   auth?: XhrBasicCredentials;
+  /** Abort controller signal for cancellation */
+  signal?: AbortSignal;
+  /** Request mode passthrough for fetch */
+  mode?: RequestMode;
+  /** Request cache hint for fetch */
+  cache?: RequestCache;
+  /** Client-side timeout in milliseconds */
+  timeoutMs?: number;
+  /** Retry/backoff policy */
+  retry?: {
+    retries: number;
+    factor?: number;
+    minTimeoutMs?: number;
+    maxTimeoutMs?: number;
+    /** HTTP status codes to retry on (e.g., 429, 503). */
+    retryOn?: number[];
+  };
 }
 
 export type XhrMethod =
