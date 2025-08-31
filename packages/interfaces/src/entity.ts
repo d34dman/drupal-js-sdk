@@ -32,6 +32,21 @@ export interface EntityLoadOptions {
 /** Adapter-agnostic list options; mirrors load options. */
 export interface EntityListOptions extends EntityLoadOptions {}
 
+/** Pagination info parsed from adapter responses. */
+export interface EntityPageInfo {
+  size?: number;
+  number?: number;
+  total?: number;
+  next?: string | null;
+  prev?: string | null;
+}
+
+/** Structured list result. */
+export interface EntityListResult<TAttributes extends EntityAttributes = EntityAttributes> {
+  items: Array<EntityRecord<TAttributes>>;
+  page?: EntityPageInfo;
+}
+
 /** Context provided by core to construct an adapter instance. */
 export interface EntityAdapterContext {
   id: EntityIdentifier;
@@ -50,6 +65,8 @@ export interface EntityAdapter<TAttributes extends EntityAttributes = EntityAttr
   list?(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>>;
   /** Return a count for the adapter context's bundle. Optional. */
   count?(options?: EntityListOptions): Promise<number>;
+  /** Return a structured list result with pagination info. Optional. */
+  listPage?(options?: EntityListOptions): Promise<EntityListResult<TAttributes>>;
 }
 
 /** Factory function used to register adapters. */
