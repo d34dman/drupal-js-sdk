@@ -1,4 +1,4 @@
-import {CoreInterface, XhrInterface} from '@drupal-js-sdk/interfaces';
+import {CoreInterface, XhrInterface, XhrResponse} from '@drupal-js-sdk/interfaces';
 import {DrupalError} from '@drupal-js-sdk/error';
 
 
@@ -9,6 +9,35 @@ interface MenuDictionary<TValue> {
 /**
  * Constructs a new Drupal.Menu object with the given code and message.
  */
+export interface MenuItem {
+  id: string;
+  parentId: string;
+  name: string;
+  href: string;
+  level: number;
+  items: MenuItem[] | null;
+}
+
+/** Linkset item shape as returned by Drupal Decoupled Menus. Supports legacy and current keys. */
+interface MenuLinksetItem {
+  href: string;
+  title: string;
+  // Current keys used by Decoupled Menus
+  "drupal-menu-hierarchy"?: string[];
+  "drupal-menu-machine-name"?: string[];
+  // Legacy or alternate keys sometimes seen in examples
+  hierarchy?: string[];
+  "machine-name"?: string[];
+}
+
+/** Linkset envelope returned by Drupal. */
+interface MenuLinkset {
+  linkset: Array<{
+    anchor: string;
+    item: MenuLinksetItem[];
+  }>;
+}
+
 export class DrupalMenu {
   drupal: CoreInterface;
   client: XhrInterface;
@@ -17,7 +46,7 @@ export class DrupalMenu {
     this.client = drupal.getClientService();
   }
 
-  public async getMenu(menuName: string): Promise<any> {
+  public async getMenu(menuName: string): Promise<MenuItem[]> {
     return this.getMenuRaw(menuName)
       .then((res) => {
         const data = res.data;
@@ -30,22 +59,26 @@ export class DrupalMenu {
       });
   }
 
-  public getMenuRaw(menuName: string): Promise<any> {
-    return this.client.call('get', `/system/menu/${menuName}/linkset`);
+  public getMenuRaw(menuName: string): Promise<XhrResponse<MenuLinkset, unknown>> {
+    return this.client.call('get', `/system/menu/${menuName}/linkset`) as Promise<XhrResponse<MenuLinkset, unknown>>;
   }
 
   /**
    * Normalize Drupal array.
    * So that we can feed it into an algorithm that was copy-pasted from stack overflow.
    */
-  public normalizeListItems(data: {[key: string]: any;}): any[] {
-    const list: {[key: string]: any;}[] = [];
+  public normalizeListItems(data: unknown): MenuItem[] {
+    const list: MenuItem[] = [];
     if (this.checkIfDrupalMenuDataIsValid(data)) {
-      const items = data.linkset[0].item;
-      items.map((item: {[key: string]: any;}) => {
-        let parentId;
-        let level;
-        const id = `${item['machine-name'][0]}${item['hierarchy'][0]}`;
+      const typed = data as MenuLinkset;
+      const items: MenuLinksetItem[] = typed.linkset[0].item;
+      items.forEach((item: MenuLinksetItem) => {
+        let parentId: string;
+        let level: number;
+        // Support legacy and current keys
+        const machineName = (item["drupal-menu-machine-name"] ?? item["machine-name"])?.[0] ?? "";
+        const hierarchy = (item["drupal-menu-hierarchy"] ?? item["hierarchy"])?.[0] ?? "";
+        const id = `${machineName}${hierarchy}`;
         const idArray = id.split('.');
         idArray.pop();
         parentId = idArray.join('.');
@@ -54,11 +87,11 @@ export class DrupalMenu {
         if (level < 2) {
           parentId = '0';
         }
-        const node = {
+        const node: MenuItem = {
           id,
           parentId,
-          name: item.title,
-          href: item.href,
+          name: String(item.title ?? ""),
+          href: String(item.href ?? ""),
           level,
           items: null,
         };
@@ -72,38 +105,30 @@ export class DrupalMenu {
    * Check if menu data is valid.
    */
   public checkIfDrupalMenuDataIsValid(
-    data: {[key: string]: any;} | undefined,
-  ): boolean {
-    if (
-      data !== undefined &&
-      data.linkset !== undefined &&
-      data.linkset[0] !== undefined &&
-      data.linkset[0].item !== undefined
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    data: unknown,
+  ): data is MenuLinkset {
+    const d = data as { linkset?: Array<{ item?: unknown[] }>; } | undefined;
+    return Boolean(d && Array.isArray(d.linkset) && d.linkset[0] && Array.isArray(d.linkset[0].item));
   }
 
   /**
    * Convert Flat list to Tre structure.
    */
-  public convertFlatListItemsToTree(inputList: any[]): any[] {
-    const roots: {[key: string]: any;}[] = [];
+  public convertFlatListItemsToTree(inputList: MenuItem[]): MenuItem[] {
+    const roots: MenuItem[] = [];
     if (inputList.length === 0) {
       return roots;
     }
-    const myObjMap: MenuDictionary<any> = {};
-    inputList.map((node, index) => {
+    const myObjMap: MenuDictionary<number> = {};
+    inputList.forEach((node, index) => {
       myObjMap[node.id] = index;
-      inputList[index].items = [];
+      inputList[index].items = [] as MenuItem[];
     });
-    inputList.map((node) => {
+    inputList.forEach((node) => {
       if (node.parentId === '0') {
         roots.push(node);
       } else {
-        inputList[myObjMap[node.parentId]].items.push(node);
+        inputList[myObjMap[node.parentId]].items!.push(node);
       }
     });
     return roots;
