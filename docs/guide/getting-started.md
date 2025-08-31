@@ -13,25 +13,27 @@ npm install @drupal-js-sdk/entity @drupal-js-sdk/jsonapi
 ## Basic usage
 
 ```js
-import { Drupal } from 'drupal-js-sdk';
-import { DrupalAuth } from '@drupal-js-sdk/auth';
+import { DrupalSDK } from 'drupal-js-sdk';
 
-const api = new Drupal({ baseURL: 'https://example.com' });
-const auth = new DrupalAuth(api);
+const sdk = new DrupalSDK({ baseURL: 'https://example.com' });
+// Access feature modules via facade
+sdk.auth; // DrupalAuth
+sdk.menu; // DrupalMenu
+sdk.entities; // DrupalEntity facade/service
 ```
 
 ## Entities (opt-in)
 
 ```js
-import { EntityService } from '@drupal-js-sdk/entity';
+import { DrupalSDK } from 'drupal-js-sdk';
 import { JsonApiEntityAdapter } from '@drupal-js-sdk/jsonapi';
 
-const drupal = new Drupal({ baseURL: 'https://example.com' });
-const entities = new EntityService(drupal);
-entities.registerAdapter('jsonapi', (ctx) => new JsonApiEntityAdapter(ctx));
+const sdk = new DrupalSDK({ baseURL: 'https://example.com' });
+// Register adapter once (if not already)
+sdk.entities.registerAdapter('jsonapi', (ctx) => new JsonApiEntityAdapter(ctx));
 
 // Load node--article:123
-const article = await entities
+const article = await sdk.entities
   .entity({ entity: 'node', bundle: 'article' }, 'jsonapi')
   .load('123');
 ```

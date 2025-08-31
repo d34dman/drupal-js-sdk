@@ -80,24 +80,17 @@ Build modern JavaScript apps that connect to Drupal — fast and with minimal fu
 ## Quick start
 
 ```js
-import { Drupal } from "drupal-js-sdk";
-import { DrupalAuth } from "@drupal-js-sdk/auth";
-
-const drupal = new Drupal({ baseURL: "https://example.com" });
-const auth = new DrupalAuth(drupal);
-await auth.login("admin", "Z1ON0101");
-```
-
-### Entities
-
-```js
-import { EntityService } from "@drupal-js-sdk/entity";
+import { DrupalSDK } from "drupal-js-sdk";
 import { JsonApiEntityAdapter } from "@drupal-js-sdk/jsonapi";
 
-const entities = new EntityService(drupal);
-entities.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
+const sdk = new DrupalSDK({ baseURL: "https://example.com" });
 
-const article = await entities
+// Auth
+await sdk.auth.login("admin", "Z1ON0101");
+
+// Entities via JSON:API
+sdk.entities.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
+const article = await sdk.entities
   .entity({ entity: "node", bundle: "article" }, "jsonapi")
   .load("123");
 ```

@@ -11,40 +11,37 @@ Authentication needs a session storage implementation. Examples:
 Node or Browser
 
 ```js
-import { Drupal } from 'drupal-js-sdk';
-import { DrupalAuth } from '@drupal-js-sdk/auth';
+import { DrupalSDK } from 'drupal-js-sdk';
 import { StorageInMemory } from '@drupal-js-sdk/storage';
 
-const sdk = new Drupal({ baseURL: 'http://example.com' });
+const sdk = new DrupalSDK({ baseURL: 'http://example.com' });
 const sessionStorage = new StorageInMemory();
 sdk.setSessionService(sessionStorage);
-const auth = new DrupalAuth(sdk);
+const auth = sdk.auth;
 ```
 
 ### localStorage (Browser)
 
 ```js
-import { Drupal } from 'drupal-js-sdk';
-import { DrupalAuth } from '@drupal-js-sdk/auth';
+import { DrupalSDK } from 'drupal-js-sdk';
 import { StorageInWeb } from '@drupal-js-sdk/storage';
 
-const sdk = new Drupal({ baseURL: 'http://example.com' });
+const sdk = new DrupalSDK({ baseURL: 'http://example.com' });
 const sessionStorage = new StorageInWeb(() => window.localStorage);
 sdk.setSessionService(sessionStorage);
-const auth = new DrupalAuth(sdk);
+const auth = sdk.auth;
 ```
 
 ### sessionStorage (Browser)
 
 ```js
-import { Drupal } from 'drupal-js-sdk';
-import { DrupalAuth } from '@drupal-js-sdk/auth';
+import { DrupalSDK } from 'drupal-js-sdk';
 import { StorageInWeb } from '@drupal-js-sdk/storage';
 
-const sdk = new Drupal({ baseURL: 'http://example.com' });
+const sdk = new DrupalSDK({ baseURL: 'http://example.com' });
 const sessionStorage = new StorageInWeb(() => window.sessionStorage);
 sdk.setSessionService(sessionStorage);
-const auth = new DrupalAuth(sdk);
+const auth = sdk.auth;
 ```
 
 ## Login status

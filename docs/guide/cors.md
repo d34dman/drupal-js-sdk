@@ -1,7 +1,18 @@
-# CORS (draft)
+---
+# Cross-Origin Resource Sharing (CORS)
 
-!!! note
-    You don't need to bother about this section if your application is living under the same domain as the Drupal installation.
+CORS is a browser security feature that restricts cross-origin HTTP requests initiated from scripts running in the browser. This guide explains how to enable CORS in your Drupal backend and how to configure the SDK on the client.
+
+## Client example
+
+```js
+import { DrupalSDK } from "drupal-js-sdk";
+import { FetchClient } from "@drupal-js-sdk/xhr";
+
+const sdk = new DrupalSDK({ baseURL: "https://example.com" });
+// Optional: override client
+sdk.setClientService(new FetchClient({ baseURL: "https://example.com" }));
+```
 
 ## What and Why?
 

@@ -1,38 +1,11 @@
 # Introduction
 
-Build modern, decoupled apps that talk to :fontawesome-brands-drupal: Drupal — quickly and safely.
+The Drupal JavaScript SDK provides a small core, optional feature packages, and a high-level facade to build decoupled frontends quickly.
 
-**Drupal JavaScript SDK** gives you typed building blocks for authentication, HTTP, storage, and entities so you can focus on product, not plumbing.
+```js
+import { DrupalSDK } from "drupal-js-sdk";
 
----
-
-### What problems does it solve?
-
-- **HTTP without ceremony**: A simple `XhrInterface` with `fetch` or `axios` clients.
-- **Session & CSRF handled**: `DrupalAuth` manages login, CSRF token, and logout.
-- **Typed errors**: Consistent `DrupalError` codes you can rely on.
-- **Entities when you need them**: `EntityService` + `JsonApiEntityAdapter` to load content via JSON:API.
-
-See the big picture:
-- [System Architecture](../dev/architecture.md)
-- [Runtime Architecture](../dev/runtime.md)
-- [Login Sequence](../dev/sequence-login.md)
-
----
-
-### Quick look
-
-```ts
-import { Drupal } from "drupal-js-sdk";
-import { DrupalAuth } from "@drupal-js-sdk/auth";
-
-const drupal = new Drupal({ baseURL: "https://example.com" });
-// In browser apps provide a session store (e.g. localStorage wrapper)
-// drupal.setSessionService(new StorageInWeb());
-
-const auth = new DrupalAuth(drupal);
-await auth.getSessionToken();
-const isLoggedIn = await auth.loginStatus();
+const sdk = new DrupalSDK({ baseURL: "https://example.com" });
 ```
 
 Next, follow the [Getting started](getting-started.md) guide for install and setup.

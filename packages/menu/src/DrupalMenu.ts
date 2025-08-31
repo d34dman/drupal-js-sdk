@@ -46,6 +46,11 @@ export class DrupalMenu {
     this.client = drupal.getClientService();
   }
 
+  /** Alias: list the menu as a normalized tree. */
+  public async list(menuName: string): Promise<MenuItem[]> {
+    return this.getMenu(menuName);
+  }
+
   public async getMenu(menuName: string): Promise<MenuItem[]> {
     return this.getMenuRaw(menuName)
       .then((res) => {
@@ -57,6 +62,11 @@ export class DrupalMenu {
           throw new DrupalError(DrupalError.INVALID_JSON, 'Menu data is invalid');
         }
       });
+  }
+
+  /** Alias: get raw linkset response. */
+  public raw(menuName: string): Promise<XhrResponse<MenuLinkset, unknown>> {
+    return this.getMenuRaw(menuName);
   }
 
   public getMenuRaw(menuName: string): Promise<XhrResponse<MenuLinkset, unknown>> {
