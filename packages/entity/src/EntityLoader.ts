@@ -14,7 +14,17 @@ export class EntityLoader<TAttributes extends EntityAttributes = EntityAttribute
   }
 
   public async list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>> {
-    return this.adapter.list(options);
+    if (typeof (this.adapter as any).list !== "function") {
+      throw new Error("Entity adapter does not support list()");
+    }
+    return (this.adapter as any).list(options);
+  }
+
+  public async count(options?: EntityListOptions): Promise<number> {
+    if (typeof (this.adapter as any).count !== "function") {
+      throw new Error("Entity adapter does not support count()");
+    }
+    return (this.adapter as any).count(options);
   }
 }
 

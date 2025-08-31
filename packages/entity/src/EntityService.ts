@@ -57,6 +57,14 @@ export class EntityService {
   ): Promise<EntityRecord<TAttributes>> {
     return this.entity<TAttributes>(identifier, adapterKey).load(id, options);
   }
+
+  public async count(
+    identifier: EntityIdentifier,
+    options?: EntityListOptions,
+    adapterKey?: string
+  ): Promise<number> {
+    return this.entity(identifier, adapterKey).count(options);
+  }
 }
 
 

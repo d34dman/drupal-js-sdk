@@ -49,6 +49,19 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
       relationships: row.relationships as Record<string, unknown> | undefined,
     }));
   }
+
+  /** Optional count implementation using JSON:API meta.count when available. */
+  public async count(options?: EntityListOptions): Promise<number> {
+    const params = options?.jsonapi?.query ?? options?.params;
+    const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
+    const meta = (response && response.data && (response.data as any).meta) ? (response.data as any).meta : undefined;
+    const countValue = meta && typeof meta.count === "number" ? meta.count : undefined;
+    if (typeof countValue === "number") {
+      return countValue;
+    }
+    const data = (response && response.data && Array.isArray((response.data as any).data)) ? (response.data as any).data : [];
+    return data.length;
+  }
 }
 
 export { JsonApiEntityAdapter as Adapter };

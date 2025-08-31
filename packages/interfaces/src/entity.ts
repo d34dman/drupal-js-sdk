@@ -46,8 +46,10 @@ export interface EntityAdapterContext {
 export interface EntityAdapter<TAttributes extends EntityAttributes = EntityAttributes> {
   /** Load a single entity by its ID. */
   load(entityId: string, options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>>;
-  /** List entities for the adapter context's bundle. */
-  list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>>;
+  /** List entities for the adapter context's bundle. Optional for adapters that don't support listing. */
+  list?(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>>;
+  /** Return a count for the adapter context's bundle. Optional. */
+  count?(options?: EntityListOptions): Promise<number>;
 }
 
 /** Factory function used to register adapters. */

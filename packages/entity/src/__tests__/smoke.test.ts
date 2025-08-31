@@ -73,6 +73,7 @@ class StubCore implements CoreInterface {
   }
   getClientService(): XhrInterface { return this.client; }
   getConfigService(): StorageInterface { return this.config; }
+  getSessionService(): StorageInterface { return this.config; }
 }
 
 test("EntityService + JsonApiEntityAdapter smoke", async () => {

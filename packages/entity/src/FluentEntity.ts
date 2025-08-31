@@ -59,6 +59,7 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
   private readonly typeName: string;
   private readonly qb: JsonApiQueryBuilder = new JsonApiQueryBuilder();
   private targetId: string | null = null;
+  private externalParams: Record<string, unknown> | null = null;
 
   constructor(service: EntityService, identifier: EntityIdentifier) {
     this.service = service;
@@ -70,6 +71,14 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
   public include(paths: string[]): this { this.qb.include(paths); return this; }
   public sort(field: string, dir: SortDirection = "ASC"): this { this.qb.sort(field, dir); return this; }
   public page(opts: PageOptions): this { this.qb.page(opts); return this; }
+  /** Accept plain query object to merge into built params. */
+  public params(obj: Record<string, unknown>): this { this.externalParams = { ...(this.externalParams ?? {}), ...obj }; return this; }
+  /** Accept drupal-jsonapi-params instance via duck-typing */
+  public fromParams(p: { getQueryObject?: () => Record<string, unknown> }): this {
+    const obj = typeof p?.getQueryObject === "function" ? p.getQueryObject() : {};
+    this.externalParams = { ...(this.externalParams ?? {}), ...obj };
+    return this;
+  }
 
   // Filters
   public whereEq(field: string, value: string | number | boolean): this { this.qb.where(field, value, "="); return this; }
@@ -87,7 +96,7 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
     const q = this.qb.toObject();
     const opts: EntityListOptions = {
       ...options,
-      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...q } },
+      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
     };
     return this.service.list<TAttributes>(this.identifier, opts);
   }
@@ -97,9 +106,30 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
     const q = this.qb.toObject();
     const opts: EntityLoadOptions = {
       ...options,
-      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...q } },
+      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
     };
     return this.service.load<TAttributes>(this.identifier, this.targetId, opts);
+  }
+
+  /** Fetch the first item from the list result using current filters. */
+  public async findOne(options?: EntityListOptions): Promise<EntityRecord<TAttributes> | null> {
+    const items = await this.page({ limit: 1 }).list(options);
+    return items.length > 0 ? items[0] : null;
+  }
+
+  /** Get a count for the current filters if the adapter supports it; fallback to list length. */
+  public async count(options?: EntityListOptions): Promise<number> {
+    try {
+      const q = this.qb.toObject();
+      const opts: EntityListOptions = {
+        ...options,
+        jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
+      };
+      return await (this.service as any).count(this.identifier, opts);
+    } catch (_e) {
+      const all = await this.list(options);
+      return all.length;
+    }
   }
 }
 
