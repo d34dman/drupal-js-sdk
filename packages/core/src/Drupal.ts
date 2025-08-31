@@ -1,5 +1,7 @@
 import {FetchClient} from '@drupal-js-sdk/xhr';
 import {Core} from './Core';
+import { StorageInMemory, StorageInWeb } from '@drupal-js-sdk/storage';
+import { SessionInterface } from '@drupal-js-sdk/interfaces';
 
 import {
   XhrBasicCredentials,
@@ -11,6 +13,8 @@ export interface DrupalConfig extends StorageRecordInterface {
   headers?: XhrRequestHeaders;   
   baseURL: string;
   client?: import('@drupal-js-sdk/interfaces').XhrInterface;
+  /** Optional session store implementation; defaults to browser Storage if available, else in-memory. */
+  session?: SessionInterface;
 }
 
 /**
@@ -32,6 +36,20 @@ export class Drupal extends Core {
     };
     const client = options.client ?? new FetchClient(apiConfig);
     this.setClientService(client);
+    // Initialize a default session storage if one is not explicitly provided.
+    if (options.session) {
+      this.setSessionService(options.session);
+    } else {
+      try {
+        // Prefer Web Storage in browser environments.
+        const web = new StorageInWeb(() => window.localStorage);
+        this.setSessionService(web);
+      } catch (e) {
+        // Fallback to in-memory storage in non-browser or restricted environments.
+        const memory = new StorageInMemory();
+        this.setSessionService(memory);
+      }
+    }
     return this;
   }
 }
