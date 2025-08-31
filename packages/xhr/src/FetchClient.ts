@@ -6,6 +6,7 @@ type FetchFunctionType = (input: any, init?: any) => Promise<Response>;
 export class FetchClient extends Client implements XhrInterface {
   protected client: FetchFunctionType;
   protected config: StorageRecordInterface;
+  private originalClient: FetchFunctionType;
 
   constructor(config: StorageRecordInterface = {}) {
     super();
@@ -14,18 +15,29 @@ export class FetchClient extends Client implements XhrInterface {
     // Bind global fetch to avoid "Illegal invocation" in some environments where
     // an unbound reference to fetch loses its global this context.
     const g: any = (typeof window !== 'undefined') ? window : (typeof globalThis !== 'undefined' ? globalThis : undefined);
-    this.client = (g && typeof g.fetch === 'function') ? g.fetch.bind(g) : fetch;
+    const globalFetch: FetchFunctionType = (g && typeof g.fetch === 'function') ? g.fetch : fetch;
+    this.client = globalFetch.bind(g ?? globalThis);
+    this.originalClient = globalFetch;
   }
 
   public setClient(fetchClient:FetchFunctionType = fetch): XhrInterface {
     // Respect custom client but bind if it's the global fetch to ensure correct this.
     const isGlobalFetch = (fetchClient === fetch) || (typeof window !== 'undefined' && fetchClient === window.fetch);
-    this.client = isGlobalFetch ? fetch.bind(typeof window !== 'undefined' ? window : globalThis) : fetchClient;
+    if (isGlobalFetch) {
+      const g: any = (typeof window !== 'undefined') ? window : (typeof globalThis !== 'undefined' ? globalThis : undefined);
+      const globalFetch: FetchFunctionType = (g && typeof g.fetch === 'function') ? g.fetch : fetchClient;
+      this.client = globalFetch.bind(g ?? globalThis);
+      this.originalClient = globalFetch;
+    } else {
+      this.client = fetchClient;
+      this.originalClient = fetchClient;
+    }
     return this;
   }
 
   public getClient() {
-    return this.client;
+    // Return the unbound/original client for identity checks in tests and consumers.
+    return this.originalClient;
   }
 
   public addDefaultHeaders(headers: StorageRecordInterface): XhrInterface {
