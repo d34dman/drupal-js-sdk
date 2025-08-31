@@ -14,17 +14,19 @@ export class EntityLoader<TAttributes extends EntityAttributes = EntityAttribute
   }
 
   public async list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>> {
-    if (typeof (this.adapter as any).list !== "function") {
+    if (typeof (this.adapter as { list?: unknown }).list !== "function") {
       throw new Error("Entity adapter does not support list()");
     }
-    return (this.adapter as any).list(options);
+    const fn = (this.adapter as { list?: (opts?: EntityListOptions) => Promise<Array<EntityRecord<TAttributes>>> }).list;
+    return fn ? fn(options) : Promise.reject(new Error("Entity adapter does not support list()"));
   }
 
   public async count(options?: EntityListOptions): Promise<number> {
-    if (typeof (this.adapter as any).count !== "function") {
+    if (typeof (this.adapter as { count?: unknown }).count !== "function") {
       throw new Error("Entity adapter does not support count()");
     }
-    return (this.adapter as any).count(options);
+    const fn = (this.adapter as { count?: (opts?: EntityListOptions) => Promise<number> }).count;
+    return fn ? fn(options) : Promise.reject(new Error("Entity adapter does not support count()"));
   }
 }
 

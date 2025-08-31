@@ -22,7 +22,7 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
     const params = options?.jsonapi?.query ?? options?.params;
     const response = await this.ctx.client.call("GET", url, { params });
 
-    const data = (response && response.data && response.data.data) ? response.data.data : undefined;
+    const data: unknown = (response && (response as any).data && (response as any).data.data) ? (response as any).data.data : undefined;
     if (!data || typeof data !== "object") {
       return {
         id: "",
@@ -30,37 +30,47 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
         attributes: {} as TAttributes,
       };
     }
+    const rec = data as { id?: unknown; type?: unknown; attributes?: unknown; relationships?: unknown };
+    const attrs = (rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}) as TAttributes;
+    const rels = (rec.relationships && typeof rec.relationships === "object" ? (rec.relationships as Record<string, unknown>) : undefined);
     return {
-      id: String(data.id ?? ""),
-      type: String(data.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
-      attributes: (data.attributes ?? {}) as TAttributes,
-      relationships: data.relationships as Record<string, unknown> | undefined,
+      id: String(rec.id ?? ""),
+      type: String(rec.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
+      attributes: attrs,
+      relationships: rels,
     };
   }
 
   public async list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>> {
     const params = options?.jsonapi?.query ?? options?.params;
     const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
-    const data = (response && response.data && Array.isArray(response.data.data)) ? response.data.data : [];
-    return data.map((row: any) => ({
-      id: String(row.id ?? ""),
-      type: String(row.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
-      attributes: (row.attributes ?? {}) as TAttributes,
-      relationships: row.relationships as Record<string, unknown> | undefined,
-    }));
+    const raw: unknown = response && (response as any).data && (response as any).data.data;
+    const rows: Array<unknown> = Array.isArray(raw) ? (raw as Array<unknown>) : [];
+    return rows.map((row): EntityRecord<TAttributes> => {
+      const rec = (row && typeof row === "object" ? row : {}) as { id?: unknown; type?: unknown; attributes?: unknown; relationships?: unknown };
+      const attrs = (rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}) as TAttributes;
+      const rels = (rec.relationships && typeof rec.relationships === "object" ? (rec.relationships as Record<string, unknown>) : undefined);
+      return {
+        id: String(rec.id ?? ""),
+        type: String(rec.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
+        attributes: attrs,
+        relationships: rels,
+      };
+    });
   }
 
   /** Optional count implementation using JSON:API meta.count when available. */
   public async count(options?: EntityListOptions): Promise<number> {
     const params = options?.jsonapi?.query ?? options?.params;
     const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
-    const meta = (response && response.data && (response.data as any).meta) ? (response.data as any).meta : undefined;
+    const meta = (response && (response as any).data && (response as any).data.meta) ? (response as any).data.meta : undefined;
     const countValue = meta && typeof meta.count === "number" ? meta.count : undefined;
     if (typeof countValue === "number") {
       return countValue;
     }
-    const data = (response && response.data && Array.isArray((response.data as any).data)) ? (response.data as any).data : [];
-    return data.length;
+    const raw: unknown = response && (response as any).data && (response as any).data.data;
+    const rows: Array<unknown> = Array.isArray(raw) ? (raw as Array<unknown>) : [];
+    return rows.length;
   }
 }
 

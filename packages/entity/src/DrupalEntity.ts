@@ -32,7 +32,7 @@ export class DrupalEntity {
   }
 
   public node<TAttributes extends EntityAttributes = EntityAttributes>(bundle: string): FluentEntity<TAttributes> {
-    return new FluentEntity<TAttributes>(this.service as any, { entity: "node", bundle });
+    return new FluentEntity<TAttributes>(this.service, { entity: "node", bundle });
   }
 }
 

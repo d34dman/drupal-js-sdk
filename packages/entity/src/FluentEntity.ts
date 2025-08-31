@@ -3,6 +3,8 @@ import { EntityService } from "./EntityService";
 
 type SortDirection = "ASC" | "DESC";
 
+type FilterValue = string | number | boolean | Array<string | number | boolean>;
+
 interface PageOptions {
   limit?: number;
   offset?: number;
@@ -15,13 +17,13 @@ class JsonApiQueryBuilder {
   private fieldsByType: Record<string, string[]> = {};
   private sorts: Array<{ field: string; dir: SortDirection }> = [];
   private pageObj: PageOptions = {};
-  private filters: Array<{ field: string; operator?: string; value: string | number | boolean | Array<string | number | boolean> }> = [];
+  private filters: Array<{ field: string; operator?: string; value: FilterValue }> = [];
 
   public include(paths: string[]): this { this.includePaths.push(...paths); return this; }
   public select(type: string, fields: string[]): this { this.fieldsByType[type] = fields; return this; }
   public sort(field: string, dir: SortDirection): this { this.sorts.push({ field, dir }); return this; }
   public page(opts: PageOptions): this { this.pageObj = { ...this.pageObj, ...opts }; return this; }
-  public where(field: string, value: any, operator?: string): this { this.filters.push({ field, value, operator }); return this; }
+  public where(field: string, value: FilterValue, operator?: string): this { this.filters.push({ field, value, operator }); return this; }
 
   public toObject(): Record<string, unknown> {
     const out: Record<string, unknown> = {};
@@ -44,9 +46,9 @@ class JsonApiQueryBuilder {
 
     this.filters.forEach((f, idx) => {
       const key = `filter[${idx}][condition]`;
-      (out as any)[`${key}[path]`] = f.field;
-      if (f.operator) (out as any)[`${key}[operator]`] = f.operator;
-      (out as any)[`${key}[value]`] = Array.isArray(f.value) ? (f.value as Array<unknown>).join(",") : f.value;
+      out[`${key}[path]`] = f.field;
+      if (f.operator) out[`${key}[operator]`] = f.operator;
+      out[`${key}[value]`] = Array.isArray(f.value) ? (f.value as Array<string | number | boolean>).join(",") : f.value;
     });
     return out;
   }
@@ -125,7 +127,12 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
         ...options,
         jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
       };
-      return await (this.service as any).count(this.identifier, opts);
+      // Prefer service.count if available
+      if (typeof (this.service as unknown as { count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>; }).count === "function") {
+        return await (this.service as unknown as { count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>; }).count(this.identifier, opts);
+      }
+      const all = await this.list(options);
+      return all.length;
     } catch (_e) {
       const all = await this.list(options);
       return all.length;
