@@ -28,6 +28,14 @@ export class EntityLoader<TAttributes extends EntityAttributes = EntityAttribute
     const fn = (this.adapter as { count?: (opts?: EntityListOptions) => Promise<number> }).count;
     return fn ? fn(options) : Promise.reject(new Error("Entity adapter does not support count()"));
   }
+
+  public async listPage(options?: EntityListOptions): Promise<unknown> {
+    const maybe = this.adapter as unknown as { listPage?: (o?: EntityListOptions) => Promise<unknown> };
+    if (!maybe.listPage || typeof maybe.listPage !== "function") {
+      throw new Error("Entity adapter does not support listPage()");
+    }
+    return maybe.listPage(options);
+  }
 }
 
 

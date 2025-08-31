@@ -1,5 +1,6 @@
 import { CoreInterface, EntityAdapter, EntityAdapterContext, EntityAdapterFactory, EntityAttributes, EntityIdentifier, EntityListOptions, EntityRecord, EntityLoadOptions } from "@drupal-js-sdk/interfaces";
 import { EntityLoader } from "./EntityLoader";
+import { attachRelations } from "./relations";
 
 export class EntityService {
   private readonly adapters: Map<string, EntityAdapterFactory> = new Map();
@@ -46,7 +47,22 @@ export class EntityService {
     options?: EntityListOptions,
     adapterKey?: string
   ): Promise<Array<EntityRecord<TAttributes>>> {
-    return this.entity<TAttributes>(identifier, adapterKey).list(options);
+    const items = await this.entity<TAttributes>(identifier, adapterKey).list(options);
+    return items.map((rec) => attachRelations(rec, this, identifier, adapterKey));
+  }
+
+  public async listPage<TAttributes extends EntityAttributes = EntityAttributes>(
+    identifier: EntityIdentifier,
+    options?: EntityListOptions,
+    adapterKey?: string
+  ) {
+    const loader: any = this.entity<TAttributes>(identifier, adapterKey);
+    if (typeof loader.listPage !== "function") {
+      const items = await this.list<TAttributes>(identifier, options, adapterKey);
+      return { items, page: undefined };
+    }
+    const result = await loader.listPage(options);
+    return { ...result, items: (result.items as Array<EntityRecord<TAttributes>>).map((rec) => attachRelations(rec, this, identifier, adapterKey)) };
   }
 
   public async load<TAttributes extends EntityAttributes = EntityAttributes>(
@@ -55,7 +71,8 @@ export class EntityService {
     options?: EntityLoadOptions,
     adapterKey?: string
   ): Promise<EntityRecord<TAttributes>> {
-    return this.entity<TAttributes>(identifier, adapterKey).load(id, options);
+    const rec = await this.entity<TAttributes>(identifier, adapterKey).load(id, options);
+    return attachRelations(rec, this, identifier, adapterKey);
   }
 
   public async count(

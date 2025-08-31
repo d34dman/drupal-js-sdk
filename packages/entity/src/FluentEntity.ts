@@ -103,6 +103,21 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
     return this.service.list<TAttributes>(this.identifier, opts);
   }
 
+  /** Paginated list with metadata when adapter supports it. */
+  public async listPage(options?: EntityListOptions): Promise<{ items: Array<EntityRecord<TAttributes>>; page?: unknown; }> {
+    const q = this.qb.toObject();
+    const opts: EntityListOptions = {
+      ...options,
+      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
+    };
+    const svc: any = this.service as unknown as { listPage: (id: EntityIdentifier, o?: EntityListOptions) => Promise<unknown> };
+    if (typeof svc.listPage === "function") {
+      return svc.listPage(this.identifier, opts) as Promise<{ items: Array<EntityRecord<TAttributes>>; page?: unknown; }>;
+    }
+    const items = await this.service.list<TAttributes>(this.identifier, opts);
+    return { items };
+  }
+
   public async get(options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
     if (!this.targetId) throw new Error("No id() set for get()");
     const q = this.qb.toObject();
