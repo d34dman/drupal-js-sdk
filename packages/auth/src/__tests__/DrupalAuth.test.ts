@@ -188,3 +188,99 @@ test('Drupal Auth login with restore session', async () => {
   );
 });
 
+test('Drupal Auth init method coverage (Line 42)', async () => {
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const client = new AxiosClient(createStubClient());
+  sdk.setClientService(client);
+  sdk.setSessionService(new StorageInMemory());
+  const auth = new DrupalAuth(sdk);
+  
+  // This should cover Line 42: await this.getSessionToken()
+  await auth.init();
+  
+  expect(auth.store.csrf_token).toBe('mock-session-token');
+});
+
+test('Drupal Auth refreshUserSession method coverage (Line 58)', async () => {
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const client = new AxiosClient(createStubClient());
+  sdk.setClientService(client);
+  sdk.setSessionService(new StorageInMemory());
+  const auth = new DrupalAuth(sdk);
+  
+  // This should cover Line 58: return this.getSessionToken()
+  const response = await auth.refreshUserSession();
+  
+  expect(response.data).toBe('mock-session-token');
+  expect(response.status).toBe(200);
+});
+
+test('Drupal Auth logout with undefined tokens (Lines 137, 149)', async () => {
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const client = new AxiosClient(createStubClient());
+  sdk.setClientService(client);
+  sdk.setSessionService(new StorageInMemory());
+  const auth = new DrupalAuth(sdk);
+  
+  // Clear the store to have undefined tokens
+  auth.store = {
+    csrf_token: undefined,    // This should trigger the ?? '' branch on line 149
+    logout_token: undefined,  // This should trigger the ?? '' branch on line 137
+  };
+  
+  const response = await auth.logout();
+  
+  expect(response.status).toBe(204);
+});
+
+test('Drupal Auth logout with null tokens (branch coverage)', async () => {
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const client = new AxiosClient(createStubClient());
+  sdk.setClientService(client);
+  sdk.setSessionService(new StorageInMemory());
+  const auth = new DrupalAuth(sdk);
+  
+  // Set tokens to null to test the other branch
+  auth.store = {
+    csrf_token: null as any,    // Test null branch
+    logout_token: null as any,  // Test null branch
+  };
+  
+  const response = await auth.logout();
+  
+  expect(response.status).toBe(204);
+});
+
+test('Drupal Auth logout with existing tokens (normal path)', async () => {
+  const config = {
+    baseURL: 'http://www.example.com',
+  };
+  const sdk = new Drupal(config);
+  const client = new AxiosClient(createStubClient());
+  sdk.setClientService(client);
+  sdk.setSessionService(new StorageInMemory());
+  const auth = new DrupalAuth(sdk);
+  
+  // Set actual tokens to test the non-coalesced path
+  auth.store = {
+    csrf_token: 'actual-csrf-token',
+    logout_token: 'actual-logout-token',
+  };
+  
+  const response = await auth.logout();
+  
+  expect(response.status).toBe(204);
+});
+

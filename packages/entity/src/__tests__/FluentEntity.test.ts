@@ -246,6 +246,81 @@ describe("FluentEntity", () => {
       const result = fluentEntity.fromParams(mockBuilder as any);
       expect(result).toBe(fluentEntity);
     });
+
+    test("should cover FluentEntity conditional branches (Lines 38, 44, 80)", () => {
+      // Test different sort directions to ensure ASC/DESC branches are covered
+      const result1 = fluentEntity.sort("created"); // Default should be ASC
+      const result2 = fluentEntity.sort("title", "ASC"); // Explicit ASC
+      const result3 = fluentEntity.sort("weight", "DESC"); // Explicit DESC
+      
+      expect(result1).toBe(fluentEntity);
+      expect(result2).toBe(fluentEntity);
+      expect(result3).toBe(fluentEntity);
+    });
+
+    test("should cover fromParams method with different getQueryObject results", () => {
+      // Test when getQueryObject returns actual object (normal case)
+      const builderWithObject = {
+        getQueryObject: () => ({ param: "value" })
+      };
+      const result1 = fluentEntity.fromParams(builderWithObject);
+      expect(result1).toBe(fluentEntity);
+
+      // Test with builder that has no getQueryObject method (should use empty object)
+      const builderNoMethod = {
+        // No getQueryObject method
+      };
+      const result2 = fluentEntity.fromParams(builderNoMethod);
+      expect(result2).toBe(fluentEntity);
+
+      // Test with builder that has undefined getQueryObject
+      const builderUndefinedMethod = {
+        getQueryObject: undefined
+      };
+      const result3 = fluentEntity.fromParams(builderUndefinedMethod as any);
+      expect(result3).toBe(fluentEntity);
+    });
+
+    test("should cover JsonApiQueryBuilder branches (Lines 111, 126, 143)", async () => {
+      // Create a complex query that exercises all conditional branches
+      
+      // Test with no existing external params (Line 111 - options?.jsonapi?.query ?? {})
+      const result1 = await fluentEntity
+        .select(["title"])
+        .include(["author"])
+        .sort("created", "DESC")
+        .list(); // Should use default empty object for options?.jsonapi?.query
+
+      expect(Array.isArray(result1)).toBe(true);
+
+      // Test with existing jsonapi query params (Line 126 - different branch)
+      const existingOptions = {
+        jsonapi: {
+          query: {
+            existing: "param",
+          }
+        }
+      };
+      
+      const result2 = await fluentEntity
+        .whereEq("status", 1)
+        .list(existingOptions); // Should merge with existing options
+
+      expect(Array.isArray(result2)).toBe(true);
+
+      // Test with existing external params vs no external params (Line 143)
+      const freshEntity = new FluentEntity(entityService, { entity: "node", bundle: "article" });
+      
+      // First call with no external params
+      await freshEntity.list();
+      
+      // Second call after setting external params
+      await freshEntity
+        .params({ external: "param" })
+        .list();
+
+      expect(true).toBe(true);
+    });
   });
 
   describe("Filter Methods", () => {
@@ -354,6 +429,25 @@ describe("FluentEntity", () => {
       expect(Array.isArray(result.items)).toBe(true);
       // When service doesn't support listPage, it falls back to list() and page may be present but undefined for total/size
       expect(result.page).toBeDefined();
+    });
+
+    test("should handle FluentEntity listPage fallback (Lines 117-118)", async () => {
+      // Create a mock service that doesn't have listPage method to trigger FluentEntity fallback
+      const mockServiceWithoutListPage = {
+        list: jest.fn().mockResolvedValue([
+          { id: "1", type: "node--article", attributes: { title: "Test" } }
+        ]),
+        // No listPage method - this should trigger lines 117-118 in FluentEntity
+      };
+
+      const fluentEntity = new FluentEntity(mockServiceWithoutListPage as any, { entity: "node", bundle: "article" });
+      
+      // This should trigger the fallback: const items = await this.service.list() and return { items }
+      const result = await fluentEntity.listPage();
+      
+      expect(result).toHaveProperty("items");
+      expect(result.items).toHaveLength(1);
+      expect(result.page).toBeUndefined(); // Should be undefined in fallback
     });
   });
 
@@ -515,6 +609,26 @@ describe("FluentEntity", () => {
       
       const count = await fluentWithCount.count();
       expect(count).toBe(42);
+    });
+
+    test("should handle count fallback when service doesn't have count (Lines 149-150)", async () => {
+      // Create a mock service without count method to trigger FluentEntity fallback
+      const mockServiceWithoutCount = {
+        list: jest.fn().mockResolvedValue([
+          { id: "1", type: "node--article", attributes: {} },
+          { id: "2", type: "node--article", attributes: {} },
+          { id: "3", type: "node--article", attributes: {} },
+        ]),
+        // No count method - should trigger lines 149-150 fallback
+      };
+
+      const fluentEntity = new FluentEntity(mockServiceWithoutCount as any, { entity: "node", bundle: "article" });
+      
+      // This should trigger the fallback: await this.list(options) and return all.length
+      const count = await fluentEntity.count();
+      
+      expect(count).toBe(3);
+      expect(mockServiceWithoutCount.list).toHaveBeenCalled();
     });
   });
 

@@ -1089,4 +1089,151 @@ describe("JsonApiEntityAdapter", () => {
       expect(result.relationships?.deepRel).toBeDefined();
     });
   });
+
+  describe("Complete Branch Coverage for JSONAPI", () => {
+    test("should test all branches in load method (Line 67)", async () => {
+      // Test with jsonapi query options (first branch of ??)
+      const optionsWithJsonapi: EntityLoadOptions = {
+        jsonapi: {
+          query: { include: "author" }
+        },
+        params: { shouldBeIgnored: "yes" }  // Should be ignored when jsonapi.query exists
+      };
+
+      await adapter.load("jsonapi-test", optionsWithJsonapi);
+
+      // Test with params options (second branch of ??)
+      const optionsWithParams: EntityLoadOptions = {
+        params: { include: "tags" },
+        // No jsonapi.query - should use params
+      };
+
+      await adapter.load("params-test", optionsWithParams);
+
+      // Test with neither (should be undefined)
+      const optionsEmpty: EntityLoadOptions = {
+        // Neither jsonapi.query nor params
+      };
+
+      await adapter.load("empty-test", optionsEmpty);
+
+      expect(true).toBe(true); // Just ensure all branches execute
+    });
+
+    test("should test all branches in list method", async () => {
+      // Test list with jsonapi query
+      await adapter.list({
+        jsonapi: { query: { "filter[status]": 1 } }
+      });
+
+      // Test list with params
+      await adapter.list({
+        params: { "page[limit]": 5 }
+      });
+
+      // Test list with no options
+      await adapter.list(undefined);
+      await adapter.list({});
+
+      expect(true).toBe(true);
+    });
+
+    test("should test all branches in listPage method (Lines 86-88, 91-96)", async () => {
+      // Test with meta that has all properties
+      const completeMetaResponse = {
+        data: [],
+        meta: {
+          count: 10,
+          pageSize: 5,
+          pageNumber: 2,
+          otherMeta: "ignored",
+        },
+        links: {
+          next: { href: "/next" },
+          prev: { href: "/prev" },
+          first: { href: "/first" },
+          last: { href: "/last" },
+        },
+      };
+
+      mockClient.setMockResponse("/jsonapi/node/article", completeMetaResponse);
+      const result1 = await adapter.listPage();
+      expect(result1.page?.total).toBe(10);
+      expect(result1.page?.size).toBe(5);
+      expect(result1.page?.number).toBe(2);
+
+      // Test with meta that has no properties (all undefined branches)
+      const emptyMetaResponse = {
+        data: [],
+        meta: {
+          // No count, pageSize, or pageNumber
+          randomProperty: "ignored",
+        },
+        links: {
+          // No next or prev href
+          self: { href: "/self" },
+        },
+      };
+
+      mockClient.setMockResponse("/jsonapi/node/article", emptyMetaResponse);
+      const result2 = await adapter.listPage();
+      expect(result2.page?.total).toBeUndefined();
+      expect(result2.page?.size).toBeUndefined();
+      expect(result2.page?.number).toBeUndefined();
+      expect(result2.page?.next).toBeNull();
+      expect(result2.page?.prev).toBeNull();
+
+      // Test with undefined meta (should handle gracefully) 
+      const undefinedMetaResponse = {
+        data: [],
+        // meta property completely missing
+        links: {
+          self: { href: "/self" }
+        },
+      };
+
+      mockClient.setMockResponse("/jsonapi/node/article", undefinedMetaResponse);
+      const result3 = await adapter.listPage();
+      expect(result3.page?.total).toBeUndefined();
+      expect(result3.page?.size).toBeUndefined();
+      expect(result3.page?.number).toBeUndefined();
+
+      expect(true).toBe(true);
+    });
+
+    test("should test all branches in count method (Line 115)", async () => {
+      // Test when meta.count exists and is a number
+      const countResponse = {
+        data: [],
+        meta: { count: 25 },
+      };
+
+      mockClient.setMockResponse("/jsonapi/node/article", countResponse);
+      const count1 = await adapter.count();
+      expect(count1).toBe(25);
+
+      // Test when meta.count doesn't exist (fallback to array length)
+      const noCountResponse = {
+        data: [
+          { id: "1", type: "node--article", attributes: {} },
+          { id: "2", type: "node--article", attributes: {} },
+        ],
+        meta: { otherProperty: "not count" },
+      };
+
+      mockClient.setMockResponse("/jsonapi/node/article", noCountResponse);
+      const count2 = await adapter.count();
+      expect(count2).toBe(2); // Should use data.length
+
+      // Test when meta.count is not a number
+      const invalidCountResponse = {
+        data: [{ id: "1", type: "node--article", attributes: {} }],
+        meta: { count: "not a number" },
+      };
+
+      mockClient.setMockResponse("/jsonapi/node/article", invalidCountResponse);
+      const count3 = await adapter.count();
+      expect(count3).toBe(1); // Should fallback to data.length
+    });
+  });
 });

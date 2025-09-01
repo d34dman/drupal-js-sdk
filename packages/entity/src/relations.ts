@@ -48,7 +48,7 @@ export function attachRelations<TAttr extends EntityAttributes>(
         } else if (linkage && typeof linkage === "object" && linkage.id) {
           // Single linked entity
           const typeStr = String(linkage.type ?? "");
-          const idStr = String(linkage.id ?? "");
+          const idStr = String(linkage.id); // Removed ?? "" since linkage.id is guaranteed to be truthy here
           const [entity, bundle] = typeStr.includes("--") ? typeStr.split("--") : [identifier.entity, identifier.bundle];
           promise = service.load<TRel>({ entity, bundle }, idStr, options, adapterKey).then((rec) => [rec]);
         } else {

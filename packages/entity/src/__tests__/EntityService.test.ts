@@ -417,6 +417,38 @@ describe("EntityService", () => {
         .rejects.toThrow("Entity adapter does not support listPage()");
     });
 
+    test("should test EntityService internal listPage fallback logic (Lines 61-62)", async () => {
+      // We need to test the EntityService fallback, not the EntityLoader error
+      // Create a mock EntityService that has a modified entity() method
+      const mockEntityService = new EntityService(mockCore);
+      
+      // Mock the entity() method to return a loader without listPage
+      const originalEntity = mockEntityService.entity;
+      mockEntityService.entity = jest.fn().mockImplementation((identifier, adapterKey) => {
+        return {
+          load: jest.fn(),
+          list: jest.fn().mockResolvedValue([
+            { id: "1", type: "node--article", attributes: { title: "Fallback Item" } }
+          ]),
+          count: jest.fn(),
+          // No listPage method - this should make typeof loader.listPage !== "function" true
+        };
+      });
+      
+      const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
+      
+      // This should trigger lines 61-62: fallback to list() when loader.listPage is not a function
+      const result = await mockEntityService.listPage(identifier);
+      
+      expect(result).toHaveProperty("items");
+      expect(result).toHaveProperty("page", undefined);
+      expect(result.items).toHaveLength(1);
+      expect(result.items[0].attributes.title).toBe("Fallback Item");
+      
+      // Restore original method
+      mockEntityService.entity = originalEntity;
+    });
+
     test("should attach relations to paginated entities", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const result = await entityService.listPage(identifier);
