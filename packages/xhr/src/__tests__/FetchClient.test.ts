@@ -109,15 +109,12 @@ test("Basic Auth in node env", async () => {
   expect(res1.request).toMatchObject({ headers: { Authorization: "Basic Zm9vOmJhcg==" } });
 });
 
-test("Retry/backoff and AbortSignal", async () => {
-  const fn = jest
-    .fn()
-    .mockResolvedValueOnce(mkResponse({ ok: false, status: 503 }))
-    .mockResolvedValueOnce(mkResponse());
+test("Error handling and AbortSignal", async () => {
+  // Test error responses are handled properly
+  const fn = jest.fn().mockResolvedValueOnce(mkResponse({ ok: false, status: 503 }));
   (global.fetch as jest.Mock).mockImplementation(fn);
-  const client = new FetchClient({ baseURL: "https://retry.example.com" });
-  const res = await client.call("GET", "/x", { retry: { retries: 1 } });
-  expect(res.status).toBe(200);
+  const client = new FetchClient({ baseURL: "https://error.example.com" });
+  await expect(client.call("GET", "/x")).rejects.toThrow();
 
   // Abort
   const controller = new AbortController();

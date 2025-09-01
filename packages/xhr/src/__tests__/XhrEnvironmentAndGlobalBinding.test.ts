@@ -212,29 +212,14 @@ describe("XHR Environment and Global Binding", () => {
     expect(true).toBe(true);
   });
 
-  test("should test retry mechanism thoroughly", async () => {
-    const client = new FetchClient({ baseURL: "https://retry-test.example.com" });
+  test("should handle basic error responses", async () => {
+    const client = new FetchClient({ baseURL: "https://error-test.example.com" });
 
-    let attempts = 0;
+    // Test that error responses are handled properly without retry
     (global.fetch as jest.Mock).mockImplementation(() => {
-      attempts++;
-      if (attempts <= 2) {
-        return Promise.resolve(mkResponse({ ok: false, status: 503 }));
-      }
-      return Promise.resolve(mkResponse());
+      return Promise.resolve(mkResponse({ ok: false, status: 503 }));
     });
 
-    // Test retry with custom configuration
-    await client.call("GET", "/retry-test", {
-      retry: {
-        retries: 3,
-        retryOn: [503, 429],
-        factor: 1.5,
-        minTimeoutMs: 50,
-        maxTimeoutMs: 500,
-      },
-    });
-
-    expect(attempts).toBeGreaterThan(1);
+    await expect(client.call("GET", "/error-test")).rejects.toThrow();
   });
 });

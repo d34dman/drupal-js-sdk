@@ -188,34 +188,7 @@ export class FetchClient extends Client implements XhrInterface {
         if (timeoutHandle) clearTimeout(timeoutHandle);
       }
     };
-    const executeWithRetry = async (): Promise<Response> => {
-      const retryCfg = reqConfig.retry;
-      if (!retryCfg || retryCfg.retries <= 0) return attemptFetch();
-      const retryOn = new Set(retryCfg.retryOn ?? [429, 503]);
-      const factor = retryCfg.factor ?? 2;
-      const minT = retryCfg.minTimeoutMs ?? 250;
-      const maxT = retryCfg.maxTimeoutMs ?? 4000;
-      let tries = 0;
-      const shouldContinue = true;
-      // eslint-disable-next-line no-loops/no-loops
-      while (shouldContinue) {
-        try {
-          const res = await attemptFetch();
-          if (!res.ok && retryOn.has(res.status) && tries < retryCfg.retries) {
-            const wait = Math.min(minT * Math.pow(factor, tries), maxT);
-            await new Promise((r) => setTimeout(r, wait));
-            tries += 1;
-            continue;
-          }
-          return res;
-        } catch (e) {
-          if (tries >= retryCfg.retries) throw e;
-          const wait = Math.min(minT * Math.pow(factor, tries), maxT);
-          await new Promise((r) => setTimeout(r, wait));
-          tries += 1;
-        }
-      }
-    };
+
     // For safe methods, avoid sending CSRF header to prevent CORS preflight on some servers
     const methodLower = String(args.method ?? "").toLowerCase();
     if ((methodLower === "get" || methodLower === "head") && args.headers) {
@@ -225,7 +198,7 @@ export class FetchClient extends Client implements XhrInterface {
       }
     }
 
-    return executeWithRetry().then(async (response: Response) => {
+    return attemptFetch().then(async (response: Response) => {
       if (!response.ok) {
         throw new Error("HTTP error, status = " + response.status);
       }
@@ -311,11 +284,11 @@ const serializeQueryParams = (params: XhrQueryParams): string => {
       let valueIndex = 0;
       // eslint-disable-next-line no-loops/no-loops
       while (valueIndex < value.length) {
-        append(key, value[valueIndex]);
+        append(key, value[valueIndex] as string | number | boolean);
         valueIndex += 1;
       }
     } else {
-      append(key, value);
+      append(key, value as string | number | boolean);
     }
     entryIndex += 1;
   }

@@ -156,25 +156,15 @@ describe("FetchClient Missing Coverage", () => {
     });
   });
 
-  describe("Retry error handling (Lines 181-184)", () => {
-    test("should handle retry mechanism failures", async () => {
-      let attempts = 0;
-
+  describe("Error handling", () => {
+    test("should handle request failures", async () => {
       (global.fetch as jest.Mock).mockImplementation(() => {
-        attempts++;
-        return Promise.reject(new Error(`Attempt ${attempts} failed`));
+        return Promise.reject(new Error("Network error"));
       });
 
-      const client = new FetchClient({ baseURL: "https://retry.example.com" });
+      const client = new FetchClient({ baseURL: "https://error.example.com" });
 
-      try {
-        await client.call("GET", "/failing", {
-          retry: { retries: 2 },
-        });
-      } catch (error) {
-        // Should have attempted 3 times (original + 2 retries)
-        expect(attempts).toBe(3);
-      }
+      await expect(client.call("GET", "/failing")).rejects.toThrow("Xhr method failed");
     });
   });
 
@@ -535,30 +525,15 @@ describe("FetchClient Missing Coverage", () => {
       }
     });
 
-    test("should cover retry and error handling edge cases", async () => {
-      const client = new FetchClient({ baseURL: "https://retry-edge.example.com" });
+    test("should cover error handling edge cases", async () => {
+      const client = new FetchClient({ baseURL: "https://error-edge.example.com" });
 
-      let callCount = 0;
+      // Test error responses are handled immediately
       (global.fetch as jest.Mock).mockImplementation(() => {
-        callCount++;
-        if (callCount <= 2) {
-          return Promise.resolve(mkResponse({ ok: false, status: 503 }));
-        }
-        return Promise.resolve(mkResponse());
+        return Promise.resolve(mkResponse({ ok: false, status: 503 }));
       });
 
-      // Test retry with all custom values (Lines 164-167)
-      await client.call("GET", "/full-retry", {
-        retry: {
-          retries: 3,
-          retryOn: [503], // Custom retry status codes
-          factor: 1.5, // Custom backoff factor
-          minTimeoutMs: 50, // Custom min timeout
-          maxTimeoutMs: 1000, // Custom max timeout
-        },
-      });
-
-      expect(callCount).toBe(3);
+      await expect(client.call("GET", "/error-response")).rejects.toThrow();
     });
 
     test("should hit final edge cases (Lines 17-19, 27-57, 149, 189)", async () => {
