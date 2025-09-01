@@ -89,10 +89,11 @@
       <!-- Add New Item -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="key-input">
             <span class="label-text">Key</span>
           </label>
           <input 
+            id="key-input"
             type="text" 
             placeholder="storage_key" 
             class="input input-bordered w-full" 
@@ -101,10 +102,10 @@
         </div>
         
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="type-select">
             <span class="label-text">Type</span>
           </label>
-          <select class="select select-bordered w-full" bind:value={selectedType}>
+          <select id="type-select" class="select select-bordered w-full" bind:value={selectedType}>
             <option value="string">String</option>
             <option value="number">Number</option>
             <option value="boolean">Boolean</option>
@@ -114,10 +115,11 @@
         </div>
         
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="value-input">
             <span class="label-text">Value</span>
           </label>
           <input 
+            id="value-input"
             type="text" 
             placeholder={selectedType === "object" ? '{"key": "value"}' : selectedType === "array" ? '[1,2,3]' : 'value'} 
             class="input input-bordered w-full" 
@@ -125,10 +127,8 @@
           />
         </div>
         
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Action</span>
-          </label>
+        <div class="flex flex-col">
+          <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Action</div>
           <Button variant="primary" size="md" on:click={addItem}>
             <Save class="w-4 h-4 mr-2" />
             Add Item

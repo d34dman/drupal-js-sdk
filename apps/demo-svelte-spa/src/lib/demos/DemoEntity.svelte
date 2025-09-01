@@ -96,10 +96,10 @@
       <h3 class="card-title"> Query Configuration</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="limit-select">
             <span class="label-text">Limit</span>
           </label>
-          <select class="select select-bordered w-full" bind:value={queryOptions.limit}>
+          <select id="limit-select" class="select select-bordered w-full" bind:value={queryOptions.limit}>
             <option value={5}>5 items</option>
             <option value={10}>10 items</option>
             <option value={20}>20 items</option>
@@ -107,29 +107,25 @@
         </div>
         
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="sort-select">
             <span class="label-text">Sort</span>
           </label>
-          <select class="select select-bordered w-full" bind:value={queryOptions.sort}>
+          <select id="sort-select" class="select select-bordered w-full" bind:value={queryOptions.sort}>
             <option value="-created">Newest first</option>
             <option value="created">Oldest first</option>
             <option value="title">By title</option>
           </select>
         </div>
         
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Fields</span>
-          </label>
+        <div>
+          <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fields</div>
           <div class="text-sm bg-slate-50 dark:bg-slate-800/30 p-3 rounded-lg border border-slate-200/50 dark:border-slate-700/50">
             {queryOptions.fields.join(", ")}
           </div>
         </div>
         
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Include</span>
-          </label>
+        <div>
+          <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Include</div>
           <div class="text-sm bg-slate-50 dark:bg-slate-800/30 p-3 rounded-lg border border-slate-200/50 dark:border-slate-700/50">
             {queryOptions.include.join(", ")}
           </div>
