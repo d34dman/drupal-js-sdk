@@ -5,7 +5,7 @@
    * - Adds accessibility: associated labels, autocomplete hints, and busy state
    */
   import { authState, loginWithCredentials } from "../../lib/authStore";
-  import { Shield } from "@lucide/svelte";
+  import logo from '../../assets/logo.svg'; 
 
   let username: string = import.meta.env.VITE_DEMO_USERNAME ?? "";
   let password: string = import.meta.env.VITE_DEMO_PASSWORD ?? "";
@@ -30,7 +30,7 @@
       <!-- Header -->
       <div class="flex items-center space-x-3 mb-4">
         <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-          <Shield class="w-5 h-5 text-white" />
+          <img src="{logo}" alt="Drupal JS SDK" class="w-5 h-5 text-white" />
         </div>
         <div>
           <h2 id={formTitleId} class="text-lg font-bold text-slate-900 dark:text-white">Drupal Login</h2>

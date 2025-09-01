@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import logo from '../../assets/logo.svg'; 
   import CodeBlock from "../components/CodeBlock.svelte";
   import Footer from "../components/Footer.svelte";
   import { Package, Type, Shield, Settings, Database, Menu as MenuIcon, Server, BookOpen, ExternalLink, BookmarkCheck, TestTube, Parentheses, Smartphone, Globe, Monitor, Terminal, Layers, Workflow } from "@lucide/svelte";
@@ -84,7 +85,7 @@
           <div class="relative">
             <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
             <div class="relative w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-2xl">
-              <Package class="w-10 h-10 text-white" />
+              <img src="{logo}" alt="Drupal JS SDK" class="w-10 h-10 text-white" />
             </div>
           </div>
         </div>

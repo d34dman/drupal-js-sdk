@@ -3,9 +3,9 @@
    viewBox="0 0 480 480.00005"
    version="1.1"
    id="svg47"
-   sodipodi:docname="logo.svg"
+   sodipodi:docname="flowdrop-logo.svg"
    inkscape:version="1.2 (dc2aeda, 2022-05-15)"
-   inkscape:export-filename="logo.png"
+   inkscape:export-filename="flowdrop-logo.png"
    inkscape:export-xdpi="98.304001"
    inkscape:export-ydpi="98.304001"
    width="480"
@@ -17,7 +17,7 @@
    xmlns:bx="https://boxy-svg.com">
   <sodipodi:namedview
      id="namedview49"
-     pagecolor="currentColor"
+     pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
      inkscape:showpageshadow="2"
@@ -56,19 +56,19 @@
   <g
      id="g12968-3"
      transform="matrix(1.9529725,0,0,1.9529725,-13093.952,-2501.7128)"
-     style="fill:currentColor;fill-opacity:1">
+     style="fill:#ffffff;fill-opacity:1">
     <g
        id="g13001-9"
        transform="translate(358.63415,39.609858)"
-       style="fill:currentColor;fill-opacity:1">
+       style="fill:#ffffff;fill-opacity:1">
       <path
          d="m 6469.7729,1249.0477 c 84.8892,45.5817 103.9124,98.818 89.8827,151.9386 -11.2402,42.7774 -34.2519,75.2758 -77.399,78.2301 -48.8761,3.3468 -62.4185,-27.5839 -62.4185,-57.9716 0,-21.0344 14.9804,-29.3748 39.9478,-40.517 39.9479,-20.2584 59.9218,-35.4523 9.987,-131.6801 z"
-         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:20.1158px;paint-order:fill"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:20.1158px;paint-order:fill"
          id="path11-2-0-1-4-2-1"
          sodipodi:nodetypes="ccsscc" />
       <path
          d="m 6406.4148,1435.4614 c -33.144,-25.2073 -37.6562,-49.2188 -28.0687,-70.9412 7.6962,-17.4965 19.7203,-29.8083 38.3365,-28.1456 21.0882,1.8833 24.7726,16.0028 22.7134,28.9729 -1.4252,8.978 -8.3844,11.5227 -19.796,14.5867 -18.4233,5.9399 -27.9781,11.0716 -13.1852,55.5272 z"
-         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:8.6934px;paint-order:fill"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.6934px;paint-order:fill"
          id="path11-2-0-1-4-2-3-7"
          sodipodi:nodetypes="ccsscc" />
     </g>

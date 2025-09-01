@@ -1,8 +1,5 @@
 # Drupal JavaScript SDK
 
-<figure markdown="1">
-![Decoupled Drupal](assets/svg/decoupled-drupal.svg){ width=150 }
-</figure>
 
 Build modern JavaScript apps that connect to Drupal — fast and with minimal fuss. :material-rocket:
 

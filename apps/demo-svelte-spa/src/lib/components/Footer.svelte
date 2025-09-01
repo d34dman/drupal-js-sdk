@@ -1,5 +1,6 @@
 <script lang="ts">
   import { ExternalLink, BookOpen } from "@lucide/svelte";
+  import shibin from '../../assets/shibin.jpg'; 
 </script>
 
 <!-- Footer -->
@@ -10,8 +11,8 @@
       <div class="card-body">
         <h3 class="card-title text-lg mb-4">About the Author</h3>
         <div class="flex items-center gap-4 mb-4">
-          <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
-            SD
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+            <img src="{shibin}" alt="Shibin Das" class="w-16 h-16" />
           </div>
           <div>
             <h4 class="font-semibold text-slate-900 dark:text-white">Shibin Das</h4>

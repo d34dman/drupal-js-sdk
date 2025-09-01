@@ -1,6 +1,6 @@
 <script lang="ts">
   import { LogOut, BookOpen, Server, Database, Settings, Menu, Shield, Home, X } from "@lucide/svelte";
-  
+  import logo from '../../assets/logo.svg'; 
   export let demos: Array<{ id: string; name: string; component: any }>;
   export let activeDemo: string;
   export let onNavigate: (demoId: string) => void;
@@ -47,7 +47,7 @@
         title="Go to Overview"
       >
         <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-200">
-          <Home class="w-5 h-5 text-white" />
+          <img src="{logo}" alt="Drupal JS SDK" class="w-5 h-5 text-white" />
         </div>
         <div>
           <h2 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">Drupal JS SDK</h2>
