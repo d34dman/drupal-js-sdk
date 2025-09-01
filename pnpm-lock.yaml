@@ -119,9 +119,15 @@ importers:
       '@drupal-js-sdk/storage':
         specifier: workspace:*
         version: link:../../packages/storage
+      '@lucide/svelte':
+        specifier: ^0.542.0
+        version: 0.542.0(svelte@5.38.6)
       drupal-jsonapi-params:
         specifier: ^3.0.0
         version: 3.0.0
+      svelte-highlight:
+        specifier: ^7.8.4
+        version: 7.8.4
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^6.1.1
@@ -1877,6 +1883,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
+  '@lucide/svelte@0.542.0':
+    resolution: {integrity: sha512-NuWttxTVfMSURpOxcKiKvoCtma3JtEpcJWzF/0cO69saZfXlv6G8NYAvEEGLmk75YPl+I+ROe+F97WhddM8r2A==}
+    peerDependencies:
+      svelte: ^5
+
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
 
@@ -3366,6 +3377,10 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
+  highlight.js@11.11.1:
+    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
+    engines: {node: '>=12.0.0'}
+
   hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
 
@@ -4777,6 +4792,9 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  svelte-highlight@7.8.4:
+    resolution: {integrity: sha512-aVp+Q0hH9kI7PlSDrklmFTF4Uj7wYj7UGuqkREnkXlqpEffxr2g6esZcMMaTgECdg5rb2mJqM88+nwS10ecoTg==}
 
   svelte@5.38.6:
     resolution: {integrity: sha512-ltBPlkvqk3bgCK7/N323atUpP3O3Y+DrGV4dcULrsSn4fZaaNnOmdplNznwfdWclAgvSr5rxjtzn/zJhRm6TKg==}
@@ -6413,6 +6431,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@lucide/svelte@0.542.0(svelte@5.38.6)':
+    dependencies:
+      svelte: 5.38.6
 
   '@manypkg/find-root@1.1.0':
     dependencies:
@@ -8157,6 +8179,8 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  highlight.js@11.11.1: {}
 
   hosted-git-info@2.8.9: {}
 
@@ -9911,6 +9935,10 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  svelte-highlight@7.8.4:
+    dependencies:
+      highlight.js: 11.11.1
 
   svelte@5.38.6:
     dependencies:

@@ -15,7 +15,9 @@
     "@drupal-js-sdk/jsonapi": "workspace:*",
     "@drupal-js-sdk/menu": "workspace:*",
     "@drupal-js-sdk/storage": "workspace:*",
-    "drupal-jsonapi-params": "^3.0.0"
+    "@lucide/svelte": "^0.542.0",
+    "drupal-jsonapi-params": "^3.0.0",
+    "svelte-highlight": "^7.8.4"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^6.1.1",

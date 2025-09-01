@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { menu } from "../../lib/sdk";
+  import Pills from "./Pills.svelte";
 
   interface MenuNode {
     id: string;
@@ -34,7 +35,7 @@
       <span class="loading loading-spinner"></span>
     {:else if error}
       <div class="tooltip tooltip-left" data-tip={error}>
-        <span class="badge badge-error">Menu</span>
+        <Pills variant="danger" size="sm">Menu</Pills>
       </div>
     {:else}
       <ul class="menu menu-horizontal px-1">
