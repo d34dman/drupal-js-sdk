@@ -196,8 +196,9 @@ export class FetchClient extends Client implements XhrInterface {
       const minT = retryCfg.minTimeoutMs ?? 250;
       const maxT = retryCfg.maxTimeoutMs ?? 4000;
       let tries = 0;
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
+      const shouldContinue = true;
+      // eslint-disable-next-line no-loops/no-loops
+      while (shouldContinue) {
         try {
           const res = await attemptFetch();
           if (!res.ok && retryOn.has(res.status) && tries < retryCfg.retries) {
@@ -295,20 +296,31 @@ function combineURLs(baseURL: string, relativeURL: string) {
     : baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "");
 }
 
-function serializeQueryParams(params: XhrQueryParams): string {
+const serializeQueryParams = (params: XhrQueryParams): string => {
   const usp = new URLSearchParams();
   const append = (key: string, value: string | number | boolean) => {
     usp.append(key, String(value));
   };
-  Object.entries(params).forEach(([key, value]) => {
+
+  const entries = Object.entries(params);
+  let entryIndex = 0;
+  // eslint-disable-next-line no-loops/no-loops
+  while (entryIndex < entries.length) {
+    const [key, value] = entries[entryIndex];
     if (Array.isArray(value)) {
-      value.forEach((v) => append(key, v));
-      return;
+      let valueIndex = 0;
+      // eslint-disable-next-line no-loops/no-loops
+      while (valueIndex < value.length) {
+        append(key, value[valueIndex]);
+        valueIndex += 1;
+      }
+    } else {
+      append(key, value);
     }
-    append(key, value);
-  });
+    entryIndex += 1;
+  }
   return usp.toString();
-}
+};
 
 async function parseResponseData(response: Response): Promise<unknown> {
   if (response.status === 204 || response.status === 205) {

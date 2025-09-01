@@ -463,7 +463,7 @@ describe("EntityService", () => {
       const result = await entityService.listPage(identifier);
 
       expect(result.items[0]).toHaveProperty("rel");
-      expect(typeof result.items[0].rel).toBe("function");
+      expect(typeof (result.items[0] as any).rel).toBe("function");
     });
   });
 

@@ -382,7 +382,8 @@ describe("DrupalEntity", () => {
     });
 
     test("should proxy adapter registration to EntityService", () => {
-      const customFactory: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
+      const customFactory: EntityAdapterFactory = (_ctx: EntityAdapterContext) =>
+        new MockEntityAdapter();
       drupalEntity.registerAdapter("test", customFactory);
 
       // Should be able to use the registered adapter
@@ -440,8 +441,10 @@ describe("DrupalEntity", () => {
     });
 
     test("should maintain same adapter state as internal service", () => {
-      const customAdapter1: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
-      const customAdapter2: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
+      const customAdapter1: EntityAdapterFactory = (_ctx: EntityAdapterContext) =>
+        new MockEntityAdapter();
+      const customAdapter2: EntityAdapterFactory = (_ctx: EntityAdapterContext) =>
+        new MockEntityAdapter();
 
       drupalEntity
         .registerAdapter("adapter1", customAdapter1)
@@ -511,8 +514,10 @@ describe("DrupalEntity", () => {
     });
 
     test("should handle adapter re-registration", () => {
-      const adapter1: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
-      const adapter2: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
+      const adapter1: EntityAdapterFactory = (_ctx: EntityAdapterContext) =>
+        new MockEntityAdapter();
+      const adapter2: EntityAdapterFactory = (_ctx: EntityAdapterContext) =>
+        new MockEntityAdapter();
 
       drupalEntity.registerAdapter("test", adapter1);
       drupalEntity.registerAdapter("test", adapter2); // Re-register with different implementation

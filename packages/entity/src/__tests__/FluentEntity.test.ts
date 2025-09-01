@@ -1,5 +1,6 @@
 import {
   CoreInterface,
+  EntityAdapterContext,
   EntityAttributes,
   EntityRecord,
   EntityListOptions,
@@ -168,7 +169,10 @@ describe("FluentEntity", () => {
     entityService = new EntityService(mockCore);
 
     // Register JsonApiEntityAdapter
-    entityService.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
+    entityService.registerAdapter(
+      "jsonapi",
+      (ctx: EntityAdapterContext) => new JsonApiEntityAdapter(ctx)
+    );
 
     fluentEntity = new FluentEntity(entityService, { entity: "node", bundle: "article" });
   });
@@ -420,7 +424,10 @@ describe("FluentEntity", () => {
     test("should handle listPage when service doesn't support it", async () => {
       // Create a service without listPage support
       const serviceWithoutListPage = new EntityService(mockCore);
-      serviceWithoutListPage.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
+      serviceWithoutListPage.registerAdapter(
+        "jsonapi",
+        (ctx: EntityAdapterContext) => new JsonApiEntityAdapter(ctx)
+      );
 
       const entity = new FluentEntity(serviceWithoutListPage, {
         entity: "node",

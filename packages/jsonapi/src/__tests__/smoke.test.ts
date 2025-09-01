@@ -53,6 +53,9 @@ class StubClient implements XhrInterface {
   addDefaultHeaders(_headers: { [key: string]: unknown }): XhrInterface {
     return this;
   }
+  addDefaultOptions(_options: Partial<XhrRequestConfig>): XhrInterface {
+    return this;
+  }
   getDrupalError(_response: unknown): DrupalErrorInterface {
     return {
       name: "StubDrupalError",

@@ -1,5 +1,6 @@
 import {
   CoreInterface,
+  EntityAdapterContext,
   StorageInterface,
   StorageRecordInterface,
   StorageValueType,
@@ -118,7 +119,7 @@ test("EntityService + JsonApiEntityAdapter smoke", async () => {
   const svc = new EntityService(core);
 
   // Explicit opt-in
-  svc.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
+  svc.registerAdapter("jsonapi", (ctx: EntityAdapterContext) => new JsonApiEntityAdapter(ctx));
 
   const loader = svc.entity<{ title: string }>({ entity: "node", bundle: "article" }, "jsonapi");
   const record = await loader.load("1");

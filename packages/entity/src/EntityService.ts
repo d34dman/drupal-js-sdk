@@ -1,6 +1,5 @@
 import {
   CoreInterface,
-  EntityAdapter,
   EntityAdapterContext,
   EntityAdapterFactory,
   EntityAttributes,
@@ -66,18 +65,24 @@ export class EntityService {
     identifier: EntityIdentifier,
     options?: EntityListOptions,
     adapterKey?: string
-  ) {
-    const loader: any = this.entity<TAttributes>(identifier, adapterKey);
-    if (typeof loader.listPage !== "function") {
+  ): Promise<{ items: Array<EntityRecord<TAttributes>>; page?: unknown }> {
+    const loader = this.entity<TAttributes>(identifier, adapterKey);
+    const loaderWithPaging = loader as {
+      listPage?: (options?: EntityListOptions) => Promise<{
+        items: Array<EntityRecord<TAttributes>>;
+        page?: unknown;
+      }>;
+    };
+
+    if (typeof loaderWithPaging.listPage !== "function") {
       const items = await this.list<TAttributes>(identifier, options, adapterKey);
       return { items, page: undefined };
     }
-    const result = await loader.listPage(options);
+
+    const result = await loaderWithPaging.listPage(options);
     return {
       ...result,
-      items: (result.items as Array<EntityRecord<TAttributes>>).map((rec) =>
-        attachRelations(rec, this, identifier, adapterKey)
-      ),
+      items: result.items.map((rec) => attachRelations(rec, this, identifier, adapterKey)),
     };
   }
 

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable no-loops/no-loops */
+
 import {
   EntityAdapter,
   EntityAdapterContext,
@@ -9,12 +12,35 @@ import {
 } from "@drupal-js-sdk/interfaces";
 import type { XhrQueryParams } from "@drupal-js-sdk/interfaces";
 
-function toXhrParams(input?: Record<string, unknown> | XhrQueryParams): XhrQueryParams | undefined {
+interface JsonApiResponse {
+  data?: {
+    data?: unknown;
+    meta?: Record<string, unknown>;
+  };
+}
+
+interface JsonApiListResponse {
+  data?: {
+    data?: unknown;
+    meta?: Record<string, unknown>;
+    links?: Record<string, { href?: string }>;
+  };
+}
+
+const toXhrParams = (
+  input?: Record<string, unknown> | XhrQueryParams
+): XhrQueryParams | undefined => {
   if (!input) return undefined;
   const out: XhrQueryParams = {};
-  for (const [key, value] of Object.entries(input)) {
+  const inputObj = input as Record<string, unknown>;
+  const keys = Object.keys(inputObj);
+  let keyIndex = 0;
+  while (keyIndex < keys.length) {
+    const key = keys[keyIndex];
+    const value = inputObj[key];
+    keyIndex += 1;
     if (Array.isArray(value)) {
-      out[key] = value.map((v) => String(v));
+      out[key] = (value as Array<unknown>).map((v) => String(v));
       continue;
     }
     if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
@@ -27,7 +53,7 @@ function toXhrParams(input?: Record<string, unknown> | XhrQueryParams): XhrQuery
     out[key] = String(value);
   }
   return out;
-}
+};
 
 /** JSON:API entity adapter. */
 export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
@@ -47,10 +73,9 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
     const params = toXhrParams(options?.jsonapi?.query ?? options?.params);
     const response = await this.ctx.client.call("GET", url, { params });
 
-    const data: unknown =
-      response && (response as any).data && (response as any).data.data
-        ? (response as any).data.data
-        : undefined;
+    const jsonApiResponse = response as JsonApiResponse | undefined;
+    const data: unknown = jsonApiResponse?.data?.data;
+
     if (!data || typeof data !== "object") {
       return {
         id: "",
@@ -82,7 +107,8 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
   public async list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>> {
     const params = toXhrParams(options?.jsonapi?.query ?? options?.params);
     const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
-    const raw: unknown = response && (response as any).data && (response as any).data.data;
+    const jsonApiResponse = response as JsonApiResponse | undefined;
+    const raw: unknown = jsonApiResponse?.data?.data;
     const rows: Array<unknown> = Array.isArray(raw) ? (raw as Array<unknown>) : [];
     return rows.map((row): EntityRecord<TAttributes> => {
       const rec = (row && typeof row === "object" ? row : {}) as {
@@ -111,7 +137,8 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
   public async listPage(options?: EntityListOptions): Promise<EntityListResult<TAttributes>> {
     const params = toXhrParams(options?.jsonapi?.query ?? options?.params);
     const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
-    const raw: any = response && (response as any).data ? (response as any).data : {};
+    const jsonApiResponse = response as JsonApiListResponse | undefined;
+    const raw = jsonApiResponse?.data ?? {};
     const data: Array<unknown> = Array.isArray(raw.data) ? raw.data : [];
     const items = data.map((row): EntityRecord<TAttributes> => {
       const rec = (row && typeof row === "object" ? row : {}) as {
@@ -134,20 +161,16 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
         relationships: rels,
       };
     });
-    const meta = raw && typeof raw.meta === "object" ? (raw.meta as Record<string, unknown>) : {};
-    const links = raw && typeof raw.links === "object" ? (raw.links as Record<string, any>) : {};
+    const meta = raw.meta && typeof raw.meta === "object" ? raw.meta : {};
+    const links = raw.links && typeof raw.links === "object" ? raw.links : {};
     const page = {
       size: typeof meta["pageSize"] === "number" ? meta["pageSize"] : undefined,
       number: typeof meta["pageNumber"] === "number" ? meta["pageNumber"] : undefined,
       total: typeof meta["count"] === "number" ? meta["count"] : undefined,
       next:
-        links && links.next && typeof links.next.href === "string"
-          ? (links.next.href as string)
-          : null,
+        typeof links.next?.href === "string" && links.next.href.length > 0 ? links.next.href : null,
       prev:
-        links && links.prev && typeof links.prev.href === "string"
-          ? (links.prev.href as string)
-          : null,
+        typeof links.prev?.href === "string" && links.prev.href.length > 0 ? links.prev.href : null,
     };
     return { items, page };
   }
@@ -156,15 +179,18 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
   public async count(options?: EntityListOptions): Promise<number> {
     const params = toXhrParams(options?.jsonapi?.query ?? options?.params);
     const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
-    const meta =
-      response && (response as any).data && (response as any).data.meta
-        ? (response as any).data.meta
+    const jsonApiResponse = response as JsonApiResponse | undefined;
+    const meta = jsonApiResponse?.data?.meta;
+    const countValue =
+      meta && typeof meta === "object" && typeof (meta as { count?: unknown }).count === "number"
+        ? (meta as { count: number }).count
         : undefined;
-    const countValue = meta && typeof meta.count === "number" ? meta.count : undefined;
+
     if (typeof countValue === "number") {
       return countValue;
     }
-    const raw: unknown = response && (response as any).data && (response as any).data.data;
+
+    const raw: unknown = jsonApiResponse?.data?.data;
     const rows: Array<unknown> = Array.isArray(raw) ? (raw as Array<unknown>) : [];
     return rows.length;
   }

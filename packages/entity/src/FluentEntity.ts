@@ -51,9 +51,15 @@ class JsonApiQueryBuilder {
     const out: Record<string, unknown> = {};
     if (this.includePaths.length) out.include = this.includePaths.join(",");
     const fields: Record<string, string> = {};
-    Object.entries(this.fieldsByType).forEach(([type, list]) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const fieldEntries = Object.entries(this.fieldsByType) as Array<[string, string[]]>;
+    let entryIndex = 0;
+    // eslint-disable-next-line no-loops/no-loops
+    while (entryIndex < fieldEntries.length) {
+      const [type, list] = fieldEntries[entryIndex];
       fields[`fields[${type}]`] = list.join(",");
-    });
+      entryIndex += 1;
+    }
     Object.assign(out, fields);
     if (this.sorts.length) {
       out.sort = this.sorts.map((s) => (s.dir === "DESC" ? `-${s.field}` : s.field)).join(",");
@@ -67,6 +73,7 @@ class JsonApiQueryBuilder {
     this.filters.forEach((f, idx) => {
       const key = `filter[${idx}][condition]`;
       out[`${key}[path]`] = f.field;
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (f.operator) out[`${key}[operator]`] = f.operator;
       out[`${key}[value]`] = Array.isArray(f.value) ? f.value.join(",") : f.value;
     });
@@ -112,7 +119,8 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
   }
   /** Accept drupal-jsonapi-params instance via duck-typing */
   public fromParams(p: { getQueryObject?: () => Record<string, unknown> }): this {
-    const obj = typeof p?.getQueryObject === "function" ? p.getQueryObject() : {};
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    const obj = p && typeof p.getQueryObject === "function" ? p.getQueryObject() : {};
     this.externalParams = { ...(this.externalParams ?? {}), ...obj };
     return this;
   }
@@ -163,21 +171,26 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
         query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q },
       },
     };
-    const svc: any = this.service as unknown as {
-      listPage: (id: EntityIdentifier, o?: EntityListOptions) => Promise<unknown>;
-    };
-    if (typeof svc.listPage === "function") {
-      return svc.listPage(this.identifier, opts) as Promise<{
+    const svc = this.service as {
+      listPage?: (
+        id: EntityIdentifier,
+        o?: EntityListOptions
+      ) => Promise<{
         items: Array<EntityRecord<TAttributes>>;
         page?: unknown;
       }>;
+    };
+    if (typeof svc.listPage === "function") {
+      return svc.listPage(this.identifier, opts);
     }
     const items = await this.service.list<TAttributes>(this.identifier, opts);
     return { items };
   }
 
   public async get(options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
-    if (!this.targetId) throw new Error("No id() set for get()");
+    if (typeof this.targetId !== "string" || this.targetId.length === 0) {
+      throw new Error("No id() set for get()");
+    }
     const q = this.qb.toObject();
     const opts: EntityLoadOptions = {
       ...options,
@@ -205,13 +218,10 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
         },
       };
       // Prefer service.count if available
-      if (
-        typeof (
-          this.service as unknown as {
-            count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>;
-          }
-        ).count === "function"
-      ) {
+      const serviceWithCount = this.service as {
+        count?: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>;
+      };
+      if (serviceWithCount.count && typeof serviceWithCount.count === "function") {
         return await (
           this.service as unknown as {
             count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>;

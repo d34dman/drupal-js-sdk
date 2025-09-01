@@ -648,7 +648,7 @@ describe("attachRelations", () => {
 
       const enhanced = attachRelations(recordWithRelation, mockService as any, baseIdentifier);
 
-      const relatedUsers = await enhanced.rel("field_author").load<UserAttributes>();
+      const relatedUsers = await (enhanced as any).rel("field_author").load();
 
       expect(relatedUsers[0].attributes).toHaveProperty("name");
       expect(relatedUsers[0].attributes).toHaveProperty("email");
@@ -674,10 +674,10 @@ describe("attachRelations", () => {
 
       const enhanced = attachRelations(recordWithTags, mockService as any, baseIdentifier);
 
-      const relatedTags = await enhanced.rel("field_tags").load<TagAttributes>();
+      const relatedTags = await (enhanced as any).rel("field_tags").load();
 
       expect(relatedTags).toHaveLength(2);
-      relatedTags.forEach((tag) => {
+      relatedTags.forEach((tag: EntityRecord<TagAttributes>) => {
         expect(tag.attributes).toHaveProperty("name");
         expect(tag.attributes).toHaveProperty("weight");
       });
