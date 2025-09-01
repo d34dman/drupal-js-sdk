@@ -27,7 +27,7 @@
 
 <div class="navbar bg-base-100 shadow">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl" href="/">Svelte + Drupal</a>
+    <a class="btn btn-ghost text-xl" href="/">Drupal JS SDK + Svelte</a>
   </div>
   <div class="flex-none">
     {#if loading}

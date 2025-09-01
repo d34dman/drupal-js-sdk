@@ -30,40 +30,42 @@ CORS in Drupal is configured[^2] in `sites/default/services.yml` (or an environm
 [^2]:
     Opt-in CORS support (Change record on Drupal.org): [https://www.drupal.org/node/2715637](https://www.drupal.org/node/2715637)
 
-Minimal example (GET only, public APIs):
+???+ example
 
-```yaml
-# sites/default/services.yml
-cors.config:
-  enabled: true
-  allowedOrigins: ['^https?://localhost(:[0-9]+)?$', '^https://app\.example\.com$']
-  allowedHeaders: ['x-requested-with', 'content-type', 'accept']
-  allowedMethods: ['GET', 'OPTIONS']
-  exposedHeaders: []
-  maxAge: 86400
-  supportsCredentials: false
-```
+    Minimal example (GET only, public APIs):
 
-Cookie/session-based example (credentials, unsafe methods):
+    ```yaml
+    # sites/default/services.yml
+    cors.config:
+      enabled: true
+      allowedOrigins: ['http://localhost:5173']
+      allowedHeaders: ['x-requested-with', 'content-type', 'accept']
+      allowedMethods: ['GET', 'OPTIONS']
+      exposedHeaders: []
+      maxAge: 86400
+      supportsCredentials: false
+    ```
 
-```yaml
-# sites/default/services.yml
-cors.config:
-  enabled: true
-  # EXACT origins only when credentials are involved (no '*')
-  allowedOrigins: ['^https://app\.example\.com$']
-  allowedHeaders: ['x-csrf-token', 'content-type', 'accept', 'authorization', 'x-requested-with']
-  allowedMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS']
-  exposedHeaders: ['x-csrf-token']
-  maxAge: 86400
-  supportsCredentials: true
-```
+    Cookie/session-based example (credentials, unsafe methods):
+    ```yaml
+      # sites/default/services.yml
+      cors.config:
+        enabled: true
+        allowedHeaders: ['x-csrf-token','authorization','content-type','accept','origin','x-requested-with', 'access-control-allow-origin','x-allowed-header']
+        allowedMethods: ['POST', 'GET', 'OPTIONS', 'DELETE', 'PUT', 'PATCH']
+        allowedOrigins: ['http://localhost:5173']
+        allowedOriginsPatterns: []
+        exposedHeaders:  []
+        maxAge: false
+        supportsCredentials: true
+    ```
+
 
 !!! warning
     **Wildcard origins + credentials**
 
     Browsers reject `Access-Control-Allow-Origin: *` when `Access-Control-Allow-Credentials: true`.
-    Use explicit origins (exact host, protocol and port) via regex patterns.
+    Use explicit origins (exact host, protocol and port).
 
 !!! tip
     **CSRF tokens for write requests**
