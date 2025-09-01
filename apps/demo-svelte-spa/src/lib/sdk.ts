@@ -14,7 +14,7 @@ import { StorageInWeb } from "@drupal-js-sdk/storage";
 // Read base URL from Vite env
 const baseURL = import.meta.env.VITE_DRUPAL_BASE_URL as string | undefined;
 
-if (!baseURL || typeof baseURL !== "string") {
+if (typeof baseURL !== "string" || baseURL.length === 0) {
   // Throw early so devs see clear error rather than silent failures
   throw new Error("VITE_DRUPAL_BASE_URL is not set. Create .env and set the Drupal base URL.");
 }

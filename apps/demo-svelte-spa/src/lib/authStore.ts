@@ -26,7 +26,7 @@ export const checkLogin = async (): Promise<void> => {
   }
 };
 
-export async function loginWithCredentials(username: string, password: string): Promise<void> {
+export const loginWithCredentials = async (username: string, password: string): Promise<void> => {
   try {
     await auth.getSessionToken();
     await auth.login(username, password);
@@ -38,13 +38,13 @@ export async function loginWithCredentials(username: string, password: string): 
       error: "Invalid credentials or server error",
     });
   }
-}
+};
 
-export async function logout(): Promise<void> {
+export const logout = async (): Promise<void> => {
   try {
     await auth.logout();
   } catch (_e) {
     // no-op, treat as logged out regardless
   }
   authState.set({ isLoggedIn: false, username: "", error: null });
-}
+};
