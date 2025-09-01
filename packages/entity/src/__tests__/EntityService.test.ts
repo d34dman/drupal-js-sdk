@@ -15,8 +15,9 @@ import {
   StorageValueType,
   StorageRecordInterface,
 } from "@drupal-js-sdk/interfaces";
-import { EntityService } from "../EntityService";
+
 import { EntityLoader } from "../EntityLoader";
+import { EntityService } from "../EntityService";
 
 /**
  * Mock Storage implementation for testing
@@ -66,7 +67,7 @@ class MockStorage implements StorageInterface {
  * Mock XHR client for testing
  */
 class MockXhrClient implements XhrInterface {
-  private mockResponses: Map<string, unknown> = new Map();
+  private readonly mockResponses: Map<string, unknown> = new Map();
 
   setClient(_client: unknown): XhrInterface {
     return this;
@@ -126,9 +127,9 @@ class MockXhrClient implements XhrInterface {
  * Mock Core implementation for testing
  */
 class MockCore implements CoreInterface {
-  private client: XhrInterface;
+  private readonly client: XhrInterface;
   public config: StorageInterface;
-  private session: StorageInterface;
+  private readonly session: StorageInterface;
 
   constructor() {
     this.client = new MockXhrClient();
@@ -155,8 +156,8 @@ class MockCore implements CoreInterface {
 class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
   implements EntityAdapter<TAttributes> {
   
-  private mockData: EntityRecord<TAttributes>[];
-  private mockSingleData: EntityRecord<TAttributes>;
+  private readonly mockData: EntityRecord<TAttributes>[];
+  private readonly mockSingleData: EntityRecord<TAttributes>;
 
   constructor() {
     this.mockSingleData = {
@@ -454,7 +455,7 @@ describe("EntityService", () => {
       const result = await entityService.listPage(identifier);
       
       expect(result.items[0]).toHaveProperty("rel");
-      expect(typeof (result.items[0] as any).rel).toBe("function");
+      expect(typeof (result.items[0] ).rel).toBe("function");
     });
   });
 

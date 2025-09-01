@@ -4,12 +4,12 @@
  * - Configures session storage for browser
  * - Exposes Auth and Menu facades
  */
-import { Drupal } from "@drupal-js-sdk/core";
 import { DrupalAuth } from "@drupal-js-sdk/auth";
-import { DrupalMenu } from "@drupal-js-sdk/menu";
-import { StorageInWeb } from "@drupal-js-sdk/storage";
+import { Drupal } from "@drupal-js-sdk/core";
 import { DrupalEntity } from "@drupal-js-sdk/entity";
 import { JsonApiEntityAdapter } from "@drupal-js-sdk/jsonapi";
+import { DrupalMenu } from "@drupal-js-sdk/menu";
+import { StorageInWeb } from "@drupal-js-sdk/storage";
 
 // Read base URL from Vite env
 const baseURL = import.meta.env.VITE_DRUPAL_BASE_URL as string | undefined;

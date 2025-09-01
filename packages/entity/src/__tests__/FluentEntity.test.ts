@@ -11,9 +11,10 @@ import {
   StorageValueType,
   StorageRecordInterface,
 } from "@drupal-js-sdk/interfaces";
+import { JsonApiEntityAdapter } from "@drupal-js-sdk/jsonapi";
+
 import { EntityService } from "../EntityService";
 import { FluentEntity } from "../FluentEntity";
-import { JsonApiEntityAdapter } from "@drupal-js-sdk/jsonapi";
 
 /**
  * Mock Storage implementation for testing
@@ -64,7 +65,7 @@ class MockStorage implements StorageInterface {
  */
 class MockXhrClient implements XhrInterface {
   private defaultHeaders: Record<string, unknown> = {};
-  private mockResponses: Map<string, unknown> = new Map();
+  private readonly mockResponses: Map<string, unknown> = new Map();
 
   setClient(_client: unknown): XhrInterface {
     return this;
@@ -134,9 +135,9 @@ class MockXhrClient implements XhrInterface {
  * Mock Core implementation for testing
  */
 class MockCore implements CoreInterface {
-  private client: XhrInterface;
+  private readonly client: XhrInterface;
   public config: StorageInterface;
-  private session: StorageInterface;
+  private readonly session: StorageInterface;
 
   constructor() {
     this.client = new MockXhrClient();

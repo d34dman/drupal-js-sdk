@@ -1,6 +1,7 @@
 import { CoreInterface, EntityAdapterFactory, EntityAttributes, EntityIdentifier } from "@drupal-js-sdk/interfaces";
-import { EntityService } from "./EntityService";
+
 import { EntityLoader } from "./EntityLoader";
+import { EntityService } from "./EntityService";
 import { FluentEntity } from "./FluentEntity";
 
 /**

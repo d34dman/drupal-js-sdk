@@ -1,4 +1,5 @@
 import { EntityAttributes, EntityIdentifier, EntityListOptions, EntityRecord } from "@drupal-js-sdk/interfaces";
+
 import { EntityService } from "./EntityService";
 
 type RelationAccessor = {

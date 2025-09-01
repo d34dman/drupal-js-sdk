@@ -12,7 +12,7 @@ describe("FluentEntity Query Building", () => {
   
   test("should handle ASC sort direction correctly", () => {
     // Create FluentEntity instance with mock service
-    const MockService = require('../EntityService').EntityService;
+    const MockService = require("../EntityService").EntityService;
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([]),

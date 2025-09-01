@@ -9,6 +9,7 @@ import {
   XhrInterface,
   StorageInterface,
 } from "@drupal-js-sdk/interfaces";
+
 import { EntityLoader } from "../EntityLoader";
 
 /**

@@ -1,5 +1,3 @@
-import { EntityService } from "..";
-import { JsonApiEntityAdapter } from "@drupal-js-sdk/jsonapi";
 import {
   CoreInterface,
   StorageInterface,
@@ -8,8 +6,10 @@ import {
   XhrInterface,
   XhrResponse,
   XhrRequestConfig,
-} from "@drupal-js-sdk/interfaces";
-import { DrupalErrorInterface } from "@drupal-js-sdk/interfaces";
+ DrupalErrorInterface } from "@drupal-js-sdk/interfaces";
+import { JsonApiEntityAdapter } from "@drupal-js-sdk/jsonapi";
+
+import { EntityService } from "..";
 
 class MemoryStorage implements StorageInterface {
   private store: StorageRecordInterface = {};
@@ -67,7 +67,7 @@ class StubClient implements XhrInterface {
 
 class StubCore implements CoreInterface {
   public config: StorageInterface;
-  private client: XhrInterface;
+  private readonly client: XhrInterface;
   constructor(client: XhrInterface) {
     this.client = client;
     this.config = new MemoryStorage();

@@ -15,9 +15,10 @@ import {
   StorageValueType,
   StorageRecordInterface,
 } from "@drupal-js-sdk/interfaces";
+
 import { DrupalEntity } from "../DrupalEntity";
-import { EntityService } from "../EntityService";
 import { EntityLoader } from "../EntityLoader";
+import { EntityService } from "../EntityService";
 import { FluentEntity } from "../FluentEntity";
 
 /**
@@ -122,9 +123,9 @@ class MockXhrClient implements XhrInterface {
  * Mock Core implementation for testing
  */
 class MockCore implements CoreInterface {
-  private client: XhrInterface;
+  private readonly client: XhrInterface;
   public config: StorageInterface;
-  private session: StorageInterface;
+  private readonly session: StorageInterface;
 
   constructor() {
     this.client = new MockXhrClient();

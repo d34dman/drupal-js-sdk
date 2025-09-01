@@ -1,4 +1,3 @@
-import { JsonApiEntityAdapter } from "..";
 import {
   EntityAdapterContext,
   StorageInterface,
@@ -7,8 +6,9 @@ import {
   XhrInterface,
   XhrResponse,
   XhrRequestConfig,
-} from "@drupal-js-sdk/interfaces";
-import { DrupalErrorInterface } from "@drupal-js-sdk/interfaces";
+ DrupalErrorInterface } from "@drupal-js-sdk/interfaces";
+
+import { JsonApiEntityAdapter } from "..";
 
 class MemoryStorage implements StorageInterface {
   private store: StorageRecordInterface = {};

@@ -1,4 +1,3 @@
-import { JsonApiEntityAdapter } from "../JsonApiEntityAdapter";
 import {
   EntityAdapterContext,
   EntityIdentifier,
@@ -12,6 +11,8 @@ import {
   XhrResponse,
   XhrRequestConfig,
 } from "@drupal-js-sdk/interfaces";
+
+import { JsonApiEntityAdapter } from "../JsonApiEntityAdapter";
 
 /**
  * Mock Storage implementation for testing
@@ -61,7 +62,7 @@ class MockStorage implements StorageInterface {
  * Mock XHR client with configurable responses
  */
 class MockXhrClient implements XhrInterface {
-  private mockResponses: Map<string, any> = new Map();
+  private readonly mockResponses: Map<string, any> = new Map();
   private callLog: Array<{ method: string; path: string; config?: any }> = [];
 
   setClient(_client: unknown): XhrInterface {

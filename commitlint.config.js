@@ -1,9 +1,9 @@
 module.exports = {
     extends: [
-        '@commitlint/config-conventional'
+        "@commitlint/config-conventional"
     ],
     plugins: [
-        'workspace-scopes'
+        "workspace-scopes"
     ],
     rules: {
         "scope-enum": [

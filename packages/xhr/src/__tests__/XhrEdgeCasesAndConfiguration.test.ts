@@ -23,7 +23,7 @@ describe("XHR Edge Cases and Configuration", () => {
     
     // Test constructor behavior with various environment configurations
     (global as any).window = { fetch: undefined }; // Browser without fetch polyfill
-    let client = new FetchClient();
+    const client = new FetchClient();
     
     // Test setClient with different global fetch scenarios
     (global as any).window = { fetch: global.fetch }; 

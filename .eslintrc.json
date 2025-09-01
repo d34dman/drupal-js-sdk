@@ -1,0 +1,120 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "no-loops",
+    "prefer-arrow",
+    "import"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.eslint.json"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "env": {
+    "node": true,
+    "es2020": true
+  },
+  "rules": {
+    // Core ESLint rules
+    "no-console": "error",
+    "no-debugger": "error",
+    "prefer-const": "error",
+    "no-var": "error",
+    
+    // String preferences - enforce double quotes
+    "quotes": ["error", "double", { "avoidEscape": true }],
+    "prefer-template": "error",
+    
+    // TypeScript strict rules - no any, no non-null assertions
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/no-unsafe-assignment": "error",
+    "@typescript-eslint/no-unsafe-call": "error",
+    "@typescript-eslint/no-unsafe-member-access": "error",
+    "@typescript-eslint/no-unsafe-return": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/prefer-optional-chain": "error",
+    "@typescript-eslint/strict-boolean-expressions": "error",
+    
+    // Prevent loops (functional programming preference)
+    "no-loops/no-loops": "error",
+    
+    // Prefer arrow functions
+    "prefer-arrow/prefer-arrow-functions": [
+      "error",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ],
+    
+    // Import/export rules
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-duplicates": "error",
+    "import/no-unresolved": "off",
+    
+    // Code quality
+    "@typescript-eslint/prefer-readonly": "error",
+    "@typescript-eslint/prefer-as-const": "error",
+    "@typescript-eslint/no-magic-numbers": [
+      "error",
+      {
+        "ignore": [-1, 0, 1, 2],
+        "ignoreArrayIndexes": true,
+        "ignoreDefaultValues": true,
+        "ignoreClassFieldInitialValues": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.config.js", "**/*.config.ts", "**/rollup.config.js"],
+      "rules": {
+        "no-console": "off",
+        "@typescript-eslint/no-magic-numbers": "off"
+      }
+    },
+    {
+      "files": ["apps/**/*.ts", "apps/**/*.js"],
+      "rules": {
+        "no-console": "warn"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "dist/**",
+    "coverage/**",
+    "node_modules/**",
+    "*.d.ts",
+    "**/*.js.map",
+    "apps/drupal-js-sdk-server/**"
+  ]
+}

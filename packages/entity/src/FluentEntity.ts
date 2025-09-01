@@ -1,4 +1,5 @@
 import { EntityIdentifier, EntityAttributes, EntityRecord, EntityListOptions, EntityLoadOptions } from "@drupal-js-sdk/interfaces";
+
 import { EntityService } from "./EntityService";
 
 type SortDirection = "ASC" | "DESC";
@@ -13,11 +14,11 @@ interface PageOptions {
 
 /** Simple JSON:API query object builder (plain object, not string). */
 class JsonApiQueryBuilder {
-  private includePaths: string[] = [];
+  private readonly includePaths: string[] = [];
   private fieldsByType: Record<string, string[]> = {};
-  private sorts: Array<{ field: string; dir: SortDirection }> = [];
+  private readonly sorts: Array<{ field: string; dir: SortDirection }> = [];
   private pageObj: PageOptions = {};
-  private filters: Array<{ field: string; operator?: string; value: FilterValue }> = [];
+  private readonly filters: Array<{ field: string; operator?: string; value: FilterValue }> = [];
 
   public include(paths: string[]): this { this.includePaths.push(...paths); return this; }
   public select(type: string, fields: string[]): this { this.fieldsByType[type] = fields; return this; }
@@ -48,7 +49,7 @@ class JsonApiQueryBuilder {
       const key = `filter[${idx}][condition]`;
       out[`${key}[path]`] = f.field;
       if (f.operator) out[`${key}[operator]`] = f.operator;
-      out[`${key}[value]`] = Array.isArray(f.value) ? (f.value as Array<string | number | boolean>).join(",") : f.value;
+      out[`${key}[value]`] = Array.isArray(f.value) ? (f.value ).join(",") : f.value;
     });
     return out;
   }

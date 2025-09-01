@@ -436,13 +436,13 @@ describe('FetchClient Missing Coverage', () => {
       // Test with window environment
       (global as any).window = { fetch: global.fetch };
       
-      let client1 = new FetchClient({ baseURL: 'https://window-env.example.com' });
+      const client1 = new FetchClient({ baseURL: 'https://window-env.example.com' });
       expect(client1).toBeInstanceOf(FetchClient);
       
       // Test with no window
       delete (global as any).window;
       
-      let client2 = new FetchClient({ baseURL: 'https://no-window.example.com' });
+      const client2 = new FetchClient({ baseURL: 'https://no-window.example.com' });
       expect(client2).toBeInstanceOf(FetchClient);
       
       // Restore window

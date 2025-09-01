@@ -101,9 +101,9 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
     const meta = (raw && typeof raw.meta === "object") ? raw.meta as Record<string, unknown> : {};
     const links = (raw && typeof raw.links === "object") ? raw.links as Record<string, any> : {};
     const page = {
-      size: typeof meta["pageSize"] === "number" ? (meta["pageSize"] as number) : undefined,
-      number: typeof meta["pageNumber"] === "number" ? (meta["pageNumber"] as number) : undefined,
-      total: typeof meta["count"] === "number" ? (meta["count"] as number) : undefined,
+      size: typeof meta["pageSize"] === "number" ? (meta["pageSize"] ) : undefined,
+      number: typeof meta["pageNumber"] === "number" ? (meta["pageNumber"] ) : undefined,
+      total: typeof meta["count"] === "number" ? (meta["count"] ) : undefined,
       next: links && links.next && typeof links.next.href === "string" ? links.next.href as string : null,
       prev: links && links.prev && typeof links.prev.href === "string" ? links.prev.href as string : null,
     };

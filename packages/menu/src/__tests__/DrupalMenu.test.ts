@@ -190,7 +190,7 @@ test('Drupal Menu list alias method (Line 51)', async () => {
   const sdk = new Drupal(config);
   const menu = new DrupalMenu(sdk);
 
-  let spy = jest.spyOn(menu, 'getMenuRaw').mockImplementation(
+  const spy = jest.spyOn(menu, 'getMenuRaw').mockImplementation(
     (): Promise<any> => Promise.resolve({data: mockData.valid}),
   );
 

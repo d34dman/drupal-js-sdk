@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+coverage/
+**/coverage/
+api/
+**/api/
+
+# Drupal server (PHP codebase)
+apps/drupal-js-sdk-server/
+
+# Generated files
+*.d.ts
+*.js.map
+
+# Config files that may have relaxed rules
+rollup.config.js
+**/rollup.config.js
+vite.config.js
+**/vite.config.js
+postcss.config.cjs
+**/postcss.config.cjs
+tailwind.config.cjs
+**/tailwind.config.cjs
+svelte.config.js
+**/svelte.config.js
+**/main.js
+apps/**/main.js
+
+# Test files and directories
+**/__tests__/**
+**/*.test.ts
+**/*.test.js
+**/*.spec.ts
+**/*.spec.js
+test-build.js
+**/test-build.js
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store

@@ -5,6 +5,7 @@ import {
   EntityListOptions,
   EntityLoadOptions,
 } from "@drupal-js-sdk/interfaces";
+
 import { EntityService } from "../EntityService";
 import { attachRelations } from "../relations";
 
@@ -12,8 +13,8 @@ import { attachRelations } from "../relations";
  * Mock EntityService for testing relations
  */
 class MockEntityService {
-  private mockData: Map<string, EntityRecord<EntityAttributes>> = new Map();
-  private mockListData: Map<string, Array<EntityRecord<EntityAttributes>>> = new Map();
+  private readonly mockData: Map<string, EntityRecord<EntityAttributes>> = new Map();
+  private readonly mockListData: Map<string, Array<EntityRecord<EntityAttributes>>> = new Map();
   private shouldThrowError = false;
   private errorMessage = "Mock service error";
 

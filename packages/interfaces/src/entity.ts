@@ -30,7 +30,7 @@ export interface EntityLoadOptions {
 }
 
 /** Adapter-agnostic list options; mirrors load options. */
-export interface EntityListOptions extends EntityLoadOptions {}
+export type EntityListOptions = EntityLoadOptions
 
 /** Pagination info parsed from adapter responses. */
 export interface EntityPageInfo {

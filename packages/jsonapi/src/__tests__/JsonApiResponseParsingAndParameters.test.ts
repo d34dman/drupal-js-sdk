@@ -1,5 +1,6 @@
-import { JsonApiEntityAdapter } from "../JsonApiEntityAdapter";
 import { EntityAdapterContext, XhrInterface, XhrResponse } from "@drupal-js-sdk/interfaces";
+
+import { JsonApiEntityAdapter } from "../JsonApiEntityAdapter";
 
 /**
  * Tests for JsonAPI response parsing and parameter handling.
