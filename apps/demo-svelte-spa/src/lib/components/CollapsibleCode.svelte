@@ -18,7 +18,7 @@
   </div>
   {#if open}
     <div class="px-4 pb-4">
-      <CodeBlock code={code} language="json" title={title} />
+      <CodeBlock code={code} language="javascript" title={title} />
     </div>
   {/if}
 </div>

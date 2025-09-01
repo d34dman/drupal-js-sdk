@@ -233,7 +233,7 @@ npm install @drupal-js-sdk/entity
 npm install @drupal-js-sdk/menu
 
 # TypeScript definitions included!`}
-          language="typescript"
+          language="bash"
           title="Package Installation"
         />
       </div>
@@ -285,7 +285,7 @@ const menu = await drupal.menu.getMenu('main');`}
 ├── storage/        # Data persistence
 ├── xhr/            # HTTP client
 └── interfaces/     # TypeScript definitions`}
-            language="typescript"
+            language="text"
             title="Package Structure"
           />
         </div>

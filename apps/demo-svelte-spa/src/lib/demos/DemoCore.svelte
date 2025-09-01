@@ -370,7 +370,7 @@ Entity (Content Management)
 ├── Relationship Loading
 ├── Type Safety
 └── Caching`}
-        language="typescript"
+        language="text"
         title="Module Dependencies"
       />
     </div>

@@ -264,7 +264,7 @@ const menuItems = await menu.getMenu('main');
     </ul>
   {/if}
 {/each}`}
-          language="typescript"
+          language="svelte"
           title="Svelte Menu Component"
         />
       </div>

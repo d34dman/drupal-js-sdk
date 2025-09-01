@@ -3,11 +3,14 @@
   import typescript from "svelte-highlight/languages/typescript";
   import javascript from "svelte-highlight/languages/javascript";
   import json from "svelte-highlight/languages/json";
+  import bash from "svelte-highlight/languages/bash";
+  import plaintext from "svelte-highlight/languages/plaintext";
+  import xml from "svelte-highlight/languages/xml";
   import github from "svelte-highlight/styles/github";
   import { Code2 } from "@lucide/svelte";
 
   export let code: string;
-  export let language: "typescript" | "javascript" | "json" = "typescript";
+  export let language: "typescript" | "javascript" | "json" | "bash" | "text" | "svelte" = "typescript";
   export let title: string = "";
   // Using const export to avoid unused export let warning
   export const showLineNumbers: boolean = false;
@@ -16,9 +19,12 @@
     typescript,
     javascript,
     json,
+    bash,
+    text: plaintext,
+    svelte: xml,
   };
 
-  $: selectedLanguage = languageMap[language];
+  $: selectedLanguage = languageMap[language] || typescript;
 </script>
 
 <svelte:head>
