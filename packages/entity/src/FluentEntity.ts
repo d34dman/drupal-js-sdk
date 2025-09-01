@@ -18,66 +18,47 @@ interface PageOptions {
   number?: number;
 }
 
-/** Simple JSON:API query object builder (plain object, not string). */
+/** Simple JSON:API query object builder */
 class JsonApiQueryBuilder {
-  private readonly includePaths: string[] = [];
-  private fieldsByType: Record<string, string[]> = {};
-  private readonly sorts: Array<{ field: string; dir: SortDirection }> = [];
-  private pageObj: PageOptions = {};
-  private readonly filters: Array<{ field: string; operator?: string; value: FilterValue }> = [];
+  private query: Record<string, unknown> = {};
+  private filterIndex = 0;
 
   public include(paths: string[]): this {
-    this.includePaths.push(...paths);
+    this.query.include = paths.join(",");
     return this;
   }
+
   public select(type: string, fields: string[]): this {
-    this.fieldsByType[type] = fields;
+    this.query[`fields[${type}]`] = fields.join(",");
     return this;
   }
+
   public sort(field: string, dir: SortDirection): this {
-    this.sorts.push({ field, dir });
+    const sortValue = dir === "DESC" ? `-${field}` : field;
+    const existing = this.query.sort as string;
+    this.query.sort = existing ? `${existing},${sortValue}` : sortValue;
     return this;
   }
+
   public page(opts: PageOptions): this {
-    this.pageObj = { ...this.pageObj, ...opts };
+    if (typeof opts.limit === "number") this.query["page[limit]"] = opts.limit;
+    if (typeof opts.offset === "number") this.query["page[offset]"] = opts.offset;
+    if (typeof opts.number === "number") this.query["page[number]"] = opts.number;
     return this;
   }
+
   public where(field: string, value: FilterValue, operator?: string): this {
-    this.filters.push({ field, value, operator });
+    const key = `filter[${this.filterIndex}][condition]`;
+    this.query[`${key}[path]`] = field;
+    if (typeof operator === "string" && operator.length > 0)
+      this.query[`${key}[operator]`] = operator;
+    this.query[`${key}[value]`] = Array.isArray(value) ? value.join(",") : value;
+    this.filterIndex++;
     return this;
   }
 
   public toObject(): Record<string, unknown> {
-    const out: Record<string, unknown> = {};
-    if (this.includePaths.length) out.include = this.includePaths.join(",");
-    const fields: Record<string, string> = {};
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    const fieldEntries = Object.entries(this.fieldsByType) as Array<[string, string[]]>;
-    let entryIndex = 0;
-    // eslint-disable-next-line no-loops/no-loops
-    while (entryIndex < fieldEntries.length) {
-      const [type, list] = fieldEntries[entryIndex];
-      fields[`fields[${type}]`] = list.join(",");
-      entryIndex += 1;
-    }
-    Object.assign(out, fields);
-    if (this.sorts.length) {
-      out.sort = this.sorts.map((s) => (s.dir === "DESC" ? `-${s.field}` : s.field)).join(",");
-    }
-    const page: Record<string, number> = {};
-    if (typeof this.pageObj.limit === "number") page["page[limit]"] = this.pageObj.limit;
-    if (typeof this.pageObj.offset === "number") page["page[offset]"] = this.pageObj.offset;
-    if (typeof this.pageObj.number === "number") page["page[number]"] = this.pageObj.number;
-    Object.assign(out, page);
-
-    this.filters.forEach((f, idx) => {
-      const key = `filter[${idx}][condition]`;
-      out[`${key}[path]`] = f.field;
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (f.operator) out[`${key}[operator]`] = f.operator;
-      out[`${key}[value]`] = Array.isArray(f.value) ? f.value.join(",") : f.value;
-    });
-    return out;
+    return { ...this.query };
   }
 }
 

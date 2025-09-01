@@ -12,50 +12,25 @@ type FetchFunctionType = (input: any, init?: any) => Promise<Response>;
 export class FetchClient extends Client implements XhrInterface {
   protected client: FetchFunctionType;
   protected config: StorageRecordInterface;
-  private originalClient: FetchFunctionType;
+  private unboundClient: FetchFunctionType;
 
   constructor(config: StorageRecordInterface = {}) {
     super();
     checkFetcher();
     this.config = config;
-    // Bind global fetch to avoid "Illegal invocation" in some environments where
-    // an unbound reference to fetch loses its global this context.
-    const g: any =
-      typeof window !== "undefined"
-        ? window
-        : typeof globalThis !== "undefined"
-          ? globalThis
-          : undefined;
-    const globalFetch: FetchFunctionType = g && typeof g.fetch === "function" ? g.fetch : fetch;
-    this.client = globalFetch.bind(g ?? globalThis);
-    this.originalClient = globalFetch;
+    // Simple fetch binding - works in all modern environments
+    this.client = fetch.bind(globalThis);
+    this.unboundClient = fetch;
   }
 
   public setClient(fetchClient: FetchFunctionType = fetch): XhrInterface {
-    // Respect custom client but bind if it's the global fetch to ensure correct this.
-    const isGlobalFetch =
-      fetchClient === fetch || (typeof window !== "undefined" && fetchClient === window.fetch);
-    if (isGlobalFetch) {
-      const g: any =
-        typeof window !== "undefined"
-          ? window
-          : typeof globalThis !== "undefined"
-            ? globalThis
-            : undefined;
-      const globalFetch: FetchFunctionType =
-        g && typeof g.fetch === "function" ? g.fetch : fetchClient;
-      this.client = globalFetch.bind(g ?? globalThis);
-      this.originalClient = globalFetch;
-    } else {
-      this.client = fetchClient;
-      this.originalClient = fetchClient;
-    }
+    this.client = fetchClient;
+    this.unboundClient = fetchClient;
     return this;
   }
 
   public getClient() {
-    // Return the unbound/original client for identity checks in tests and consumers.
-    return this.originalClient;
+    return this.unboundClient;
   }
 
   public addDefaultHeaders(headers: StorageRecordInterface): XhrInterface {
@@ -127,43 +102,21 @@ export class FetchClient extends Client implements XhrInterface {
     if (reqConfig.cache) (args as any).cache = reqConfig.cache;
     // Attach request body when provided
     if (typeof reqConfig.data !== "undefined") {
-      const existingCT =
-        (args.headers as any)["Content-Type"] || (args.headers as any)["content-type"] || "";
-      const contentType = String(existingCT).toLowerCase();
-      const data: unknown = (reqConfig as any).data;
-      // Heuristics: preserve FormData/Blob/ArrayBuffer/URLSearchParams; stringify plain objects when JSON
-      const isFormData = typeof FormData !== "undefined" && data instanceof FormData;
-      const isURLSearchParams =
-        typeof URLSearchParams !== "undefined" && data instanceof URLSearchParams;
-      const isBlob = typeof Blob !== "undefined" && data instanceof Blob;
-      const isArrayBuffer = typeof ArrayBuffer !== "undefined" && data instanceof ArrayBuffer;
-      const isArrayBufferView =
-        typeof ArrayBuffer !== "undefined" &&
-        ArrayBuffer.isView &&
-        ArrayBuffer.isView(data as ArrayBufferView);
-      const isReadableStream =
-        typeof ReadableStream !== "undefined" && data instanceof ReadableStream;
-      if (
-        isFormData ||
-        isURLSearchParams ||
-        isBlob ||
-        isArrayBuffer ||
-        isArrayBufferView ||
-        isReadableStream
-      ) {
+      const data = reqConfig.data;
+
+      // Handle common body types - let browser handle native types
+      if (typeof data === "string") {
         (args as any).body = data;
-        // Let browser set correct content-type, remove any manual JSON type
-        if (contentType.includes("application/json")) {
-          delete (args.headers as any)["Content-Type"];
-        }
-      } else if (typeof data === "string") {
+      } else if (data instanceof FormData || data instanceof URLSearchParams) {
+        (args as any).body = data;
+        // Remove JSON content-type if set, let browser handle it
+        delete (args.headers as any)["Content-Type"];
+      } else if (data instanceof Blob || data instanceof ArrayBuffer) {
         (args as any).body = data;
       } else {
-        // Default: JSON encode plain objects
+        // Default: JSON encode objects
         (args as any).body = JSON.stringify(data);
-        if (!contentType.includes("application/json")) {
-          (args.headers as any)["Content-Type"] = "application/json";
-        }
+        (args.headers as any)["Content-Type"] = "application/json";
       }
     }
     // Append query params if provided
@@ -271,27 +224,15 @@ function combineURLs(baseURL: string, relativeURL: string) {
 
 const serializeQueryParams = (params: XhrQueryParams): string => {
   const usp = new URLSearchParams();
-  const append = (key: string, value: string | number | boolean) => {
-    usp.append(key, String(value));
-  };
 
-  const entries = Object.entries(params);
-  let entryIndex = 0;
-  // eslint-disable-next-line no-loops/no-loops
-  while (entryIndex < entries.length) {
-    const [key, value] = entries[entryIndex];
+  Object.entries(params).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      let valueIndex = 0;
-      // eslint-disable-next-line no-loops/no-loops
-      while (valueIndex < value.length) {
-        append(key, value[valueIndex] as string | number | boolean);
-        valueIndex += 1;
-      }
+      value.forEach((v) => usp.append(key, String(v)));
     } else {
-      append(key, value as string | number | boolean);
+      usp.append(key, String(value));
     }
-    entryIndex += 1;
-  }
+  });
+
   return usp.toString();
 };
 
