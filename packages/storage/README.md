@@ -23,7 +23,7 @@ web.setString("app", "docs");
 #### Constructor
 
 ```js title=""
-constructor()
+constructor();
 ```
 
 #### getString

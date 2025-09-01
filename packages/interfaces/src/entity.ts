@@ -30,7 +30,7 @@ export interface EntityLoadOptions {
 }
 
 /** Adapter-agnostic list options; mirrors load options. */
-export type EntityListOptions = EntityLoadOptions
+export type EntityListOptions = EntityLoadOptions;
 
 /** Pagination info parsed from adapter responses. */
 export interface EntityPageInfo {
@@ -70,7 +70,6 @@ export interface EntityAdapter<TAttributes extends EntityAttributes = EntityAttr
 }
 
 /** Factory function used to register adapters. */
-export type EntityAdapterFactory<TAttributes extends EntityAttributes = EntityAttributes> =
-  (context: EntityAdapterContext) => EntityAdapter<TAttributes>;
-
-
+export type EntityAdapterFactory<TAttributes extends EntityAttributes = EntityAttributes> = (
+  context: EntityAdapterContext
+) => EntityAdapter<TAttributes>;

@@ -15,7 +15,7 @@ comment:
   require_changes: false
   require_base: true
   require_head: true
-  branches: ['main']
+  branches: ["main"]
 flags:
   core:
     paths:

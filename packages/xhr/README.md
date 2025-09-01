@@ -9,8 +9,9 @@ HTTP client abstractions with a unified interface, supporting native fetch or Ax
 ```js hl_lines="3-4 6"
 import { FetchClient } from "@drupal-js-sdk/xhr";
 
-const client = new FetchClient({ baseURL: "https://example.com" })
-  .addDefaultHeaders({ "X-App": "docs" });
+const client = new FetchClient({ baseURL: "https://example.com" }).addDefaultHeaders({
+  "X-App": "docs",
+});
 
 const response = await client.call("GET", "/jsonapi/node/article");
 ```
@@ -30,10 +31,11 @@ constructor(config?: XhrRequestConfig)
 ```js title=""
 setClient(client: typeof fetch): this
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     client.setClient(fetch);
-    ```
+    `
 
 #### getClient
 
@@ -46,20 +48,22 @@ getClient(): typeof fetch
 ```js title=""
 addDefaultHeaders(headers: Record<string, any>): XhrInterface
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     client.addDefaultHeaders({ Authorization: "Bearer token" });
-    ```
+    `
 
 #### call
 
 ```js title=""
 call(method: XhrMethod, path: string, config?: XhrRequestConfig): Promise<XhrResponse>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     const res = await client.call("GET", "/jsonapi/node/article");
-    ```
+    `
 
 ### class `AxiosClient` implements `XhrInterface`
 

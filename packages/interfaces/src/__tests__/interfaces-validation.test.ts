@@ -1,6 +1,6 @@
 /**
  * @file Interface validation tests for @drupal-js-sdk/interfaces
- * 
+ *
  * This file contains tests that validate TypeScript interfaces by ensuring
  * that example objects properly implement the interface contracts. While
  * interfaces themselves don't produce executable code coverage, these tests
@@ -10,19 +10,19 @@
 import {
   // Core interfaces
   CoreInterface,
-  
-  // XHR interfaces  
+
+  // XHR interfaces
   XhrInterface,
   XhrResponse,
   XhrRequestConfig,
   XhrQueryParams,
   XhrMethod,
-  
+
   // Storage interfaces
   StorageInterface,
   StorageValueType,
   StorageRecordInterface,
-  
+
   // Entity interfaces
   EntityIdentifier,
   EntityAttributes,
@@ -34,13 +34,13 @@ import {
   EntityAdapterContext,
   EntityAdapter,
   EntityAdapterFactory,
-  
+
   // Error interfaces
   DrupalErrorInterface,
-  
-  // Session interfaces  
+
+  // Session interfaces
   SessionInterface,
-  
+
   // Client interfaces
   ClientInterface,
 } from "..";
@@ -85,7 +85,7 @@ describe("Interface Type Validation", () => {
         setItem: () => {},
         removeItem: () => {},
         clear: () => {},
-        getString: () => "test", 
+        getString: () => "test",
         setString: () => {},
         isAvailable: () => true,
         get: () => ({}),
@@ -156,7 +156,7 @@ describe("Interface Type Validation", () => {
         url: "/test",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer token123",
+          Authorization: "Bearer token123",
         },
         params: {
           page: 1,
@@ -401,7 +401,7 @@ describe("Interface Type Validation", () => {
         jsonapi: {
           query: {
             "page[limit]": 10,
-            "sort": "-created",
+            sort: "-created",
             "filter[status]": "1",
           },
         },
@@ -469,8 +469,19 @@ describe("Interface Type Validation", () => {
         getClient: () => null,
         addDefaultOptions: () => mockXhr,
         addDefaultHeaders: () => mockXhr,
-        getDrupalError: () => ({ name: "Error", message: "Test", code: 500, getErrorCode: () => 500 }),
-        call: async () => ({ data: {}, status: 200, statusText: "OK", headers: {}, config: {} as XhrRequestConfig }),
+        getDrupalError: () => ({
+          name: "Error",
+          message: "Test",
+          code: 500,
+          getErrorCode: () => 500,
+        }),
+        call: async () => ({
+          data: {},
+          status: 200,
+          statusText: "OK",
+          headers: {},
+          config: {} as XhrRequestConfig,
+        }),
       };
 
       const mockStorage: StorageInterface = {

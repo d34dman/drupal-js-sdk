@@ -1,14 +1,15 @@
 import { FetchClient } from "../FetchClient";
 
 describe("XHR Environment and Global Binding", () => {
-  const mkResponse = (init?: any) => ({
-    ok: init?.ok ?? true,
-    status: init?.status ?? 200,
-    statusText: init?.statusText ?? "OK",
-    headers: new Map(Object.entries(init?.headers ?? {})),
-    json: () => Promise.resolve(init?.json ?? {}),
-    text: () => Promise.resolve(JSON.stringify(init?.json ?? {}))
-  } as unknown as Response);
+  const mkResponse = (init?: any) =>
+    ({
+      ok: init?.ok ?? true,
+      status: init?.status ?? 200,
+      statusText: init?.statusText ?? "OK",
+      headers: new Map(Object.entries(init?.headers ?? {})),
+      json: () => Promise.resolve(init?.json ?? {}),
+      text: () => Promise.resolve(JSON.stringify(init?.json ?? {})),
+    }) as unknown as Response;
 
   beforeEach(() => {
     (global.fetch as jest.Mock) = jest.fn(() => Promise.resolve(mkResponse()));
@@ -17,25 +18,24 @@ describe("XHR Environment and Global Binding", () => {
   test("should create client instances in different JavaScript environments", () => {
     // Save original values
     const originalWindow = (global as any).window;
-    
+
     try {
       // Test constructor behavior in different JavaScript environments
-      
+
       // Browser environment without fetch polyfill
       (global as any).window = { fetch: "not-a-function" };
       const client1 = new FetchClient();
       expect(client1).toBeInstanceOf(FetchClient);
-      
+
       // Browser environment with native fetch support
       (global as any).window = { fetch: global.fetch };
       const client2 = new FetchClient();
       expect(client2).toBeInstanceOf(FetchClient);
-      
+
       // Node.js environment without window object
       delete (global as any).window;
       const client3 = new FetchClient();
       expect(client3).toBeInstanceOf(FetchClient);
-      
     } finally {
       // Restore original environment
       if (originalWindow !== undefined) {
@@ -49,22 +49,21 @@ describe("XHR Environment and Global Binding", () => {
   test("should handle different fetch implementation types in setClient", () => {
     const client = new FetchClient();
     const originalWindow = (global as any).window;
-    
+
     try {
       // Test window.fetch detection and binding
       (global as any).window = { fetch: global.fetch };
       client.setClient((global as any).window.fetch);
       expect(client.getClient()).toBe((global as any).window.fetch);
-      
+
       // Test with custom fetch implementation
       const customFunction = (() => Promise.resolve({} as any)) as any;
       client.setClient(customFunction);
       expect(client.getClient()).toBe(customFunction);
-      
+
       // Test setClient with default parameter
       client.setClient();
       expect(typeof client.getClient()).toBe("function");
-      
     } finally {
       if (originalWindow !== undefined) {
         (global as any).window = originalWindow;
@@ -89,7 +88,7 @@ describe("XHR Environment and Global Binding", () => {
     for (const testData of testCases) {
       await client.call("POST", "/test", {
         data: testData,
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       });
     }
 
@@ -99,13 +98,13 @@ describe("XHR Environment and Global Binding", () => {
     // Test object data with no existing JSON content-type
     await client.call("POST", "/object-no-json", {
       data: { test: "data" },
-      headers: { "Authorization": "Bearer token" }
+      headers: { Authorization: "Bearer token" },
     });
 
     // Test object data with existing JSON content-type
     await client.call("POST", "/object-with-json", {
       data: { test: "data" },
-      headers: { "Content-Type": "application/json; charset=utf-8" }
+      headers: { "Content-Type": "application/json; charset=utf-8" },
     });
 
     expect(true).toBe(true);
@@ -116,20 +115,20 @@ describe("XHR Environment and Global Binding", () => {
 
     // Test with query params on path without existing ?
     await client.call("GET", "/no-query", {
-      params: { param1: "value1", param2: 42 }
+      params: { param1: "value1", param2: 42 },
     });
 
     // Test with query params on path with existing ?
     await client.call("GET", "/has-query?existing=param", {
-      params: { additional: "param" }
+      params: { additional: "param" },
     });
 
     // Test with array parameters
     await client.call("GET", "/array-params", {
-      params: { 
+      params: {
         array: ["a", "b", "c"],
-        single: "value"
-      }
+        single: "value",
+      },
     });
 
     expect(true).toBe(true);
@@ -141,19 +140,19 @@ describe("XHR Environment and Global Binding", () => {
     // Test with signal provided (no controller created)
     const controller1 = new AbortController();
     await client.call("GET", "/provided-signal", {
-      signal: controller1.signal
+      signal: controller1.signal,
     });
 
     // Test with timeout and no signal (controller created)
     await client.call("GET", "/timeout-only", {
-      timeoutMs: 1000
+      timeoutMs: 1000,
     });
 
     // Test with both signal and timeout
-    const controller2 = new AbortController(); 
+    const controller2 = new AbortController();
     await client.call("GET", "/both", {
       signal: controller2.signal,
-      timeoutMs: 500
+      timeoutMs: 500,
     });
 
     expect(true).toBe(true);
@@ -164,20 +163,20 @@ describe("XHR Environment and Global Binding", () => {
 
     // Test all safe methods that should have CSRF token removed
     await client.call("GET", "/csrf-get", {
-      headers: { "X-CSRF-Token": "token" }
+      headers: { "X-CSRF-Token": "token" },
     });
 
     await client.call("HEAD", "/csrf-head", {
-      headers: { "X-CSRF-Token": "token" }
+      headers: { "X-CSRF-Token": "token" },
     });
 
     // Test unsafe methods that should keep CSRF token
     await client.call("POST", "/csrf-post", {
-      headers: { "X-CSRF-Token": "token" }
+      headers: { "X-CSRF-Token": "token" },
     });
 
     await client.call("PUT", "/csrf-put", {
-      headers: { "X-CSRF-Token": "token" }
+      headers: { "X-CSRF-Token": "token" },
     });
 
     expect(true).toBe(true);
@@ -202,9 +201,11 @@ describe("XHR Environment and Global Binding", () => {
 
     // Test non-JSON content type
     (global.fetch as jest.Mock).mockImplementationOnce(() =>
-      Promise.resolve(mkResponse({
-        headers: { "content-type": "text/plain" }
-      }))
+      Promise.resolve(
+        mkResponse({
+          headers: { "content-type": "text/plain" },
+        })
+      )
     );
     await client.call("GET", "/text");
 
@@ -230,8 +231,8 @@ describe("XHR Environment and Global Binding", () => {
         retryOn: [503, 429],
         factor: 1.5,
         minTimeoutMs: 50,
-        maxTimeoutMs: 500
-      }
+        maxTimeoutMs: 500,
+      },
     });
 
     expect(attempts).toBeGreaterThan(1);

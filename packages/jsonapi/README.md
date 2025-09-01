@@ -12,7 +12,10 @@ import { EntityService } from "@drupal-js-sdk/entity";
 import { JsonApiEntityAdapter } from "@drupal-js-sdk/jsonapi";
 
 const drupal = new Drupal({ baseURL: "https://example.com" });
-const service = new EntityService(drupal).registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
+const service = new EntityService(drupal).registerAdapter(
+  "jsonapi",
+  (ctx) => new JsonApiEntityAdapter(ctx)
+);
 
 const loader = service.entity({ entity: "node", bundle: "page" }, "jsonapi");
 const page = await loader.load("abcd", { jsonapi: { query: { include: "uid" } } });
@@ -27,20 +30,22 @@ const page = await loader.load("abcd", { jsonapi: { query: { include: "uid" } } 
 ```js title=""
 constructor(context: EntityAdapterContext)
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     const adapter = new JsonApiEntityAdapter(context);
-    ```
+    `
 
 #### load
 
 ```js title=""
 load(entityId: string, options?: EntityLoadOptions): Promise<EntityRecord<T>>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     const record = await adapter.load("123", { jsonapi: { query: { include: "uid" } } });
-    ```
+    `
 
 Alias
 

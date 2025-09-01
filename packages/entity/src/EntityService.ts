@@ -1,4 +1,14 @@
-import { CoreInterface, EntityAdapter, EntityAdapterContext, EntityAdapterFactory, EntityAttributes, EntityIdentifier, EntityListOptions, EntityRecord, EntityLoadOptions } from "@drupal-js-sdk/interfaces";
+import {
+  CoreInterface,
+  EntityAdapter,
+  EntityAdapterContext,
+  EntityAdapterFactory,
+  EntityAttributes,
+  EntityIdentifier,
+  EntityListOptions,
+  EntityRecord,
+  EntityLoadOptions,
+} from "@drupal-js-sdk/interfaces";
 
 import { EntityLoader } from "./EntityLoader";
 import { attachRelations } from "./relations";
@@ -63,7 +73,12 @@ export class EntityService {
       return { items, page: undefined };
     }
     const result = await loader.listPage(options);
-    return { ...result, items: (result.items as Array<EntityRecord<TAttributes>>).map((rec) => attachRelations(rec, this, identifier, adapterKey)) };
+    return {
+      ...result,
+      items: (result.items as Array<EntityRecord<TAttributes>>).map((rec) =>
+        attachRelations(rec, this, identifier, adapterKey)
+      ),
+    };
   }
 
   public async load<TAttributes extends EntityAttributes = EntityAttributes>(
@@ -84,5 +99,3 @@ export class EntityService {
     return this.entity(identifier, adapterKey).count(options);
   }
 }
-
-

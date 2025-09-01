@@ -1,1 +1,1 @@
-export {DrupalError} from './DrupalError';
+export { DrupalError } from "./DrupalError";

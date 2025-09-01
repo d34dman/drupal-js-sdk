@@ -29,10 +29,12 @@ if (!isLoggedIn) {
 ```js title=""
 constructor(drupal: Drupal)
 ```
+
 ??? example
-    ```js hl_lines="3-4"
-    import { Drupal } from "@drupal-js-sdk/core";
-    import { DrupalAuth } from "@drupal-js-sdk/auth";
+
+````js hl_lines="3-4"
+import { Drupal } from "@drupal-js-sdk/core";
+import { DrupalAuth } from "@drupal-js-sdk/auth";
 
     const drupal = new Drupal({ baseURL: "https://example.com" });
     const auth = new DrupalAuth(drupal);
@@ -42,71 +44,78 @@ constructor(drupal: Drupal)
 
 ```js title=""
 getSessionToken(): Promise<XhrResponse>
-```
+````
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     await auth.getSessionToken();
-    ```
+    `
 
 #### login
 
 ```js title=""
 login(name: string, pass: string): Promise<XhrResponse>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     await auth.login("username", "password");
-    ```
+    `
 
 #### loginStatus
 
 ```js title=""
 loginStatus(): Promise<boolean>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     const isLoggedIn = await auth.loginStatus();
-    ```
+    `
 
 #### logout
 
 ```js title=""
 logout(): Promise<XhrResponse>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     await auth.logout();
-    ```
+    `
 
 #### passwordResetByUserName
 
 ```js title=""
 passwordResetByUserName(name: string): Promise<XhrResponse>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     await auth.passwordResetByUserName("username");
-    ```
+    `
 
 #### passwordResetByMail
 
 ```js title=""
 passwordResetByMail(mail: string): Promise<XhrResponse>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     await auth.passwordResetByMail("user@example.com");
-    ```
+    `
 
 #### register
 
 ```js title=""
 register(name: string, mail: string): Promise<XhrResponse>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     await auth.register("newuser", "newuser@example.com");
-    ```
+    `
 
 Notes
 

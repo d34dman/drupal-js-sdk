@@ -3,6 +3,7 @@ status: draft
 tags:
   - draft
 ---
+
 ### Login and Session Flow
 
 ```mermaid
@@ -47,5 +48,3 @@ sequenceDiagram
   Server-->>XHR: 200 OK, JSON:API document
   XHR-->>App: XhrResponse(data)
 ```
-
-

@@ -22,6 +22,7 @@ pnpm --filter demo-svelte-spa dev
 Open the provided local URL.
 
 ## What it demonstrates
+
 - Login using `@drupal-js-sdk/auth` (cookie-based)
 - Menu loading using `@drupal-js-sdk/menu` from `main` menu
 

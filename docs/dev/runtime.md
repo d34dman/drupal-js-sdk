@@ -3,6 +3,7 @@ status: draft
 tags:
   - draft
 ---
+
 ### Runtime Component Architecture
 
 ```mermaid
@@ -61,8 +62,6 @@ graph LR
     - `Drupal` composes the HTTP client and exposes it via `Core.getClientService()`.
     - `DrupalAuth` persists CSRF/logout tokens in session storage and injects the `X-CSRF-Token` header via `XhrInterface.addDefaultHeaders()`.
     - Entities are accessed through `EntityService` which instantiates an adapter (default: JSON:API).
-
-
 
 ### ERD (Entity-Relationship) View
 
@@ -128,4 +127,3 @@ erDiagram
     string message
   }
 ```
-

@@ -16,8 +16,8 @@ import { EntityLoader } from "../EntityLoader";
  * Mock Entity Adapter for testing
  */
 class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
-  implements EntityAdapter<TAttributes> {
-  
+  implements EntityAdapter<TAttributes>
+{
   private mockData: EntityRecord<TAttributes>[];
   private shouldThrowError = false;
   private errorMessage = "Mock adapter error";
@@ -56,7 +56,7 @@ class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
       throw new Error(this.errorMessage);
     }
 
-    const found = this.mockData.find(item => item.id === entityId);
+    const found = this.mockData.find((item) => item.id === entityId);
     if (!found) {
       throw new Error(`Entity ${entityId} not found`);
     }
@@ -83,9 +83,9 @@ class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
     }
     return {
       items: this.mockData,
-      page: { 
-        total: this.mockData.length, 
-        number: 1, 
+      page: {
+        total: this.mockData.length,
+        number: 1,
         size: this.mockData.length,
         next: null,
         prev: null,
@@ -98,13 +98,16 @@ class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
  * Mock Entity Adapter without optional methods
  */
 class MinimalEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
-  implements EntityAdapter<TAttributes> {
-  
+  implements EntityAdapter<TAttributes>
+{
   async load(entityId: string, _options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
     return {
       id: entityId,
       type: "node--article",
-      attributes: { title: "Minimal Test Article", body: "Minimal content" } as unknown as TAttributes,
+      attributes: {
+        title: "Minimal Test Article",
+        body: "Minimal content",
+      } as unknown as TAttributes,
       relationships: {},
     };
   }
@@ -114,13 +117,16 @@ class MinimalEntityAdapter<TAttributes extends EntityAttributes = EntityAttribut
  * Mock Entity Adapter with partial method support
  */
 class PartialEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
-  implements EntityAdapter<TAttributes> {
-  
+  implements EntityAdapter<TAttributes>
+{
   async load(entityId: string, _options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
     return {
       id: entityId,
       type: "node--article",
-      attributes: { title: "Partial Test Article", body: "Partial content" } as unknown as TAttributes,
+      attributes: {
+        title: "Partial Test Article",
+        body: "Partial content",
+      } as unknown as TAttributes,
       relationships: {},
     };
   }
@@ -146,7 +152,7 @@ describe("EntityLoader", () => {
 
   beforeEach(() => {
     const mockIdentifier: EntityIdentifier = { entity: "node", bundle: "article" };
-    
+
     mockContext = {
       id: mockIdentifier,
       basePath: "/jsonapi/node/article",
@@ -172,7 +178,7 @@ describe("EntityLoader", () => {
   describe("Load Operations", () => {
     test("should load single entity by ID", async () => {
       const result = await entityLoader.load("1");
-      
+
       expect(result).toHaveProperty("id", "1");
       expect(result).toHaveProperty("type", "node--article");
       expect(result).toHaveProperty("attributes");
@@ -184,7 +190,7 @@ describe("EntityLoader", () => {
       const options: EntityLoadOptions = {
         jsonapi: { query: { include: "field_author" } },
       };
-      
+
       const result = await entityLoader.load("1", options);
       expect(result).toHaveProperty("id", "1");
     });
@@ -192,7 +198,7 @@ describe("EntityLoader", () => {
     test("should load different entities by different IDs", async () => {
       const result1 = await entityLoader.load("1");
       const result2 = await entityLoader.load("2");
-      
+
       expect(result1.id).toBe("1");
       expect(result2.id).toBe("2");
       expect(result1.attributes.title).toBe("Test Article 1");
@@ -205,7 +211,7 @@ describe("EntityLoader", () => {
 
     test("should propagate adapter errors during load", async () => {
       mockAdapter.setShouldThrowError(true, "Load operation failed");
-      
+
       await expect(entityLoader.load("1")).rejects.toThrow("Load operation failed");
     });
 
@@ -218,7 +224,7 @@ describe("EntityLoader", () => {
   describe("List Operations", () => {
     test("should list entities", async () => {
       const results = await entityLoader.list();
-      
+
       expect(Array.isArray(results)).toBe(true);
       expect(results.length).toBe(2);
       expect(results[0]).toHaveProperty("id", "1");
@@ -229,14 +235,14 @@ describe("EntityLoader", () => {
       const options: EntityListOptions = {
         jsonapi: { query: { "page[limit]": 5 } },
       };
-      
+
       const results = await entityLoader.list(options);
       expect(Array.isArray(results)).toBe(true);
     });
 
     test("should return empty array when no entities", async () => {
       mockAdapter.setMockData([]);
-      
+
       const results = await entityLoader.list();
       expect(Array.isArray(results)).toBe(true);
       expect(results.length).toBe(0);
@@ -245,13 +251,13 @@ describe("EntityLoader", () => {
     test("should throw error when adapter doesn't support list", async () => {
       const minimalAdapter = new MinimalEntityAdapter<{ title: string; body: string }>();
       const minimalLoader = new EntityLoader(mockContext, minimalAdapter);
-      
+
       await expect(minimalLoader.list()).rejects.toThrow("Entity adapter does not support list()");
     });
 
     test("should propagate adapter errors during list", async () => {
       mockAdapter.setShouldThrowError(true, "List operation failed");
-      
+
       await expect(entityLoader.list()).rejects.toThrow("List operation failed");
     });
 
@@ -264,7 +270,7 @@ describe("EntityLoader", () => {
   describe("Count Operations", () => {
     test("should count entities", async () => {
       const count = await entityLoader.count();
-      
+
       expect(typeof count).toBe("number");
       expect(count).toBe(2);
     });
@@ -273,7 +279,7 @@ describe("EntityLoader", () => {
       const options: EntityListOptions = {
         jsonapi: { query: { "filter[status]": 1 } },
       };
-      
+
       const count = await entityLoader.count(options);
       expect(typeof count).toBe("number");
       expect(count).toBe(2);
@@ -281,7 +287,7 @@ describe("EntityLoader", () => {
 
     test("should return zero when no entities", async () => {
       mockAdapter.setMockData([]);
-      
+
       const count = await entityLoader.count();
       expect(count).toBe(0);
     });
@@ -289,13 +295,15 @@ describe("EntityLoader", () => {
     test("should throw error when adapter doesn't support count", async () => {
       const partialAdapter = new PartialEntityAdapter<{ title: string; body: string }>();
       const partialLoader = new EntityLoader(mockContext, partialAdapter);
-      
-      await expect(partialLoader.count()).rejects.toThrow("Entity adapter does not support count()");
+
+      await expect(partialLoader.count()).rejects.toThrow(
+        "Entity adapter does not support count()"
+      );
     });
 
     test("should propagate adapter errors during count", async () => {
       mockAdapter.setShouldThrowError(true, "Count operation failed");
-      
+
       await expect(entityLoader.count()).rejects.toThrow("Count operation failed");
     });
 
@@ -308,7 +316,7 @@ describe("EntityLoader", () => {
   describe("ListPage Operations", () => {
     test("should list entities with pagination", async () => {
       const result = await entityLoader.listPage();
-      
+
       expect(result).toHaveProperty("items");
       expect(result).toHaveProperty("page");
       expect(Array.isArray((result as any).items)).toBe(true);
@@ -322,7 +330,7 @@ describe("EntityLoader", () => {
       const options: EntityListOptions = {
         jsonapi: { query: { "page[limit]": 10 } },
       };
-      
+
       const result = await entityLoader.listPage(options);
       expect(result).toHaveProperty("items");
       expect(result).toHaveProperty("page");
@@ -330,7 +338,7 @@ describe("EntityLoader", () => {
 
     test("should return pagination info with empty items", async () => {
       mockAdapter.setMockData([]);
-      
+
       const result = await entityLoader.listPage();
       expect(result).toHaveProperty("items");
       expect((result as any).items.length).toBe(0);
@@ -341,13 +349,15 @@ describe("EntityLoader", () => {
     test("should throw error when adapter doesn't support listPage", async () => {
       const partialAdapter = new PartialEntityAdapter<{ title: string; body: string }>();
       const partialLoader = new EntityLoader(mockContext, partialAdapter);
-      
-      await expect(partialLoader.listPage()).rejects.toThrow("Entity adapter does not support listPage()");
+
+      await expect(partialLoader.listPage()).rejects.toThrow(
+        "Entity adapter does not support listPage()"
+      );
     });
 
     test("should propagate adapter errors during listPage", async () => {
       mockAdapter.setShouldThrowError(true, "ListPage operation failed");
-      
+
       await expect(entityLoader.listPage()).rejects.toThrow("ListPage operation failed");
     });
 
@@ -362,7 +372,7 @@ describe("EntityLoader", () => {
     test("should detect when adapter has list method", async () => {
       const fullAdapter = new MockEntityAdapter<{ title: string; body: string }>();
       const fullLoader = new EntityLoader(mockContext, fullAdapter);
-      
+
       // Should not throw error
       const results = await fullLoader.list();
       expect(Array.isArray(results)).toBe(true);
@@ -371,14 +381,14 @@ describe("EntityLoader", () => {
     test("should detect when adapter lacks list method", async () => {
       const minimalAdapter = new MinimalEntityAdapter<{ title: string; body: string }>();
       const minimalLoader = new EntityLoader(mockContext, minimalAdapter);
-      
+
       await expect(minimalLoader.list()).rejects.toThrow("Entity adapter does not support list()");
     });
 
     test("should detect when adapter has count method", async () => {
       const fullAdapter = new MockEntityAdapter<{ title: string; body: string }>();
       const fullLoader = new EntityLoader(mockContext, fullAdapter);
-      
+
       // Should not throw error
       const count = await fullLoader.count();
       expect(typeof count).toBe("number");
@@ -387,14 +397,16 @@ describe("EntityLoader", () => {
     test("should detect when adapter lacks count method", async () => {
       const partialAdapter = new PartialEntityAdapter<{ title: string; body: string }>();
       const partialLoader = new EntityLoader(mockContext, partialAdapter);
-      
-      await expect(partialLoader.count()).rejects.toThrow("Entity adapter does not support count()");
+
+      await expect(partialLoader.count()).rejects.toThrow(
+        "Entity adapter does not support count()"
+      );
     });
 
     test("should detect when adapter has listPage method", async () => {
       const fullAdapter = new MockEntityAdapter<{ title: string; body: string }>();
       const fullLoader = new EntityLoader(mockContext, fullAdapter);
-      
+
       // Should not throw error
       const result = await fullLoader.listPage();
       expect(result).toHaveProperty("items");
@@ -403,8 +415,10 @@ describe("EntityLoader", () => {
     test("should detect when adapter lacks listPage method", async () => {
       const partialAdapter = new PartialEntityAdapter<{ title: string; body: string }>();
       const partialLoader = new EntityLoader(mockContext, partialAdapter);
-      
-      await expect(partialLoader.listPage()).rejects.toThrow("Entity adapter does not support listPage()");
+
+      await expect(partialLoader.listPage()).rejects.toThrow(
+        "Entity adapter does not support listPage()"
+      );
     });
   });
 
@@ -414,9 +428,9 @@ describe("EntityLoader", () => {
         mockContext,
         mockAdapter as any
       );
-      
+
       const result = await typedLoader.load("1");
-      
+
       // TypeScript should enforce these types at compile time
       expect(typeof result.attributes).toBe("object");
       expect(result.attributes).toHaveProperty("title");
@@ -447,7 +461,7 @@ describe("EntityLoader", () => {
 
       const customLoader = new EntityLoader<CustomAttributes>(mockContext, customMockAdapter);
       const result = await customLoader.load("1");
-      
+
       expect(result.attributes.name).toBe("Custom Entity");
       expect(result.attributes.count).toBe(42);
       expect(result.attributes.active).toBe(true);
@@ -470,10 +484,12 @@ describe("EntityLoader", () => {
       } as any;
 
       const nullLoader = new EntityLoader(mockContext, nullMethodAdapter);
-      
+
       await expect(nullLoader.list()).rejects.toThrow("Entity adapter does not support list()");
       await expect(nullLoader.count()).rejects.toThrow("Entity adapter does not support count()");
-      await expect(nullLoader.listPage()).rejects.toThrow("Entity adapter does not support listPage()");
+      await expect(nullLoader.listPage()).rejects.toThrow(
+        "Entity adapter does not support listPage()"
+      );
     });
 
     test("should handle adapter with non-function properties", async () => {
@@ -490,10 +506,14 @@ describe("EntityLoader", () => {
       } as any;
 
       const invalidLoader = new EntityLoader(mockContext, invalidAdapter);
-      
+
       await expect(invalidLoader.list()).rejects.toThrow("Entity adapter does not support list()");
-      await expect(invalidLoader.count()).rejects.toThrow("Entity adapter does not support count()");
-      await expect(invalidLoader.listPage()).rejects.toThrow("Entity adapter does not support listPage()");
+      await expect(invalidLoader.count()).rejects.toThrow(
+        "Entity adapter does not support count()"
+      );
+      await expect(invalidLoader.listPage()).rejects.toThrow(
+        "Entity adapter does not support listPage()"
+      );
     });
 
     test("should handle empty string entity ID", async () => {
@@ -507,7 +527,10 @@ describe("EntityLoader", () => {
         {
           id: "test-123_special.id",
           type: "node--article",
-          attributes: { title: "Special ID Article", body: "Special content" } as { title: string; body: string },
+          attributes: { title: "Special ID Article", body: "Special content" } as {
+            title: string;
+            body: string;
+          },
           relationships: {},
         },
       ];
@@ -527,20 +550,20 @@ describe("EntityLoader", () => {
       };
 
       const errorLoader = new EntityLoader(mockContext, errorAdapter);
-      
+
       expect(errorLoader.load("1")).rejects.toThrow("Synchronous load error");
     });
 
     test("should handle adapter throwing asynchronous errors", async () => {
       const asyncErrorAdapter: EntityAdapter = {
         load: async () => {
-          await new Promise(resolve => setTimeout(resolve, 1));
+          await new Promise((resolve) => setTimeout(resolve, 1));
           throw new Error("Asynchronous load error");
         },
       };
 
       const errorLoader = new EntityLoader(mockContext, asyncErrorAdapter);
-      
+
       await expect(errorLoader.load("1")).rejects.toThrow("Asynchronous load error");
     });
 
@@ -553,14 +576,14 @@ describe("EntityLoader", () => {
       };
 
       const malformedLoader = new EntityLoader(mockContext, malformedAdapter);
-      
+
       // These tests depend on how the loader handles malformed data
       // The loader currently doesn't validate, so it would return the malformed data
       const loadResult = await malformedLoader.load("1");
       const listResult = await malformedLoader.list();
       const countResult = await malformedLoader.count();
       const pageResult = await malformedLoader.listPage();
-      
+
       expect(loadResult).toBeNull();
       expect(listResult).toBe("not an array");
       expect(countResult).toBe("not a number");

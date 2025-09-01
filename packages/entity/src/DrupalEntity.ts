@@ -1,4 +1,9 @@
-import { CoreInterface, EntityAdapterFactory, EntityAttributes, EntityIdentifier } from "@drupal-js-sdk/interfaces";
+import {
+  CoreInterface,
+  EntityAdapterFactory,
+  EntityAttributes,
+  EntityIdentifier,
+} from "@drupal-js-sdk/interfaces";
 
 import { EntityLoader } from "./EntityLoader";
 import { EntityService } from "./EntityService";
@@ -32,9 +37,9 @@ export class DrupalEntity {
     return this.service.entity<TAttributes>(identifier, adapterKey);
   }
 
-  public node<TAttributes extends EntityAttributes = EntityAttributes>(bundle: string): FluentEntity<TAttributes> {
+  public node<TAttributes extends EntityAttributes = EntityAttributes>(
+    bundle: string
+  ): FluentEntity<TAttributes> {
     return new FluentEntity<TAttributes>(this.service, { entity: "node", bundle });
   }
 }
-
-

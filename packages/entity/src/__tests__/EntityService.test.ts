@@ -154,8 +154,8 @@ class MockCore implements CoreInterface {
  * Mock Entity Adapter for testing
  */
 class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
-  implements EntityAdapter<TAttributes> {
-  
+  implements EntityAdapter<TAttributes>
+{
   private readonly mockData: EntityRecord<TAttributes>[];
   private readonly mockSingleData: EntityRecord<TAttributes>;
 
@@ -166,7 +166,7 @@ class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
       attributes: { title: "Test Article", body: "Test content" } as unknown as TAttributes,
       relationships: {},
     };
-    
+
     this.mockData = [
       this.mockSingleData,
       {
@@ -179,7 +179,7 @@ class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
   }
 
   async load(entityId: string, _options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
-    const found = this.mockData.find(item => item.id === entityId);
+    const found = this.mockData.find((item) => item.id === entityId);
     if (!found) {
       throw new Error(`Entity ${entityId} not found`);
     }
@@ -206,13 +206,16 @@ class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
  * Mock Entity Adapter without optional methods
  */
 class MinimalMockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
-  implements EntityAdapter<TAttributes> {
-  
+  implements EntityAdapter<TAttributes>
+{
   async load(entityId: string, _options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
     return {
       id: entityId,
       type: "node--article",
-      attributes: { title: "Minimal Test Article", body: "Minimal content" } as unknown as TAttributes,
+      attributes: {
+        title: "Minimal Test Article",
+        body: "Minimal content",
+      } as unknown as TAttributes,
       relationships: {},
     };
   }
@@ -239,7 +242,7 @@ describe("EntityService", () => {
     test("should initialize with default adapter key", () => {
       // The default adapter should be "jsonapi" but we test by trying to use it
       entityService.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       const loader = entityService.entity({ entity: "node", bundle: "article" });
       expect(loader).toBeInstanceOf(EntityLoader);
     });
@@ -272,7 +275,7 @@ describe("EntityService", () => {
       expect(result).toBe(entityService); // Should return this for chaining
 
       entityService.registerAdapter("custom", mockAdapterFactory);
-      
+
       // Should use custom adapter by default
       const loader = entityService.entity({ entity: "node", bundle: "article" });
       expect(loader).toBeInstanceOf(EntityLoader);
@@ -299,16 +302,16 @@ describe("EntityService", () => {
     test("should create entity loader with default adapter", () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const loader = entityService.entity(identifier);
-      
+
       expect(loader).toBeInstanceOf(EntityLoader);
     });
 
     test("should create entity loader with specific adapter", () => {
       entityService.registerAdapter("custom", mockAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const loader = entityService.entity(identifier, "custom");
-      
+
       expect(loader).toBeInstanceOf(EntityLoader);
     });
 
@@ -316,14 +319,16 @@ describe("EntityService", () => {
       const nodeLoader = entityService.entity({ entity: "node", bundle: "article" });
       const userLoader = entityService.entity({ entity: "user", bundle: "user" });
       const termLoader = entityService.entity({ entity: "taxonomy_term", bundle: "tags" });
-      
+
       expect(nodeLoader).toBeInstanceOf(EntityLoader);
       expect(userLoader).toBeInstanceOf(EntityLoader);
       expect(termLoader).toBeInstanceOf(EntityLoader);
     });
 
     test("should pass correct context to adapter factory", () => {
-      const mockFactory = jest.fn().mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
+      const mockFactory = jest
+        .fn()
+        .mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
       entityService.registerAdapter("test", mockFactory);
 
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
@@ -346,7 +351,7 @@ describe("EntityService", () => {
     test("should list entities", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const results = await entityService.list(identifier);
-      
+
       expect(Array.isArray(results)).toBe(true);
       expect(results.length).toBeGreaterThan(0);
       expect(results[0]).toHaveProperty("id");
@@ -359,24 +364,24 @@ describe("EntityService", () => {
       const options: EntityListOptions = {
         jsonapi: { query: { "page[limit]": 5 } },
       };
-      
+
       const results = await entityService.list(identifier, options);
       expect(Array.isArray(results)).toBe(true);
     });
 
     test("should list entities with specific adapter", async () => {
       entityService.registerAdapter("custom", mockAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const results = await entityService.list(identifier, undefined, "custom");
-      
+
       expect(Array.isArray(results)).toBe(true);
     });
 
     test("should attach relations to listed entities", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const results = await entityService.list(identifier);
-      
+
       expect(results[0]).toHaveProperty("rel");
       expect(typeof (results[0] as any).rel).toBe("function");
     });
@@ -390,7 +395,7 @@ describe("EntityService", () => {
     test("should list entities with pagination", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const result = await entityService.listPage(identifier);
-      
+
       expect(result).toHaveProperty("items");
       expect(Array.isArray(result.items)).toBe(true);
       expect(result).toHaveProperty("page");
@@ -401,7 +406,7 @@ describe("EntityService", () => {
       const options: EntityListOptions = {
         jsonapi: { query: { "page[limit]": 10 } },
       };
-      
+
       const result = await entityService.listPage(identifier, options);
       expect(result).toHaveProperty("items");
       expect(result).toHaveProperty("page");
@@ -409,43 +414,46 @@ describe("EntityService", () => {
 
     test("should handle adapter that doesn't support listPage", async () => {
       entityService.registerAdapter("minimal", minimalAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
-      
+
       // The EntityLoader will throw an error for adapters that don't support listPage
       // This is the expected behavior - the adapter should implement listPage if it wants to support it
-      await expect(entityService.listPage(identifier, undefined, "minimal"))
-        .rejects.toThrow("Entity adapter does not support listPage()");
+      await expect(entityService.listPage(identifier, undefined, "minimal")).rejects.toThrow(
+        "Entity adapter does not support listPage()"
+      );
     });
 
     test("should test EntityService internal listPage fallback logic (Lines 61-62)", async () => {
       // We need to test the EntityService fallback, not the EntityLoader error
       // Create a mock EntityService that has a modified entity() method
       const mockEntityService = new EntityService(mockCore);
-      
+
       // Mock the entity() method to return a loader without listPage
       const originalEntity = mockEntityService.entity;
       mockEntityService.entity = jest.fn().mockImplementation((identifier, adapterKey) => {
         return {
           load: jest.fn(),
-          list: jest.fn().mockResolvedValue([
-            { id: "1", type: "node--article", attributes: { title: "Fallback Item" } }
-          ]),
+          list: jest
+            .fn()
+            .mockResolvedValue([
+              { id: "1", type: "node--article", attributes: { title: "Fallback Item" } },
+            ]),
           count: jest.fn(),
           // No listPage method - this should make typeof loader.listPage !== "function" true
         };
       });
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
-      
+
       // This should trigger lines 61-62: fallback to list() when loader.listPage is not a function
       const result = await mockEntityService.listPage(identifier);
-      
+
       expect(result).toHaveProperty("items");
       expect(result).toHaveProperty("page", undefined);
       expect(result.items).toHaveLength(1);
       expect(result.items[0].attributes.title).toBe("Fallback Item");
-      
+
       // Restore original method
       mockEntityService.entity = originalEntity;
     });
@@ -453,9 +461,9 @@ describe("EntityService", () => {
     test("should attach relations to paginated entities", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const result = await entityService.listPage(identifier);
-      
+
       expect(result.items[0]).toHaveProperty("rel");
-      expect(typeof (result.items[0] ).rel).toBe("function");
+      expect(typeof result.items[0].rel).toBe("function");
     });
   });
 
@@ -467,7 +475,7 @@ describe("EntityService", () => {
     test("should load single entity", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const result = await entityService.load(identifier, "1");
-      
+
       expect(result).toHaveProperty("id", "1");
       expect(result).toHaveProperty("type");
       expect(result).toHaveProperty("attributes");
@@ -478,31 +486,31 @@ describe("EntityService", () => {
       const options: EntityLoadOptions = {
         jsonapi: { query: { include: "field_author" } },
       };
-      
+
       const result = await entityService.load(identifier, "1", options);
       expect(result).toHaveProperty("id", "1");
     });
 
     test("should load entity with specific adapter", async () => {
       entityService.registerAdapter("custom", mockAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const result = await entityService.load(identifier, "1", undefined, "custom");
-      
+
       expect(result).toHaveProperty("id", "1");
     });
 
     test("should attach relations to loaded entity", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const result = await entityService.load(identifier, "1");
-      
+
       expect(result).toHaveProperty("rel");
       expect(typeof (result as any).rel).toBe("function");
     });
 
     test("should throw error for non-existent entity", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
-      
+
       await expect(entityService.load(identifier, "999")).rejects.toThrow("Entity 999 not found");
     });
   });
@@ -515,7 +523,7 @@ describe("EntityService", () => {
     test("should count entities", async () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const count = await entityService.count(identifier);
-      
+
       expect(typeof count).toBe("number");
       expect(count).toBeGreaterThanOrEqual(0);
     });
@@ -525,63 +533,79 @@ describe("EntityService", () => {
       const options: EntityListOptions = {
         jsonapi: { query: { "filter[status]": 1 } },
       };
-      
+
       const count = await entityService.count(identifier, options);
       expect(typeof count).toBe("number");
     });
 
     test("should count entities with specific adapter", async () => {
       entityService.registerAdapter("custom", mockAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const count = await entityService.count(identifier, undefined, "custom");
-      
+
       expect(typeof count).toBe("number");
     });
   });
 
   describe("Adapter Context", () => {
     test("should create correct base path for different entity types", () => {
-      const mockFactory = jest.fn().mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
+      const mockFactory = jest
+        .fn()
+        .mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
       entityService.registerAdapter("test", mockFactory);
 
       // Test different entity/bundle combinations
       entityService.entity({ entity: "node", bundle: "article" }, "test");
-      expect(mockFactory).toHaveBeenCalledWith(expect.objectContaining({
-        basePath: "/jsonapi/node/article"
-      }));
+      expect(mockFactory).toHaveBeenCalledWith(
+        expect.objectContaining({
+          basePath: "/jsonapi/node/article",
+        })
+      );
 
       entityService.entity({ entity: "user", bundle: "user" }, "test");
-      expect(mockFactory).toHaveBeenCalledWith(expect.objectContaining({
-        basePath: "/jsonapi/user/user"
-      }));
+      expect(mockFactory).toHaveBeenCalledWith(
+        expect.objectContaining({
+          basePath: "/jsonapi/user/user",
+        })
+      );
 
       entityService.entity({ entity: "taxonomy_term", bundle: "tags" }, "test");
-      expect(mockFactory).toHaveBeenCalledWith(expect.objectContaining({
-        basePath: "/jsonapi/taxonomy_term/tags"
-      }));
+      expect(mockFactory).toHaveBeenCalledWith(
+        expect.objectContaining({
+          basePath: "/jsonapi/taxonomy_term/tags",
+        })
+      );
     });
 
     test("should pass client service to adapter context", () => {
-      const mockFactory = jest.fn().mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
+      const mockFactory = jest
+        .fn()
+        .mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
       entityService.registerAdapter("test", mockFactory);
 
       entityService.entity({ entity: "node", bundle: "article" }, "test");
-      
-      expect(mockFactory).toHaveBeenCalledWith(expect.objectContaining({
-        client: mockCore.getClientService()
-      }));
+
+      expect(mockFactory).toHaveBeenCalledWith(
+        expect.objectContaining({
+          client: mockCore.getClientService(),
+        })
+      );
     });
 
     test("should pass config service to adapter context", () => {
-      const mockFactory = jest.fn().mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
+      const mockFactory = jest
+        .fn()
+        .mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
       entityService.registerAdapter("test", mockFactory);
 
       entityService.entity({ entity: "node", bundle: "article" }, "test");
-      
-      expect(mockFactory).toHaveBeenCalledWith(expect.objectContaining({
-        config: mockCore.getConfigService()
-      }));
+
+      expect(mockFactory).toHaveBeenCalledWith(
+        expect.objectContaining({
+          config: mockCore.getConfigService(),
+        })
+      );
     });
   });
 
@@ -594,7 +618,7 @@ describe("EntityService", () => {
         .registerAdapter("custom", mockAdapterFactory);
 
       expect(result).toBe(entityService);
-      
+
       // Should be able to use the chained configuration
       const loader = entityService.entity({ entity: "node", bundle: "article" });
       expect(loader).toBeInstanceOf(EntityLoader);
@@ -607,12 +631,13 @@ describe("EntityService", () => {
         load: jest.fn().mockRejectedValue(new Error("Adapter load error")),
       };
       const errorFactory = (_ctx: EntityAdapterContext) => errorAdapter;
-      
+
       entityService.registerAdapter("error", errorFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
-      await expect(entityService.load(identifier, "1", undefined, "error"))
-        .rejects.toThrow("Adapter load error");
+      await expect(entityService.load(identifier, "1", undefined, "error")).rejects.toThrow(
+        "Adapter load error"
+      );
     });
 
     test("should propagate adapter errors during list", async () => {
@@ -621,12 +646,13 @@ describe("EntityService", () => {
         list: jest.fn().mockRejectedValue(new Error("Adapter list error")),
       };
       const errorFactory = (_ctx: EntityAdapterContext) => errorAdapter;
-      
+
       entityService.registerAdapter("error", errorFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
-      await expect(entityService.list(identifier, undefined, "error"))
-        .rejects.toThrow("Adapter list error");
+      await expect(entityService.list(identifier, undefined, "error")).rejects.toThrow(
+        "Adapter list error"
+      );
     });
 
     test("should propagate adapter errors during count", async () => {
@@ -635,48 +661,53 @@ describe("EntityService", () => {
         count: jest.fn().mockRejectedValue(new Error("Adapter count error")),
       };
       const errorFactory = (_ctx: EntityAdapterContext) => errorAdapter;
-      
+
       entityService.registerAdapter("error", errorFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
-      await expect(entityService.count(identifier, undefined, "error"))
-        .rejects.toThrow("Adapter count error");
+      await expect(entityService.count(identifier, undefined, "error")).rejects.toThrow(
+        "Adapter count error"
+      );
     });
   });
 
   describe("Edge Cases", () => {
     test("should handle empty entity identifier", () => {
       entityService.registerAdapter("test", mockAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "", bundle: "" };
       const loader = entityService.entity(identifier, "test");
-      
+
       expect(loader).toBeInstanceOf(EntityLoader);
     });
 
     test("should handle undefined options gracefully", async () => {
       entityService.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
-      
+
       const listResult = await entityService.list(identifier, undefined);
       const loadResult = await entityService.load(identifier, "1", undefined);
       const countResult = await entityService.count(identifier, undefined);
-      
+
       expect(Array.isArray(listResult)).toBe(true);
       expect(loadResult).toHaveProperty("id");
       expect(typeof countResult).toBe("number");
     });
 
     test("should handle special characters in entity/bundle names", () => {
-      const mockFactory = jest.fn().mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
+      const mockFactory = jest
+        .fn()
+        .mockImplementation((_ctx: EntityAdapterContext) => new MockEntityAdapter());
       entityService.registerAdapter("test", mockFactory);
 
       entityService.entity({ entity: "custom_entity", bundle: "special-bundle" }, "test");
-      
-      expect(mockFactory).toHaveBeenCalledWith(expect.objectContaining({
-        basePath: "/jsonapi/custom_entity/special-bundle"
-      }));
+
+      expect(mockFactory).toHaveBeenCalledWith(
+        expect.objectContaining({
+          basePath: "/jsonapi/custom_entity/special-bundle",
+        })
+      );
     });
   });
 });

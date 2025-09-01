@@ -1,14 +1,14 @@
-import dts from 'rollup-plugin-dts'
-import esbuild from 'rollup-plugin-esbuild'
-import replace from '@rollup/plugin-replace'
+import dts from "rollup-plugin-dts";
+import esbuild from "rollup-plugin-esbuild";
+import replace from "@rollup/plugin-replace";
 
-const name = 'index';
+const name = "index";
 
-const bundle = config => ({
+const bundle = (config) => ({
   ...config,
-  input: 'src/index.ts',
-  external: id => !/^[./]/.test(id),
-})
+  input: "src/index.ts",
+  external: (id) => !/^[./]/.test(id),
+});
 
 export default [
   bundle({
@@ -16,15 +16,15 @@ export default [
       replace({
         preventAssignment: true,
         values: {
-          'process.envType': `'node'`
-        }
+          "process.envType": `'node'`,
+        },
       }),
       esbuild(),
     ],
     output: [
       {
         file: `./dist/${name}.js`,
-        format: 'es',
+        format: "es",
         sourcemap: true,
       },
     ],
@@ -34,15 +34,15 @@ export default [
       replace({
         preventAssignment: true,
         values: {
-          'process.envType': `'browser'`
-        }
+          "process.envType": `'browser'`,
+        },
       }),
       esbuild(),
     ],
     output: [
       {
         file: `./dist/browser/${name}.js`,
-        format: 'es',
+        format: "es",
         sourcemap: true,
       },
     ],
@@ -52,10 +52,8 @@ export default [
     output: [
       {
         file: `./dist/${name}.d.ts`,
-        format: 'es',
-      }
+        format: "es",
+      },
     ],
   }),
-]
-
-
+];

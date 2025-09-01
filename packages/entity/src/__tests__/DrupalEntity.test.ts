@@ -150,8 +150,8 @@ class MockCore implements CoreInterface {
  * Mock Entity Adapter for testing
  */
 class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
-  implements EntityAdapter<TAttributes> {
-  
+  implements EntityAdapter<TAttributes>
+{
   async load(entityId: string, _options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
     return {
       id: entityId,
@@ -171,7 +171,7 @@ class MockEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
       },
       {
         id: "2",
-        type: "node--article", 
+        type: "node--article",
         attributes: { title: "Mock Article 2", body: "Mock content 2" } as unknown as TAttributes,
         relationships: {},
       },
@@ -227,9 +227,9 @@ describe("DrupalEntity", () => {
         .registerAdapter("jsonapi", mockAdapterFactory)
         .registerAdapter("graphql", mockAdapterFactory)
         .registerAdapter("custom", mockAdapterFactory);
-      
+
       expect(result).toBe(drupalEntity);
-      
+
       // Test that all adapters can be used
       const jsonApiLoader = drupalEntity.entity({ entity: "node", bundle: "article" }, "jsonapi");
       const graphqlLoader = drupalEntity.entity({ entity: "node", bundle: "article" }, "graphql");
@@ -273,16 +273,16 @@ describe("DrupalEntity", () => {
     test("should create entity loader with identifier", () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const loader = drupalEntity.entity(identifier);
-      
+
       expect(loader).toBeInstanceOf(EntityLoader);
     });
 
     test("should create entity loader with specific adapter", () => {
       drupalEntity.registerAdapter("custom", mockAdapterFactory);
-      
+
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const loader = drupalEntity.entity(identifier, "custom");
-      
+
       expect(loader).toBeInstanceOf(EntityLoader);
     });
 
@@ -290,7 +290,7 @@ describe("DrupalEntity", () => {
       const nodeLoader = drupalEntity.entity({ entity: "node", bundle: "article" });
       const userLoader = drupalEntity.entity({ entity: "user", bundle: "user" });
       const termLoader = drupalEntity.entity({ entity: "taxonomy_term", bundle: "tags" });
-      
+
       expect(nodeLoader).toBeInstanceOf(EntityLoader);
       expect(userLoader).toBeInstanceOf(EntityLoader);
       expect(termLoader).toBeInstanceOf(EntityLoader);
@@ -303,24 +303,25 @@ describe("DrupalEntity", () => {
         published: boolean;
       }
 
-      const typedLoader = drupalEntity.entity<ArticleAttributes>(
-        { entity: "node", bundle: "article" }
-      );
-      
+      const typedLoader = drupalEntity.entity<ArticleAttributes>({
+        entity: "node",
+        bundle: "article",
+      });
+
       expect(typedLoader).toBeInstanceOf(EntityLoader);
     });
 
     test("should handle empty entity identifier", () => {
       const identifier: EntityIdentifier = { entity: "", bundle: "" };
       const loader = drupalEntity.entity(identifier);
-      
+
       expect(loader).toBeInstanceOf(EntityLoader);
     });
 
     test("should handle special characters in entity/bundle names", () => {
       const identifier: EntityIdentifier = { entity: "custom_entity", bundle: "special-bundle" };
       const loader = drupalEntity.entity(identifier);
-      
+
       expect(loader).toBeInstanceOf(EntityLoader);
     });
   });
@@ -339,7 +340,7 @@ describe("DrupalEntity", () => {
       const articleEntity = drupalEntity.node("article");
       const pageEntity = drupalEntity.node("page");
       const newsEntity = drupalEntity.node("news");
-      
+
       expect(articleEntity).toBeInstanceOf(FluentEntity);
       expect(pageEntity).toBeInstanceOf(FluentEntity);
       expect(newsEntity).toBeInstanceOf(FluentEntity);
@@ -375,7 +376,7 @@ describe("DrupalEntity", () => {
     test("should proxy to EntityService for entity creation", () => {
       const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
       const loader = drupalEntity.entity(identifier);
-      
+
       // The loader should be able to perform operations
       expect(() => loader.load("1")).not.toThrow();
     });
@@ -383,7 +384,7 @@ describe("DrupalEntity", () => {
     test("should proxy adapter registration to EntityService", () => {
       const customFactory: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
       drupalEntity.registerAdapter("test", customFactory);
-      
+
       // Should be able to use the registered adapter
       const loader = drupalEntity.entity({ entity: "node", bundle: "article" }, "test");
       expect(loader).toBeInstanceOf(EntityLoader);
@@ -391,7 +392,7 @@ describe("DrupalEntity", () => {
 
     test("should proxy default adapter setting to EntityService", () => {
       drupalEntity.setDefaultAdapter("jsonapi");
-      
+
       // Should use the default adapter
       const loader = drupalEntity.entity({ entity: "node", bundle: "article" });
       expect(loader).toBeInstanceOf(EntityLoader);
@@ -399,10 +400,10 @@ describe("DrupalEntity", () => {
 
     test("should create FluentEntity that uses the same EntityService", () => {
       const fluentEntity = drupalEntity.node("article");
-      
+
       // The FluentEntity should be able to use the registered adapters
       expect(fluentEntity).toBeInstanceOf(FluentEntity);
-      
+
       // Test that it can perform operations (requires adapter to be working)
       expect(() => fluentEntity.list()).not.toThrow();
     });
@@ -413,27 +414,27 @@ describe("DrupalEntity", () => {
       // DrupalEntity should provide the same functionality as EntityService
       // but with a simplified interface
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       const directService = new EntityService(mockCore);
       directService.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       // Both should create equivalent loaders
       const facadeLoader = drupalEntity.entity({ entity: "node", bundle: "article" });
       const directLoader = directService.entity({ entity: "node", bundle: "article" });
-      
+
       expect(facadeLoader).toBeInstanceOf(EntityLoader);
       expect(directLoader).toBeInstanceOf(EntityLoader);
     });
 
     test("should provide node-specific helper that service doesn't have", () => {
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       const directService = new EntityService(mockCore);
-      
+
       // DrupalEntity has node() method, EntityService doesn't
       const fluentEntity = drupalEntity.node("article");
       expect(fluentEntity).toBeInstanceOf(FluentEntity);
-      
+
       // EntityService doesn't have a node() method
       expect((directService as any).node).toBeUndefined();
     });
@@ -441,17 +442,17 @@ describe("DrupalEntity", () => {
     test("should maintain same adapter state as internal service", () => {
       const customAdapter1: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
       const customAdapter2: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
-      
+
       drupalEntity
         .registerAdapter("adapter1", customAdapter1)
         .registerAdapter("adapter2", customAdapter2)
         .setDefaultAdapter("adapter1");
-      
+
       // Should be able to use both adapters
       const loader1 = drupalEntity.entity({ entity: "node", bundle: "article" }, "adapter1");
       const loader2 = drupalEntity.entity({ entity: "node", bundle: "article" }, "adapter2");
       const defaultLoader = drupalEntity.entity({ entity: "node", bundle: "article" });
-      
+
       expect(loader1).toBeInstanceOf(EntityLoader);
       expect(loader2).toBeInstanceOf(EntityLoader);
       expect(defaultLoader).toBeInstanceOf(EntityLoader);
@@ -470,9 +471,9 @@ describe("DrupalEntity", () => {
       const errorFactory: EntityAdapterFactory = () => {
         throw new Error("Adapter factory error");
       };
-      
+
       drupalEntity.registerAdapter("error", errorFactory);
-      
+
       expect(() => {
         drupalEntity.entity({ entity: "node", bundle: "article" }, "error");
       }).toThrow("Adapter factory error");
@@ -487,7 +488,7 @@ describe("DrupalEntity", () => {
       // But operations should fail
       const nullEntity = new DrupalEntity(null as any);
       nullEntity.registerAdapter("test", mockAdapterFactory);
-      
+
       expect(() => {
         nullEntity.entity({ entity: "node", bundle: "article" }, "test");
       }).toThrow(); // Should throw when trying to access null core
@@ -503,7 +504,7 @@ describe("DrupalEntity", () => {
         .setDefaultAdapter("adapter1")
         .setDefaultAdapter("adapter2")
         .setDefaultAdapter("adapter3");
-      
+
       // Should use the last set default adapter
       const loader = drupalEntity.entity({ entity: "node", bundle: "article" });
       expect(loader).toBeInstanceOf(EntityLoader);
@@ -512,10 +513,10 @@ describe("DrupalEntity", () => {
     test("should handle adapter re-registration", () => {
       const adapter1: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
       const adapter2: EntityAdapterFactory = (_ctx) => new MockEntityAdapter();
-      
+
       drupalEntity.registerAdapter("test", adapter1);
       drupalEntity.registerAdapter("test", adapter2); // Re-register with different implementation
-      
+
       // Should use the latest registered adapter
       const loader = drupalEntity.entity({ entity: "node", bundle: "article" }, "test");
       expect(loader).toBeInstanceOf(EntityLoader);
@@ -524,16 +525,16 @@ describe("DrupalEntity", () => {
     test("should handle very long entity/bundle names", () => {
       const longEntity = "very_long_entity_name_that_exceeds_normal_expectations";
       const longBundle = "very_long_bundle_name_that_also_exceeds_normal_expectations";
-      
+
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       const loader = drupalEntity.entity({ entity: longEntity, bundle: longBundle });
       expect(loader).toBeInstanceOf(EntityLoader);
     });
 
     test("should handle numeric-like entity/bundle names", () => {
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       const loader = drupalEntity.entity({ entity: "123", bundle: "456" });
       expect(loader).toBeInstanceOf(EntityLoader);
     });
@@ -543,13 +544,13 @@ describe("DrupalEntity", () => {
     test("should reuse internal EntityService instance", () => {
       // Multiple operations should use the same internal service
       drupalEntity.registerAdapter("test", mockAdapterFactory);
-      
+
       const loader1 = drupalEntity.entity({ entity: "node", bundle: "article" }, "test");
       const loader2 = drupalEntity.entity({ entity: "node", bundle: "page" }, "test");
-      
+
       expect(loader1).toBeInstanceOf(EntityLoader);
       expect(loader2).toBeInstanceOf(EntityLoader);
-      
+
       // Both should have access to the same adapter registration
     });
 
@@ -558,7 +559,7 @@ describe("DrupalEntity", () => {
       for (let i = 0; i < 100; i++) {
         drupalEntity.registerAdapter(`adapter${i}`, mockAdapterFactory);
       }
-      
+
       // Should still work efficiently
       const loader = drupalEntity.entity({ entity: "node", bundle: "article" }, "adapter50");
       expect(loader).toBeInstanceOf(EntityLoader);
@@ -566,15 +567,15 @@ describe("DrupalEntity", () => {
 
     test("should handle many entity creations efficiently", () => {
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       // Create many loaders
       const loaders = [];
       for (let i = 0; i < 100; i++) {
         loaders.push(drupalEntity.entity({ entity: "node", bundle: `bundle${i}` }));
       }
-      
+
       // All should be valid
-      loaders.forEach(loader => {
+      loaders.forEach((loader) => {
         expect(loader).toBeInstanceOf(EntityLoader);
       });
     });
@@ -586,10 +587,13 @@ describe("DrupalEntity", () => {
         name: string;
         value: number;
       }
-      
+
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
-      const typedLoader = drupalEntity.entity<CustomAttributes>({ entity: "custom", bundle: "type" });
+
+      const typedLoader = drupalEntity.entity<CustomAttributes>({
+        entity: "custom",
+        bundle: "type",
+      });
       expect(typedLoader).toBeInstanceOf(EntityLoader);
     });
 
@@ -599,9 +603,9 @@ describe("DrupalEntity", () => {
         body: string;
         status: boolean;
       }
-      
+
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
+
       const typedFluentEntity = drupalEntity.node<NodeAttributes>("article");
       expect(typedFluentEntity).toBeInstanceOf(FluentEntity);
     });
@@ -616,12 +620,15 @@ describe("DrupalEntity", () => {
         };
         optionalField?: boolean;
       }
-      
+
       drupalEntity.registerAdapter("jsonapi", mockAdapterFactory);
-      
-      const complexLoader = drupalEntity.entity<ComplexAttributes>({ entity: "complex", bundle: "type" });
+
+      const complexLoader = drupalEntity.entity<ComplexAttributes>({
+        entity: "complex",
+        bundle: "type",
+      });
       const complexFluentEntity = drupalEntity.node<ComplexAttributes>("complex");
-      
+
       expect(complexLoader).toBeInstanceOf(EntityLoader);
       expect(complexFluentEntity).toBeInstanceOf(FluentEntity);
     });

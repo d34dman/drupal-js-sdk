@@ -1,12 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "no-loops",
-    "prefer-arrow",
-    "import"
-  ],
+  "plugins": ["@typescript-eslint", "no-loops", "prefer-arrow", "import", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
@@ -15,7 +10,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended"
   ],
   "env": {
     "node": true,
@@ -27,11 +23,10 @@
     "no-debugger": "error",
     "prefer-const": "error",
     "no-var": "error",
-    
-    // String preferences - enforce double quotes
-    "quotes": ["error", "double", { "avoidEscape": true }],
+
+    // String preferences - Prettier handles quotes, we just enforce template literals
     "prefer-template": "error",
-    
+
     // TypeScript strict rules - no any, no non-null assertions
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-non-null-assertion": "error",
@@ -45,10 +40,10 @@
     "@typescript-eslint/prefer-nullish-coalescing": "error",
     "@typescript-eslint/prefer-optional-chain": "error",
     "@typescript-eslint/strict-boolean-expressions": "error",
-    
+
     // Prevent loops (functional programming preference)
     "no-loops/no-loops": "error",
-    
+
     // Prefer arrow functions
     "prefer-arrow/prefer-arrow-functions": [
       "error",
@@ -58,19 +53,12 @@
         "classPropertiesAllowed": false
       }
     ],
-    
+
     // Import/export rules
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
@@ -80,7 +68,7 @@
     ],
     "import/no-duplicates": "error",
     "import/no-unresolved": "off",
-    
+
     // Code quality
     "@typescript-eslint/prefer-readonly": "error",
     "@typescript-eslint/prefer-as-const": "error",

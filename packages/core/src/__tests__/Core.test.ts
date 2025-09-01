@@ -1,21 +1,19 @@
-import {Core} from '..';
-import { StorageInMemory } from '@drupal-js-sdk/storage';
-import {FetchClient} from '@drupal-js-sdk/xhr';
-test('Core', () => {
+import { Core } from "..";
+import { StorageInMemory } from "@drupal-js-sdk/storage";
+import { FetchClient } from "@drupal-js-sdk/xhr";
+test("Core", () => {
   const core = new Core({});
-  core.config.setItem('FOO', 'bar');
-  expect(core.config.getItem('FOO')).toBe('bar');
-  expect(core.config.getItem('BAR')).toBe(null);
-
+  core.config.setItem("FOO", "bar");
+  expect(core.config.getItem("FOO")).toBe("bar");
+  expect(core.config.getItem("BAR")).toBe(null);
 });
 
-
-test('Core Overridable Services', () => {
+test("Core Overridable Services", () => {
   const core = new Core({});
 
   expect(() => {
     core.getClientService();
-  }).toThrow('ApiClientService undefined');
+  }).toThrow("ApiClientService undefined");
 
   const client = new FetchClient();
   expect(core.setClientService(client)).toBe(core);
@@ -23,16 +21,13 @@ test('Core Overridable Services', () => {
 
   expect(() => {
     core.getSessionService();
-  }).toThrow('SessionService undefined');
-
+  }).toThrow("SessionService undefined");
 
   const session = new StorageInMemory();
   expect(core.setSessionService(session)).toBe(core);
   expect(core.getSessionService()).toBe(session);
 
-
   const config = new StorageInMemory();
   expect(core.setConfigService(config)).toBe(core);
   expect(core.getConfigService()).toBe(config);
-
 });

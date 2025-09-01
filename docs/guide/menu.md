@@ -9,15 +9,16 @@ Drupal JavaScript SDK relies on the Drupal module [Decoupled Menus](https://www.
 ## Basic Usage
 
 ```js
-import { DrupalSDK } from 'drupal-js-sdk'
+import { DrupalSDK } from "drupal-js-sdk";
 
-const sdk = new DrupalSDK({ baseURL: 'http://example.com' });
+const sdk = new DrupalSDK({ baseURL: "http://example.com" });
 const menu = sdk.menu;
 
 let menuTreeData = [];
 
 // Fetch `main` menu in Drupal.
-menu.list('main')
+menu
+  .list("main")
   .then((data) => {
     menuTreeData = data;
   })
@@ -29,7 +30,8 @@ menu.list('main')
 To get the flat menu data as returned from Drupal, use `raw` (alias for `getMenuRaw`):
 
 ```js
-menu.raw('main')
+menu
+  .raw("main")
   .then((res) => {
     menuData = res.data;
   })

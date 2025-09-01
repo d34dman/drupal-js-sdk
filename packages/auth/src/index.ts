@@ -1,1 +1,1 @@
-export {DrupalAuth} from './DrupalAuth';
+export { DrupalAuth } from "./DrupalAuth";

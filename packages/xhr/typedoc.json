@@ -1,6 +1,3 @@
 {
-  "entryPoints": [
-    "./src/AxiosClient.ts",
-    "./src/FetchClient.ts"
-  ]
+  "entryPoints": ["./src/AxiosClient.ts", "./src/FetchClient.ts"]
 }

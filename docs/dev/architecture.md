@@ -9,7 +9,6 @@ This page provides a system-level view of the monorepo packages and their depend
 </figure>
 </div>
 
-
 Key points:
 
 - `@drupal-js-sdk/interfaces` defines shared types and contracts.
@@ -17,5 +16,3 @@ Key points:
 - Transport is provided by `@drupal-js-sdk/xhr` via `FetchClient` or `AxiosClient`.
 - Feature packages (`auth`, `entity`, `jsonapi`, `menu`) consume `core` and `interfaces`.
 - `@drupal-js-sdk/error` centralizes error definitions used across layers.
-
-

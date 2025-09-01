@@ -3,14 +3,15 @@ import { FetchClient } from "../FetchClient";
 describe("XHR Client Data Handling", () => {
   const originalWindow = (global as any).window;
 
-  const mkResponse = (init?: any) => ({
-    ok: init?.ok ?? true,
-    status: init?.status ?? 200,
-    statusText: init?.statusText ?? "OK",
-    headers: new Map(Object.entries(init?.headers ?? {})),
-    json: () => Promise.resolve(init?.json ?? {}),
-    text: () => Promise.resolve(JSON.stringify(init?.json ?? {}))
-  } as unknown as Response);
+  const mkResponse = (init?: any) =>
+    ({
+      ok: init?.ok ?? true,
+      status: init?.status ?? 200,
+      statusText: init?.statusText ?? "OK",
+      headers: new Map(Object.entries(init?.headers ?? {})),
+      json: () => Promise.resolve(init?.json ?? {}),
+      text: () => Promise.resolve(JSON.stringify(init?.json ?? {})),
+    }) as unknown as Response;
 
   beforeEach(() => {
     (global.fetch as jest.Mock) = jest.fn(() => Promise.resolve(mkResponse()));
@@ -27,10 +28,10 @@ describe("XHR Client Data Handling", () => {
   describe("Client Configuration", () => {
     test("should handle setClient with window.fetch identity check", () => {
       const client = new FetchClient();
-      
+
       // Configure window environment with fetch for browser compatibility
       (global as any).window = { fetch: global.fetch };
-      
+
       // This should trigger the window.fetch check in line 25
       client.setClient((global as any).window.fetch);
       expect(client.getClient()).toBe((global as any).window.fetch);
@@ -38,9 +39,9 @@ describe("XHR Client Data Handling", () => {
 
     test("should handle setClient with custom fetch function", () => {
       const client = new FetchClient();
-      
+
       const customFetch = (() => Promise.resolve(mkResponse())) as any;
-      
+
       // This should trigger the else branch (lines 32-34)
       client.setClient(customFetch);
       expect(client.getClient()).toBe(customFetch);
@@ -48,7 +49,7 @@ describe("XHR Client Data Handling", () => {
 
     test("should handle setClient with default parameter", () => {
       const client = new FetchClient();
-      
+
       // Test setClient with default parameter (should use global fetch)
       client.setClient();
       expect(typeof client.getClient()).toBe("function");
@@ -64,21 +65,21 @@ describe("XHR Client Data Handling", () => {
       params.append("test", "value");
       await client.call("POST", "/params", {
         data: params,
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       });
 
-      // Test Blob with JSON content-type removal  
+      // Test Blob with JSON content-type removal
       const blob = new Blob(["test"], { type: "text/plain" });
       await client.call("POST", "/blob", {
         data: blob,
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       });
 
       // Test ArrayBufferView with JSON content-type removal
       const uint8Array = new Uint8Array([1, 2, 3]);
       await client.call("POST", "/uint8", {
         data: uint8Array,
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       });
 
       // Test ReadableStream with JSON content-type removal
@@ -86,11 +87,11 @@ describe("XHR Client Data Handling", () => {
         start(controller) {
           controller.enqueue(new TextEncoder().encode("test"));
           controller.close();
-        }
+        },
       });
       await client.call("POST", "/stream", {
         data: stream,
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       });
 
       expect(true).toBe(true);
@@ -102,12 +103,12 @@ describe("XHR Client Data Handling", () => {
       // Test with signal already provided
       const controller = new AbortController();
       await client.call("GET", "/with-signal", {
-        signal: controller.signal
+        signal: controller.signal,
       });
 
       // Test with timeout but no signal
       await client.call("GET", "/with-timeout", {
-        timeoutMs: 1000
+        timeoutMs: 1000,
       });
 
       expect(true).toBe(true);
@@ -118,17 +119,17 @@ describe("XHR Client Data Handling", () => {
 
       // Test GET with X-CSRF-Token (should be removed)
       await client.call("GET", "/csrf-get", {
-        headers: { "X-CSRF-Token": "remove-me" }
+        headers: { "X-CSRF-Token": "remove-me" },
       });
 
       // Test HEAD with X-CSRF-Token (should be removed)
       await client.call("HEAD", "/csrf-head", {
-        headers: { "X-CSRF-Token": "remove-me" }
+        headers: { "X-CSRF-Token": "remove-me" },
       });
 
       // Test POST with X-CSRF-Token (should be kept)
       await client.call("POST", "/csrf-post", {
-        headers: { "X-CSRF-Token": "keep-me" }
+        headers: { "X-CSRF-Token": "keep-me" },
       });
 
       expect(true).toBe(true);
@@ -143,16 +144,14 @@ describe("XHR Client Data Handling", () => {
         statusText: "OK",
         headers: null, // Response without headers processing capability
         json: () => Promise.resolve({ test: "data" }),
-        text: () => Promise.resolve('{"test":"data"}')
+        text: () => Promise.resolve('{"test":"data"}'),
       } as unknown as Response;
 
-      (global.fetch as jest.Mock).mockImplementationOnce(() =>
-        Promise.resolve(responseWithoutGet)
-      );
+      (global.fetch as jest.Mock).mockImplementationOnce(() => Promise.resolve(responseWithoutGet));
 
       const client = new FetchClient({ baseURL: "https://no-headers-get.example.com" });
       const response = await client.call("GET", "/no-get");
-      
+
       expect(response.data).toEqual({ test: "data" });
     });
 
@@ -160,18 +159,16 @@ describe("XHR Client Data Handling", () => {
       const noMethodsResponse = {
         ok: true,
         status: 200,
-        statusText: "OK", 
-        headers: new Map([["content-type", "application/octet-stream"]])
+        statusText: "OK",
+        headers: new Map([["content-type", "application/octet-stream"]]),
         // Response without standard parsing methods
       } as unknown as Response;
 
-      (global.fetch as jest.Mock).mockImplementationOnce(() =>
-        Promise.resolve(noMethodsResponse)
-      );
+      (global.fetch as jest.Mock).mockImplementationOnce(() => Promise.resolve(noMethodsResponse));
 
       const client = new FetchClient({ baseURL: "https://no-methods.example.com" });
       const response = await client.call("GET", "/no-methods");
-      
+
       expect(response.data).toBeNull();
     });
   });
@@ -182,7 +179,7 @@ describe("XHR Client Data Handling", () => {
 
       // Test behavior with empty query parameters
       await client.call("GET", "/empty-params", { params: {} });
-      
+
       // Test behavior without any query parameters
       await client.call("GET", "/no-params");
 

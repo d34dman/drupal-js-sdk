@@ -113,7 +113,7 @@ class MockXhrClient implements XhrInterface {
           relationships: {},
         },
         {
-          id: "2", 
+          id: "2",
           type: "node--article",
           attributes: { title: "Test Article 2", body: "Test content 2" },
           relationships: {},
@@ -166,10 +166,10 @@ describe("FluentEntity", () => {
   beforeEach(() => {
     mockCore = new MockCore();
     entityService = new EntityService(mockCore);
-    
+
     // Register JsonApiEntityAdapter
     entityService.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
-    
+
     fluentEntity = new FluentEntity(entityService, { entity: "node", bundle: "article" });
   });
 
@@ -181,8 +181,11 @@ describe("FluentEntity", () => {
     test("should create entity with different identifiers", () => {
       const userEntity = new FluentEntity(entityService, { entity: "user", bundle: "user" });
       expect(userEntity).toBeInstanceOf(FluentEntity);
-      
-      const taxonomyEntity = new FluentEntity(entityService, { entity: "taxonomy_term", bundle: "tags" });
+
+      const taxonomyEntity = new FluentEntity(entityService, {
+        entity: "taxonomy_term",
+        bundle: "tags",
+      });
       expect(taxonomyEntity).toBeInstanceOf(FluentEntity);
     });
   });
@@ -214,7 +217,7 @@ describe("FluentEntity", () => {
       const result1 = fluentEntity.page({ limit: 10 });
       const result2 = fluentEntity.page({ offset: 20 });
       const result3 = fluentEntity.page({ number: 2, limit: 5 });
-      
+
       expect(result1).toBe(fluentEntity);
       expect(result2).toBe(fluentEntity);
       expect(result3).toBe(fluentEntity);
@@ -227,9 +230,9 @@ describe("FluentEntity", () => {
 
     test("should accept params from external builder with duck typing", () => {
       const mockBuilder = {
-        getQueryObject: () => ({ include: "author", "fields[node--article]": "title,body" })
+        getQueryObject: () => ({ include: "author", "fields[node--article]": "title,body" }),
       };
-      
+
       const result = fluentEntity.fromParams(mockBuilder);
       expect(result).toBe(fluentEntity);
     });
@@ -242,7 +245,7 @@ describe("FluentEntity", () => {
 
     test("should handle params from builder with malformed getQueryObject", () => {
       const mockBuilder = {
-        getQueryObject: null
+        getQueryObject: null,
       };
       const result = fluentEntity.fromParams(mockBuilder as any);
       expect(result).toBe(fluentEntity);
@@ -253,7 +256,7 @@ describe("FluentEntity", () => {
       const result1 = fluentEntity.sort("created"); // Default should be ASC
       const result2 = fluentEntity.sort("title", "ASC"); // Explicit ASC
       const result3 = fluentEntity.sort("weight", "DESC"); // Explicit DESC
-      
+
       expect(result1).toBe(fluentEntity);
       expect(result2).toBe(fluentEntity);
       expect(result3).toBe(fluentEntity);
@@ -262,7 +265,7 @@ describe("FluentEntity", () => {
     test("should cover fromParams method with different getQueryObject results", () => {
       // Test when getQueryObject returns actual object (normal case)
       const builderWithObject = {
-        getQueryObject: () => ({ param: "value" })
+        getQueryObject: () => ({ param: "value" }),
       };
       const result1 = fluentEntity.fromParams(builderWithObject);
       expect(result1).toBe(fluentEntity);
@@ -276,7 +279,7 @@ describe("FluentEntity", () => {
 
       // Test with builder that has undefined getQueryObject
       const builderUndefinedMethod = {
-        getQueryObject: undefined
+        getQueryObject: undefined,
       };
       const result3 = fluentEntity.fromParams(builderUndefinedMethod as any);
       expect(result3).toBe(fluentEntity);
@@ -284,7 +287,7 @@ describe("FluentEntity", () => {
 
     test("should cover JsonApiQueryBuilder branches (Lines 111, 126, 143)", async () => {
       // Create a complex query that exercises all conditional branches
-      
+
       // Test with no existing external params (Line 111 - options?.jsonapi?.query ?? {})
       const result1 = await fluentEntity
         .select(["title"])
@@ -299,26 +302,22 @@ describe("FluentEntity", () => {
         jsonapi: {
           query: {
             existing: "param",
-          }
-        }
+          },
+        },
       };
-      
-      const result2 = await fluentEntity
-        .whereEq("status", 1)
-        .list(existingOptions); // Should merge with existing options
+
+      const result2 = await fluentEntity.whereEq("status", 1).list(existingOptions); // Should merge with existing options
 
       expect(Array.isArray(result2)).toBe(true);
 
       // Test with existing external params vs no external params (Line 143)
       const freshEntity = new FluentEntity(entityService, { entity: "node", bundle: "article" });
-      
+
       // First call with no external params
       await freshEntity.list();
-      
+
       // Second call after setting external params
-      await freshEntity
-        .params({ external: "param" })
-        .list();
+      await freshEntity.params({ external: "param" }).list();
 
       expect(true).toBe(true);
     });
@@ -329,7 +328,7 @@ describe("FluentEntity", () => {
       const result1 = fluentEntity.whereEq("status", 1);
       const result2 = fluentEntity.whereEq("title", "Test Article");
       const result3 = fluentEntity.whereEq("published", true);
-      
+
       expect(result1).toBe(fluentEntity);
       expect(result2).toBe(fluentEntity);
       expect(result3).toBe(fluentEntity);
@@ -343,7 +342,7 @@ describe("FluentEntity", () => {
     test("should build whereIn filter", () => {
       const result1 = fluentEntity.whereIn("nid", [1, 2, 3]);
       const result2 = fluentEntity.whereIn("status", ["published", "draft"]);
-      
+
       expect(result1).toBe(fluentEntity);
       expect(result2).toBe(fluentEntity);
     });
@@ -352,7 +351,7 @@ describe("FluentEntity", () => {
       const result1 = fluentEntity.whereRange("created", { gte: "2023-01-01" });
       const result2 = fluentEntity.whereRange("created", { lte: "2023-12-31" });
       const result3 = fluentEntity.whereRange("weight", { gte: 0, lte: 100 });
-      
+
       expect(result1).toBe(fluentEntity);
       expect(result2).toBe(fluentEntity);
       expect(result3).toBe(fluentEntity);
@@ -381,10 +380,10 @@ describe("FluentEntity", () => {
     test("should execute list with options", async () => {
       const options: EntityListOptions = {
         jsonapi: {
-          query: { "page[limit]": 5 }
-        }
+          query: { "page[limit]": 5 },
+        },
       };
-      
+
       const results = await fluentEntity.list(options);
       expect(Array.isArray(results)).toBe(true);
     });
@@ -396,7 +395,7 @@ describe("FluentEntity", () => {
         .sort("created", "DESC")
         .page({ limit: 10 })
         .list();
-        
+
       expect(Array.isArray(results)).toBe(true);
     });
 
@@ -409,10 +408,10 @@ describe("FluentEntity", () => {
     test("should execute listPage with options", async () => {
       const options: EntityListOptions = {
         jsonapi: {
-          query: { "page[limit]": 5 }
-        }
+          query: { "page[limit]": 5 },
+        },
       };
-      
+
       const result = await fluentEntity.listPage(options);
       expect(result).toHaveProperty("items");
       expect(Array.isArray(result.items)).toBe(true);
@@ -422,10 +421,13 @@ describe("FluentEntity", () => {
       // Create a service without listPage support
       const serviceWithoutListPage = new EntityService(mockCore);
       serviceWithoutListPage.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
-      
-      const entity = new FluentEntity(serviceWithoutListPage, { entity: "node", bundle: "article" });
+
+      const entity = new FluentEntity(serviceWithoutListPage, {
+        entity: "node",
+        bundle: "article",
+      });
       const result = await entity.listPage();
-      
+
       expect(result).toHaveProperty("items");
       expect(Array.isArray(result.items)).toBe(true);
       // When service doesn't support listPage, it falls back to list() and page may be present but undefined for total/size
@@ -435,17 +437,20 @@ describe("FluentEntity", () => {
     test("should handle FluentEntity listPage fallback (Lines 117-118)", async () => {
       // Create a mock service that doesn't have listPage method to trigger FluentEntity fallback
       const mockServiceWithoutListPage = {
-        list: jest.fn().mockResolvedValue([
-          { id: "1", type: "node--article", attributes: { title: "Test" } }
-        ]),
+        list: jest
+          .fn()
+          .mockResolvedValue([{ id: "1", type: "node--article", attributes: { title: "Test" } }]),
         // No listPage method - this should trigger lines 117-118 in FluentEntity
       };
 
-      const fluentEntity = new FluentEntity(mockServiceWithoutListPage as any, { entity: "node", bundle: "article" });
-      
+      const fluentEntity = new FluentEntity(mockServiceWithoutListPage as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       // This should trigger the fallback: const items = await this.service.list() and return { items }
       const result = await fluentEntity.listPage();
-      
+
       expect(result).toHaveProperty("items");
       expect(result.items).toHaveLength(1);
       expect(result.page).toBeUndefined(); // Should be undefined in fallback
@@ -475,7 +480,7 @@ describe("FluentEntity", () => {
       mockClient.setMockResponse("/jsonapi/node/article/123", {
         data: {
           id: "123",
-          type: "node--article", 
+          type: "node--article",
           attributes: { title: "Single Article", body: "Single content" },
           relationships: {},
         },
@@ -483,10 +488,10 @@ describe("FluentEntity", () => {
 
       const options: EntityLoadOptions = {
         jsonapi: {
-          query: { include: "field_author" }
-        }
+          query: { include: "field_author" },
+        },
       };
-      
+
       const result = await fluentEntity.id("123").get(options);
       expect(result).toHaveProperty("id", "123");
     });
@@ -511,7 +516,7 @@ describe("FluentEntity", () => {
         .include(["field_author"])
         .select(["title", "body"])
         .get();
-        
+
       expect(result).toHaveProperty("id", "456");
     });
   });
@@ -535,20 +540,17 @@ describe("FluentEntity", () => {
     test("should find first with options", async () => {
       const options: EntityListOptions = {
         jsonapi: {
-          query: { "filter[status]": 1 }
-        }
+          query: { "filter[status]": 1 },
+        },
       };
-      
+
       const result = await fluentEntity.findOne(options);
       expect(result).toHaveProperty("id");
     });
 
     test("should find first with chained filters", async () => {
-      const result = await fluentEntity
-        .whereEq("status", 1)
-        .sort("created", "DESC")
-        .findOne();
-        
+      const result = await fluentEntity.whereEq("status", 1).sort("created", "DESC").findOne();
+
       expect(result).toHaveProperty("id");
     });
   });
@@ -563,20 +565,17 @@ describe("FluentEntity", () => {
     test("should get count with options", async () => {
       const options: EntityListOptions = {
         jsonapi: {
-          query: { "filter[status]": 1 }
-        }
+          query: { "filter[status]": 1 },
+        },
       };
-      
+
       const count = await fluentEntity.count(options);
       expect(typeof count).toBe("number");
     });
 
     test("should get count with chained filters", async () => {
-      const count = await fluentEntity
-        .whereEq("status", 1)
-        .whereContains("title", "Test")
-        .count();
-        
+      const count = await fluentEntity.whereEq("status", 1).whereContains("title", "Test").count();
+
       expect(typeof count).toBe("number");
     });
 
@@ -606,8 +605,11 @@ describe("FluentEntity", () => {
       };
 
       // Create a new FluentEntity with the mocked service
-      const fluentWithCount = new FluentEntity(mockServiceWithCount as any, { entity: "node", bundle: "article" });
-      
+      const fluentWithCount = new FluentEntity(mockServiceWithCount as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       const count = await fluentWithCount.count();
       expect(count).toBe(42);
     });
@@ -623,11 +625,14 @@ describe("FluentEntity", () => {
         // No count method - should trigger lines 149-150 fallback
       };
 
-      const fluentEntity = new FluentEntity(mockServiceWithoutCount as any, { entity: "node", bundle: "article" });
-      
+      const fluentEntity = new FluentEntity(mockServiceWithoutCount as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       // This should trigger the fallback: await this.list(options) and return all.length
       const count = await fluentEntity.count();
-      
+
       expect(count).toBe(3);
       expect(mockServiceWithoutCount.list).toHaveBeenCalled();
     });
@@ -652,11 +657,11 @@ describe("FluentEntity", () => {
 
     test("should support chaining with external params", async () => {
       const externalBuilder = {
-        getQueryObject: () => ({ 
+        getQueryObject: () => ({
           include: "author,tags",
           "fields[node--article]": "title,body,created",
-          sort: "-created"
-        })
+          sort: "-created",
+        }),
       };
 
       const results = await fluentEntity
@@ -731,7 +736,10 @@ describe("FluentEntity", () => {
     });
 
     test("should handle empty query builder state", async () => {
-      const results = await new FluentEntity(entityService, { entity: "node", bundle: "article" }).list();
+      const results = await new FluentEntity(entityService, {
+        entity: "node",
+        bundle: "article",
+      }).list();
       expect(Array.isArray(results)).toBe(true);
     });
   });

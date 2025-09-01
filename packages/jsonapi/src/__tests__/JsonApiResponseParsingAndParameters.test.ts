@@ -9,17 +9,27 @@ import { JsonApiEntityAdapter } from "../JsonApiEntityAdapter";
 
 class MockXhrClient implements XhrInterface {
   private mockResponse: any = {};
-  
+
   setMockResponse(response: any): void {
     this.mockResponse = response;
   }
 
-  setClient(): XhrInterface { return this; }
-  getClient(): unknown { return null; }
-  addDefaultHeaders(): XhrInterface { return this; }
-  addDefaultOptions(): XhrInterface { return this; }
-  getDrupalError(): any { return new Error("Mock error"); }
-  
+  setClient(): XhrInterface {
+    return this;
+  }
+  getClient(): unknown {
+    return null;
+  }
+  addDefaultHeaders(): XhrInterface {
+    return this;
+  }
+  addDefaultOptions(): XhrInterface {
+    return this;
+  }
+  getDrupalError(): any {
+    return new Error("Mock error");
+  }
+
   async call(): Promise<XhrResponse> {
     return {
       data: this.mockResponse,
@@ -27,7 +37,7 @@ class MockXhrClient implements XhrInterface {
       statusText: "OK",
       headers: {},
       request: {},
-      config: {}
+      config: {},
     };
   }
 }
@@ -42,7 +52,7 @@ describe("JsonAPI Response Parsing and Parameters", () => {
     mockContext = {
       id: { entity: "node", bundle: "article" },
       basePath: "/jsonapi/node/article",
-      client: mockClient
+      client: mockClient,
     };
     adapter = new JsonApiEntityAdapter(mockContext);
   });
@@ -56,18 +66,19 @@ describe("JsonAPI Response Parsing and Parameters", () => {
             id: "1",
             type: "node--article",
             attributes: { title: "Test Article" },
-            relationships: { field_author: { data: { type: "user--user", id: "1" } } }
-          }
+            relationships: { field_author: { data: { type: "user--user", id: "1" } } },
+          },
         ],
         meta: { count: 1 },
-        links: {}
+        links: {},
       });
 
       const result = await adapter.listPage({
-        params: { // Use params instead of jsonapi.query to hit the ?? branch
+        params: {
+          // Use params instead of jsonapi.query to hit the ?? branch
           "fields[node--article]": "title",
-          include: "field_author"
-        }
+          include: "field_author",
+        },
       });
 
       expect(result.items).toHaveLength(1);
@@ -90,28 +101,28 @@ describe("JsonAPI Response Parsing and Parameters", () => {
       mockClient.setMockResponse({
         data: [
           null, // Null entity data
-          undefined, // Undefined entity data  
+          undefined, // Undefined entity data
           "not-an-object", // Invalid entity format
           {}, // Empty entity object
           {
             id: null, // Missing entity ID
             type: undefined, // Missing entity type
             attributes: null, // Missing attributes
-            relationships: "not-an-object" // Invalid relationships format
+            relationships: "not-an-object", // Invalid relationships format
           },
           {
             id: "valid-id",
             type: "valid--type",
             attributes: { title: "Valid" },
-            relationships: { field_test: { data: [] } }
-          }
-        ]
+            relationships: { field_test: { data: [] } },
+          },
+        ],
       });
 
       const result = await adapter.listPage();
 
       expect(result.items).toHaveLength(6);
-      
+
       // Verify null entity data is handled gracefully
       expect(result.items[0].id).toBe("");
       expect(result.items[0].type).toBe("node--article");
@@ -135,13 +146,14 @@ describe("JsonAPI Response Parsing and Parameters", () => {
       // Test count operation with legacy params option
       mockClient.setMockResponse({
         data: [],
-        meta: { count: 25 }
+        meta: { count: 25 },
       });
 
       const count = await adapter.count({
-        params: { // Use params instead of jsonapi.query to hit the ?? branch
-          "filter[status]": "1"
-        }
+        params: {
+          // Use params instead of jsonapi.query to hit the ?? branch
+          "filter[status]": "1",
+        },
       });
 
       expect(count).toBe(25);
@@ -154,12 +166,12 @@ describe("JsonAPI Response Parsing and Parameters", () => {
         data: {
           id: "test-id",
           type: "node--article",
-          attributes: { title: "Test" }
-        }
+          attributes: { title: "Test" },
+        },
       });
 
       const result = await adapter.load("test-id", {
-        params: { include: "field_test" }
+        params: { include: "field_test" },
       });
 
       expect(result.id).toBe("test-id");
@@ -167,12 +179,12 @@ describe("JsonAPI Response Parsing and Parameters", () => {
 
     test("should handle listPage with no jsonapi property", async () => {
       mockClient.setMockResponse({
-        data: [{ id: "1", type: "test", attributes: {} }]
+        data: [{ id: "1", type: "test", attributes: {} }],
       });
 
       // Options without jsonapi property to test the ?? options?.params branch
       const result = await adapter.listPage({
-        params: { limit: 10 }
+        params: { limit: 10 },
       });
 
       expect(result.items).toHaveLength(1);
@@ -181,12 +193,12 @@ describe("JsonAPI Response Parsing and Parameters", () => {
     test("should handle count with no jsonapi property", async () => {
       mockClient.setMockResponse({
         data: [],
-        meta: { count: 0 }
+        meta: { count: 0 },
       });
 
       // Options without jsonapi property to test the ?? options?.params branch
       const count = await adapter.count({
-        params: { "filter[published]": "1" }
+        params: { "filter[published]": "1" },
       });
 
       expect(count).toBe(0);
@@ -196,7 +208,7 @@ describe("JsonAPI Response Parsing and Parameters", () => {
       mockClient.setMockResponse({
         data: "not-an-array", // Invalid data format should default to empty array
         meta: "not-an-object", // Invalid meta should default to empty object
-        links: "not-an-object" // Invalid links should default to empty object
+        links: "not-an-object", // Invalid links should default to empty object
       });
 
       const result = await adapter.listPage();
@@ -210,9 +222,9 @@ describe("JsonAPI Response Parsing and Parameters", () => {
       mockClient.setMockResponse({
         data: [
           { id: "1", type: "test", attributes: {} },
-          { id: "2", type: "test", attributes: {} }
+          { id: "2", type: "test", attributes: {} },
         ],
-        meta: {} // Meta without count property should fallback to array length
+        meta: {}, // Meta without count property should fallback to array length
       });
 
       const count = await adapter.count();
@@ -237,8 +249,8 @@ describe("JsonAPI Response Parsing and Parameters", () => {
           stringValue: "test",
           numberValue: 42,
           booleanValue: true,
-          arrayValue: [1, 2, 3]
-        }
+          arrayValue: [1, 2, 3],
+        },
       });
 
       expect(true).toBe(true); // Verify parameter conversion executes successfully

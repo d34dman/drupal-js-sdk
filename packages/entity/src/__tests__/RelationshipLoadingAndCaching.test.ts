@@ -32,7 +32,7 @@ class MockEntityService {
     });
 
     this.mockData.set("user:2", {
-      id: "2", 
+      id: "2",
       type: "user--user",
       attributes: { name: "Jane Smith" },
       relationships: {},
@@ -58,7 +58,7 @@ class MockEntityService {
 
     const key = `${identifier.entity}:${id}`;
     const mockRecord = this.mockData.get(key);
-    
+
     if (mockRecord) {
       return mockRecord as EntityRecord<TAttributes>;
     }
@@ -114,29 +114,24 @@ describe("Relationship Loading and Caching", () => {
         attributes: { title: "Test Article" },
         relationships: {
           field_author: {
-            data: { type: "user--user", id: "1" }
-          }
+            data: { type: "user--user", id: "1" },
+          },
         },
       };
 
-      const recordWithRel = attachRelations(
-        recordWithRelation,
-        mockService as any,
-        identifier,
-
-      );
+      const recordWithRel = attachRelations(recordWithRelation, mockService as any, identifier);
 
       // First call should create and cache the promise
       const firstLoad = recordWithRel.rel("field_author").load();
-      
+
       // Second call should reuse the cached promise
       const secondLoad = recordWithRel.rel("field_author").load();
-      
+
       // Verify both calls return the same cached results
-      
+
       const result1 = await firstLoad;
       const result2 = await secondLoad;
-      
+
       expect(result1).toEqual(result2);
       expect(result1[0].id).toBe("1");
     });
@@ -145,28 +140,27 @@ describe("Relationship Loading and Caching", () => {
       // Test processing of multiple linked entities in a single relationship
       const recordWithMultipleRelations: EntityRecord<{ title: string }> = {
         id: "test-2",
-        type: "node--article", 
+        type: "node--article",
         attributes: { title: "Article with Multiple Tags" },
         relationships: {
           field_tags: {
             data: [
               { type: "taxonomy_term--tags", id: "1" },
               { type: "taxonomy_term--tags", id: "2" },
-              { type: "user--user", id: "1" } // Mixed entity types to test parsing
-            ]
-          }
+              { type: "user--user", id: "1" }, // Mixed entity types to test parsing
+            ],
+          },
         },
       };
 
       const recordWithRel = attachRelations(
         recordWithMultipleRelations,
         mockService as any,
-        identifier,
-
+        identifier
       );
 
       const relations = await recordWithRel.rel("field_tags").load();
-      
+
       expect(relations).toHaveLength(3);
       expect(relations[0].id).toBe("1");
       expect(relations[0].type).toBe("taxonomy_term--tags");
@@ -184,20 +178,19 @@ describe("Relationship Loading and Caching", () => {
         attributes: { title: "Article with Single Author" },
         relationships: {
           field_author: {
-            data: { type: "user--user", id: "1" }
-          }
+            data: { type: "user--user", id: "1" },
+          },
         },
       };
 
       const recordWithRel = attachRelations(
         recordWithSingleRelation,
         mockService as any,
-        identifier,
-
+        identifier
       );
 
       const relations = await recordWithRel.rel("field_author").load();
-      
+
       expect(relations).toHaveLength(1);
       expect(relations[0].id).toBe("1");
       expect(relations[0].type).toBe("user--user");
@@ -212,20 +205,15 @@ describe("Relationship Loading and Caching", () => {
         attributes: { title: "Complex Type Test" },
         relationships: {
           field_reference: {
-            data: { type: "paragraph--text_with_summary", id: "1" }
-          }
+            data: { type: "paragraph--text_with_summary", id: "1" },
+          },
         },
       };
 
-      const recordWithRel = attachRelations(
-        recordWithComplexType,
-        mockService as any,
-        identifier
-
-      );
+      const recordWithRel = attachRelations(recordWithComplexType, mockService as any, identifier);
 
       const relations = await recordWithRel.rel("field_reference").load();
-      
+
       expect(relations[0].id).toBe("1");
       expect(relations[0].type).toBe("paragraph--text_with_summary");
     });
@@ -237,20 +225,15 @@ describe("Relationship Loading and Caching", () => {
         attributes: { title: "No Type Test" },
         relationships: {
           field_ref: {
-            data: { id: "1" } // No type property
-          }
+            data: { id: "1" }, // No type property
+          },
         },
       };
 
-      const recordWithRel = attachRelations(
-        recordWithNoType,
-        mockService as any,
-        identifier,
-
-      );
+      const recordWithRel = attachRelations(recordWithNoType, mockService as any, identifier);
 
       const relations = await recordWithRel.rel("field_ref").load();
-      
+
       expect(relations[0].id).toBe("1");
     });
 
@@ -261,20 +244,15 @@ describe("Relationship Loading and Caching", () => {
         attributes: { title: "Empty Array Test" },
         relationships: {
           field_empty: {
-            data: [] // Empty array
-          }
+            data: [], // Empty array
+          },
         },
       };
 
-      const recordWithRel = attachRelations(
-        recordWithEmptyArray,
-        mockService as any,
-        identifier,
-
-      );
+      const recordWithRel = attachRelations(recordWithEmptyArray, mockService as any, identifier);
 
       const relations = await recordWithRel.rel("field_empty").load();
-      
+
       expect(relations).toHaveLength(0);
     });
 
@@ -289,18 +267,17 @@ describe("Relationship Loading and Caching", () => {
       const recordWithRel = attachRelations(
         recordWithoutRelationships,
         mockService as any,
-        identifier,
-
+        identifier
       );
 
       const relations = await recordWithRel.rel("field_nonexistent").load();
-      
+
       expect(relations).toHaveLength(0);
     });
 
     test("should handle null relationships", async () => {
       const recordWithNullRelationships: EntityRecord<{ title: string }> = {
-        id: "test-8", 
+        id: "test-8",
         type: "node--article",
         attributes: { title: "Null Relationships Test" },
         relationships: undefined,
@@ -309,19 +286,18 @@ describe("Relationship Loading and Caching", () => {
       const recordWithRel = attachRelations(
         recordWithNullRelationships,
         mockService as any,
-        identifier,
-
+        identifier
       );
 
       const relations = await recordWithRel.rel("field_null").load();
-      
+
       expect(relations).toHaveLength(0);
     });
 
     test("should handle string relationships", async () => {
       const recordWithStringRelationships: EntityRecord<{ title: string }> = {
         id: "test-9",
-        type: "node--article", 
+        type: "node--article",
         attributes: { title: "String Relationships Test" },
         relationships: "not an object" as any,
       };
@@ -329,12 +305,11 @@ describe("Relationship Loading and Caching", () => {
       const recordWithRel = attachRelations(
         recordWithStringRelationships,
         mockService as any,
-        identifier,
-
+        identifier
       );
 
       const relations = await recordWithRel.rel("field_string").load();
-      
+
       expect(relations).toHaveLength(0);
     });
 
@@ -348,21 +323,16 @@ describe("Relationship Loading and Caching", () => {
             data: [
               { type: null, id: null },
               { type: undefined, id: undefined },
-              { id: "valid-id" }
-            ]
-          }
+              { id: "valid-id" },
+            ],
+          },
         },
       };
 
-      const recordWithRel = attachRelations(
-        recordWithNullLinkage,
-        mockService as any,
-        identifier,
-
-      );
+      const recordWithRel = attachRelations(recordWithNullLinkage, mockService as any, identifier);
 
       const relations = await recordWithRel.rel("field_null_linkage").load();
-      
+
       // Should still process all entries, converting null/undefined to strings
       expect(relations).toHaveLength(3);
     });

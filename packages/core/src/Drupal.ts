@@ -1,18 +1,18 @@
-import {FetchClient} from '@drupal-js-sdk/xhr';
-import {Core} from './Core';
-import { StorageInMemory, StorageInWeb } from '@drupal-js-sdk/storage';
-import { SessionInterface } from '@drupal-js-sdk/interfaces';
+import { FetchClient } from "@drupal-js-sdk/xhr";
+import { Core } from "./Core";
+import { StorageInMemory, StorageInWeb } from "@drupal-js-sdk/storage";
+import { SessionInterface } from "@drupal-js-sdk/interfaces";
 
 import {
   XhrBasicCredentials,
   StorageRecordInterface,
-  XhrRequestHeaders
-} from '@drupal-js-sdk/interfaces';
+  XhrRequestHeaders,
+} from "@drupal-js-sdk/interfaces";
 export interface DrupalConfig extends StorageRecordInterface {
   auth?: XhrBasicCredentials;
-  headers?: XhrRequestHeaders;   
+  headers?: XhrRequestHeaders;
   baseURL: string;
-  client?: import('@drupal-js-sdk/interfaces').XhrInterface;
+  client?: import("@drupal-js-sdk/interfaces").XhrInterface;
   /** Optional session store implementation; defaults to browser Storage if available, else in-memory. */
   session?: SessionInterface;
 }
@@ -21,8 +21,6 @@ export interface DrupalConfig extends StorageRecordInterface {
  * Drupal.
  */
 export class Drupal extends Core {
-
-
   constructor(config: DrupalConfig) {
     super(config);
     this.initialize(config);
@@ -30,9 +28,9 @@ export class Drupal extends Core {
 
   initialize(options: DrupalConfig): Drupal {
     const apiConfig = {
-      ...Boolean(options.auth) && {auth: options.auth},
-      ...Boolean(options.headers) && {headers: options.headers},
-      ...{baseURL: options.baseURL},
+      ...(Boolean(options.auth) && { auth: options.auth }),
+      ...(Boolean(options.headers) && { headers: options.headers }),
+      ...{ baseURL: options.baseURL },
     };
     const client = options.client ?? new FetchClient(apiConfig);
     this.setClientService(client);

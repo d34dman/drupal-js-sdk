@@ -1,10 +1,9 @@
-import {DrupalErrorInterface} from '@drupal-js-sdk/interfaces';
+import { DrupalErrorInterface } from "@drupal-js-sdk/interfaces";
 
 /**
  * Constructs a new Drupal.Error object with the given code and message.
  */
 export class DrupalError extends Error implements DrupalErrorInterface {
-
   /**
    * Error code indicating some error other than those enumerated here.
    */
@@ -351,13 +350,12 @@ export class DrupalError extends Error implements DrupalErrorInterface {
   /**
    * Error code indicating in web storage failure.
    */
-   public static readonly STORAGE_IN_WEB_FAIL: number = 701;
+  public static readonly STORAGE_IN_WEB_FAIL: number = 701;
 
   /**
    * An error code from <code>Drupal.Error</code>.
    */
   code: number;
-
 
   /**
    * @param {number} code An error code constant from <code>Drupal.Error</code>.
@@ -366,7 +364,7 @@ export class DrupalError extends Error implements DrupalErrorInterface {
   constructor(code: number, message: string) {
     super(message);
     this.code = code;
-    Object.defineProperty(this, 'message', {
+    Object.defineProperty(this, "message", {
       enumerable: true,
       value: message,
     });

@@ -76,7 +76,6 @@ CORS in Drupal is configured[^2] in `sites/default/services.yml` (or an environm
 
 ## Frontend configuration
 
-
 === "SDK (FetchClient)"
 
     ```js hl_lines="4"
@@ -113,12 +112,10 @@ CORS in Drupal is configured[^2] in `sites/default/services.yml` (or an environm
     await api.get("/jsonapi/node/article");
     ```
 
-
 !!! note
-    **SameSite cookies**
+**SameSite cookies**
 
     When using cross-site cookies, ensure your session cookie is set with `SameSite=None; Secure` and served over HTTPS. Otherwise, browsers will not send the cookie.
-
 
 ## Getting a CSRF token (Drupal)
 
@@ -138,8 +135,8 @@ await fetch("https://api.example.com/jsonapi/node/article", {
   body: JSON.stringify({
     data: {
       type: "node--article",
-      attributes: { title: "Hello world" }
-    }
+      attributes: { title: "Hello world" },
+    },
   }),
 });
 ```

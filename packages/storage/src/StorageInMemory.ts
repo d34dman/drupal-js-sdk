@@ -1,17 +1,19 @@
 import { DrupalError } from "@drupal-js-sdk/error";
 
-import { StorageInterface, StorageRecordInterface, StorageValueType } from "@drupal-js-sdk/interfaces";
+import {
+  StorageInterface,
+  StorageRecordInterface,
+  StorageValueType,
+} from "@drupal-js-sdk/interfaces";
 
 export class StorageInMemory implements StorageInterface {
-
   protected data: { [key: string]: StorageValueType } = {};
 
   constructor() {
     if (this.isAvailable() === false) {
-      throw new DrupalError( DrupalError.STORAGE_IN_MEMORY_FAIL, 'Storage is not available.');
+      throw new DrupalError(DrupalError.STORAGE_IN_MEMORY_FAIL, "Storage is not available.");
     }
   }
-
 
   public getString(keyName: string): string | null {
     return this.getItem(keyName);
@@ -38,7 +40,7 @@ export class StorageInMemory implements StorageInterface {
    */
   public getItem(keyName: string): StorageValueType {
     const value = this.data[keyName];
-    return (value === undefined) ? null : this.data[keyName];
+    return value === undefined ? null : this.data[keyName];
   }
 
   /**
@@ -70,5 +72,4 @@ export class StorageInMemory implements StorageInterface {
   public set(data: StorageRecordInterface): void {
     this.data = data;
   }
-
 }

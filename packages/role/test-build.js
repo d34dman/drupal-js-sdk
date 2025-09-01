@@ -1,11 +1,9 @@
-import { DrupalRole } from './dist/index.js';
+import { DrupalRole } from "./dist/index.js";
 
-
-const foo = new DrupalRole(DrupalRole.CACHE_MISS, 'Test');
+const foo = new DrupalRole(DrupalRole.CACHE_MISS, "Test");
 
 if (foo) {
-    process.exit(0);
-}
-else {
-    process.exit(1);
+  process.exit(0);
+} else {
+  process.exit(1);
 }

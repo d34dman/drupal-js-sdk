@@ -30,10 +30,11 @@ constructor(drupal: CoreInterface)
 ```js title=""
 getMenu(menuName: string): Promise<any[]>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     const items = await menu.getMenu("main");
-    ```
+    `
 
 #### getMenuRaw
 

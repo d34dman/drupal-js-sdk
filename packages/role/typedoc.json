@@ -1,5 +1,3 @@
 {
-  "entryPoints": [
-    "./src/DrupalRole.ts"
-  ]
+  "entryPoints": ["./src/DrupalRole.ts"]
 }

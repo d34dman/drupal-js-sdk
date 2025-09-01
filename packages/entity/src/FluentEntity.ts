@@ -1,4 +1,10 @@
-import { EntityIdentifier, EntityAttributes, EntityRecord, EntityListOptions, EntityLoadOptions } from "@drupal-js-sdk/interfaces";
+import {
+  EntityIdentifier,
+  EntityAttributes,
+  EntityRecord,
+  EntityListOptions,
+  EntityLoadOptions,
+} from "@drupal-js-sdk/interfaces";
 
 import { EntityService } from "./EntityService";
 
@@ -20,11 +26,26 @@ class JsonApiQueryBuilder {
   private pageObj: PageOptions = {};
   private readonly filters: Array<{ field: string; operator?: string; value: FilterValue }> = [];
 
-  public include(paths: string[]): this { this.includePaths.push(...paths); return this; }
-  public select(type: string, fields: string[]): this { this.fieldsByType[type] = fields; return this; }
-  public sort(field: string, dir: SortDirection): this { this.sorts.push({ field, dir }); return this; }
-  public page(opts: PageOptions): this { this.pageObj = { ...this.pageObj, ...opts }; return this; }
-  public where(field: string, value: FilterValue, operator?: string): this { this.filters.push({ field, value, operator }); return this; }
+  public include(paths: string[]): this {
+    this.includePaths.push(...paths);
+    return this;
+  }
+  public select(type: string, fields: string[]): this {
+    this.fieldsByType[type] = fields;
+    return this;
+  }
+  public sort(field: string, dir: SortDirection): this {
+    this.sorts.push({ field, dir });
+    return this;
+  }
+  public page(opts: PageOptions): this {
+    this.pageObj = { ...this.pageObj, ...opts };
+    return this;
+  }
+  public where(field: string, value: FilterValue, operator?: string): this {
+    this.filters.push({ field, value, operator });
+    return this;
+  }
 
   public toObject(): Record<string, unknown> {
     const out: Record<string, unknown> = {};
@@ -35,9 +56,7 @@ class JsonApiQueryBuilder {
     });
     Object.assign(out, fields);
     if (this.sorts.length) {
-      out.sort = this.sorts
-        .map((s) => (s.dir === "DESC" ? `-${s.field}` : s.field))
-        .join(",");
+      out.sort = this.sorts.map((s) => (s.dir === "DESC" ? `-${s.field}` : s.field)).join(",");
     }
     const page: Record<string, number> = {};
     if (typeof this.pageObj.limit === "number") page["page[limit]"] = this.pageObj.limit;
@@ -49,7 +68,7 @@ class JsonApiQueryBuilder {
       const key = `filter[${idx}][condition]`;
       out[`${key}[path]`] = f.field;
       if (f.operator) out[`${key}[operator]`] = f.operator;
-      out[`${key}[value]`] = Array.isArray(f.value) ? (f.value ).join(",") : f.value;
+      out[`${key}[value]`] = Array.isArray(f.value) ? f.value.join(",") : f.value;
     });
     return out;
   }
@@ -70,12 +89,27 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
     this.typeName = `${identifier.entity}--${identifier.bundle}`;
   }
 
-  public select(fields: string[]): this { this.qb.select(this.typeName, fields); return this; }
-  public include(paths: string[]): this { this.qb.include(paths); return this; }
-  public sort(field: string, dir: SortDirection = "ASC"): this { this.qb.sort(field, dir); return this; }
-  public page(opts: PageOptions): this { this.qb.page(opts); return this; }
+  public select(fields: string[]): this {
+    this.qb.select(this.typeName, fields);
+    return this;
+  }
+  public include(paths: string[]): this {
+    this.qb.include(paths);
+    return this;
+  }
+  public sort(field: string, dir: SortDirection = "ASC"): this {
+    this.qb.sort(field, dir);
+    return this;
+  }
+  public page(opts: PageOptions): this {
+    this.qb.page(opts);
+    return this;
+  }
   /** Accept plain query object to merge into built params. */
-  public params(obj: Record<string, unknown>): this { this.externalParams = { ...(this.externalParams ?? {}), ...obj }; return this; }
+  public params(obj: Record<string, unknown>): this {
+    this.externalParams = { ...(this.externalParams ?? {}), ...obj };
+    return this;
+  }
   /** Accept drupal-jsonapi-params instance via duck-typing */
   public fromParams(p: { getQueryObject?: () => Record<string, unknown> }): this {
     const obj = typeof p?.getQueryObject === "function" ? p.getQueryObject() : {};
@@ -84,36 +118,59 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
   }
 
   // Filters
-  public whereEq(field: string, value: string | number | boolean): this { this.qb.where(field, value, "="); return this; }
-  public whereContains(field: string, value: string): this { this.qb.where(field, value, "CONTAINS"); return this; }
-  public whereIn(field: string, values: Array<string | number>): this { this.qb.where(field, values, "IN"); return this; }
+  public whereEq(field: string, value: string | number | boolean): this {
+    this.qb.where(field, value, "=");
+    return this;
+  }
+  public whereContains(field: string, value: string): this {
+    this.qb.where(field, value, "CONTAINS");
+    return this;
+  }
+  public whereIn(field: string, values: Array<string | number>): this {
+    this.qb.where(field, values, "IN");
+    return this;
+  }
   public whereRange(field: string, opts: { gte?: number | string; lte?: number | string }): this {
     if (opts.gte !== undefined) this.qb.where(field, opts.gte, ">=");
     if (opts.lte !== undefined) this.qb.where(field, opts.lte, "<=");
     return this;
   }
 
-  public id(id: string): this { this.targetId = id; return this; }
+  public id(id: string): this {
+    this.targetId = id;
+    return this;
+  }
 
   public async list(options?: EntityListOptions): Promise<Array<EntityRecord<TAttributes>>> {
     const q = this.qb.toObject();
     const opts: EntityListOptions = {
       ...options,
-      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
+      jsonapi: {
+        query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q },
+      },
     };
     return this.service.list<TAttributes>(this.identifier, opts);
   }
 
   /** Paginated list with metadata when adapter supports it. */
-  public async listPage(options?: EntityListOptions): Promise<{ items: Array<EntityRecord<TAttributes>>; page?: unknown; }> {
+  public async listPage(
+    options?: EntityListOptions
+  ): Promise<{ items: Array<EntityRecord<TAttributes>>; page?: unknown }> {
     const q = this.qb.toObject();
     const opts: EntityListOptions = {
       ...options,
-      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
+      jsonapi: {
+        query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q },
+      },
     };
-    const svc: any = this.service as unknown as { listPage: (id: EntityIdentifier, o?: EntityListOptions) => Promise<unknown> };
+    const svc: any = this.service as unknown as {
+      listPage: (id: EntityIdentifier, o?: EntityListOptions) => Promise<unknown>;
+    };
     if (typeof svc.listPage === "function") {
-      return svc.listPage(this.identifier, opts) as Promise<{ items: Array<EntityRecord<TAttributes>>; page?: unknown; }>;
+      return svc.listPage(this.identifier, opts) as Promise<{
+        items: Array<EntityRecord<TAttributes>>;
+        page?: unknown;
+      }>;
     }
     const items = await this.service.list<TAttributes>(this.identifier, opts);
     return { items };
@@ -124,7 +181,9 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
     const q = this.qb.toObject();
     const opts: EntityLoadOptions = {
       ...options,
-      jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
+      jsonapi: {
+        query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q },
+      },
     };
     return this.service.load<TAttributes>(this.identifier, this.targetId, opts);
   }
@@ -141,11 +200,23 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
       const q = this.qb.toObject();
       const opts: EntityListOptions = {
         ...options,
-        jsonapi: { query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q } },
+        jsonapi: {
+          query: { ...(options?.jsonapi?.query ?? {}), ...(this.externalParams ?? {}), ...q },
+        },
       };
       // Prefer service.count if available
-      if (typeof (this.service as unknown as { count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>; }).count === "function") {
-        return await (this.service as unknown as { count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>; }).count(this.identifier, opts);
+      if (
+        typeof (
+          this.service as unknown as {
+            count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>;
+          }
+        ).count === "function"
+      ) {
+        return await (
+          this.service as unknown as {
+            count: (id: EntityIdentifier, o?: EntityListOptions) => Promise<number>;
+          }
+        ).count(this.identifier, opts);
       }
       const all = await this.list(options);
       return all.length;
@@ -155,5 +226,3 @@ export class FluentEntity<TAttributes extends EntityAttributes = EntityAttribute
     }
   }
 }
-
-

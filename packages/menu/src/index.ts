@@ -1,1 +1,1 @@
-export {DrupalMenu} from './DrupalMenu';
+export { DrupalMenu } from "./DrupalMenu";

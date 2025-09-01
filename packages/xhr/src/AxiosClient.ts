@@ -1,7 +1,7 @@
-import {XhrInterface, XhrRequestConfig, XhrResponse, XhrMethod} from '@drupal-js-sdk/interfaces';
+import { XhrInterface, XhrRequestConfig, XhrResponse, XhrMethod } from "@drupal-js-sdk/interfaces";
 
-import {StorageRecordInterface} from '@drupal-js-sdk/interfaces';
-import { Client } from './Client';
+import { StorageRecordInterface } from "@drupal-js-sdk/interfaces";
+import { Client } from "./Client";
 
 // Minimal axios-like client interface to avoid leaking axios types across package boundaries
 interface HttpClientLike {
@@ -9,7 +9,6 @@ interface HttpClientLike {
 }
 
 export class AxiosClient extends Client implements XhrInterface {
-
   public client: HttpClientLike;
   protected config: StorageRecordInterface;
 
@@ -17,7 +16,7 @@ export class AxiosClient extends Client implements XhrInterface {
     super();
     this.client = client;
     this.config = {
-      headers: {}
+      headers: {},
     };
   }
 
@@ -47,28 +46,24 @@ export class AxiosClient extends Client implements XhrInterface {
     return this;
   }
 
-  public call(
-    method: XhrMethod,
-    path: string,
-    config?: XhrRequestConfig,
-  ): Promise<XhrResponse> {
+  public call(method: XhrMethod, path: string, config?: XhrRequestConfig): Promise<XhrResponse> {
     const reqCofnig: XhrRequestConfig = {
       method,
       url: path,
       ...this.config,
       ...config,
     };
-    return this.request(reqCofnig)
-      .then((response) => {
+    return this.request(reqCofnig).then(
+      (response) => {
         return response;
-      }, (response) => {
+      },
+      (response) => {
         throw this.getDrupalError(response);
-      });
+      }
+    );
   }
-
 
   protected async request(reqConfig: XhrRequestConfig): Promise<XhrResponse> {
     return this.client.request(reqConfig);
   }
-
 }

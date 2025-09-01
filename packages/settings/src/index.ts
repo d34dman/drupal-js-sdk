@@ -1,1 +1,1 @@
-export {DrupalSettings} from './DrupalSettings';
+export { DrupalSettings } from "./DrupalSettings";

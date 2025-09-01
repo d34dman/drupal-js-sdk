@@ -17,14 +17,14 @@ const initialState: AuthState = {
 
 export const authState: Writable<AuthState> = writable(initialState);
 
-export async function checkLogin(): Promise<void> {
+export const checkLogin = async (): Promise<void> => {
   try {
     const ok = await auth.loginStatus();
     authState.update((s) => ({ ...s, isLoggedIn: ok, error: null }));
   } catch (e) {
     authState.update((s) => ({ ...s, isLoggedIn: false, error: "Login status failed" }));
   }
-}
+};
 
 export async function loginWithCredentials(username: string, password: string): Promise<void> {
   try {
@@ -32,7 +32,11 @@ export async function loginWithCredentials(username: string, password: string): 
     await auth.login(username, password);
     authState.set({ isLoggedIn: true, username, error: null });
   } catch (e) {
-    authState.set({ isLoggedIn: false, username: "", error: "Invalid credentials or server error" });
+    authState.set({
+      isLoggedIn: false,
+      username: "",
+      error: "Invalid credentials or server error",
+    });
   }
 }
 
@@ -44,4 +48,3 @@ export async function logout(): Promise<void> {
   }
   authState.set({ isLoggedIn: false, username: "", error: null });
 }
-

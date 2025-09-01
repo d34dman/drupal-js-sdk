@@ -2,9 +2,9 @@
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| < 1.x   | :x:                |
+| Version | Supported |
+| ------- | --------- |
+| < 1.x   | :x:       |
 
 Yes, the project is in its early phase and until there is a proper release, there won't be any official commitment to security.
 Having said that, I do intend to respond to security issues and fix them as soon as possible.

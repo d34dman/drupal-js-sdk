@@ -1,5 +1,3 @@
 {
-  "entryPoints": [
-    "./src/DrupalError.ts"
-  ]
+  "entryPoints": ["./src/DrupalError.ts"]
 }

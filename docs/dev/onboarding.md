@@ -34,4 +34,3 @@ See also:
 - [System Architecture](architecture.md)
 - [Runtime Architecture](runtime.md)
 - [Login Sequence](sequence-login.md)
-

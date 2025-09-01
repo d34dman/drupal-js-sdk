@@ -31,11 +31,11 @@ constructor(code: number, message: string)
 #### static codes (subset)
 
 ```js title=""
-DrupalError.CONNECTION_FAILED
-DrupalError.INVALID_JSON
-DrupalError.MISSING_IMPLEMENTATION_ERROR
-DrupalError.STORAGE_IN_MEMORY_FAIL
-DrupalError.STORAGE_IN_WEB_FAIL
+DrupalError.CONNECTION_FAILED;
+DrupalError.INVALID_JSON;
+DrupalError.MISSING_IMPLEMENTATION_ERROR;
+DrupalError.STORAGE_IN_MEMORY_FAIL;
+DrupalError.STORAGE_IN_WEB_FAIL;
 ```
 
 #### getErrorCode

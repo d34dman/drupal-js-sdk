@@ -1,12 +1,12 @@
 import {
-  XhrInterface, 
-  CoreInterface, 
+  XhrInterface,
+  CoreInterface,
   SessionInterface,
-  StorageInterface, 
-  StorageRecordInterface 
-} from '@drupal-js-sdk/interfaces';
+  StorageInterface,
+  StorageRecordInterface,
+} from "@drupal-js-sdk/interfaces";
 
-import { Config } from './Config';
+import { Config } from "./Config";
 
 interface ServiceBag {
   client?: XhrInterface;

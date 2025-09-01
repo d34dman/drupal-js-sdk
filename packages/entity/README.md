@@ -30,10 +30,11 @@ const article = await loader.load("123");
 ```js title=""
 load(id: string, options?: EntityLoadOptions): Promise<EntityRecord<T>>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     const node = await loader.load("1", { jsonapi: { query: { include: "uid" } } });
-    ```
+    `
 
 ### class `EntityService`
 
@@ -48,30 +49,33 @@ constructor(drupal: CoreInterface)
 ```js title=""
 registerAdapter(key: string, factory: EntityAdapterFactory): this
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     service.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
-    ```
+    `
 
 #### setDefaultAdapter
 
 ```js title=""
 setDefaultAdapter(key: string): this
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     service.setDefaultAdapter("jsonapi");
-    ```
+    `
 
 #### entity
 
 ```js title=""
 entity<T>(id: EntityIdentifier, adapterKey?: string): EntityLoader<T>
 ```
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     const loader = service.entity({ entity: "node", bundle: "page" }, "jsonapi");
-    ```
+    `
 
 ### class `DrupalEntity` (facade)
 

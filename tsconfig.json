@@ -11,16 +11,10 @@
     "baseUrl": "./",
     "allowJs": true,
     "paths": {
-      "@drupal-js-sdk/entity": [
-        "packages/entity/src/index.ts"
-      ],
-      "@drupal-js-sdk/jsonapi": [
-        "packages/jsonapi/src/index.ts"
-      ]
+      "@drupal-js-sdk/entity": ["packages/entity/src/index.ts"],
+      "@drupal-js-sdk/jsonapi": ["packages/jsonapi/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "**/__tests__/*"],
-  "include": [
-    "./src"
-  ]
+  "include": ["./src"]
 }

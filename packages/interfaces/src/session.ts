@@ -1,3 +1,3 @@
-import { StorageInterface } from './storage';
+import { StorageInterface } from "./storage";
 
-export type SessionInterface = StorageInterface
+export type SessionInterface = StorageInterface;

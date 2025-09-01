@@ -1,17 +1,17 @@
 .md-header__button.md-logo img,
 .md-header__button.md-logo svg {
-    height: 3rem;
-    width: auto;
+  height: 3rem;
+  width: auto;
 }
 
 .md-header__button.md-logo {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .md-header__title {
-    font-size: 1.2rem;
-    margin-left: 0.4rem;
+  font-size: 1.2rem;
+  margin-left: 0.4rem;
 }
 
 /*
@@ -19,22 +19,22 @@
  */
 
 .highlight .md-code__content {
-    background-color: #272822;
+  background-color: #272822;
 }
 
 /*
  * Custom styles for code blocks "Bash" as its hard to read against dark background.
  */
 .language-bash.highlight .md-code__content {
-    background-color: cornsilk;
-    font-weight: bold;
+  background-color: cornsilk;
+  font-weight: bold;
 }
 
 .md-clipboard:focus,
 .md-clipboard:hover {
-    color: white;
+  color: white;
 }
 
 .md-clipboard {
-    color: grey;
+  color: grey;
 }

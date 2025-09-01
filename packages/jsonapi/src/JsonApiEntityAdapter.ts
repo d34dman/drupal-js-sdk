@@ -31,20 +31,26 @@ function toXhrParams(input?: Record<string, unknown> | XhrQueryParams): XhrQuery
 
 /** JSON:API entity adapter. */
 export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityAttributes>
-  implements EntityAdapter<TAttributes> {
-
+  implements EntityAdapter<TAttributes>
+{
   private readonly ctx: EntityAdapterContext;
 
   constructor(context: EntityAdapterContext) {
     this.ctx = context;
   }
 
-  public async load(entityId: string, options?: EntityLoadOptions): Promise<EntityRecord<TAttributes>> {
+  public async load(
+    entityId: string,
+    options?: EntityLoadOptions
+  ): Promise<EntityRecord<TAttributes>> {
     const url = `${this.ctx.basePath}/${encodeURIComponent(entityId)}`;
     const params = toXhrParams(options?.jsonapi?.query ?? options?.params);
     const response = await this.ctx.client.call("GET", url, { params });
 
-    const data: unknown = (response && (response as any).data && (response as any).data.data) ? (response as any).data.data : undefined;
+    const data: unknown =
+      response && (response as any).data && (response as any).data.data
+        ? (response as any).data.data
+        : undefined;
     if (!data || typeof data !== "object") {
       return {
         id: "",
@@ -52,9 +58,19 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
         attributes: {} as TAttributes,
       };
     }
-    const rec = data as { id?: unknown; type?: unknown; attributes?: unknown; relationships?: unknown };
-    const attrs = (rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}) as TAttributes;
-    const rels = (rec.relationships && typeof rec.relationships === "object" ? (rec.relationships as Record<string, unknown>) : undefined);
+    const rec = data as {
+      id?: unknown;
+      type?: unknown;
+      attributes?: unknown;
+      relationships?: unknown;
+    };
+    const attrs = (
+      rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}
+    ) as TAttributes;
+    const rels =
+      rec.relationships && typeof rec.relationships === "object"
+        ? (rec.relationships as Record<string, unknown>)
+        : undefined;
     return {
       id: String(rec.id ?? ""),
       type: String(rec.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
@@ -69,9 +85,19 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
     const raw: unknown = response && (response as any).data && (response as any).data.data;
     const rows: Array<unknown> = Array.isArray(raw) ? (raw as Array<unknown>) : [];
     return rows.map((row): EntityRecord<TAttributes> => {
-      const rec = (row && typeof row === "object" ? row : {}) as { id?: unknown; type?: unknown; attributes?: unknown; relationships?: unknown };
-      const attrs = (rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}) as TAttributes;
-      const rels = (rec.relationships && typeof rec.relationships === "object" ? (rec.relationships as Record<string, unknown>) : undefined);
+      const rec = (row && typeof row === "object" ? row : {}) as {
+        id?: unknown;
+        type?: unknown;
+        attributes?: unknown;
+        relationships?: unknown;
+      };
+      const attrs = (
+        rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}
+      ) as TAttributes;
+      const rels =
+        rec.relationships && typeof rec.relationships === "object"
+          ? (rec.relationships as Record<string, unknown>)
+          : undefined;
       return {
         id: String(rec.id ?? ""),
         type: String(rec.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
@@ -88,9 +114,19 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
     const raw: any = response && (response as any).data ? (response as any).data : {};
     const data: Array<unknown> = Array.isArray(raw.data) ? raw.data : [];
     const items = data.map((row): EntityRecord<TAttributes> => {
-      const rec = (row && typeof row === "object" ? row : {}) as { id?: unknown; type?: unknown; attributes?: unknown; relationships?: unknown };
-      const attrs = (rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}) as TAttributes;
-      const rels = (rec.relationships && typeof rec.relationships === "object" ? (rec.relationships as Record<string, unknown>) : undefined);
+      const rec = (row && typeof row === "object" ? row : {}) as {
+        id?: unknown;
+        type?: unknown;
+        attributes?: unknown;
+        relationships?: unknown;
+      };
+      const attrs = (
+        rec.attributes && typeof rec.attributes === "object" ? rec.attributes : {}
+      ) as TAttributes;
+      const rels =
+        rec.relationships && typeof rec.relationships === "object"
+          ? (rec.relationships as Record<string, unknown>)
+          : undefined;
       return {
         id: String(rec.id ?? ""),
         type: String(rec.type ?? `${this.ctx.id.entity}--${this.ctx.id.bundle}`),
@@ -98,14 +134,20 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
         relationships: rels,
       };
     });
-    const meta = (raw && typeof raw.meta === "object") ? raw.meta as Record<string, unknown> : {};
-    const links = (raw && typeof raw.links === "object") ? raw.links as Record<string, any> : {};
+    const meta = raw && typeof raw.meta === "object" ? (raw.meta as Record<string, unknown>) : {};
+    const links = raw && typeof raw.links === "object" ? (raw.links as Record<string, any>) : {};
     const page = {
-      size: typeof meta["pageSize"] === "number" ? (meta["pageSize"] ) : undefined,
-      number: typeof meta["pageNumber"] === "number" ? (meta["pageNumber"] ) : undefined,
-      total: typeof meta["count"] === "number" ? (meta["count"] ) : undefined,
-      next: links && links.next && typeof links.next.href === "string" ? links.next.href as string : null,
-      prev: links && links.prev && typeof links.prev.href === "string" ? links.prev.href as string : null,
+      size: typeof meta["pageSize"] === "number" ? meta["pageSize"] : undefined,
+      number: typeof meta["pageNumber"] === "number" ? meta["pageNumber"] : undefined,
+      total: typeof meta["count"] === "number" ? meta["count"] : undefined,
+      next:
+        links && links.next && typeof links.next.href === "string"
+          ? (links.next.href as string)
+          : null,
+      prev:
+        links && links.prev && typeof links.prev.href === "string"
+          ? (links.prev.href as string)
+          : null,
     };
     return { items, page };
   }
@@ -114,7 +156,10 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
   public async count(options?: EntityListOptions): Promise<number> {
     const params = toXhrParams(options?.jsonapi?.query ?? options?.params);
     const response = await this.ctx.client.call("GET", this.ctx.basePath, { params });
-    const meta = (response && (response as any).data && (response as any).data.meta) ? (response as any).data.meta : undefined;
+    const meta =
+      response && (response as any).data && (response as any).data.meta
+        ? (response as any).data.meta
+        : undefined;
     const countValue = meta && typeof meta.count === "number" ? meta.count : undefined;
     if (typeof countValue === "number") {
       return countValue;
@@ -126,5 +171,3 @@ export class JsonApiEntityAdapter<TAttributes extends EntityAttributes = EntityA
 }
 
 export { JsonApiEntityAdapter as Adapter };
-
-

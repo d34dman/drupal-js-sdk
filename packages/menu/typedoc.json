@@ -1,5 +1,3 @@
 {
-  "entryPoints": [
-    "./src/DrupalMenu.ts"
-  ]
+  "entryPoints": ["./src/DrupalMenu.ts"]
 }

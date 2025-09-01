@@ -1,1 +1,1 @@
-export {DrupalRole} from './DrupalRole';
+export { DrupalRole } from "./DrupalRole";

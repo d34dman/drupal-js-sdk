@@ -18,8 +18,10 @@ await auth.getSessionToken();
 const menu = new DrupalMenu(drupal);
 const items = await menu.getMenu("main");
 
-const entities = new DrupalEntity(drupal)
-  .registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
+const entities = new DrupalEntity(drupal).registerAdapter(
+  "jsonapi",
+  (ctx) => new JsonApiEntityAdapter(ctx)
+);
 const node = await entities.entity({ entity: "node", bundle: "article" }).load("1");
 ```
 

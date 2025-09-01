@@ -1,48 +1,40 @@
 # Drupal JavaScript SDK
 
-
 <figure markdown="1">
 ![Decoupled Drupal](assets/svg/decoupled-drupal.svg){ width=150 }
 </figure>
-
 
 Build modern JavaScript apps that connect to Drupal — fast and with minimal fuss. :material-rocket:
 
 <div class="grid cards" markdown>
 
--   :material-clock-fast:{ .lg .middle } __Set up in 5 minutes__
+- :material-clock-fast:{ .lg .middle } **Set up in 5 minutes**
 
-    ---
+  ***
 
+  Install, configure, and make your first request in minutes.
 
-    Install, configure, and make your first request in minutes.
+  [:octicons-arrow-right-24: Getting started](guide/getting-started.md)
 
-    [:octicons-arrow-right-24: Getting started](guide/getting-started.md)
+- :material-scale-balance:{ .lg .middle } **Open Source, MIT**
 
--   :material-scale-balance:{ .lg .middle } __Open Source, MIT__
+  ***
 
-    ---
+  Drupal JavaScript SDK is licensed under MIT and available on [GitHub](https://github.com/d34dman/drupal-js-sdk/blob/main/LICENSE)
 
-    Drupal JavaScript SDK is licensed under MIT and available on [GitHub](https://github.com/d34dman/drupal-js-sdk/blob/main/LICENSE)
+  [:octicons-arrow-right-24: License](https://github.com/d34dman/drupal-js-sdk/blob/main/LICENSE)
 
-    [:octicons-arrow-right-24: License](https://github.com/d34dman/drupal-js-sdk/blob/main/LICENSE)
+- :fontawesome-brands-drupal: **Decoupled Drupal**
 
+  ***
 
--   :fontawesome-brands-drupal: **Decoupled Drupal**
+  Tightly integrated with Drupal Core's Authentication, Menu & Entity systems.
 
-    ---
+- :fontawesome-brands-js: **JavaScript**
 
-    Tightly integrated with Drupal Core's Authentication, Menu & Entity systems.
+  ***
 
-
--   :fontawesome-brands-js: **JavaScript**
-
-    ---
-
-    JavaScript API that works in NodeJS and Browser.
-
-
-
+  JavaScript API that works in NodeJS and Browser.
 
 </div>
 
@@ -95,7 +87,7 @@ const article = await sdk.entities
   .load("123");
 
 // Pagination
-const { items, page } = await sdk.entities.node('article').page({ limit: 5 }).listPage();
+const { items, page } = await sdk.entities.node("article").page({ limit: 5 }).listPage();
 ```
 
 > Note: The HTTP client supports AbortSignal, timeouts, and retry/backoff.

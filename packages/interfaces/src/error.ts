@@ -1,5 +1,4 @@
-
 export interface DrupalErrorInterface extends Error {
-    code: number;
-    getErrorCode(): number;
+  code: number;
+  getErrorCode(): number;
 }

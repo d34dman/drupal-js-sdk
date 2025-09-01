@@ -1,6 +1,12 @@
-import {XhrInterface, XhrRequestConfig, XhrResponse, XhrMethod, XhrQueryParams} from '@drupal-js-sdk/interfaces';
-import {StorageRecordInterface} from '@drupal-js-sdk/interfaces';
-import {Client} from './Client';
+import {
+  XhrInterface,
+  XhrRequestConfig,
+  XhrResponse,
+  XhrMethod,
+  XhrQueryParams,
+} from "@drupal-js-sdk/interfaces";
+import { StorageRecordInterface } from "@drupal-js-sdk/interfaces";
+import { Client } from "./Client";
 
 type FetchFunctionType = (input: any, init?: any) => Promise<Response>;
 export class FetchClient extends Client implements XhrInterface {
@@ -14,18 +20,30 @@ export class FetchClient extends Client implements XhrInterface {
     this.config = config;
     // Bind global fetch to avoid "Illegal invocation" in some environments where
     // an unbound reference to fetch loses its global this context.
-    const g: any = (typeof window !== 'undefined') ? window : (typeof globalThis !== 'undefined' ? globalThis : undefined);
-    const globalFetch: FetchFunctionType = (g && typeof g.fetch === 'function') ? g.fetch : fetch;
+    const g: any =
+      typeof window !== "undefined"
+        ? window
+        : typeof globalThis !== "undefined"
+          ? globalThis
+          : undefined;
+    const globalFetch: FetchFunctionType = g && typeof g.fetch === "function" ? g.fetch : fetch;
     this.client = globalFetch.bind(g ?? globalThis);
     this.originalClient = globalFetch;
   }
 
-  public setClient(fetchClient:FetchFunctionType = fetch): XhrInterface {
+  public setClient(fetchClient: FetchFunctionType = fetch): XhrInterface {
     // Respect custom client but bind if it's the global fetch to ensure correct this.
-    const isGlobalFetch = (fetchClient === fetch) || (typeof window !== 'undefined' && fetchClient === window.fetch);
+    const isGlobalFetch =
+      fetchClient === fetch || (typeof window !== "undefined" && fetchClient === window.fetch);
     if (isGlobalFetch) {
-      const g: any = (typeof window !== 'undefined') ? window : (typeof globalThis !== 'undefined' ? globalThis : undefined);
-      const globalFetch: FetchFunctionType = (g && typeof g.fetch === 'function') ? g.fetch : fetchClient;
+      const g: any =
+        typeof window !== "undefined"
+          ? window
+          : typeof globalThis !== "undefined"
+            ? globalThis
+            : undefined;
+      const globalFetch: FetchFunctionType =
+        g && typeof g.fetch === "function" ? g.fetch : fetchClient;
       this.client = globalFetch.bind(g ?? globalThis);
       this.originalClient = globalFetch;
     } else {
@@ -43,8 +61,8 @@ export class FetchClient extends Client implements XhrInterface {
   public addDefaultHeaders(headers: StorageRecordInterface): XhrInterface {
     this.config.headers = {
       ...this.config.headers,
-      ...headers
-    }
+      ...headers,
+    };
     return this;
   }
 
@@ -55,40 +73,38 @@ export class FetchClient extends Client implements XhrInterface {
       headers: {
         ...(this.config.headers ?? {}),
         ...(options.headers ?? {}),
-      }
+      },
     };
     return this;
   }
 
-  public call(
-    method: XhrMethod,
-    path: string,
-    config?: XhrRequestConfig,
-  ): Promise<XhrResponse> {
+  public call(method: XhrMethod, path: string, config?: XhrRequestConfig): Promise<XhrResponse> {
     const reqCofnig: XhrRequestConfig = {
       method,
       url: path,
       ...this.config,
       ...config,
     };
-    return this.request(reqCofnig)
-      .then((response) => {
+    return this.request(reqCofnig).then(
+      (response) => {
         return response;
-      }, (response) => {
+      },
+      (response) => {
         throw this.getDrupalError(response);
-      });
+      }
+    );
   }
 
   protected async request(reqConfig: XhrRequestConfig): Promise<XhrResponse> {
-    let path = '';
+    let path = "";
     const args: any = {
       headers: reqConfig.headers ?? {},
-      method: 'get',
-      credentials: 'same-origin'
+      method: "get",
+      credentials: "same-origin",
     };
     // Identify and set path for the request.
-    const baseUrl = reqConfig.baseURL ?? '';
-    const reqUrl = reqConfig.url + '';
+    const baseUrl = reqConfig.baseURL ?? "";
+    const reqUrl = reqConfig.url + "";
     path = buildFullPath(baseUrl, reqUrl);
     // Set config.method
     if (reqConfig.method) {
@@ -96,43 +112,57 @@ export class FetchClient extends Client implements XhrInterface {
     }
 
     if (reqConfig.withCredentials !== undefined && reqConfig.withCredentials) {
-      args.credentials = 'include';
+      args.credentials = "include";
     }
 
     if (reqConfig.auth) {
       args.headers = {
         ...args.headers,
-        Authorization: 'Basic ' + base64Encoder(reqConfig.auth.username + ":" + reqConfig.auth.password),
+        Authorization:
+          "Basic " + base64Encoder(reqConfig.auth.username + ":" + reqConfig.auth.password),
       };
     }
     // Pass through mode/cache if provided
     if (reqConfig.mode) (args as any).mode = reqConfig.mode;
     if (reqConfig.cache) (args as any).cache = reqConfig.cache;
     // Attach request body when provided
-    if (typeof reqConfig.data !== 'undefined') {
-      const existingCT = (args.headers as any)["Content-Type"] || (args.headers as any)["content-type"] || '';
+    if (typeof reqConfig.data !== "undefined") {
+      const existingCT =
+        (args.headers as any)["Content-Type"] || (args.headers as any)["content-type"] || "";
       const contentType = String(existingCT).toLowerCase();
       const data: unknown = (reqConfig as any).data;
       // Heuristics: preserve FormData/Blob/ArrayBuffer/URLSearchParams; stringify plain objects when JSON
-      const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
-      const isURLSearchParams = typeof URLSearchParams !== 'undefined' && data instanceof URLSearchParams;
-      const isBlob = typeof Blob !== 'undefined' && data instanceof Blob;
-      const isArrayBuffer = typeof ArrayBuffer !== 'undefined' && data instanceof ArrayBuffer;
-      const isArrayBufferView = typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView && ArrayBuffer.isView(data as ArrayBufferView);
-      const isReadableStream = typeof ReadableStream !== 'undefined' && data instanceof ReadableStream;
-      if (isFormData || isURLSearchParams || isBlob || isArrayBuffer || isArrayBufferView || isReadableStream) {
+      const isFormData = typeof FormData !== "undefined" && data instanceof FormData;
+      const isURLSearchParams =
+        typeof URLSearchParams !== "undefined" && data instanceof URLSearchParams;
+      const isBlob = typeof Blob !== "undefined" && data instanceof Blob;
+      const isArrayBuffer = typeof ArrayBuffer !== "undefined" && data instanceof ArrayBuffer;
+      const isArrayBufferView =
+        typeof ArrayBuffer !== "undefined" &&
+        ArrayBuffer.isView &&
+        ArrayBuffer.isView(data as ArrayBufferView);
+      const isReadableStream =
+        typeof ReadableStream !== "undefined" && data instanceof ReadableStream;
+      if (
+        isFormData ||
+        isURLSearchParams ||
+        isBlob ||
+        isArrayBuffer ||
+        isArrayBufferView ||
+        isReadableStream
+      ) {
         (args as any).body = data;
         // Let browser set correct content-type, remove any manual JSON type
-        if (contentType.includes('application/json')) {
+        if (contentType.includes("application/json")) {
           delete (args.headers as any)["Content-Type"];
         }
-      } else if (typeof data === 'string') {
+      } else if (typeof data === "string") {
         (args as any).body = data;
       } else {
         // Default: JSON encode plain objects
         (args as any).body = JSON.stringify(data);
-        if (!contentType.includes('application/json')) {
-          (args.headers as any)["Content-Type"] = 'application/json';
+        if (!contentType.includes("application/json")) {
+          (args.headers as any)["Content-Type"] = "application/json";
         }
       }
     }
@@ -140,7 +170,7 @@ export class FetchClient extends Client implements XhrInterface {
     if (reqConfig.params) {
       const q = serializeQueryParams(reqConfig.params);
       if (q.length > 0) {
-        const joiner = path.includes('?') ? '&' : '?';
+        const joiner = path.includes("?") ? "&" : "?";
         path = `${path}${joiner}${q}`;
       }
     }
@@ -148,7 +178,7 @@ export class FetchClient extends Client implements XhrInterface {
     const controller = !reqConfig.signal ? new AbortController() : undefined;
     if (!args.signal) args.signal = reqConfig.signal ?? controller?.signal;
     let timeoutHandle: any;
-    if (typeof reqConfig.timeoutMs === 'number' && controller) {
+    if (typeof reqConfig.timeoutMs === "number" && controller) {
       timeoutHandle = setTimeout(() => controller.abort(), reqConfig.timeoutMs);
     }
     const attemptFetch = async (): Promise<Response> => {
@@ -186,41 +216,40 @@ export class FetchClient extends Client implements XhrInterface {
       }
     };
     // For safe methods, avoid sending CSRF header to prevent CORS preflight on some servers
-    const methodLower = String(args.method ?? '').toLowerCase();
-    if ((methodLower === 'get' || methodLower === 'head') && args.headers) {
+    const methodLower = String(args.method ?? "").toLowerCase();
+    if ((methodLower === "get" || methodLower === "head") && args.headers) {
       const h = args.headers as any;
-      if (typeof h['X-CSRF-Token'] !== 'undefined') {
-        delete h['X-CSRF-Token'];
+      if (typeof h["X-CSRF-Token"] !== "undefined") {
+        delete h["X-CSRF-Token"];
       }
     }
 
-    return executeWithRetry()
-      .then(async (response: Response) => {
-        if (!response.ok) {
-          throw new Error("HTTP error, status = " + response.status);
-        }
-        const data = await parseResponseData(response);
-        let responseHeaders = {};
-        if (response.headers) {
-          responseHeaders = Object.fromEntries(response.headers.entries())
-        }
-        // Capture ETag for conditional requests
-        const etag = (responseHeaders as any)['etag'] || (responseHeaders as any)['ETag'];
-        if (etag) {
-          (args.headers as any)['If-None-Match'] = etag;
-        }
-        return {
-          data,
-          status: response.status,
-          statusText: response.statusText,
-          headers: responseHeaders,
-          request: {
-            path,
-            ...args
-          },
-          config: reqConfig
-        }
-      });
+    return executeWithRetry().then(async (response: Response) => {
+      if (!response.ok) {
+        throw new Error("HTTP error, status = " + response.status);
+      }
+      const data = await parseResponseData(response);
+      let responseHeaders = {};
+      if (response.headers) {
+        responseHeaders = Object.fromEntries(response.headers.entries());
+      }
+      // Capture ETag for conditional requests
+      const etag = (responseHeaders as any)["etag"] || (responseHeaders as any)["ETag"];
+      if (etag) {
+        (args.headers as any)["If-None-Match"] = etag;
+      }
+      return {
+        data,
+        status: response.status,
+        statusText: response.statusText,
+        headers: responseHeaders,
+        request: {
+          path,
+          ...args,
+        },
+        config: reqConfig,
+      };
+    });
   }
 }
 
@@ -233,7 +262,7 @@ export class FetchClient extends Client implements XhrInterface {
  * @param {string} requestedURL Absolute or relative URL to combine
  * @returns {string} The combined full path
  */
- function buildFullPath(baseURL: string, requestedURL: string) {
+function buildFullPath(baseURL: string, requestedURL: string) {
   if (baseURL && !isAbsoluteURL(requestedURL)) {
     return combineURLs(baseURL, requestedURL);
   }
@@ -246,7 +275,7 @@ export class FetchClient extends Client implements XhrInterface {
  * @param {string} url The URL to test
  * @returns {boolean} True if the specified URL is absolute, otherwise false
  */
- function isAbsoluteURL(url:string) {
+function isAbsoluteURL(url: string) {
   // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
   // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
   // by any combination of letters, digits, plus, period, or hyphen.
@@ -260,10 +289,10 @@ export class FetchClient extends Client implements XhrInterface {
  * @param {string} relativeURL The relative URL
  * @returns {string} The combined URL
  */
- function combineURLs(baseURL: string, relativeURL: string) {
-  return (relativeURL === '')
+function combineURLs(baseURL: string, relativeURL: string) {
+  return relativeURL === ""
     ? baseURL
-    : baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '');
+    : baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "");
 }
 
 function serializeQueryParams(params: XhrQueryParams): string {
@@ -285,9 +314,10 @@ async function parseResponseData(response: Response): Promise<unknown> {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
-  const contentTypeRaw = (response.headers && typeof response.headers.get === "function")
-    ? (response.headers.get("content-type") ?? "")
-    : "";
+  const contentTypeRaw =
+    response.headers && typeof response.headers.get === "function"
+      ? (response.headers.get("content-type") ?? "")
+      : "";
   const contentType = contentTypeRaw.toLowerCase();
   const canJson = typeof (response as any).json === "function";
   const canText = typeof (response as any).text === "function";
@@ -301,21 +331,20 @@ async function parseResponseData(response: Response): Promise<unknown> {
   return null;
 }
 
-function base64Encoder(str:string) {
-  let encodedString = '';
-  if (typeof(window) === 'undefined') {
-    encodedString = Buffer.from(str).toString('base64');
-  }
-  else {
+function base64Encoder(str: string) {
+  let encodedString = "";
+  if (typeof window === "undefined") {
+    encodedString = Buffer.from(str).toString("base64");
+  } else {
     encodedString = btoa(str);
   }
   return encodedString;
 }
 
 export const checkFetcher = () => {
-  if (typeof fetch === 'undefined') {
-    let library = 'unfetch';
-    if (typeof window === 'undefined') library = 'node-fetch';
+  if (typeof fetch === "undefined") {
+    let library = "unfetch";
+    if (typeof window === "undefined") library = "node-fetch";
     throw new Error(`
   fetch is not found globally, to fix pass a fetch for
   your environment like https://www.npmjs.com/package/${library}.

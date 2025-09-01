@@ -16,9 +16,7 @@ const baseURL = import.meta.env.VITE_DRUPAL_BASE_URL as string | undefined;
 
 if (!baseURL || typeof baseURL !== "string") {
   // Throw early so devs see clear error rather than silent failures
-  throw new Error(
-    "VITE_DRUPAL_BASE_URL is not set. Create .env and set the Drupal base URL."
-  );
+  throw new Error("VITE_DRUPAL_BASE_URL is not set. Create .env and set the Drupal base URL.");
 }
 
 // Initialize Drupal core client (send cookies for cross-origin requests)
@@ -38,4 +36,3 @@ export const entities = new DrupalEntity(drupal)
   .setDefaultAdapter("jsonapi");
 
 export type { Drupal };
-

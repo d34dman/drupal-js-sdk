@@ -1,6 +1,5 @@
-import {CoreInterface, XhrInterface, XhrResponse} from '@drupal-js-sdk/interfaces';
-import {DrupalError} from '@drupal-js-sdk/error';
-
+import { CoreInterface, XhrInterface, XhrResponse } from "@drupal-js-sdk/interfaces";
+import { DrupalError } from "@drupal-js-sdk/error";
 
 interface MenuDictionary<TValue> {
   [id: string]: TValue;
@@ -52,16 +51,15 @@ export class DrupalMenu {
   }
 
   public async getMenu(menuName: string): Promise<MenuItem[]> {
-    return this.getMenuRaw(menuName)
-      .then((res) => {
-        const data = res.data;
-        if (this.checkIfDrupalMenuDataIsValid(data)) {
-          const normalizedItems = this.normalizeListItems(data);
-          return this.convertFlatListItemsToTree(normalizedItems);
-        } else {
-          throw new DrupalError(DrupalError.INVALID_JSON, 'Menu data is invalid');
-        }
-      });
+    return this.getMenuRaw(menuName).then((res) => {
+      const data = res.data;
+      if (this.checkIfDrupalMenuDataIsValid(data)) {
+        const normalizedItems = this.normalizeListItems(data);
+        return this.convertFlatListItemsToTree(normalizedItems);
+      } else {
+        throw new DrupalError(DrupalError.INVALID_JSON, "Menu data is invalid");
+      }
+    });
   }
 
   /** Alias: get raw linkset response. */
@@ -70,7 +68,9 @@ export class DrupalMenu {
   }
 
   public getMenuRaw(menuName: string): Promise<XhrResponse<MenuLinkset, unknown>> {
-    return this.client.call('get', `/system/menu/${menuName}/linkset`) as Promise<XhrResponse<MenuLinkset, unknown>>;
+    return this.client.call("get", `/system/menu/${menuName}/linkset`) as Promise<
+      XhrResponse<MenuLinkset, unknown>
+    >;
   }
 
   /**
@@ -89,13 +89,13 @@ export class DrupalMenu {
         const machineName = (item["drupal-menu-machine-name"] ?? item["machine-name"])?.[0] ?? "";
         const hierarchy = (item["drupal-menu-hierarchy"] ?? item["hierarchy"])?.[0] ?? "";
         const id = `${machineName}${hierarchy}`;
-        const idArray = id.split('.');
+        const idArray = id.split(".");
         idArray.pop();
-        parentId = idArray.join('.');
+        parentId = idArray.join(".");
         level = 0;
         level = idArray.length;
         if (level < 2) {
-          parentId = '0';
+          parentId = "0";
         }
         const node: MenuItem = {
           id,
@@ -114,11 +114,11 @@ export class DrupalMenu {
   /**
    * Check if menu data is valid.
    */
-  public checkIfDrupalMenuDataIsValid(
-    data: unknown,
-  ): data is MenuLinkset {
-    const d = data as { linkset?: Array<{ item?: unknown[] }>; } | undefined;
-    return Boolean(d && Array.isArray(d.linkset) && d.linkset[0] && Array.isArray(d.linkset[0].item));
+  public checkIfDrupalMenuDataIsValid(data: unknown): data is MenuLinkset {
+    const d = data as { linkset?: Array<{ item?: unknown[] }> } | undefined;
+    return Boolean(
+      d && Array.isArray(d.linkset) && d.linkset[0] && Array.isArray(d.linkset[0].item)
+    );
   }
 
   /**
@@ -135,7 +135,7 @@ export class DrupalMenu {
       inputList[index].items = [] as MenuItem[];
     });
     inputList.forEach((node) => {
-      if (node.parentId === '0') {
+      if (node.parentId === "0") {
         roots.push(node);
       } else {
         inputList[myObjMap[node.parentId]].items!.push(node);

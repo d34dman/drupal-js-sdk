@@ -38,7 +38,4 @@ For CORS and cookie-based sessions, see [CORS](../guide/cors.md) and [Authentica
 
 We welcome issues and PRs on GitHub. For issue credit on Drupal.org, please use the Drupal issue queue[^1]
 
-
-
-
 [^1]: Issue queue on Drupal.org for Drupal JS SDK: [https://www.drupal.org/project/issues/drupal_js_sdk?categories=All](https://www.drupal.org/project/issues/drupal_js_sdk?categories=All)

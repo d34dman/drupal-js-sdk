@@ -1,21 +1,21 @@
-import {FetchClient} from '..';
-import fetch2 from 'cross-fetch';
+import { FetchClient } from "..";
+import fetch2 from "cross-fetch";
 
-const fakeData = {'foo': 'bar'};
+const fakeData = { foo: "bar" };
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
     data: JSON.stringify(fakeData),
     ok: 1,
     status: 200,
-    statusText: 'ok',
+    statusText: "ok",
     json: () => Promise.resolve(fakeData),
-  }),
+  })
 ) as jest.Mock;
 
-test('setclient', async () => {
+test("setclient", async () => {
   const config = {
-    baseURL: 'https://drupal-js-sdk-demo.d34dman.com',
+    baseURL: "https://drupal-js-sdk-demo.d34dman.com",
   };
   const client = new FetchClient(config);
   expect(client.getClient()).toBe(fetch);

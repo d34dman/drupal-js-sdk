@@ -1,15 +1,11 @@
-import { DrupalErrorInterface } from './error';
+import { DrupalErrorInterface } from "./error";
 export interface ClientInterface {
   client: any;
   setClient(client: any): ClientInterface;
   getClient(): any;
-  call(
-    method: string,
-    path: string,
-    config?: { [key: string]: any; }
-  ): Promise<any>;
+  call(method: string, path: string, config?: { [key: string]: any }): Promise<any>;
   getDrupalError(response: any): DrupalErrorInterface;
-  addDefaultHeaders(headers: { [key: string]: any; }): ClientInterface;
+  addDefaultHeaders(headers: { [key: string]: any }): ClientInterface;
 }
 export interface DrupalClientInstance extends DrupalClient {
   (config: DrupalClientRequestConfig): DrupalClientPromise;
@@ -24,17 +20,44 @@ export interface DrupalClient {
     response: DrupalClientInterceptorManager<DrupalClientResponse>;
   };
   getUri(config?: DrupalClientRequestConfig): string;
-  request<T = any, R = DrupalClientResponse<T>, D = any>(config: DrupalClientRequestConfig<D>): Promise<R>;
-  get<T = any, R = DrupalClientResponse<T>, D = any>(url: string, config?: DrupalClientRequestConfig<D>): Promise<R>;
-  delete<T = any, R = DrupalClientResponse<T>, D = any>(url: string, config?: DrupalClientRequestConfig<D>): Promise<R>;
-  head<T = any, R = DrupalClientResponse<T>, D = any>(url: string, config?: DrupalClientRequestConfig<D>): Promise<R>;
-  options<T = any, R = DrupalClientResponse<T>, D = any>(url: string, config?: DrupalClientRequestConfig<D>): Promise<R>;
-  post<T = any, R = DrupalClientResponse<T>, D = any>(url: string, data?: D, config?: DrupalClientRequestConfig<D>): Promise<R>;
-  put<T = any, R = DrupalClientResponse<T>, D = any>(url: string, data?: D, config?: DrupalClientRequestConfig<D>): Promise<R>;
-  patch<T = any, R = DrupalClientResponse<T>, D = any>(url: string, data?: D, config?: DrupalClientRequestConfig<D>): Promise<R>;
+  request<T = any, R = DrupalClientResponse<T>, D = any>(
+    config: DrupalClientRequestConfig<D>
+  ): Promise<R>;
+  get<T = any, R = DrupalClientResponse<T>, D = any>(
+    url: string,
+    config?: DrupalClientRequestConfig<D>
+  ): Promise<R>;
+  delete<T = any, R = DrupalClientResponse<T>, D = any>(
+    url: string,
+    config?: DrupalClientRequestConfig<D>
+  ): Promise<R>;
+  head<T = any, R = DrupalClientResponse<T>, D = any>(
+    url: string,
+    config?: DrupalClientRequestConfig<D>
+  ): Promise<R>;
+  options<T = any, R = DrupalClientResponse<T>, D = any>(
+    url: string,
+    config?: DrupalClientRequestConfig<D>
+  ): Promise<R>;
+  post<T = any, R = DrupalClientResponse<T>, D = any>(
+    url: string,
+    data?: D,
+    config?: DrupalClientRequestConfig<D>
+  ): Promise<R>;
+  put<T = any, R = DrupalClientResponse<T>, D = any>(
+    url: string,
+    data?: D,
+    config?: DrupalClientRequestConfig<D>
+  ): Promise<R>;
+  patch<T = any, R = DrupalClientResponse<T>, D = any>(
+    url: string,
+    data?: D,
+    config?: DrupalClientRequestConfig<D>
+  ): Promise<R>;
 }
 
-export interface DrupalClientDefaults<D = any> extends Omit<DrupalClientRequestConfig<D>, 'headers'> {
+export interface DrupalClientDefaults<D = any>
+  extends Omit<DrupalClientRequestConfig<D>, "headers"> {
   headers: HeadersDefaults;
 }
 
@@ -102,43 +125,58 @@ export interface DrupalClientResponse<T = any, D = any> {
 }
 
 export type DrupalClientResponseHeaders = Record<string, string> & {
-  "set-cookie"?: string[]
+  "set-cookie"?: string[];
 };
 
-
 export type Method =
-  | 'get' | 'GET'
-  | 'delete' | 'DELETE'
-  | 'head' | 'HEAD'
-  | 'options' | 'OPTIONS'
-  | 'post' | 'POST'
-  | 'put' | 'PUT'
-  | 'patch' | 'PATCH'
-  | 'purge' | 'PURGE'
-  | 'link' | 'LINK'
-  | 'unlink' | 'UNLINK';
+  | "get"
+  | "GET"
+  | "delete"
+  | "DELETE"
+  | "head"
+  | "HEAD"
+  | "options"
+  | "OPTIONS"
+  | "post"
+  | "POST"
+  | "put"
+  | "PUT"
+  | "patch"
+  | "PATCH"
+  | "purge"
+  | "PURGE"
+  | "link"
+  | "LINK"
+  | "unlink"
+  | "UNLINK";
 
-export type ResponseType =
-  | 'arraybuffer'
-  | 'blob'
-  | 'document'
-  | 'json'
-  | 'text'
-  | 'stream';
+export type ResponseType = "arraybuffer" | "blob" | "document" | "json" | "text" | "stream";
 
 export type responseEncoding =
-  | 'ascii' | 'ASCII'
-  | 'ansi' | 'ANSI'
-  | 'binary' | 'BINARY'
-  | 'base64' | 'BASE64'
-  | 'base64url' | 'BASE64URL'
-  | 'hex' | 'HEX'
-  | 'latin1' | 'LATIN1'
-  | 'ucs-2' | 'UCS-2'
-  | 'ucs2' | 'UCS2'
-  | 'utf-8' | 'UTF-8'
-  | 'utf8' | 'UTF8'
-  | 'utf16le' | 'UTF16LE';
+  | "ascii"
+  | "ASCII"
+  | "ansi"
+  | "ANSI"
+  | "binary"
+  | "BINARY"
+  | "base64"
+  | "BASE64"
+  | "base64url"
+  | "BASE64URL"
+  | "hex"
+  | "HEX"
+  | "latin1"
+  | "LATIN1"
+  | "ucs-2"
+  | "UCS-2"
+  | "ucs2"
+  | "UCS2"
+  | "utf-8"
+  | "UTF-8"
+  | "utf8"
+  | "UTF8"
+  | "utf16le"
+  | "UTF16LE";
 
 export type DrupalClientRequestHeaders = Record<string, string | number | boolean>;
 
@@ -152,7 +190,7 @@ export interface DrupalClientResponseTransformer {
 export interface DrupalClientAdapter {
   (config: DrupalClientRequestConfig): DrupalClientPromise;
 }
-export type DrupalClientPromise<T = any> = Promise<DrupalClientResponse<T>>
+export type DrupalClientPromise<T = any> = Promise<DrupalClientResponse<T>>;
 export interface DrupalClientBasicCredentials {
   username: string;
   password: string;

@@ -6,59 +6,60 @@ import { FluentEntity } from "../FluentEntity";
  */
 
 describe("FluentEntity Query Options Merging", () => {
-  
   describe("JSON:API Options Handling", () => {
-    
     test("should properly merge options when jsonapi property is missing", async () => {
       const mockService = {
-        listPage: jest.fn().mockResolvedValue({ 
-          items: [{ id: "1", type: "test", attributes: {} }], 
-          page: {} 
+        listPage: jest.fn().mockResolvedValue({
+          items: [{ id: "1", type: "test", attributes: {} }],
+          page: {},
         }),
         load: jest.fn().mockResolvedValue({ id: "test-id", type: "test", attributes: {} }),
-        list: jest.fn().mockResolvedValue([{ id: "1" }, { id: "2" }])
+        list: jest.fn().mockResolvedValue([{ id: "1" }, { id: "2" }]),
       };
-      
-      const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
-      
+
+      const fluentEntity = new FluentEntity(mockService as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       // Test options without jsonapi property to hit the ?? {} branches
       const optionsWithoutJsonApi = {
-        someOtherProperty: "value"
+        someOtherProperty: "value",
         // No jsonapi property - this should trigger options?.jsonapi?.query ?? {} branch
       };
-      
+
       // Line 111: listPage options merging
       await fluentEntity.listPage(optionsWithoutJsonApi as any);
-      
+
       // Line 126: get options merging
       await fluentEntity.id("test-id").get(optionsWithoutJsonApi as any);
-      
+
       // Line 143: count options merging
       await fluentEntity.count(optionsWithoutJsonApi as any);
-      
+
       // Verify that the options were properly merged with empty jsonapi.query
       expect(mockService.listPage).toHaveBeenCalledWith(
         { entity: "node", bundle: "article" },
         expect.objectContaining({
           someOtherProperty: "value",
-          jsonapi: { query: {} }
+          jsonapi: { query: {} },
         })
       );
-      
+
       expect(mockService.load).toHaveBeenCalledWith(
         { entity: "node", bundle: "article" },
         "test-id",
         expect.objectContaining({
-          someOtherProperty: "value", 
-          jsonapi: { query: {} }
+          someOtherProperty: "value",
+          jsonapi: { query: {} },
         })
       );
-      
+
       expect(mockService.list).toHaveBeenCalledWith(
         { entity: "node", bundle: "article" },
         expect.objectContaining({
           someOtherProperty: "value",
-          jsonapi: { query: {} }
+          jsonapi: { query: {} },
         })
       );
     });
@@ -67,33 +68,36 @@ describe("FluentEntity Query Options Merging", () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ items: [], page: {} }),
         load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
-        list: jest.fn().mockResolvedValue([])
+        list: jest.fn().mockResolvedValue([]),
       };
-      
-      const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
-      
+
+      const fluentEntity = new FluentEntity(mockService as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       // Set externalParams to null to test the this.externalParams ?? {} branch
       (fluentEntity as any).externalParams = null;
-      
+
       const options = {
-        jsonapi: { 
-          query: { include: "field_test" }
-        }
+        jsonapi: {
+          query: { include: "field_test" },
+        },
       };
-      
+
       await fluentEntity.listPage(options);
       await fluentEntity.id("test").get(options);
       await fluentEntity.count(options);
-      
+
       // All should execute without errors despite null externalParams
       expect(mockService.listPage).toHaveBeenCalledWith(
         { entity: "node", bundle: "article" },
         expect.objectContaining({
-          jsonapi: { 
+          jsonapi: {
             query: expect.objectContaining({
-              include: "field_test"
-            })
-          }
+              include: "field_test",
+            }),
+          },
         })
       );
     });
@@ -102,28 +106,29 @@ describe("FluentEntity Query Options Merging", () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ items: [], page: {} }),
         load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
-        list: jest.fn().mockResolvedValue([])
+        list: jest.fn().mockResolvedValue([]),
       };
-      
-      const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
-      
+
+      const fluentEntity = new FluentEntity(mockService as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       // Call without any options parameter to test ...options behavior
       await fluentEntity.listPage();
       await fluentEntity.id("test").get();
       await fluentEntity.count();
-      
+
       // Should use default empty options
       expect(mockService.listPage).toHaveBeenCalledWith(
         { entity: "node", bundle: "article" },
         { jsonapi: { query: {} } }
       );
-      
-      expect(mockService.load).toHaveBeenCalledWith(
-        { entity: "node", bundle: "article" },
-        "test",
-        { jsonapi: { query: {} } }
-      );
-      
+
+      expect(mockService.load).toHaveBeenCalledWith({ entity: "node", bundle: "article" }, "test", {
+        jsonapi: { query: {} },
+      });
+
       expect(mockService.list).toHaveBeenCalledWith(
         { entity: "node", bundle: "article" },
         { jsonapi: { query: {} } }
@@ -134,36 +139,39 @@ describe("FluentEntity Query Options Merging", () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ items: [], page: {} }),
         load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
-        list: jest.fn().mockResolvedValue([])
+        list: jest.fn().mockResolvedValue([]),
       };
-      
-      const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
-      
+
+      const fluentEntity = new FluentEntity(mockService as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       // Add some external params first
       fluentEntity.params({ include: "external_field" });
-      
+
       // Test with options that have jsonapi.query but missing some properties
       const partialOptions = {
         jsonapi: {
           // query property is missing - should test options?.jsonapi?.query ?? {}
         },
-        otherProperty: "test"
+        otherProperty: "test",
       };
-      
+
       await fluentEntity.listPage(partialOptions as any);
       await fluentEntity.id("test").get(partialOptions as any);
       await fluentEntity.count(partialOptions as any);
-      
+
       // Should merge external params with empty query
       expect(mockService.listPage).toHaveBeenCalledWith(
         { entity: "node", bundle: "article" },
         expect.objectContaining({
           otherProperty: "test",
-          jsonapi: { 
+          jsonapi: {
             query: expect.objectContaining({
-              include: "external_field"
-            })
-          }
+              include: "external_field",
+            }),
+          },
         })
       );
     });
@@ -174,11 +182,14 @@ describe("FluentEntity Query Options Merging", () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ items: [], page: {} }),
         load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
-        list: jest.fn().mockResolvedValue([])
+        list: jest.fn().mockResolvedValue([]),
       };
-      
-      const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
-      
+
+      const fluentEntity = new FluentEntity(mockService as any, {
+        entity: "node",
+        bundle: "article",
+      });
+
       // Test all combinations of null/undefined for comprehensive coverage
       const scenarios = [
         undefined, // No options at all
@@ -194,11 +205,11 @@ describe("FluentEntity Query Options Merging", () => {
         mockService.listPage.mockClear();
         mockService.load.mockClear();
         mockService.list.mockClear();
-        
+
         await fluentEntity.listPage(scenario as any);
         await fluentEntity.id(`test-${index}`).get(scenario as any);
         await fluentEntity.count(scenario as any);
-        
+
         // All should execute without errors
         expect(mockService.listPage).toHaveBeenCalled();
         expect(mockService.load).toHaveBeenCalled();

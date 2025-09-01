@@ -25,9 +25,11 @@ Instantiate Core
 ```js title=""
 constructor(config: StorageRecordInterface)
 ```
+
 ??? example
-    ```js hl_lines="3"
-    import { Core } from "@drupal-js-sdk/core";
+
+````js hl_lines="3"
+import { Core } from "@drupal-js-sdk/core";
 
     const drupal = new Core({ baseURL: "https://example.com" });
     // Set a header for all subsequent requests
@@ -38,11 +40,13 @@ constructor(config: StorageRecordInterface)
 
 ```js title=""
 setConfigService(config: StorageInterface): this
-```
+````
+
 ??? example
-    ```js hl_lines="4-5"
-    import { Core } from "@drupal-js-sdk/core";
-    import { StorageInMemory } from "@drupal-js-sdk/storage";
+
+````js hl_lines="4-5"
+import { Core } from "@drupal-js-sdk/core";
+import { StorageInMemory } from "@drupal-js-sdk/storage";
 
     const core = new Core({});
     core.setConfigService(new StorageInMemory());
@@ -52,21 +56,24 @@ setConfigService(config: StorageInterface): this
 
 ```js title=""
 getConfigService(): StorageInterface
-```
+````
+
 ??? example
-    ```js hl_lines="2"
+`js hl_lines="2"
     const cfg = drupal.getConfigService();
     cfg.setString("lang", "en");
-    ```
+    `
 
 #### setClientService
 
 ```js title=""
 setClientService(client: XhrInterface): this
 ```
+
 ??? example
-    ```js hl_lines="3-4"
-    import { FetchClient } from "@drupal-js-sdk/xhr";
+
+````js hl_lines="3-4"
+import { FetchClient } from "@drupal-js-sdk/xhr";
 
     const client = new FetchClient({ baseURL: "https://example.com" });
     drupal.setClientService(client);
@@ -76,34 +83,37 @@ setClientService(client: XhrInterface): this
 
 ```js title=""
 getClientService(): XhrInterface
-```
+````
+
 ??? example
-    ```js hl_lines="1-2"
+`js hl_lines="1-2"
     const client = drupal.getClientService();
     const res = await client.call("GET", "/jsonapi/node/article");
-    ```
+    `
 
 #### setSessionService
 
 ```js title=""
 setSessionService(session: SessionInterface): this
 ```
+
 ??? example
-    ```js hl_lines="2"
+`js hl_lines="2"
     // Provide your own SessionInterface implementation
     drupal.setSessionService(mySession);
-    ```
+    `
 
 #### getSessionService
 
 ```js title=""
 getSessionService(): SessionInterface
 ```
+
 ??? example
-    ```js hl_lines="1-2"
+`js hl_lines="1-2"
     const session = drupal.getSessionService();
     session.setItem("token", { value: "abc" });
-    ```
+    `
 
 ### class `Drupal` extends `Core`
 
@@ -117,9 +127,11 @@ constructor(config: {
   client?: XhrInterface;
 })
 ```
+
 ??? example
-    ```js hl_lines="3-6"
-    import { Drupal } from "@drupal-js-sdk/core";
+
+````js hl_lines="3-6"
+import { Drupal } from "@drupal-js-sdk/core";
 
     const drupal = new Drupal({
       baseURL: "https://example.com",
@@ -131,11 +143,12 @@ constructor(config: {
 
 ```js title=""
 initialize(options): this
-```
+````
+
 ??? example
-    ```js hl_lines="1"
+`js hl_lines="1"
     drupal.initialize({ baseURL: "https://example.com" });
-    ```
+    `
 
 Notes
 

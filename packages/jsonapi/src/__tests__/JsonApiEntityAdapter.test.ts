@@ -151,7 +151,7 @@ describe("JsonApiEntityAdapter", () => {
 
   beforeEach(() => {
     mockClient = new MockXhrClient();
-    
+
     const identifier: EntityIdentifier = { entity: "node", bundle: "article" };
     mockContext = {
       id: identifier,
@@ -268,7 +268,10 @@ describe("JsonApiEntityAdapter", () => {
         },
       };
 
-      mockClient.setMockResponse(`/jsonapi/node/article/${encodeURIComponent(specialId)}`, mockData);
+      mockClient.setMockResponse(
+        `/jsonapi/node/article/${encodeURIComponent(specialId)}`,
+        mockData
+      );
 
       const result = await adapter.load(specialId);
 
@@ -1096,9 +1099,9 @@ describe("JsonApiEntityAdapter", () => {
       // Test with jsonapi query options (first branch of ??)
       const optionsWithJsonapi: EntityLoadOptions = {
         jsonapi: {
-          query: { include: "author" }
+          query: { include: "author" },
         },
-        params: { shouldBeIgnored: "yes" }  // Should be ignored when jsonapi.query exists
+        params: { shouldBeIgnored: "yes" }, // Should be ignored when jsonapi.query exists
       };
 
       await adapter.load("jsonapi-test", optionsWithJsonapi);
@@ -1124,12 +1127,12 @@ describe("JsonApiEntityAdapter", () => {
     test("should test all branches in list method", async () => {
       // Test list with jsonapi query
       await adapter.list({
-        jsonapi: { query: { "filter[status]": 1 } }
+        jsonapi: { query: { "filter[status]": 1 } },
       });
 
       // Test list with params
       await adapter.list({
-        params: { "page[limit]": 5 }
+        params: { "page[limit]": 5 },
       });
 
       // Test list with no options
@@ -1184,12 +1187,12 @@ describe("JsonApiEntityAdapter", () => {
       expect(result2.page?.next).toBeNull();
       expect(result2.page?.prev).toBeNull();
 
-      // Test with undefined meta (should handle gracefully) 
+      // Test with undefined meta (should handle gracefully)
       const undefinedMetaResponse = {
         data: [],
         // meta property completely missing
         links: {
-          self: { href: "/self" }
+          self: { href: "/self" },
         },
       };
 
