@@ -2,8 +2,8 @@ import { Drupal } from "../Drupal";
 import { XhrInterface, XhrResponse } from "@drupal-js-sdk/interfaces";
 
 /**
- * Specific test to cover Drupal.ts line 37
- * Line 37: const client = options.client ?? new FetchClient(apiConfig);
+ * Tests for Drupal HTTP client initialization.
+ * Validates how the HTTP client is selected and configured during Drupal initialization.
  */
 
 class MockXhrClient implements XhrInterface {
@@ -25,24 +25,24 @@ class MockXhrClient implements XhrInterface {
   }
 }
 
-describe("Drupal Client Coverage - Line 37", () => {
+describe("Drupal Client Initialization", () => {
   
-  test("Line 37: should use provided client (left side of ??)", () => {
+  test("should use provided client when specified in configuration", () => {
     const customClient = new MockXhrClient();
     
     const drupal = new Drupal({
       baseURL: "https://custom-client.example.com",
-      client: customClient // Provided client - should NOT create new FetchClient
+      client: customClient // Custom client should be used as-is
     });
     
     expect(drupal).toBeInstanceOf(Drupal);
     expect(drupal.getClientService()).toBe(customClient);
   });
 
-  test("Line 37: should create FetchClient when no client provided (right side of ??)", () => {
+  test("should create default FetchClient when no client is provided", () => {
     const drupal = new Drupal({
       baseURL: "https://no-client.example.com"
-      // No client property - should create new FetchClient
+      // Missing client should trigger automatic FetchClient creation
     });
     
     expect(drupal).toBeInstanceOf(Drupal);
@@ -51,10 +51,10 @@ describe("Drupal Client Coverage - Line 37", () => {
     expect(typeof clientService.call).toBe("function");
   });
 
-  test("Line 37: should handle undefined client", () => {
+  test("should handle undefined client configuration", () => {
     const drupal = new Drupal({
       baseURL: "https://undefined-client.example.com",
-      client: undefined // Explicitly undefined - should create new FetchClient
+      client: undefined // Undefined client should create FetchClient
     });
     
     expect(drupal).toBeInstanceOf(Drupal);
@@ -62,10 +62,10 @@ describe("Drupal Client Coverage - Line 37", () => {
     expect(clientService).toBeDefined();
   });
 
-  test("Line 37: should handle null client", () => {
+  test("should handle null client configuration", () => {
     const drupal = new Drupal({
       baseURL: "https://null-client.example.com", 
-      client: null as any // Explicitly null - should create new FetchClient
+      client: null as any // Null client should create FetchClient
     });
     
     expect(drupal).toBeInstanceOf(Drupal);

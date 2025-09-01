@@ -5,11 +5,11 @@ import { FluentEntity } from "../FluentEntity";
  * Targeting remaining lines: 111, 126, 143 (nullish coalescing operators)
  */
 
-describe("FluentEntity Final Branch Coverage", () => {
+describe("FluentEntity Query Options Merging", () => {
   
-  describe("Nullish Coalescing Branch Coverage", () => {
+  describe("JSON:API Options Handling", () => {
     
-    test("Lines 111, 126, 143: options with no jsonapi property", async () => {
+    test("should properly merge options when jsonapi property is missing", async () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ 
           items: [{ id: "1", type: "test", attributes: {} }], 
@@ -63,7 +63,7 @@ describe("FluentEntity Final Branch Coverage", () => {
       );
     });
 
-    test("Lines 111, 126, 143: null externalParams branch", async () => {
+    test("should handle operations when external parameters are null", async () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ items: [], page: {} }),
         load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
@@ -98,7 +98,7 @@ describe("FluentEntity Final Branch Coverage", () => {
       );
     });
 
-    test("Lines 111, 126, 143: undefined options parameter", async () => {
+    test("should handle operations with undefined options parameter", async () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ items: [], page: {} }),
         load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
@@ -130,7 +130,7 @@ describe("FluentEntity Final Branch Coverage", () => {
       );
     });
 
-    test("Lines 111, 126, 143: complex options merging scenarios", async () => {
+    test("should handle complex options merging scenarios", async () => {
       const mockService = {
         listPage: jest.fn().mockResolvedValue({ items: [], page: {} }),
         load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),

@@ -1,10 +1,10 @@
 /**
- * Ultimate coverage test - designed to hit the final remaining lines
- * Lines 17,19,27,29-57,149,189 in FetchClient.ts
+ * Tests for XHR client edge cases and configuration scenarios.
+ * Validates complex environment setups, request configurations, and client behavior.
  */
 import { FetchClient } from "../FetchClient";
 
-describe("Ultimate Coverage", () => {
+describe("XHR Edge Cases and Configuration", () => {
   const mkResponse = () => ({
     ok: true,
     status: 200,
@@ -18,39 +18,39 @@ describe("Ultimate Coverage", () => {
     (global.fetch as jest.Mock) = jest.fn(() => Promise.resolve(mkResponse()));
   });
 
-  test("should trigger all edge case branches", async () => {
+  test("should handle comprehensive configuration and environment edge cases", async () => {
     const originalWindow = (global as any).window;
     
-    // Test 1: Force constructor to use different binding paths
-    (global as any).window = { fetch: undefined }; // window exists but fetch is undefined
+    // Test constructor behavior with various environment configurations
+    (global as any).window = { fetch: undefined }; // Browser without fetch polyfill
     let client = new FetchClient();
     
-    // Test 2: Test setClient with global fetch identity, but manipulate environment
+    // Test setClient with different global fetch scenarios
     (global as any).window = { fetch: global.fetch }; 
-    client.setClient(global.fetch); // Should trigger global fetch binding
+    client.setClient(global.fetch); // Configure with global fetch
     
-    // Test 3: Test with completely custom fetch to trigger else branch  
+    // Test with custom fetch implementation
     const customFetch = jest.fn(() => Promise.resolve(mkResponse()));
-    client.setClient(customFetch as any); // Should trigger non-global branch
+    client.setClient(customFetch as any); // Configure with custom fetch
     
-    // Test 4: Reset to regular fetch
-    client.setClient(); // Default parameter
+    // Reset to default fetch configuration
+    client.setClient(); // Use default configuration
     
-    // Test 5: Force specific request scenarios
-    await client.call("GET", "/test1"); // Normal call
+    // Test various request scenarios
+    await client.call("GET", "/test1"); // Standard request
     
-    // Test 6: Call with signal to test signal assignment logic
+    // Test request with AbortSignal
     const controller = new AbortController();
     await client.call("GET", "/test2", { signal: controller.signal });
     
-    // Test 7: Call without signal to test controller creation
+    // Test request with timeout (creates internal controller)
     await client.call("GET", "/test3", { timeoutMs: 100 });
     
-    // Test 8: Test method variations to trigger line 189
+    // Test various HTTP methods
     await client.call("GET", "/test4");
-    await client.call("get" as any, "/test5"); // lowercase
+    await client.call("get" as any, "/test5"); // Lowercase method
     
-    // Restore
+    // Restore original environment
     if (originalWindow !== undefined) {
       (global as any).window = originalWindow;
     } else {
@@ -60,8 +60,8 @@ describe("Ultimate Coverage", () => {
     expect(true).toBe(true);
   });
 
-  test("should test constructor with minimal environment", () => {
-    // Test constructor with absolutely minimal setup
+  test("should handle constructor with various configuration options", () => {
+    // Test constructor with various configuration levels
     const client1 = new FetchClient();
     const client2 = new FetchClient({});
     const client3 = new FetchClient({ baseURL: "https://test.com" });
@@ -71,10 +71,10 @@ describe("Ultimate Coverage", () => {
     expect(client3).toBeInstanceOf(FetchClient);
   });
 
-  test("should test all setClient variations systematically", () => {
+  test("should handle all setClient configuration variations", () => {
     const client = new FetchClient();
     
-    // Test all setClient variations
+    // Test different client configuration methods
     client.setClient(fetch);
     client.setClient(global.fetch);
     
@@ -87,18 +87,18 @@ describe("Ultimate Coverage", () => {
     expect(client).toBeInstanceOf(FetchClient);
   });
 
-  test("should handle edge case request configurations", async () => {
+  test("should handle various HTTP request configuration scenarios", async () => {
     const client = new FetchClient({ baseURL: "https://edge.example.com" });
 
-    // Test all possible request configuration combinations to hit edge cases
+    // Test various request configuration combinations
     const configs = [
-      {}, // Minimal config
-      { signal: new AbortController().signal }, // With signal
+      {}, // No special configuration
+      { signal: new AbortController().signal }, // With abort signal
       { timeoutMs: 1000 }, // With timeout
-      { signal: new AbortController().signal, timeoutMs: 500 }, // Both
-      { method: undefined }, // Undefined method
-      { method: null }, // Null method
-      { method: "" }, // Empty method
+      { signal: new AbortController().signal, timeoutMs: 500 }, // Signal and timeout
+      { method: undefined }, // Undefined method type
+      { method: null }, // Null method type
+      { method: "" }, // Empty method string
     ];
 
     for (const config of configs) {
@@ -108,19 +108,19 @@ describe("Ultimate Coverage", () => {
     expect(true).toBe(true);
   });
 
-  test("should test window fetch vs regular fetch distinctions", () => {
+  test("should distinguish between window.fetch and global fetch implementations", () => {
     const client = new FetchClient();
     const originalWindow = (global as any).window;
     
     try {
-      // Create window with fetch
+      // Configure browser environment with fetch
       (global as any).window = { fetch: global.fetch };
       
-      // Test identity check for window.fetch
+      // Test window.fetch detection and binding
       const windowFetch = (global as any).window.fetch;
       client.setClient(windowFetch);
       
-      // Test identity check for global fetch
+      // Test global fetch configuration
       client.setClient(fetch);
       
     } finally {

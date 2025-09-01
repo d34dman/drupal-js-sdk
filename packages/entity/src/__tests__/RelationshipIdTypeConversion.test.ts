@@ -12,9 +12,9 @@ import { attachRelations } from "../relations";
  * Solution: Create linkage.id that's truthy but has special behavior when converted to String
  */
 
-describe("Relations Line 51 Final Coverage", () => {
+describe("Relationship ID Type Conversion", () => {
   
-  test("Line 51: linkage.id with special valueOf behavior", async () => {
+  test("should handle linkage ID objects with special valueOf behavior", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "special-value", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([])
@@ -37,7 +37,7 @@ describe("Relations Line 51 Final Coverage", () => {
         trick_ref: {
           data: { 
             type: "user--user",
-            id: trickId // Truthy object but with special behavior
+            id: trickId // Object with custom conversion behavior
           }
         }
       }
@@ -55,7 +55,7 @@ describe("Relations Line 51 Final Coverage", () => {
     expect(mockService.load).toHaveBeenCalled();
   });
 
-  test("Line 51: object with null prototype chain", async () => {
+  test("should handle objects with null prototype chain as IDs", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "null-proto", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([])
@@ -95,7 +95,7 @@ describe("Relations Line 51 Final Coverage", () => {
     expect(mockService.load).toHaveBeenCalled();
   });
 
-  test("Line 51: Test with very edge case boolean id", async () => {
+  test("should convert boolean IDs to string representation", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "boolean-test", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([])
@@ -134,7 +134,7 @@ describe("Relations Line 51 Final Coverage", () => {
     expect(relations).toHaveLength(1);
   });
 
-  test("Line 51: Test with function id that returns value", async () => {
+  test("should handle function objects as relationship IDs", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "function-test", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([])
@@ -169,7 +169,7 @@ describe("Relations Line 51 Final Coverage", () => {
     expect(mockService.load).toHaveBeenCalled();
   });
 
-  test("Line 51: Test with Symbol id (edge case)", async () => {
+  test("should handle Symbol objects as relationship IDs", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "symbol-test", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([])
@@ -204,13 +204,13 @@ describe("Relations Line 51 Final Coverage", () => {
     expect(mockService.load).toHaveBeenCalled();
   });
 
-  test("Line 51: comprehensive id type variations", async () => {
+  test("should handle comprehensive ID type variations and conversions", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "varied-test", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([])
     };
 
-    // Test every possible truthy id type that could reach line 51
+    // Test various truthy ID types and their string conversion
     const idVariations = [
       "string-id",
       42, // number

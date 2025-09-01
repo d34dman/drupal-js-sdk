@@ -46,7 +46,7 @@ describe("Relations Line 51 Coverage", () => {
     expect(relations[0].id).toBe("test");
   });
 
-  test("Line 51: empty typeStr should use identifier fallback", async () => {
+  test("should use identifier fallback when type string is empty", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "empty", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([])

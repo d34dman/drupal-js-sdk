@@ -24,7 +24,7 @@ describe('FetchClient Missing Coverage', () => {
     test('should execute addDefaultOptions and return this', () => {
       const client = new FetchClient();
       
-      // This should cover Line 52 (setting config) and Line 60 (return this)
+      // Test default options configuration and method chaining
       const result = client.addDefaultOptions({
         baseURL: 'https://default.example.com',
         withCredentials: true,
@@ -39,7 +39,7 @@ describe('FetchClient Missing Coverage', () => {
       (global.fetch as jest.Mock).mockImplementation(() => Promise.resolve(mkResponse()));
     });
 
-    test('should handle FormData (Line 127)', async () => {
+    test('should handle FormData request bodies', async () => {
       const client = new FetchClient({ baseURL: 'https://formdata.example.com' });
       
       const formData = new FormData();
@@ -48,14 +48,14 @@ describe('FetchClient Missing Coverage', () => {
       await client.call('POST', '/formdata', {
         data: formData,
         headers: {
-          'Content-Type': 'application/json', // Should be removed for FormData
+          'Content-Type': 'application/json', // Auto-removed for FormData compatibility
         },
       });
       
-      expect(true).toBe(true); // Just ensure it executes without error
+      expect(true).toBe(true); // Verify FormData handling executes successfully
     });
 
-    test('should handle string data (Lines 129-130)', async () => {
+    test('should handle string request bodies', async () => {
       const client = new FetchClient({ baseURL: 'https://string.example.com' });
       
       await client.call('POST', '/string', {
@@ -65,10 +65,10 @@ describe('FetchClient Missing Coverage', () => {
       expect(true).toBe(true);
     });
 
-    test('should handle object data JSON stringify (Lines 133-135)', async () => {
+    test('should handle object data with JSON serialization', async () => {
       const client = new FetchClient({ baseURL: 'https://object.example.com' });
       
-      // Test object data without existing JSON content-type (should add it)
+      // Test object serialization when no content-type is specified
       await client.call('POST', '/object1', {
         data: { test: 'object', number: 42 },
         headers: {
@@ -76,7 +76,7 @@ describe('FetchClient Missing Coverage', () => {
         },
       });
       
-      // Test object data with existing JSON content-type (should not override)
+      // Test object serialization when JSON content-type already exists
       await client.call('POST', '/object2', {
         data: { test: 'object2' },
         headers: {

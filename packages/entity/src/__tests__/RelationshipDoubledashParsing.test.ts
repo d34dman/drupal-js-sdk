@@ -7,9 +7,9 @@ import { attachRelations } from "../relations";
  * This test specifically targets the RIGHT side of the ternary operator (the fallback branch)
  */
 
-describe("Relations Line 51 Direct Coverage", () => {
+describe("Relationship Double-Dash Type Parsing", () => {
   
-  test("Line 51: Direct test of fallback branch when typeStr has NO double-dash", async () => {
+  test("should use entity identifier fallback when type has no double-dash separator", async () => {
     const mockService = {
       load: jest.fn().mockImplementation((id, entityId) => {
         return Promise.resolve({
@@ -61,7 +61,7 @@ describe("Relations Line 51 Direct Coverage", () => {
     expect(relations[0].id).toBe("user-123");
   });
 
-  test("Line 51: Verify split branch also works (left side of ternary)", async () => {
+  test("should properly split entity and bundle when type contains double-dash", async () => {
     const mockService = {
       load: jest.fn().mockImplementation((id, entityId) => {
         return Promise.resolve({
@@ -108,7 +108,7 @@ describe("Relations Line 51 Direct Coverage", () => {
     expect(relations).toHaveLength(1);
   });
 
-  test("Line 51: Edge case - empty type string (fallback)", async () => {
+  test("should handle empty type string by using identifier fallback", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({
         id: "empty-type-result",
@@ -152,7 +152,7 @@ describe("Relations Line 51 Direct Coverage", () => {
     expect(relations).toHaveLength(1);
   });
 
-  test("Line 51: Special characters but no double-dash (fallback)", async () => {
+  test("should handle type strings with special characters but no double-dash", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({
         id: "special-chars-result",

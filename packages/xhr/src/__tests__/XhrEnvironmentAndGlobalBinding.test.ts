@@ -1,6 +1,6 @@
 import { FetchClient } from "../FetchClient";
 
-describe("Direct Line Coverage", () => {
+describe("XHR Environment and Global Binding", () => {
   const mkResponse = (init?: any) => ({
     ok: init?.ok ?? true,
     status: init?.status ?? 200,
@@ -14,30 +14,30 @@ describe("Direct Line Coverage", () => {
     (global.fetch as jest.Mock) = jest.fn(() => Promise.resolve(mkResponse()));
   });
 
-  test("should create client instances with different environment setups", () => {
+  test("should create client instances in different JavaScript environments", () => {
     // Save original values
     const originalWindow = (global as any).window;
     
     try {
-      // Test various constructor scenarios by modifying environment
+      // Test constructor behavior in different JavaScript environments
       
-      // Scenario 1: Window with no fetch function
+      // Browser environment without fetch polyfill
       (global as any).window = { fetch: "not-a-function" };
       const client1 = new FetchClient();
       expect(client1).toBeInstanceOf(FetchClient);
       
-      // Scenario 2: Window with proper fetch
+      // Browser environment with native fetch support
       (global as any).window = { fetch: global.fetch };
       const client2 = new FetchClient();
       expect(client2).toBeInstanceOf(FetchClient);
       
-      // Scenario 3: No window at all
+      // Node.js environment without window object
       delete (global as any).window;
       const client3 = new FetchClient();
       expect(client3).toBeInstanceOf(FetchClient);
       
     } finally {
-      // Always restore
+      // Restore original environment
       if (originalWindow !== undefined) {
         (global as any).window = originalWindow;
       } else {
@@ -46,22 +46,22 @@ describe("Direct Line Coverage", () => {
     }
   });
 
-  test("should test setClient with different fetch types", () => {
+  test("should handle different fetch implementation types in setClient", () => {
     const client = new FetchClient();
     const originalWindow = (global as any).window;
     
     try {
-      // Test window.fetch identity check
+      // Test window.fetch detection and binding
       (global as any).window = { fetch: global.fetch };
       client.setClient((global as any).window.fetch);
       expect(client.getClient()).toBe((global as any).window.fetch);
       
-      // Test with completely custom function
+      // Test with custom fetch implementation
       const customFunction = (() => Promise.resolve({} as any)) as any;
       client.setClient(customFunction);
       expect(client.getClient()).toBe(customFunction);
       
-      // Test setClient with no argument (default)
+      // Test setClient with default parameter
       client.setClient();
       expect(typeof client.getClient()).toBe("function");
       
@@ -74,7 +74,7 @@ describe("Direct Line Coverage", () => {
     }
   });
 
-  test("should test comprehensive data handling scenarios", async () => {
+  test("should handle various HTTP request body data types", async () => {
     const client = new FetchClient({ baseURL: "https://comprehensive.example.com" });
 
     // Test various body types that should preserve type and remove JSON content-type
@@ -111,7 +111,7 @@ describe("Direct Line Coverage", () => {
     expect(true).toBe(true);
   });
 
-  test("should test query parameter scenarios", async () => {
+  test("should handle query parameter serialization scenarios", async () => {
     const client = new FetchClient({ baseURL: "https://query.example.com" });
 
     // Test with query params on path without existing ?
@@ -135,7 +135,7 @@ describe("Direct Line Coverage", () => {
     expect(true).toBe(true);
   });
 
-  test("should test signal and timeout combinations", async () => {
+  test("should handle AbortSignal and timeout combinations", async () => {
     const client = new FetchClient({ baseURL: "https://signal-test.example.com" });
 
     // Test with signal provided (no controller created)

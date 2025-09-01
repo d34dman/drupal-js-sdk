@@ -1,13 +1,13 @@
 import { attachRelations } from "../relations";
 
 /**
- * Final test to achieve 100% coverage for relations.ts
- * Specifically targeting line 51: typeStr.includes("--") ? typeStr.split("--") : [identifier.entity, identifier.bundle]
+ * Tests for relationship type string parsing logic.
+ * Validates how entity types are parsed and when identifier fallbacks are used.
  */
 
-describe("Relations Final Coverage - Line 51", () => {
+describe("Relationship Type String Parsing", () => {
   
-  test("Line 51: typeStr without double-dash (fallback branch)", async () => {
+  test("should use identifier fallback when type string has no double-dash", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ 
         id: "fallback-test", 
@@ -25,7 +25,7 @@ describe("Relations Final Coverage - Line 51", () => {
       relationships: {
         field_simple_ref: {
           data: { 
-            type: "user", // NO double-dash - should trigger fallback to identifier
+            type: "user", // Simple type without separator - should use identifier fallback
             id: "user-123"
           }
         }
@@ -43,7 +43,7 @@ describe("Relations Final Coverage - Line 51", () => {
     // Load the relation - this should hit line 51 fallback branch
     const relations = await recordWithRel.rel("field_simple_ref").load();
     
-    // Verify that the identifier entity/bundle was used (fallback branch)
+    // Verify identifier fallback was used when type lacks separator
     expect(mockService.load).toHaveBeenCalledWith(
       { entity: "backup_entity", bundle: "backup_bundle" }, // From identifier fallback
       "user-123",
@@ -55,7 +55,7 @@ describe("Relations Final Coverage - Line 51", () => {
     expect(relations[0].id).toBe("fallback-test");
   });
 
-  test("Line 51: empty string typeStr (fallback branch)", async () => {
+  test("should use identifier fallback when type string is empty", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ 
         id: "empty-test", 
@@ -72,7 +72,7 @@ describe("Relations Final Coverage - Line 51", () => {
       relationships: {
         field_empty_ref: {
           data: { 
-            type: "", // Empty string - should not contain "--", use fallback
+            type: "", // Empty type string should use identifier fallback
             id: "empty-id"
           }
         }
@@ -89,7 +89,7 @@ describe("Relations Final Coverage - Line 51", () => {
 
     const relations = await recordWithRel.rel("field_empty_ref").load();
     
-    // Should use identifier fallback since empty string doesn't contain "--"
+    // Verify empty type string triggers identifier fallback
     expect(mockService.load).toHaveBeenCalledWith(
       { entity: "fallback_entity", bundle: "fallback_bundle" },
       "empty-id",
@@ -101,7 +101,7 @@ describe("Relations Final Coverage - Line 51", () => {
     expect(relations[0].id).toBe("empty-test");
   });
 
-  test("Line 51: single word typeStr (fallback branch)", async () => {
+  test("should use identifier fallback for single word type strings", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ 
         id: "single-word-test", 
@@ -118,7 +118,7 @@ describe("Relations Final Coverage - Line 51", () => {
       relationships: {
         field_word_ref: {
           data: { 
-            type: "taxonomy", // Single word, no "--", should use fallback
+            type: "taxonomy", // Single word type should use identifier fallback
             id: "term-456"
           }
         }
@@ -135,7 +135,7 @@ describe("Relations Final Coverage - Line 51", () => {
 
     const relations = await recordWithRel.rel("field_word_ref").load();
     
-    // Should use identifier fallback since "taxonomy" doesn't contain "--"
+    // Verify single word type triggers identifier fallback
     expect(mockService.load).toHaveBeenCalledWith(
       { entity: "default_entity", bundle: "default_bundle" },
       "term-456",
@@ -147,7 +147,7 @@ describe("Relations Final Coverage - Line 51", () => {
     expect(relations[0].id).toBe("single-word-test");
   });
 
-  test("Line 51: comparison - typeStr WITH double-dash (split branch)", async () => {
+  test("should parse entity and bundle when type string contains double-dash", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ 
         id: "split-test", 
@@ -164,7 +164,7 @@ describe("Relations Final Coverage - Line 51", () => {
       relationships: {
         field_split_ref: {
           data: { 
-            type: "taxonomy_term--tags", // HAS double-dash - should split
+            type: "taxonomy_term--tags", // Proper entity--bundle format for parsing
             id: "term-789"
           }
         }
@@ -181,7 +181,7 @@ describe("Relations Final Coverage - Line 51", () => {
 
     const relations = await recordWithRel.rel("field_split_ref").load();
     
-    // Should use split values, NOT identifier fallback
+    // Verify type string is properly parsed into entity and bundle
     expect(mockService.load).toHaveBeenCalledWith(
       { entity: "taxonomy_term", bundle: "tags" }, // From typeStr.split("--")
       "term-789",

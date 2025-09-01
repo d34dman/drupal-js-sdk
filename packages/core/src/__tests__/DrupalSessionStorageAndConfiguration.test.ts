@@ -2,8 +2,8 @@ import { Drupal } from "../Drupal";
 import { XhrInterface, XhrResponse } from "@drupal-js-sdk/interfaces";
 
 /**
- * Tests to achieve 100% coverage for Drupal.ts
- * Targeting line 37: nullish coalescing for client option
+ * Tests for Drupal session storage and configuration handling.
+ * Validates client initialization, session storage selection, and configuration options.
  */
 
 class MockXhrClient implements XhrInterface {
@@ -25,33 +25,33 @@ class MockXhrClient implements XhrInterface {
   }
 }
 
-describe("Drupal 100% Coverage Tests", () => {
+describe("Drupal Session Storage and Configuration", () => {
   
-  describe("Line 37: Client nullish coalescing coverage", () => {
+  describe("Client Configuration", () => {
     
-    test("should use provided client (Line 37 - left side of ??)", () => {
+    test("should use provided client when specified in configuration", () => {
       const customClient = new MockXhrClient();
       
-      // Test when options.client is provided (should use it, not create new FetchClient)
+      // When client is provided, it should be used instead of creating a new one
       const drupal = new Drupal({
         baseURL: "https://provided-client.example.com",
         client: customClient // This should trigger the left side of options.client ?? new FetchClient()
       });
       
       expect(drupal).toBeInstanceOf(Drupal);
-      // Verify the provided client was used
+      // Confirm the provided client was properly configured
       expect(drupal.getClientService()).toBe(customClient);
     });
 
-    test("should create default FetchClient (Line 37 - right side of ??)", () => {
+    test("should create default FetchClient when no client is provided", () => {
       // Test when options.client is NOT provided (should create new FetchClient)
       const drupal = new Drupal({
         baseURL: "https://default-client.example.com"
-        // No client property - should trigger new FetchClient() creation
+        // Missing client property should trigger automatic FetchClient creation
       });
       
       expect(drupal).toBeInstanceOf(Drupal);
-      // Verify a FetchClient was created and set
+      // Confirm FetchClient was automatically created and configured
       const clientService = drupal.getClientService();
       expect(clientService).toBeDefined();
       expect(typeof clientService.call).toBe("function");
@@ -82,7 +82,7 @@ describe("Drupal 100% Coverage Tests", () => {
     });
   });
 
-  describe("Additional Drupal Configuration Edge Cases", () => {
+  describe("Configuration Options Handling", () => {
     
     test("should handle config with auth but no headers", () => {
       const drupal = new Drupal({
@@ -91,7 +91,7 @@ describe("Drupal 100% Coverage Tests", () => {
           username: "testuser",
           password: "testpass"
         }
-        // No headers, no client - should create FetchClient with auth config
+        // Configuration with auth only - should create FetchClient with auth settings
       });
       
       expect(drupal).toBeInstanceOf(Drupal);
@@ -104,7 +104,7 @@ describe("Drupal 100% Coverage Tests", () => {
           "Authorization": "Bearer token",
           "Content-Type": "application/json"
         }
-        // No auth, no client - should create FetchClient with headers config
+        // Configuration with headers only - should create FetchClient with header settings
       });
       
       expect(drupal).toBeInstanceOf(Drupal);
@@ -120,7 +120,7 @@ describe("Drupal 100% Coverage Tests", () => {
         headers: {
           "X-Custom-Header": "custom-value"
         }
-        // No client - should create FetchClient with both auth and headers
+        // Configuration with both auth and headers should merge both settings
       });
       
       expect(drupal).toBeInstanceOf(Drupal);
@@ -129,7 +129,7 @@ describe("Drupal 100% Coverage Tests", () => {
     test("should handle minimal config (only baseURL)", () => {
       const drupal = new Drupal({
         baseURL: "https://minimal.example.com"
-        // Only baseURL, no auth, headers, or client
+        // Minimal configuration with only baseURL should work
       });
       
       expect(drupal).toBeInstanceOf(Drupal);
@@ -138,7 +138,7 @@ describe("Drupal 100% Coverage Tests", () => {
     });
   });
 
-  describe("Session Storage Edge Cases", () => {
+  describe("Session Storage Initialization", () => {
     test("should use provided session service", () => {
       const mockSession = {
         getItem: jest.fn(),
@@ -161,7 +161,7 @@ describe("Drupal 100% Coverage Tests", () => {
       expect(drupal.getSessionService()).toBe(mockSession);
     });
 
-    test("should handle Web Storage initialization success", () => {
+    test("should initialize Web Storage when localStorage is available", () => {
       // Mock window.localStorage to be available
       const mockLocalStorage = {
         getItem: jest.fn(),

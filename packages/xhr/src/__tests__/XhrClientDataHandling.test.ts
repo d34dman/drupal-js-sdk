@@ -1,6 +1,6 @@
 import { FetchClient } from "../FetchClient";
 
-describe("100% Coverage Tests", () => {
+describe("XHR Client Data Handling", () => {
   const originalWindow = (global as any).window;
 
   const mkResponse = (init?: any) => ({
@@ -24,11 +24,11 @@ describe("100% Coverage Tests", () => {
     }
   });
 
-  describe("setClient method coverage", () => {
+  describe("Client Configuration", () => {
     test("should handle setClient with window.fetch identity check", () => {
       const client = new FetchClient();
       
-      // Set up window with fetch to test window.fetch identity
+      // Configure window environment with fetch for browser compatibility
       (global as any).window = { fetch: global.fetch };
       
       // This should trigger the window.fetch check in line 25
@@ -49,13 +49,13 @@ describe("100% Coverage Tests", () => {
     test("should handle setClient with default parameter", () => {
       const client = new FetchClient();
       
-      // Test setClient() with no parameter (defaults to fetch)
+      // Test setClient with default parameter (should use global fetch)
       client.setClient();
       expect(typeof client.getClient()).toBe("function");
     });
   });
 
-  describe("Request method specific scenarios", () => {
+  describe("HTTP Request Data Processing", () => {
     test("should handle all data types with proper content-type handling", async () => {
       const client = new FetchClient({ baseURL: "https://data-types.example.com" });
 
@@ -135,13 +135,13 @@ describe("100% Coverage Tests", () => {
     });
   });
 
-  describe("Response parsing scenarios", () => {
+  describe("Response Parsing", () => {
     test("should handle response without headers.get method", async () => {
       const responseWithoutGet = {
         ok: true,
         status: 200,
         statusText: "OK",
-        headers: null, // No headers.get method
+        headers: null, // Response without headers processing capability
         json: () => Promise.resolve({ test: "data" }),
         text: () => Promise.resolve('{"test":"data"}')
       } as unknown as Response;
@@ -162,7 +162,7 @@ describe("100% Coverage Tests", () => {
         status: 200,
         statusText: "OK", 
         headers: new Map([["content-type", "application/octet-stream"]])
-        // No json or text methods
+        // Response without standard parsing methods
       } as unknown as Response;
 
       (global.fetch as jest.Mock).mockImplementationOnce(() =>
@@ -176,14 +176,14 @@ describe("100% Coverage Tests", () => {
     });
   });
 
-  describe("Query parameter edge cases", () => {
+  describe("Query Parameter Handling", () => {
     test("should handle empty query parameters", async () => {
       const client = new FetchClient({ baseURL: "https://empty-query.example.com" });
 
-      // Test with empty params object
+      // Test behavior with empty query parameters
       await client.call("GET", "/empty-params", { params: {} });
       
-      // Test with no params
+      // Test behavior without any query parameters
       await client.call("GET", "/no-params");
 
       expect(true).toBe(true);

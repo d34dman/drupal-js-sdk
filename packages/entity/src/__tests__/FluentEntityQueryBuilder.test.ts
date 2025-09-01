@@ -1,18 +1,17 @@
 /**
- * Tests to achieve 100% coverage for FluentEntity.ts
- * Targeting lines: 38, 44, 80, 111, 126, 143
+ * Tests for FluentEntity query building functionality.
+ * Validates sort operations, pagination, parameter handling, and service method calls.
  */
 
 import { FluentEntity } from "../FluentEntity";
 
 // Create a simple test to verify the internal query building 
-describe("FluentEntity 100% Coverage Tests", () => {
+describe("FluentEntity Query Building", () => {
 
-  // These tests target the internal JsonApiQueryBuilder class methods
-  // which are accessed through FluentEntity's public API
+  // Tests verify query building functionality through FluentEntity's public API
   
-  test("Line 38: ASC sort direction handling", () => {
-    // Create a new instance using the internal constructor approach
+  test("should handle ASC sort direction correctly", () => {
+    // Create FluentEntity instance with mock service
     const MockService = require('../EntityService').EntityService;
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
@@ -23,13 +22,13 @@ describe("FluentEntity 100% Coverage Tests", () => {
     
     const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
     
-    // Test ASC sort (should not add '-' prefix)
+    // Verify ASC sort does not add negative prefix to field name
     fluentEntity.sort("title", "ASC");
     const query = (fluentEntity as any).qb.toObject();
     expect(query.sort).toBe("title");
   });
 
-  test("Line 44: page number parameter", () => {
+  test("should handle page number parameter in pagination", () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
       list: jest.fn().mockResolvedValue([]),
@@ -37,32 +36,32 @@ describe("FluentEntity 100% Coverage Tests", () => {
     
     const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
     
-    // Test page number to hit line 44
+    // Test pagination with page number parameter
     fluentEntity.page({ number: 5 });
     const query = (fluentEntity as any).qb.toObject();
     expect(query["page[number]"]).toBe(5);
   });
 
-  test("Line 80: fromParams with invalid getQueryObject", () => {
+  test("should handle fromParams with invalid query object function", () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "1", type: "test", attributes: {} }),
     };
     
     const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
     
-    // Test with non-function getQueryObject
+    // Test fromParams with invalid query object function
     const result = fluentEntity.fromParams({ getQueryObject: "not-a-function" } as any);
     expect(result).toBe(fluentEntity);
   });
 
-  test("Line 111: listPage without options", async () => {
+  test("should handle listPage operation without options", async () => {
     const mockService = {
       listPage: jest.fn().mockResolvedValue({ items: [{ id: "1", type: "test", attributes: {} }], page: {} }),
     };
     
     const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
     
-    // Call listPage without options parameter
+    // Test listPage method without providing options
     const result = await fluentEntity.listPage();
     expect(result.items).toBeDefined();
     expect(mockService.listPage).toHaveBeenCalledWith(
@@ -71,14 +70,14 @@ describe("FluentEntity 100% Coverage Tests", () => {
     );
   });
 
-  test("Line 126: get without options", async () => {
+  test("should handle get operation without options", async () => {
     const mockService = {
       load: jest.fn().mockResolvedValue({ id: "test-id", type: "test", attributes: {} }),
     };
     
     const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
     
-    // Call get without options parameter
+    // Test get method without providing options
     const result = await fluentEntity.id("test-id").get();
     expect(result.id).toBe("test-id");
     expect(mockService.load).toHaveBeenCalledWith(
@@ -88,14 +87,14 @@ describe("FluentEntity 100% Coverage Tests", () => {
     );
   });
 
-  test("Line 143: count without options", async () => {
+  test("should handle count operation without options", async () => {
     const mockService = {
       list: jest.fn().mockResolvedValue([{ id: "1" }, { id: "2" }]),
     };
     
     const fluentEntity = new FluentEntity(mockService as any, { entity: "node", bundle: "article" });
     
-    // Call count without options parameter
+    // Test count method without providing options
     const count = await fluentEntity.count();
     expect(count).toBe(2);
     expect(mockService.list).toHaveBeenCalledWith(
