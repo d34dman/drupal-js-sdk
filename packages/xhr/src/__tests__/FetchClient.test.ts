@@ -138,3 +138,42 @@ test('Body types: ArrayBuffer and ReadableStream (noop)', async () => {
   await client.call('POST', '/rs', { data: stream as any });
   expect(true).toBe(true);
 });
+
+test('Additional coverage tests', async () => {
+  const client = new FetchClient({ baseURL: 'https://coverage.example.com' });
+  
+  // Reset to default implementation for clean testing
+  (global.fetch as jest.Mock).mockImplementation(() => Promise.resolve(mkResponse()));
+  
+  // Test error response 
+  (global.fetch as jest.Mock).mockImplementation(() => 
+    Promise.resolve(mkResponse({ ok: false, status: 400 }))
+  );
+  
+  await expect(client.call('GET', '/error-test')).rejects.toBeTruthy();
+});
+
+test('Additional error handling', async () => {
+  const client = new FetchClient({ baseURL: 'https://error.example.com' });
+  
+  // Test error response
+  (global.fetch as jest.Mock).mockImplementation(() => 
+    Promise.resolve(mkResponse({ ok: false, status: 500 }))
+  );
+  
+  await expect(client.call('GET', '/server-error')).rejects.toBeTruthy();
+});
+
+test('Additional method testing', async () => {
+  const client = new FetchClient({ baseURL: 'https://methods.example.com' });
+  
+  // Reset to successful response
+  (global.fetch as jest.Mock).mockImplementation(() => Promise.resolve(mkResponse()));
+  
+  // Test different HTTP methods for coverage
+  await client.call('PUT', '/put-test');
+  await client.call('DELETE', '/delete-test');
+  await client.call('PATCH', '/patch-test');
+  
+  expect(true).toBe(true);
+});

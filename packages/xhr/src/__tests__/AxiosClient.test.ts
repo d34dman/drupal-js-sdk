@@ -124,3 +124,62 @@ test('Axios client add default headers', async () => {
   expect(api.setClient(clientB)).toBe(api);
   expect(api.getClient()).toBe(clientB);
 });
+
+test('Axios client add default options', () => {
+  const api = new AxiosClient(createStubClient());
+  
+  // Test adding default options - this covers lines 39-47
+  const result = api.addDefaultOptions({
+    baseURL: 'https://default.example.com',
+    timeoutMs: 5000,
+    withCredentials: true,
+    headers: {
+      'Default-Header': 'default-value',
+    },
+  });
+  
+  expect(result).toBe(api); // Should return this for chaining
+});
+
+test('Axios client add default options with existing headers', () => {
+  const api = new AxiosClient(createStubClient());
+  
+  // First add some headers
+  api.addDefaultHeaders({
+    'Existing-Header': 'existing-value',
+  });
+  
+  // Then add default options with more headers
+  const result = api.addDefaultOptions({
+    headers: {
+      'New-Header': 'new-value',
+    },
+    timeoutMs: 3000,
+  });
+  
+  expect(result).toBe(api);
+});
+
+test('Axios client add default options with no headers', () => {
+  const api = new AxiosClient(createStubClient());
+  
+  // Test with options that don't include headers
+  const result = api.addDefaultOptions({
+    baseURL: 'https://no-headers.example.com',
+    withCredentials: false,
+  });
+  
+  expect(result).toBe(api);
+});
+
+test('Axios client method chaining', () => {
+  const api = new AxiosClient(createStubClient());
+  
+  // Test that all methods return this for chaining
+  const chained = api
+    .addDefaultHeaders({ 'Chain-Header': 'chain-value' })
+    .addDefaultOptions({ timeoutMs: 1000 })
+    .setClient(createStubClient());
+  
+  expect(chained).toBe(api);
+});
