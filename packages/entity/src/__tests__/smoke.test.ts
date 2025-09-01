@@ -32,6 +32,7 @@ class StubClient implements XhrInterface {
   private headers: Record<string, unknown> = {};
   setClient(_client: unknown): XhrInterface { return this; }
   getClient(): unknown { return null; }
+  addDefaultOptions(_options: Partial<XhrRequestConfig>): XhrInterface { return this; }
   addDefaultHeaders(headers: { [key: string]: unknown; }): XhrInterface {
     this.headers = { ...this.headers, ...headers };
     return this;

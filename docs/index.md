@@ -93,7 +93,12 @@ sdk.entities.registerAdapter("jsonapi", (ctx) => new JsonApiEntityAdapter(ctx));
 const article = await sdk.entities
   .entity({ entity: "node", bundle: "article" }, "jsonapi")
   .load("123");
+
+// Pagination
+const { items, page } = await sdk.entities.node('article').page({ limit: 5 }).listPage();
 ```
+
+> Note: The HTTP client supports AbortSignal, timeouts, and retry/backoff.
 
 ---
 

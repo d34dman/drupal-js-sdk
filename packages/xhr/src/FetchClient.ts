@@ -48,6 +48,18 @@ export class FetchClient extends Client implements XhrInterface {
     return this;
   }
 
+  public addDefaultOptions(options: Partial<XhrRequestConfig>): XhrInterface {
+    this.config = {
+      ...this.config,
+      ...options,
+      headers: {
+        ...(this.config.headers ?? {}),
+        ...(options.headers ?? {}),
+      }
+    };
+    return this;
+  }
+
   public call(
     method: XhrMethod,
     path: string,
@@ -173,6 +185,15 @@ export class FetchClient extends Client implements XhrInterface {
         }
       }
     };
+    // For safe methods, avoid sending CSRF header to prevent CORS preflight on some servers
+    const methodLower = String(args.method ?? '').toLowerCase();
+    if ((methodLower === 'get' || methodLower === 'head') && args.headers) {
+      const h = args.headers as any;
+      if (typeof h['X-CSRF-Token'] !== 'undefined') {
+        delete h['X-CSRF-Token'];
+      }
+    }
+
     return executeWithRetry()
       .then(async (response: Response) => {
         if (!response.ok) {

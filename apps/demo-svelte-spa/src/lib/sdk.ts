@@ -21,11 +21,12 @@ if (!baseURL || typeof baseURL !== "string") {
   );
 }
 
-// Initialize Drupal core client
-export const drupal = new Drupal({ baseURL });
+// Initialize Drupal core client (send cookies for cross-origin requests)
+export const drupal = new Drupal({ baseURL, withCredentials: true });
 
 // Attach session storage (browser localStorage)
 drupal.setSessionService(new StorageInWeb(() => window.localStorage));
+// Note: FetchClient honors withCredentials from constructor config
 
 // Feature facades
 export const auth = new DrupalAuth(drupal);

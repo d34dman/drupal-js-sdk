@@ -10,6 +10,8 @@ export interface XhrInterface {
   ): Promise<XhrResponse>;
   getDrupalError(response: XhrResponse): DrupalErrorInterface;
   addDefaultHeaders(headers: XhrRequestHeaders): XhrInterface;
+  /** Merge additional default request options into the client configuration. */
+  addDefaultOptions(options: Partial<XhrRequestConfig>): XhrInterface;
   /** Optional: add a request interceptor */
   addRequestInterceptor?(fn: (config: XhrRequestConfig) => Promise<XhrRequestConfig> | XhrRequestConfig): XhrInterface;
   /** Optional: add a response interceptor */

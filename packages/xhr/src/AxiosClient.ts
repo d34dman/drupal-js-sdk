@@ -35,6 +35,18 @@ export class AxiosClient extends Client implements XhrInterface {
     return this;
   }
 
+  public addDefaultOptions(options: Partial<XhrRequestConfig>): XhrInterface {
+    this.config = {
+      ...this.config,
+      ...options,
+      headers: {
+        ...(this.config.headers ?? {}),
+        ...(options.headers ?? {}),
+      },
+    };
+    return this;
+  }
+
   public call(
     method: XhrMethod,
     path: string,

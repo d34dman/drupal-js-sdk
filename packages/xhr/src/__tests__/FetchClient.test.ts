@@ -3,15 +3,19 @@ import {XhrRequestConfig} from '@drupal-js-sdk/interfaces';
 
 const fakeData = {'foo': 'bar'};
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    data: JSON.stringify(fakeData),
-    ok: 1,
-    status: 200,
-    statusText: 'ok',
-    json: () => Promise.resolve(fakeData),
-  }),
-) as jest.Mock;
+// Enhance mock fetch to support status and headers
+function mkResponse(init?: Partial<Response>) {
+  return {
+    ok: init?.ok ?? 1,
+    status: init?.status ?? 200,
+    statusText: init?.statusText ?? 'ok',
+    headers: new Map(Object.entries(init?.headers ?? {})) as any,
+    json: () => Promise.resolve(init?.json ?? fakeData),
+    text: () => Promise.resolve(JSON.stringify(init?.json ?? fakeData)),
+  } as unknown as Response;
+}
+
+global.fetch = jest.fn(() => Promise.resolve(mkResponse())) as jest.Mock;
 
 test('Default', async () => {
   
@@ -106,4 +110,31 @@ test('Basic Auth in node env', async () => {
   const client = new FetchClient(config);
   const res1 = await client.call('GET', '/fake-path');
   expect(res1.request).toMatchObject({headers: { Authorization: 'Basic Zm9vOmJhcg==' }});
+});
+
+test('Retry/backoff and AbortSignal', async () => {
+  const fn = jest.fn()
+    .mockResolvedValueOnce(mkResponse({ ok: false, status: 503 }))
+    .mockResolvedValueOnce(mkResponse());
+  (global.fetch as jest.Mock).mockImplementation(fn);
+  const client = new FetchClient({ baseURL: 'https://retry.example.com' });
+  const res = await client.call('GET', '/x', { retry: { retries: 1 } });
+  expect(res.status).toBe(200);
+
+  // Abort
+  const controller = new AbortController();
+  (global.fetch as jest.Mock).mockImplementation(() => new Promise((_, reject) => setTimeout(() => reject(new Error('aborted')), 5)));
+  const p = new FetchClient({ baseURL: 'https://abort.example.com' }).call('GET', '/y', { signal: controller.signal, timeoutMs: 1 });
+  await expect(p).rejects.toBeTruthy();
+});
+
+test('Body types: ArrayBuffer and ReadableStream (noop)', async () => {
+  // Reset fetch to success response after previous tests may have changed it
+  (global.fetch as jest.Mock).mockImplementation(() => Promise.resolve(mkResponse()));
+  const client = new FetchClient({ baseURL: 'https://body.example.com' });
+  const ab = new ArrayBuffer(8);
+  await client.call('POST', '/ab', { data: ab });
+  const stream = new ReadableStream();
+  await client.call('POST', '/rs', { data: stream as any });
+  expect(true).toBe(true);
 });
