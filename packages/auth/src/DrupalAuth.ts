@@ -91,7 +91,9 @@ export class DrupalAuth {
       this.store = data;
       this.setDrupalSession();
       this.client.addDefaultHeaders({ "X-CSRF-Token": data.csrf_token });
-      // Hint: consumers may hook an auth state change here via custom interceptors/events.
+      // Hint: consumers may hook an auth state change here
+      // via custom interceptors/events.
+      // @todo: add examples in guide.
       return response;
     });
   }

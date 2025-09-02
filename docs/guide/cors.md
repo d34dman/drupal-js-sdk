@@ -59,6 +59,27 @@ CORS in Drupal is configured[^2] in `sites/default/services.yml` (or an environm
         maxAge: false
         supportsCredentials: true
     ```
+                                                     
+!!! tip
+    For testing, you can use regex pattern for allowed origins on your developemnt server.
+
+    ```yaml hl_lines="8-11"
+      # sites/default/services.yml
+      cors.config:
+        enabled: true
+        allowedHeaders: ['x-csrf-token','authorization','content-type','accept','origin','x-requested-with', 'access-control-allow-origin','x-allowed-header']
+        allowedMethods: ['POST', 'GET', 'OPTIONS', 'DELETE', 'PUT', 'PATCH']
+        allowedOrigins: []
+        allowedOriginsPatterns: [
+          # To allow all subdomains in example.com.
+          '#^http://[a-z-]*\.example.com$#',
+          # To allow all localhost and all ports.
+          '#^http(s)?://(.+\.)?localhost(:\d{1,5})?$#',
+        ]
+        exposedHeaders:  []
+        maxAge: false
+        supportsCredentials: true
+    ```
 
 
 !!! warning

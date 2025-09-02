@@ -218,9 +218,12 @@ parameters:
     # ['https://www.drupal.org'] or ['*'] to allow any origin to access your
     # resource. See
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
-    allowedOrigins: ['http://localhost:5173']
+    allowedOrigins: []
     # Configure requests allowed from origins, matching against regex patterns.
-    allowedOriginsPatterns: []
+    allowedOriginsPatterns: [
+      '#^https://(.+\.)?d34dman\.com(:\d{1,5})?$#',
+      '#^http(s)?://(.+\.)?localhost(:\d{1,5})?$#',
+    ]
     # Sets the Access-Control-Expose-Headers header. The default is false which
     # means the header will not be set. To set the header use a comma delimited
     # list within square brackets. For example, ['Content-Type', 'Expires'] or
