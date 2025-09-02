@@ -1,6 +1,7 @@
 import dts from "rollup-plugin-dts";
 import esbuild from "rollup-plugin-esbuild";
 import replace from "@rollup/plugin-replace";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
 
 const name = "index";
 
@@ -20,6 +21,11 @@ export default [
         },
       }),
       esbuild(),
+      codecovRollupPlugin({
+        enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+        bundleName: "drupal-js-sdk",
+        uploadToken: process.env.CODECOV_TOKEN,
+      }),
     ],
     output: [
       {
