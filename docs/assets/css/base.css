@@ -1,22 +1,15 @@
-.md-header__button.md-logo img,
-.md-header__button.md-logo svg {
-  height: 3rem;
-  width: auto;
-}
-
-.md-header__button.md-logo {
-  margin: 0;
-  padding: 0;
-}
-
-.md-header__title {
-  font-size: 1.2rem;
-  margin-left: 0.4rem;
-}
-
 /*
  * Custom styles for code blocks (to support "Pygments" syntax highlighting with monokai theme).
  */
+
+ [dir=ltr] .md-header__title {
+  margin-left: 0rem;
+  margin-right: .4rem
+}
+.highlight {
+  border-radius: 0.2rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 
 .highlight .md-code__content {
   background-color: #272822;
