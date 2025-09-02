@@ -1,3 +1,6 @@
+---
+status: draft
+---
 # @drupal-js-sdk/settings
 
 ## Overview
@@ -8,7 +11,6 @@ Experimental scaffold for application settings helpers. API may change; currentl
 
 ```js
 import { DrupalSettings } from "@drupal-js-sdk/settings";
-// Placeholder: API is experimental and may change.
 ```
 
 Public API

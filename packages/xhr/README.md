@@ -32,11 +32,6 @@ constructor(config?: XhrRequestConfig)
 setClient(client: typeof fetch): this
 ```
 
-??? example
-`js hl_lines="1"
-    client.setClient(fetch);
-    `
-
 #### getClient
 
 ```js title=""
@@ -50,9 +45,9 @@ addDefaultHeaders(headers: Record<string, any>): XhrInterface
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     client.addDefaultHeaders({ Authorization: "Bearer token" });
-    `
+    ```
 
 #### call
 
@@ -61,9 +56,9 @@ call(method: XhrMethod, path: string, config?: XhrRequestConfig): Promise<XhrRes
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     const res = await client.call("GET", "/jsonapi/node/article");
-    `
+    ```
 
 ### class `AxiosClient` implements `XhrInterface`
 

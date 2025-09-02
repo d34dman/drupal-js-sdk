@@ -32,9 +32,9 @@ constructor(drupal: Drupal)
 
 ??? example
 
-````js hl_lines="3-4"
-import { Drupal } from "@drupal-js-sdk/core";
-import { DrupalAuth } from "@drupal-js-sdk/auth";
+    ```js hl_lines="3-4"
+    import { Drupal } from "@drupal-js-sdk/core";
+    import { DrupalAuth } from "@drupal-js-sdk/auth";
 
     const drupal = new Drupal({ baseURL: "https://example.com" });
     const auth = new DrupalAuth(drupal);
@@ -44,12 +44,12 @@ import { DrupalAuth } from "@drupal-js-sdk/auth";
 
 ```js title=""
 getSessionToken(): Promise<XhrResponse>
-````
+```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     await auth.getSessionToken();
-    `
+    ```
 
 #### login
 
@@ -58,9 +58,9 @@ login(name: string, pass: string): Promise<XhrResponse>
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     await auth.login("username", "password");
-    `
+    ```
 
 #### loginStatus
 
@@ -69,9 +69,9 @@ loginStatus(): Promise<boolean>
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     const isLoggedIn = await auth.loginStatus();
-    `
+    ```
 
 #### logout
 
@@ -80,9 +80,9 @@ logout(): Promise<XhrResponse>
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     await auth.logout();
-    `
+    ```
 
 #### passwordResetByUserName
 
@@ -91,9 +91,9 @@ passwordResetByUserName(name: string): Promise<XhrResponse>
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     await auth.passwordResetByUserName("username");
-    `
+    ```
 
 #### passwordResetByMail
 
@@ -102,9 +102,9 @@ passwordResetByMail(mail: string): Promise<XhrResponse>
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     await auth.passwordResetByMail("user@example.com");
-    `
+    ```
 
 #### register
 
@@ -113,9 +113,9 @@ register(name: string, mail: string): Promise<XhrResponse>
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     await auth.register("newuser", "newuser@example.com");
-    `
+    ```
 
 Notes
 

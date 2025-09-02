@@ -32,9 +32,9 @@ constructor(context: EntityAdapterContext)
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     const adapter = new JsonApiEntityAdapter(context);
-    `
+    ```
 
 #### load
 
@@ -43,9 +43,9 @@ load(entityId: string, options?: EntityLoadOptions): Promise<EntityRecord<T>>
 ```
 
 ??? example
-`js hl_lines="1"
+    ```js hl_lines="1"
     const record = await adapter.load("123", { jsonapi: { query: { include: "uid" } } });
-    `
+    ```
 
 Alias
 

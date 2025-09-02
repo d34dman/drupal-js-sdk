@@ -1,3 +1,6 @@
+---
+status: draft
+---
 # @drupal-js-sdk/role
 
 ## Overview
