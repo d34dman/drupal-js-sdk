@@ -1,0 +1,1543 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shibin Das (D34dMan)">
+      
+      
+        <link rel="canonical" href="https://d34dman.github.io/drupal-js-sdk/modules/base/error/">
+      
+      
+        <link rel="prev" href="../storage/">
+      
+      
+        <link rel="next" href="../interfaces/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>@drupal-js-sdk/error - Drupal JavaScript SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+  
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+    
+      
+      
+        
+      
+      
+    
+  
+  
+  <style>:root{.md-tag.md-tag--html{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M272.3%20108.1C236.5%2072.5%20202.5%2038.4%20192.4%200c-10%2038.4-44.3%2072.5-80%20108.1C58.8%20161.7-1.9%20222.4-1.9%20313.4c-2.4%20107.3%2082.7%20196.2%20190%20198.6s196.2-82.8%20198.5-190.1c.1-2.8.1-5.6%200-8.5%200-91.1-60.8-151.7-114.3-205.3M98%20331.1c-5.9%207.5-11%2015.6-15.2%2024.2-.3.7-.8%201.3-1.3%201.8s-1.2.8-2%201h-1.7c-4.3%200-9.2-8.5-9.2-8.5-1.3-2-2.5-4.2-3.7-6.4l-.8-1.8c-11.2-25.7-1.5-62.3-1.5-62.3%204.8-17.8%2012.7-34.7%2023.2-49.9%206.4-9.6%2013.5-18.9%2021-27.7l9.2%209.2%2043.5%2044.4c.8.9%201.3%202.1%201.3%203.3s-.5%202.4-1.3%203.3l-45.4%2050.6zm96.6%20127.3c-12.9-.1-25.6-3.9-36.4-11s-19.4-17.1-24.6-28.9-7-24.9-5-37.7%207.6-24.7%2016.2-34.4c14.2-16.9%2031.5-33.5%2050.3-55.3%2022.3%2023.8%2036.9%2040.1%2051.2%2058%201.1%201.4%202.1%202.9%203%204.4%207.8%2011.1%2012%2024.4%2012%2038%200%208.8-1.7%2017.4-5%2025.5s-8.2%2015.5-14.4%2021.7-13.5%2011.1-21.6%2014.5-16.7%205.1-25.5%205.1h-.2zm126.1-106.8c-.4%201.4-1.2%202.6-2.3%203.6s-2.4%201.6-3.8%201.8h-1.3c-2.6-.9-4.9-2.7-6.3-5.1-11.6-17.5-24.9-33.9-39.5-49l-17.8-18.4-59.1-61.3a505%20505%200%200%201-35.4-36.3c-.3-.5-.6-.9-.9-1.4-2-2.8-3.6-5.9-4.7-9.2v-1.8c-.8-5-.4-10.1%201.2-15s4.4-9.2%208-12.7c11.4-11.4%2023-23%2033.8-34.9%2012%2013.3%2024.8%2026%2037.4%2038.6%2025.8%2024%2049.1%2050.5%2069.6%2079.1%2017.3%2024.5%2026.7%2053.8%2027%2083.8-.1%2012.9-2.2%2025.8-6%2038.2z%22/%3E%3C/svg%3E');}.md-tag.md-tag--js{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M0%2032v448h448V32zm243.8%20349.4c0%2043.6-25.6%2063.5-62.9%2063.5-33.7%200-53.2-17.4-63.2-38.5l34.3-20.7c6.6%2011.7%2012.6%2021.6%2027.1%2021.6%2013.8%200%2022.6-5.4%2022.6-26.5V237.7h42.1zm99.6%2063.5c-39.1%200-64.4-18.6-76.7-43l34.3-19.8c9%2014.7%2020.8%2025.6%2041.5%2025.6%2017.4%200%2028.6-8.7%2028.6-20.8%200-14.4-11.4-19.5-30.7-28l-10.5-4.5c-30.4-12.9-50.5-29.2-50.5-63.5%200-31.6%2024.1-55.6%2061.6-55.6%2026.8%200%2046%209.3%2059.8%2033.7L368%20290c-7.2-12.9-15-18-27.1-18-12.3%200-20.1%207.8-20.1%2018%200%2012.6%207.8%2017.7%2025.9%2025.6l10.5%204.5c35.8%2015.3%2055.9%2031%2055.9%2066.2%200%2037.8-29.8%2058.6-69.7%2058.6%22/%3E%3C/svg%3E');}.md-tag.md-tag--css{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22m480%2032-64%20368-223.3%2080L0%20400l19.6-94.8h82l-8%2040.6L210%20390.2l134.1-44.4%2018.8-97.1H29.5l16-82h333.7l10.5-52.7H56.3l16.3-82z%22/%3E%3C/svg%3E');}.md-tag.md-tag--node{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M224.5%20508c-6.7%200-13.5-1.8-19.4-5.2l-61.7-36.5c-9.2-5.2-4.7-7-1.7-8%2012.3-4.3%2014.8-5.2%2027.9-12.7%201.4-.8%203.2-.5%204.6.4l47.4%2028.1c1.7%201%204.1%201%205.7%200L412%20367.5c1.7-1%202.8-3%202.8-5V149.3c0-2.1-1.1-4-2.9-5.1L227.3%2037.7c-1.7-1-4-1-5.7%200L37.1%20144.3c-1.8%201-2.9%203-2.9%205.1v213.1c0%202%201.1%204%202.9%204.9l50.6%2029.2c27.5%2013.7%2044.3-2.4%2044.3-18.7V167.5c0-3%202.4-5.3%205.4-5.3h23.4c2.9%200%205.4%202.3%205.4%205.3V378c0%2036.6-20%2057.6-54.7%2057.6-10.7%200-19.1%200-42.5-11.6l-48.4-27.9c-12-6.9-19.4-19.8-19.4-33.7V149.3c0-13.8%207.4-26.8%2019.4-33.7L205.1%209c11.7-6.6%2027.2-6.6%2038.8%200l184.7%20106.7c12%206.9%2019.4%2019.8%2019.4%2033.7v213.1c0%2013.8-7.4%2026.7-19.4%2033.7L243.9%20502.8c-5.9%203.4-12.6%205.2-19.4%205.2m149.1-210.1c0-39.9-27-50.5-83.7-58-57.4-7.6-63.2-11.5-63.2-24.9%200-11.1%204.9-25.9%2047.4-25.9%2037.9%200%2051.9%208.2%2057.7%2033.8.5%202.4%202.7%204.2%205.2%204.2h24c1.5%200%202.9-.6%203.9-1.7s1.5-2.6%201.4-4.1c-3.7-44.1-33-64.6-92.2-64.6-52.7%200-84.1%2022.2-84.1%2059.5%200%2040.4%2031.3%2051.6%2081.8%2056.6%2060.5%205.9%2065.2%2014.8%2065.2%2026.7%200%2020.6-16.6%2029.4-55.5%2029.4-48.9%200-59.6-12.3-63.2-36.6-.4-2.6-2.6-4.5-5.3-4.5h-23.9c-3%200-5.3%202.4-5.3%205.3%200%2031.1%2016.9%2068.2%2097.8%2068.2%2058.4-.1%2092-23.2%2092-63.4%22/%3E%3C/svg%3E');}.md-tag.md-tag--react{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M418.2%20177.2q-8.1-2.7-16.2-5.1c.9-3.7%201.7-7.4%202.5-11.1%2012.3-59.6%204.2-107.5-23.1-123.3-26.3-15.1-69.2.6-112.6%2038.4-4.3%203.7-8.5%207.6-12.5%2011.5-2.7-2.6-5.5-5.2-8.3-7.7-45.5-40.4-91.1-57.4-118.4-41.5-26.2%2015.2-34%2060.3-23%20116.7%201.1%205.6%202.3%2011.1%203.7%2016.7-6.4%201.8-12.7%203.8-18.6%205.9C38.3%20196.2%200%20225.4%200%20255.6c0%2031.2%2040.8%2062.5%2096.3%2081.5%204.5%201.5%209%203%2013.6%204.3-1.5%206-2.8%2011.9-4%2018-10.5%2055.5-2.3%2099.5%2023.9%20114.6%2027%2015.6%2072.4-.4%20116.6-39.1%203.5-3.1%207-6.3%2010.5-9.7%204.4%204.3%209%208.4%2013.6%2012.4%2042.8%2036.8%2085.1%2051.7%20111.2%2036.6%2027-15.6%2035.8-62.9%2024.4-120.5q-1.35-6.6-3-13.5c3.2-.9%206.3-1.9%209.4-2.9%2057.7-19.1%2099.5-50%2099.5-81.7%200-30.3-39.4-59.7-93.8-78.4M282.9%2092.3c37.2-32.4%2071.9-45.1%2087.7-36%2016.9%209.7%2023.4%2048.9%2012.8%20100.4-.7%203.4-1.4%206.7-2.3%2010-22.2-5-44.7-8.6-67.3-10.6-13-18.6-27.2-36.4-42.6-53.1%203.9-3.7%207.7-7.2%2011.7-10.7M167.2%20307.5c5.1%208.7%2010.3%2017.4%2015.8%2025.9-15.6-1.7-31.1-4.2-46.4-7.5%204.4-14.4%209.9-29.3%2016.3-44.5%204.6%208.8%209.3%2017.5%2014.3%2026.1m-30.3-120.3c14.4-3.2%2029.7-5.8%2045.6-7.8-5.3%208.3-10.5%2016.8-15.4%2025.4-4.9%208.5-9.7%2017.2-14.2%2026-6.3-14.9-11.6-29.5-16-43.6m27.4%2068.9c6.6-13.8%2013.8-27.3%2021.4-40.6s15.8-26.2%2024.4-38.9c15-1.1%2030.3-1.7%2045.9-1.7s31%20.6%2045.9%201.7q12.75%2018.9%2024.3%2038.7c11.55%2019.8%2014.9%2026.7%2021.7%2040.4q-10.05%2020.7-21.6%2040.8c-7.6%2013.3-15.7%2026.2-24.2%2039-14.9%201.1-30.4%201.6-46.1%201.6s-30.9-.5-45.6-1.4q-13.05-19.05-24.6-39c-11.55-19.95-14.8-26.8-21.5-40.6m180.6%2051.2c5.1-8.8%209.9-17.7%2014.6-26.7%206.4%2014.5%2012%2029.2%2016.9%2044.3-15.5%203.5-31.2%206.2-47%208%205.4-8.4%2010.5-17%2015.5-25.6m14.4-76.5c-4.7-8.8-9.5-17.6-14.5-26.2q-7.35-12.75-15.3-25.2c16.1%202%2031.5%204.7%2045.9%208-4.6%2014.8-10%2029.2-16.1%2043.4M256.2%20118.3c10.5%2011.4%2020.4%2023.4%2029.6%2035.8-19.8-.9-39.7-.9-59.5%200%209.8-12.9%2019.9-24.9%2029.9-35.8M140.2%2057c16.8-9.8%2054.1%204.2%2093.4%2039%202.5%202.2%205%204.6%207.6%207-15.5%2016.7-29.8%2034.5-42.9%2053.1-22.6%202-45%205.5-67.2%2010.4-1.3-5.1-2.4-10.3-3.5-15.5-9.4-48.4-3.2-84.9%2012.6-94m-24.5%20263.6c-4.2-1.2-8.3-2.5-12.4-3.9-21.3-6.7-45.5-17.3-63-31.2-10.1-7-16.9-17.8-18.8-29.9%200-18.3%2031.6-41.7%2077.2-57.6%205.7-2%2011.5-3.8%2017.3-5.5%206.8%2021.7%2015%2043%2024.5%2063.6-9.6%2020.9-17.9%2042.5-24.8%2064.5m116.6%2098c-16.5%2015.1-35.6%2027.1-56.4%2035.3-11.1%205.3-23.9%205.8-35.3%201.3-15.9-9.2-22.5-44.5-13.5-92%201.1-5.6%202.3-11.2%203.7-16.7%2022.4%204.8%2045%208.1%2067.9%209.8%2013.2%2018.7%2027.7%2036.6%2043.2%2053.4-3.2%203.1-6.4%206.1-9.6%208.9m24.5-24.3c-10.2-11-20.4-23.2-30.3-36.3%209.6.4%2019.5.6%2029.5.6%2010.3%200%2020.4-.2%2030.4-.7-9.2%2012.7-19.1%2024.8-29.6%2036.4m130.7%2030c-.9%2012.2-6.9%2023.6-16.5%2031.3-15.9%209.2-49.8-2.8-86.4-34.2-4.2-3.6-8.4-7.5-12.7-11.5%2015.3-16.9%2029.4-34.8%2042.2-53.6%2022.9-1.9%2045.7-5.4%2068.2-10.5%201%204.1%201.9%208.2%202.7%2012.2%204.9%2021.6%205.7%2044.1%202.5%2066.3m18.2-107.5c-2.8.9-5.6%201.8-8.5%202.6-7-21.8-15.6-43.1-25.5-63.8%209.6-20.4%2017.7-41.4%2024.5-62.9%205.2%201.5%2010.2%203.1%2015%204.7%2046.6%2016%2079.3%2039.8%2079.3%2058%200%2019.6-34.9%2044.9-84.8%2061.4m-149.7-15a45.8%2045.8%200%201%200%200-91.6%2045.8%2045.8%200%201%200%200%2091.6%22/%3E%3C/svg%3E');}.md-tag.md-tag--vue{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M356.9%2064.3H280l-56%2088.6-48-88.6H0L224%20448%20448%2064.3zm-301.2%2032h53.8L224%20294.5%20338.4%2096.3h53.8L224%20384.5z%22/%3E%3C/svg%3E');}.md-tag.md-tag--angular{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M185.7%20268.1h76.2l-38.1-91.6zM223.8%2032%2016%20106.4l31.8%20275.7%20176%2097.9%20176-97.9%2031.8-275.7zM354%20373.8h-48.6l-26.2-65.4H168.6l-26.2%2065.4H93.7L223.8%2081.5z%22/%3E%3C/svg%3E');}.md-tag.md-tag--drupal{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20384%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M272.3%20108.1C236.5%2072.5%20202.5%2038.4%20192.4%200c-10%2038.4-44.3%2072.5-80%20108.1C58.8%20161.7-1.9%20222.4-1.9%20313.4c-2.4%20107.3%2082.7%20196.2%20190%20198.6s196.2-82.8%20198.5-190.1c.1-2.8.1-5.6%200-8.5%200-91.1-60.8-151.7-114.3-205.3M98%20331.1c-5.9%207.5-11%2015.6-15.2%2024.2-.3.7-.8%201.3-1.3%201.8s-1.2.8-2%201h-1.7c-4.3%200-9.2-8.5-9.2-8.5-1.3-2-2.5-4.2-3.7-6.4l-.8-1.8c-11.2-25.7-1.5-62.3-1.5-62.3%204.8-17.8%2012.7-34.7%2023.2-49.9%206.4-9.6%2013.5-18.9%2021-27.7l9.2%209.2%2043.5%2044.4c.8.9%201.3%202.1%201.3%203.3s-.5%202.4-1.3%203.3l-45.4%2050.6zm96.6%20127.3c-12.9-.1-25.6-3.9-36.4-11s-19.4-17.1-24.6-28.9-7-24.9-5-37.7%207.6-24.7%2016.2-34.4c14.2-16.9%2031.5-33.5%2050.3-55.3%2022.3%2023.8%2036.9%2040.1%2051.2%2058%201.1%201.4%202.1%202.9%203%204.4%207.8%2011.1%2012%2024.4%2012%2038%200%208.8-1.7%2017.4-5%2025.5s-8.2%2015.5-14.4%2021.7-13.5%2011.1-21.6%2014.5-16.7%205.1-25.5%205.1h-.2zm126.1-106.8c-.4%201.4-1.2%202.6-2.3%203.6s-2.4%201.6-3.8%201.8h-1.3c-2.6-.9-4.9-2.7-6.3-5.1-11.6-17.5-24.9-33.9-39.5-49l-17.8-18.4-59.1-61.3a505%20505%200%200%201-35.4-36.3c-.3-.5-.6-.9-.9-1.4-2-2.8-3.6-5.9-4.7-9.2v-1.8c-.8-5-.4-10.1%201.2-15s4.4-9.2%208-12.7c11.4-11.4%2023-23%2033.8-34.9%2012%2013.3%2024.8%2026%2037.4%2038.6%2025.8%2024%2049.1%2050.5%2069.6%2079.1%2017.3%2024.5%2026.7%2053.8%2027%2083.8-.1%2012.9-2.2%2025.8-6%2038.2z%22/%3E%3C/svg%3E');}.md-tag.md-tag--draft{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20576%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M288%2032c-80.8%200-145.5%2036.8-192.6%2080.6-46.8%2043.5-78.1%2095.4-93%20131.1-3.3%207.9-3.3%2016.7%200%2024.6%2014.9%2035.7%2046.2%2087.7%2093%20131.1C142.5%20443.1%20207.2%20480%20288%20480s145.5-36.8%20192.6-80.6c46.8-43.5%2078.1-95.4%2093-131.1%203.3-7.9%203.3-16.7%200-24.6-14.9-35.7-46.2-87.7-93-131.1C433.5%2068.9%20368.8%2032%20288%2032M144%20256a144%20144%200%201%201%20288%200%20144%20144%200%201%201-288%200m144-64c0%2035.3-28.7%2064-64%2064-11.5%200-22.3-3-31.7-8.4-1%2010.9-.1%2022.1%202.9%2033.2%2013.7%2051.2%2066.4%2081.6%20117.6%2067.9s81.6-66.4%2067.9-117.6c-12.2-45.7-55.5-74.8-101.1-70.8%205.3%209.3%208.4%2020.1%208.4%2031.7%22/%3E%3C/svg%3E');}.md-tag.md-tag--outdated{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M256%200a256%20256%200%201%201%200%20512%20256%20256%200%201%201%200-512m-24%20120v136c0%208%204%2015.5%2010.7%2020l96%2064c11%207.4%2025.9%204.4%2033.3-6.7s4.4-25.9-6.7-33.3L280%20243.2V120c0-13.3-10.7-24-24-24s-24%2010.7-24%2024%22/%3E%3C/svg%3E');}.md-tag.md-tag--deprecated{--md-tag-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C%21--%21%20Font%20Awesome%20Free%207.0.0%20by%20%40fontawesome%20-%20https%3A//fontawesome.com%20License%20-%20https%3A//fontawesome.com/license/free%20%28Icons%3A%20CC%20BY%204.0%2C%20Fonts%3A%20SIL%20OFL%201.1%2C%20Code%3A%20MIT%20License%29%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M256%200a256%20256%200%201%201%200%20512%20256%20256%200%201%201%200-512m-24%20120v136c0%208%204%2015.5%2010.7%2020l96%2064c11%207.4%2025.9%204.4%2033.3-6.7s4.4-25.9-6.7-33.3L280%20243.2V120c0-13.3-10.7-24-24-24s-24%2010.7-24%2024%22/%3E%3C/svg%3E');}}</style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/base.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#drupal-js-sdkerror" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Drupal JavaScript SDK" class="md-header__button md-logo" aria-label="Drupal JavaScript SDK" data-md-component="logo">
+      
+  <img src="../../../assets/svg/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Drupal JavaScript SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              @drupal-js-sdk/error
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/d34dman/drupal-js-sdk" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @d34dman/drupal-js-sdk
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../guide/introduction/" class="md-tabs__link">
+          
+  
+  
+  Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../core/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../dev/architecture/" class="md-tabs__link">
+          
+  
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Drupal JavaScript SDK" class="md-nav__button md-logo" aria-label="Drupal JavaScript SDK" data-md-component="logo">
+      
+  <img src="../../../assets/svg/logo.svg" alt="logo">
+
+    </a>
+    Drupal JavaScript SDK
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/d34dman/drupal-js-sdk" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    @d34dman/drupal-js-sdk
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Menu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/cors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/error-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/error-codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error codes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Base
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Base
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xhr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/xhr
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/error
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/error
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-drupalerror-extends-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      class DrupalError extends Error
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class DrupalError extends Error">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-codes-subset" class="md-nav__link">
+    <span class="md-ellipsis">
+      static codes (subset)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geterrorcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      getErrorCode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/interfaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Feature
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Feature
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../feature/jsonapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/jsonapi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../feature/entity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/entity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../feature/menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/menu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../feature/auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    @drupal-js-sdk/auth
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/onboarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onboarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-drupalerror-extends-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      class DrupalError extends Error
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="class DrupalError extends Error">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-codes-subset" class="md-nav__link">
+    <span class="md-ellipsis">
+      static codes (subset)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geterrorcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      getErrorCode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="drupal-js-sdkerror">@drupal-js-sdk/error</h1>
+<h2 id="overview">Overview</h2>
+<p>Shared error primitive with stable codes for consistent error handling across SDK packages.</p>
+<h2 id="usage">Usage</h2>
+<div class="language-js highlight" style="background: #272822"><span class="filename">JavaScript</span><pre style="line-height: 125%;"><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span style="color: #66D9EF">import</span><span style="color: #F8F8F2"> { </span><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2"> } </span><span style="color: #66D9EF">from</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">&quot;@drupal-js-sdk/error&quot;</span><span style="color: #F8F8F2">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span style="color: #66D9EF">try</span><span style="color: #F8F8F2"> {</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span style="color: #F8F8F2">  </span><span style="color: #66D9EF">throw</span><span style="color: #F8F8F2"> </span><span style="color: #FF4689">new</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">(</span><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">INVALID_JSON</span><span style="color: #F8F8F2">, </span><span style="color: #E6DB74">&quot;Malformed response&quot;</span><span style="color: #F8F8F2">);</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span style="color: #F8F8F2">} </span><span style="color: #66D9EF">catch</span><span style="color: #F8F8F2"> (</span><span style="color: #A6E22E">e</span><span style="color: #F8F8F2">) {</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span style="color: #F8F8F2">  </span><span style="color: #66D9EF">if</span><span style="color: #F8F8F2"> (</span><span style="color: #A6E22E">e</span><span style="color: #F8F8F2"> </span><span style="color: #FF4689">instanceof</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">) {</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span style="color: #F8F8F2">    </span><span style="color: #A6E22E">console</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">log</span><span style="color: #F8F8F2">(</span><span style="color: #A6E22E">e</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">getErrorCode</span><span style="color: #F8F8F2">());</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span style="color: #F8F8F2">  }</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span style="color: #F8F8F2">}</span>
+</span></code></pre></div>
+<h2 id="public-api">Public API</h2>
+<h3 id="class-drupalerror-extends-error">class <code>DrupalError</code> extends <code>Error</code></h3>
+<h4 id="constructor">Constructor</h4>
+<div class="language-js highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span style="color: #66D9EF">constructor</span><span style="color: #F8F8F2">(</span><span style="color: #A6E22E">code</span><span style="color: #FF4689">:</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">number</span><span style="color: #F8F8F2">, </span><span style="color: #A6E22E">message</span><span style="color: #FF4689">:</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">string</span><span style="color: #F8F8F2">)</span>
+</span></code></pre></div>
+<h4 id="static-codes-subset">static codes (subset)</h4>
+<div class="language-js highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">CONNECTION_FAILED</span><span style="color: #F8F8F2">;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">INVALID_JSON</span><span style="color: #F8F8F2">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">MISSING_IMPLEMENTATION_ERROR</span><span style="color: #F8F8F2">;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">STORAGE_IN_MEMORY_FAIL</span><span style="color: #F8F8F2">;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span style="color: #A6E22E">DrupalError</span><span style="color: #F8F8F2">.</span><span style="color: #A6E22E">STORAGE_IN_WEB_FAIL</span><span style="color: #F8F8F2">;</span>
+</span></code></pre></div>
+<h4 id="geterrorcode">getErrorCode</h4>
+<div class="language-js highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span style="color: #A6E22E">getErrorCode</span><span style="color: #F8F8F2">()</span><span style="color: #FF4689">:</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">number</span>
+</span></code></pre></div>
+<p>Notes</p>
+<ul>
+<li>Thrown by SDK modules; check <code>getErrorCode()</code> for handling.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../storage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: @drupal-js-sdk/storage">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                @drupal-js-sdk/storage
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../interfaces/" class="md-footer__link md-footer__link--next" aria-label="Next: @drupal-js-sdk/interfaces">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                @drupal-js-sdk/interfaces
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2025 Shibin Das (D34dMan)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.drupal.org/u/d34dman" target="_blank" rel="noopener" title="www.drupal.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M272.3 108.1C236.5 72.5 202.5 38.4 192.4 0c-10 38.4-44.3 72.5-80 108.1C58.8 161.7-1.9 222.4-1.9 313.4c-2.4 107.3 82.7 196.2 190 198.6s196.2-82.8 198.5-190.1c.1-2.8.1-5.6 0-8.5 0-91.1-60.8-151.7-114.3-205.3M98 331.1c-5.9 7.5-11 15.6-15.2 24.2-.3.7-.8 1.3-1.3 1.8s-1.2.8-2 1h-1.7c-4.3 0-9.2-8.5-9.2-8.5-1.3-2-2.5-4.2-3.7-6.4l-.8-1.8c-11.2-25.7-1.5-62.3-1.5-62.3 4.8-17.8 12.7-34.7 23.2-49.9 6.4-9.6 13.5-18.9 21-27.7l9.2 9.2 43.5 44.4c.8.9 1.3 2.1 1.3 3.3s-.5 2.4-1.3 3.3l-45.4 50.6zm96.6 127.3c-12.9-.1-25.6-3.9-36.4-11s-19.4-17.1-24.6-28.9-7-24.9-5-37.7 7.6-24.7 16.2-34.4c14.2-16.9 31.5-33.5 50.3-55.3 22.3 23.8 36.9 40.1 51.2 58 1.1 1.4 2.1 2.9 3 4.4 7.8 11.1 12 24.4 12 38 0 8.8-1.7 17.4-5 25.5s-8.2 15.5-14.4 21.7-13.5 11.1-21.6 14.5-16.7 5.1-25.5 5.1h-.2zm126.1-106.8c-.4 1.4-1.2 2.6-2.3 3.6s-2.4 1.6-3.8 1.8h-1.3c-2.6-.9-4.9-2.7-6.3-5.1-11.6-17.5-24.9-33.9-39.5-49l-17.8-18.4-59.1-61.3a505 505 0 0 1-35.4-36.3c-.3-.5-.6-.9-.9-1.4-2-2.8-3.6-5.9-4.7-9.2v-1.8c-.8-5-.4-10.1 1.2-15s4.4-9.2 8-12.7c11.4-11.4 23-23 33.8-34.9 12 13.3 24.8 26 37.4 38.6 25.8 24 49.1 50.5 69.6 79.1 17.3 24.5 26.7 53.8 27 83.8-.1 12.9-2.2 25.8-6 38.2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/d34dman" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/d34dman/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.footer", "navigation.expand", "navigation.tracking", "navigation.top", "navigation.next_prev", "navigation.prev_next", "navigation.breadcrumb", "navigation.search", "navigation.tabs", "navigation.sections", "navigation.instant", "content.code.copy", "content.tabs.link", "content.code.line_numbers", "content.code.highlight", "content.code.line_spans", "content.code.line_highlight", "content.code.line_numbers"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": {"Angular": "angular", "CSS": "css", "Deprecated": "deprecated", "Draft": "draft", "Drupal": "drupal", "HTML5": "html", "JavaScript": "js", "Node": "node", "Outdated": "outdated", "React": "react", "Svelte": "svelte", "TypeScript": "typescript", "Vue": "vue"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
