@@ -17,12 +17,50 @@ const initialState: AuthState = {
 
 export const authState: Writable<AuthState> = writable(initialState);
 
+let isCheckingLogin = false; // Prevent concurrent login checks
+
 export const checkLogin = async (): Promise<void> => {
+  // Prevent multiple concurrent login checks
+  if (isCheckingLogin) {
+    return;
+  }
+  
+  isCheckingLogin = true;
+  
   try {
     const ok = await auth.loginStatus();
-    authState.update((s) => ({ ...s, isLoggedIn: ok, error: null }));
+    if (ok) {
+      // User is logged in, get their username from the auth store
+      const currentUser = auth.store.current_user;
+      const username = currentUser?.name || "";
+      
+      // Only update state if it actually changed to prevent unnecessary re-renders
+      authState.update((s) => {
+        if (s.isLoggedIn !== true || s.username !== username) {
+          return { ...s, isLoggedIn: true, username, error: null };
+        }
+        return s;
+      });
+    } else {
+      // Only update state if it actually changed
+      authState.update((s) => {
+        if (s.isLoggedIn !== false) {
+          return { ...s, isLoggedIn: false, username: "", error: null };
+        }
+        return s;
+      });
+    }
   } catch (e) {
-    authState.update((s) => ({ ...s, isLoggedIn: false, error: "Login status failed" }));
+    console.warn("Login status check failed:", e);
+    // Only update state if it actually changed
+    authState.update((s) => {
+      if (s.isLoggedIn !== false) {
+        return { ...s, isLoggedIn: false, username: "", error: "Login status check failed" };
+      }
+      return s;
+    });
+  } finally {
+    isCheckingLogin = false;
   }
 };
 

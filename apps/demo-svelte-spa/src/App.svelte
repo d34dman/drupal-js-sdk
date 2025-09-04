@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import Login from "./lib/components/Login.svelte";
   import Sidebar from "./lib/components/Sidebar.svelte";
   import DemoAuth from "./lib/demos/DemoAuth.svelte";
@@ -8,11 +9,13 @@
   import DemoCore from "./lib/demos/DemoCore.svelte";
   import DemoStorage from "./lib/demos/DemoStorage.svelte";
   import DemoOverview from "./lib/demos/DemoOverview.svelte";
-  import { authState, logout } from "./lib/authStore";
+  import { authState, logout, checkLogin } from "./lib/authStore";
   import { Menu } from "@lucide/svelte";
 
   let activeDemo = $state("overview");
   let sidebarOpen = $state(false);
+  let isInitializing = $state(true);
+  let initializationAttempted = $state(false); // Prevent re-initialization
 
   const demos = [
     { id: "overview", name: "Overview", component: DemoOverview },
@@ -35,9 +38,47 @@
   };
 
   const currentDemo = $derived(demos.find(d => d.id === activeDemo) || demos[0]);
+
+  /**
+   * Initialize the app by checking if user is already authenticated
+   * This allows users to remain logged in across browser sessions
+   * Includes safeguards to prevent infinite loops and race conditions
+   */
+  onMount(async (): Promise<void> => {
+    // Prevent multiple initialization attempts
+    if (initializationAttempted) {
+      isInitializing = false;
+      return;
+    }
+    
+    initializationAttempted = true;
+    
+    try {
+      // Add timeout to prevent hanging on slow networks
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error("Authentication check timeout")), 10000);
+      });
+      
+      await Promise.race([checkLogin(), timeoutPromise]);
+    } catch (error) {
+      console.warn("Failed to check initial login status:", error);
+      // On error, default to not logged in state
+      authState.update((s) => ({ ...s, isLoggedIn: false, username: "", error: null }));
+    } finally {
+      isInitializing = false;
+    }
+  });
 </script>
 
-{#if $authState.isLoggedIn}
+{#if isInitializing}
+  <!-- Loading state while checking authentication -->
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+      <p class="mt-4 text-slate-600 dark:text-slate-400">Checking authentication...</p>
+    </div>
+  </div>
+{:else if $authState.isLoggedIn}
   <div class="flex h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
     <!-- Sidebar -->
     <Sidebar 
